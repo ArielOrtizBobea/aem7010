@@ -1,0 +1,412 @@
+[
+  {
+    "objectID": "cheatsheet.html",
+    "href": "cheatsheet.html",
+    "title": "Git & GitHub Cheat Sheet",
+    "section": "",
+    "text": "Command\nWhat it does\n\n\n\n\ngit config --global user.name \"Name\"\nSet your name for commits\n\n\ngit config --global user.email \"email\"\nSet your email for commits\n\n\ngit init\nCreate a new repository in the current folder\n\n\ngit clone &lt;url&gt;\nDownload a remote repository to your computer",
+    "crumbs": [
+      "Cheat Sheet"
+    ]
+  },
+  {
+    "objectID": "cheatsheet.html#setup",
+    "href": "cheatsheet.html#setup",
+    "title": "Git & GitHub Cheat Sheet",
+    "section": "",
+    "text": "Command\nWhat it does\n\n\n\n\ngit config --global user.name \"Name\"\nSet your name for commits\n\n\ngit config --global user.email \"email\"\nSet your email for commits\n\n\ngit init\nCreate a new repository in the current folder\n\n\ngit clone &lt;url&gt;\nDownload a remote repository to your computer",
+    "crumbs": [
+      "Cheat Sheet"
+    ]
+  },
+  {
+    "objectID": "cheatsheet.html#daily-workflow",
+    "href": "cheatsheet.html#daily-workflow",
+    "title": "Git & GitHub Cheat Sheet",
+    "section": "Daily Workflow",
+    "text": "Daily Workflow\n\n\n\n\n\n\n\nCommand\nWhat it does\n\n\n\n\ngit status\nShow which files are modified, staged, or untracked\n\n\ngit add &lt;file&gt;\nStage a file for the next commit\n\n\ngit add .\nStage all changed files\n\n\ngit commit -m \"message\"\nSave a snapshot with a descriptive message\n\n\ngit diff\nShow unstaged changes\n\n\ngit diff --staged\nShow staged changes (what will be committed)\n\n\ngit log --oneline\nView commit history (compact)\n\n\ngit log\nView commit history (detailed)",
+    "crumbs": [
+      "Cheat Sheet"
+    ]
+  },
+  {
+    "objectID": "cheatsheet.html#undoing-things",
+    "href": "cheatsheet.html#undoing-things",
+    "title": "Git & GitHub Cheat Sheet",
+    "section": "Undoing Things",
+    "text": "Undoing Things\n\n\n\n\n\n\n\nCommand\nWhat it does\n\n\n\n\ngit restore --staged &lt;file&gt;\nUnstage a file (keep edits)\n\n\ngit restore &lt;file&gt;\nDiscard edits, revert to last commit (destructive)\n\n\ngit reset --soft HEAD~1\nUndo last commit (keep files staged)",
+    "crumbs": [
+      "Cheat Sheet"
+    ]
+  },
+  {
+    "objectID": "cheatsheet.html#remotes-github",
+    "href": "cheatsheet.html#remotes-github",
+    "title": "Git & GitHub Cheat Sheet",
+    "section": "Remotes (GitHub)",
+    "text": "Remotes (GitHub)\n\n\n\nCommand\nWhat it does\n\n\n\n\ngit remote add origin &lt;url&gt;\nLink local repo to GitHub\n\n\ngit push -u origin main\nPush commits to GitHub (first time)\n\n\ngit push\nPush commits (after -u is set)\n\n\ngit pull origin main\nDownload new commits from GitHub",
+    "crumbs": [
+      "Cheat Sheet"
+    ]
+  },
+  {
+    "objectID": "cheatsheet.html#branches",
+    "href": "cheatsheet.html#branches",
+    "title": "Git & GitHub Cheat Sheet",
+    "section": "Branches",
+    "text": "Branches\n\n\n\nCommand\nWhat it does\n\n\n\n\ngit branch &lt;name&gt;\nCreate a new branch\n\n\ngit checkout &lt;branch&gt;\nSwitch to a branch\n\n\ngit checkout -b &lt;name&gt;\nCreate and switch in one step\n\n\ngit merge &lt;branch&gt;\nMerge a branch into the current branch\n\n\ngit branch -d &lt;name&gt;\nDelete a branch (after merging)",
+    "crumbs": [
+      "Cheat Sheet"
+    ]
+  },
+  {
+    "objectID": "cheatsheet.html#tags-reproducibility",
+    "href": "cheatsheet.html#tags-reproducibility",
+    "title": "Git & GitHub Cheat Sheet",
+    "section": "Tags (Reproducibility)",
+    "text": "Tags (Reproducibility)\n\n\n\nCommand\nWhat it does\n\n\n\n\ngit tag -a v1.0 -m \"msg\"\nCreate an annotated tag\n\n\ngit push --tags\nPush all tags to GitHub\n\n\ngit checkout v1.0\nCheck out a specific tagged version",
+    "crumbs": [
+      "Cheat Sheet"
+    ]
+  },
+  {
+    "objectID": "cheatsheet.html#ssh-setup-one-time",
+    "href": "cheatsheet.html#ssh-setup-one-time",
+    "title": "Git & GitHub Cheat Sheet",
+    "section": "SSH Setup (One-Time)",
+    "text": "SSH Setup (One-Time)\n# Generate key\nssh-keygen -t ed25519 -C \"you@email.com\"\n\n# Start agent and add key\neval \"$(ssh-agent -s)\"\nssh-add ~/.ssh/id_ed25519\n\n# Copy public key (paste into GitHub Settings &gt; SSH Keys)\ncat ~/.ssh/id_ed25519.pub\n\n# Test connection\nssh -T git@github.com",
+    "crumbs": [
+      "Cheat Sheet"
+    ]
+  },
+  {
+    "objectID": "cheatsheet.html#gitignore-template-for-r-projects",
+    "href": "cheatsheet.html#gitignore-template-for-r-projects",
+    "title": "Git & GitHub Cheat Sheet",
+    "section": ".gitignore Template for R Projects",
+    "text": ".gitignore Template for R Projects\n# Data files\n*.csv\n*.dta\n*.rds\n*.xlsx\ndata/\n\n# R artifacts\n.Rhistory\n.RData\n.Rproj.user/\n\n# Output (can be regenerated)\n*.pdf\n*.html\noutput/\n\n# System files\n.DS_Store\nThumbs.db",
+    "crumbs": [
+      "Cheat Sheet"
+    ]
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Version Control with Git & GitHub",
+    "section": "",
+    "text": "This two-session workshop introduces version control using Git and GitHub. The target audience is PhD students in applied economics with no prior experience with the command line or Git.\nBy the end of these sessions you will be able to:\n\nTrack changes to your R scripts and research code using Git\nUndo mistakes and compare versions of your work\nBack up your code on GitHub\nCollaborate with co-authors using branches and pull requests\nTag specific versions of your code for reproducibility",
+    "crumbs": [
+      "Preliminaries"
+    ]
+  },
+  {
+    "objectID": "index.html#overview",
+    "href": "index.html#overview",
+    "title": "Version Control with Git & GitHub",
+    "section": "",
+    "text": "This two-session workshop introduces version control using Git and GitHub. The target audience is PhD students in applied economics with no prior experience with the command line or Git.\nBy the end of these sessions you will be able to:\n\nTrack changes to your R scripts and research code using Git\nUndo mistakes and compare versions of your work\nBack up your code on GitHub\nCollaborate with co-authors using branches and pull requests\nTag specific versions of your code for reproducibility",
+    "crumbs": [
+      "Preliminaries"
+    ]
+  },
+  {
+    "objectID": "index.html#sessions",
+    "href": "index.html#sessions",
+    "title": "Version Control with Git & GitHub",
+    "section": "Sessions",
+    "text": "Sessions\nSession 1: Git Fundamentals. Learn the core Git workflow on your own computer: init, add, commit, log, diff, .gitignore, and undoing mistakes.\nSession 2: GitHub & Collaboration. Connect to GitHub, push and pull code, create branches, open pull requests, and tag releases for reproducibility.",
+    "crumbs": [
+      "Preliminaries"
+    ]
+  },
+  {
+    "objectID": "index.html#before-you-begin",
+    "href": "index.html#before-you-begin",
+    "title": "Version Control with Git & GitHub",
+    "section": "Before You Begin",
+    "text": "Before You Begin\nPlease complete the following before the first session:\n\nInstall Git on your laptop\n\nMac: brew install git (if you have Homebrew) or download from git-scm.com\nWindows: download the installer from git-scm.com\n\nOpen a terminal\n\nMac: open the Terminal app (search for “Terminal” in Spotlight)\nWindows: open Git Bash (installed with Git)\n\nVerify the installation by running:\n\ngit --version\nYou should see something like git version 2.39.0.\n\nInstall an editor or IDE. The tutorial shows three ways to use Git: Terminal, RStudio, and VS Code. You will follow the Terminal in class, but having an editor also set up lets you try the GUI alternatives at home.\n\nRStudio is the standard environment for applied economics research in R. If you already use it for coursework, you are set. Otherwise, download from posit.co/download/rstudio-desktop.\nVS Code is a general-purpose code editor that has become the most widely used tool in software and data work. Download from code.visualstudio.com.\n\nI encourage you to install both. RStudio is ideal for R projects. VS Code is ideal for everything else: Python, shell scripts, LaTeX, Quarto, Markdown, editing configuration files, and working with AI coding assistants.\nInstall the wooldridge R package so the tutorial’s data examples work without any downloads. In R or RStudio, run:\ninstall.packages(\"wooldridge\")\nThis gives you the classic datasets from Jeffrey Wooldridge’s Introductory Econometrics textbook (wage1, wage2, and many others) that we use throughout the exercises.\n\nBefore Session 2, also create a free GitHub account at github.com.\n\n\n\n\n\n\nNoteWhat is Homebrew?\n\n\n\nHomebrew is the standard macOS package manager. Think of it as an app store for command-line tools. If you do not already have it, run the one-line install command from brew.sh. If you prefer to skip Homebrew, use the direct download from git-scm.com instead.",
+    "crumbs": [
+      "Preliminaries"
+    ]
+  },
+  {
+    "objectID": "index.html#companion-materials",
+    "href": "index.html#companion-materials",
+    "title": "Version Control with Git & GitHub",
+    "section": "Companion Materials",
+    "text": "Companion Materials\n\nSession 1 slides (PowerPoint)\nSession 2 slides (PowerPoint)\nExercise R scripts",
+    "crumbs": [
+      "Preliminaries"
+    ]
+  },
+  {
+    "objectID": "session2.html",
+    "href": "session2.html",
+    "title": "Session 2: GitHub & Collaboration",
+    "section": "",
+    "text": "In Session 1 we learned the core local Git workflow:\n\ngit init: create a repository\ngit add / git commit: stage and save snapshots\ngit log / git diff: view history and changes\n.gitignore: exclude files from tracking\ngit restore / git reset: undo mistakes\n\nToday we take those skills online.",
+    "crumbs": [
+      "Session 2 — GitHub & Collaboration"
+    ]
+  },
+  {
+    "objectID": "session2.html#quick-recap",
+    "href": "session2.html#quick-recap",
+    "title": "Session 2: GitHub & Collaboration",
+    "section": "",
+    "text": "In Session 1 we learned the core local Git workflow:\n\ngit init: create a repository\ngit add / git commit: stage and save snapshots\ngit log / git diff: view history and changes\n.gitignore: exclude files from tracking\ngit restore / git reset: undo mistakes\n\nToday we take those skills online.",
+    "crumbs": [
+      "Session 2 — GitHub & Collaboration"
+    ]
+  },
+  {
+    "objectID": "session2.html#what-is-github",
+    "href": "session2.html#what-is-github",
+    "title": "Session 2: GitHub & Collaboration",
+    "section": "What Is GitHub?",
+    "text": "What Is GitHub?\nGitHub is a cloud hosting service for Git repositories. It provides:\n\nBackup: your code lives in the cloud, not just on your laptop\nCollaboration: co-authors can contribute to the same project\nSharing: publish replication packages and make research transparent\n\n\n\n\n\n\n\nNote\n\n\n\nGitHub is free for public and private repositories. You can also apply for GitHub Education benefits as a student or faculty member.",
+    "crumbs": [
+      "Session 2 — GitHub & Collaboration"
+    ]
+  },
+  {
+    "objectID": "session2.html#keep-your-email-private",
+    "href": "session2.html#keep-your-email-private",
+    "title": "Session 2: GitHub & Collaboration",
+    "section": "Keep Your Email Private",
+    "text": "Keep Your Email Private\nEvery commit you push to a public GitHub repository shows the name and email you configured back in Session 1. If you used a personal email, it is now visible to anyone browsing the repo. GitHub offers a stable noreply address tied to your account that you can use instead.\n\nGo to github.com/settings/emails.\nUnder Primary email address, check the box for Keep my email addresses private.\nGitHub shows a noreply address shaped like 12345678+yourusername@users.noreply.github.com. Copy it.\nUpdate your local Git configuration:\n\ngit config --global user.email \"12345678+yourusername@users.noreply.github.com\"\nReplace the address with the one shown on your GitHub settings page.\n\n\n\n\n\n\nTip\n\n\n\nThis only affects commits made after you change the setting. Past commits keep whatever email they were created with. Rewriting history to replace old emails is possible but advanced. See GitHub’s documentation if you need it.",
+    "crumbs": [
+      "Session 2 — GitHub & Collaboration"
+    ]
+  },
+  {
+    "objectID": "session2.html#connect-to-github-ssh-keys",
+    "href": "session2.html#connect-to-github-ssh-keys",
+    "title": "Session 2: GitHub & Collaboration",
+    "section": "Connect to GitHub: SSH Keys",
+    "text": "Connect to GitHub: SSH Keys\nSSH keys let your computer authenticate with GitHub without typing a password every time.\n\n1. Generate a key pair\nssh-keygen -t ed25519 -C \"you@email.com\"\nPress Enter to accept the default file location. You can set a passphrase or leave it empty.\n\n\n2. Start the SSH agent and add your key\neval \"$(ssh-agent -s)\"\nssh-add ~/.ssh/id_ed25519\n\n\n3. Copy the public key\ncat ~/.ssh/id_ed25519.pub\nCopy the entire output.\n\n\n4. Add the key to GitHub\n\nGo to github.com → click your profile picture → Settings\nIn the left sidebar, click SSH and GPG keys\nClick New SSH key\nPaste your key and give it a title (e.g., “My Laptop”)\nClick Add SSH key\n\n\n\n5. Test the connection\nssh -T git@github.com\nYou should see: Hi username! You've successfully authenticated...\n\n\n\n\n\n\nTip\n\n\n\nWindows users: run these commands in Git Bash, not in PowerShell or Command Prompt.",
+    "crumbs": [
+      "Session 2 — GitHub & Collaboration"
+    ]
+  },
+  {
+    "objectID": "session2.html#remotes-push-and-pull",
+    "href": "session2.html#remotes-push-and-pull",
+    "title": "Session 2: GitHub & Collaboration",
+    "section": "Remotes: Push and Pull",
+    "text": "Remotes: Push and Pull\nA remote is a copy of your repository stored on a server (like GitHub). The standard remote name is origin.\n\nThe relationship\nYour Computer  ←— git pull —→  GitHub (origin)\n               —— git push ——→\n\ngit push uploads your commits to GitHub\ngit pull downloads new commits from GitHub\n\n\n\nLink your local repo to GitHub\nFirst, create a new repository on GitHub:\n\nGo to github.com/new\nName it (e.g., wage-analysis)\nDo NOT initialize with a README (your local repo already has commits)\nClick Create repository\n\nGitHub will show you setup commands. Use the SSH option:\ngit remote add origin git@github.com:yourusername/wage-analysis.git\n\n\nPush your commits\ngit push -u origin main\nThe -u flag sets origin main as the default upstream, so future pushes only need git push.\n\n\nPull changes\nIf someone else pushed commits (or you edited a file on GitHub), download them:\ngit pull origin main",
+    "crumbs": [
+      "Session 2 — GitHub & Collaboration"
+    ]
+  },
+  {
+    "objectID": "session2.html#cloning-a-repository",
+    "href": "session2.html#cloning-a-repository",
+    "title": "Session 2: GitHub & Collaboration",
+    "section": "Cloning a Repository",
+    "text": "Cloning a Repository\ngit clone downloads an entire repository (with full history) from GitHub to your computer:\ngit clone git@github.com:username/wage-analysis.git\ncd wage-analysis\nAfter cloning, the remote origin is already configured. You can immediately push and pull.\n\n\n\n\n\n\nTip\n\n\n\nCloning is how you start working on a collaborator’s project. You get the full history, all branches, and a ready-to-go remote connection.",
+    "crumbs": [
+      "Session 2 — GitHub & Collaboration"
+    ]
+  },
+  {
+    "objectID": "session2.html#exercise-3-push-to-github",
+    "href": "session2.html#exercise-3-push-to-github",
+    "title": "Session 2: GitHub & Collaboration",
+    "section": "Exercise 3: Push to GitHub",
+    "text": "Exercise 3: Push to GitHub\nTime: ~15 minutes\n\nCreate a repository on GitHub. Go to github.com/new, name it wage-analysis, and click Create (do NOT initialize with README).\nAdd the remote to your local wage-analysis project:\n\ncd wage-analysis\ngit remote add origin git@github.com:YOURUSERNAME/wage-analysis.git\nReplace YOURUSERNAME with your GitHub username.\n\nPush your commits:\n\ngit push -u origin main\n\nVerify. Go to your repository page on GitHub and refresh. You should see your files and commit history.\nTest pulling. On GitHub, click on clean_data.R → pencil icon → add a comment line at the top → Commit. Then pull locally:\n\ngit pull origin main\nOpen the file to confirm the edit is there.",
+    "crumbs": [
+      "Session 2 — GitHub & Collaboration"
+    ]
+  },
+  {
+    "objectID": "session2.html#branches",
+    "href": "session2.html#branches",
+    "title": "Session 2: GitHub & Collaboration",
+    "section": "Branches",
+    "text": "Branches\nA branch is a parallel version of your code. You can experiment on a branch without affecting the main version. When the work is ready, you merge it back.\n\nWhy branches?\n\nTry a new specification without breaking working code\nEach co-author works on their own branch\nKeep main clean and functional at all times\n\n\n\nCreate and switch to a branch\ngit branch add-iv-analysis\ngit checkout add-iv-analysis\nOr, as a shortcut:\ngit checkout -b add-iv-analysis\n\n\nWork on the branch\nMake your edits, stage, and commit as usual. These commits only exist on the branch.\n# Create a new file\necho '# IV regression using 2SLS' &gt; iv_analysis.R\ngit add iv_analysis.R\ngit commit -m \"Add IV analysis script\"\n\n\nSwitch back to main\ngit checkout main\nNotice that iv_analysis.R disappears. It only exists on the other branch. Your working directory reflects whichever branch you are on.\n\n\nMerge the branch\nWhen you are satisfied with the work on your branch:\ngit checkout main\ngit merge add-iv-analysis\nNow iv_analysis.R appears on main and all the branch’s commits are part of main’s history.\n\n\nDelete the branch (optional)\nAfter merging, you can clean up:\ngit branch -d add-iv-analysis",
+    "crumbs": [
+      "Session 2 — GitHub & Collaboration"
+    ]
+  },
+  {
+    "objectID": "session2.html#pull-requests",
+    "href": "session2.html#pull-requests",
+    "title": "Session 2: GitHub & Collaboration",
+    "section": "Pull Requests",
+    "text": "Pull Requests\nA pull request (PR) is GitHub’s way of proposing changes. Instead of merging locally, you push a branch to GitHub and ask for it to be reviewed before merging.\n\nThe pull request workflow\n\nCreate a branch and make your commits\nPush the branch to GitHub:\n\ngit push -u origin add-iv-analysis\n\nOpen a PR on GitHub. Go to your repository → you will see a banner saying “add-iv-analysis had recent pushes” → click Compare & pull request\nWrite a description explaining what you changed and why\nReview. Your co-author reads the changes, leaves comments, and approves\nMerge. Click Merge pull request on GitHub\n\n\n\n\n\n\n\nNote\n\n\n\nPull requests are the standard collaboration workflow in both industry and academic research. They create a written record of what changed and why, which is valuable for reproducibility.",
+    "crumbs": [
+      "Session 2 — GitHub & Collaboration"
+    ]
+  },
+  {
+    "objectID": "session2.html#handling-merge-conflicts",
+    "href": "session2.html#handling-merge-conflicts",
+    "title": "Session 2: GitHub & Collaboration",
+    "section": "Handling Merge Conflicts",
+    "text": "Handling Merge Conflicts\nA merge conflict happens when two people edit the same line in the same file. Git marks the conflict and asks you to choose.\n\nWhat a conflict looks like\n&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD\nlm(wage ~ educ + exper, data = df)\n=======\nlm(log(wage) ~ educ + exper + tenure, data = df)\n&gt;&gt;&gt;&gt;&gt;&gt;&gt; add-iv-analysis\n\nThe top section (HEAD) is your current branch’s version\nThe bottom section is the incoming branch’s version\n\n\n\nHow to resolve\n\nOpen the file in your editor\nDecide which version to keep (or combine them into something new)\nDelete the &lt;&lt;&lt;&lt;&lt;&lt;&lt;, =======, and &gt;&gt;&gt;&gt;&gt;&gt;&gt; markers\nStage and commit the resolved file:\n\ngit add clean_data.R\ngit commit -m \"Resolve merge conflict in regression specification\"\n\n\n\n\n\n\nTip\n\n\n\nMerge conflicts are normal, not dangerous. They happen whenever two people edit the same line. The fix is always: open the file, choose the right version, remove the markers, commit.",
+    "crumbs": [
+      "Session 2 — GitHub & Collaboration"
+    ]
+  },
+  {
+    "objectID": "session2.html#exercise-4-branches-and-pull-requests",
+    "href": "session2.html#exercise-4-branches-and-pull-requests",
+    "title": "Session 2: GitHub & Collaboration",
+    "section": "Exercise 4: Branches and Pull Requests",
+    "text": "Exercise 4: Branches and Pull Requests\nTime: ~20 minutes. Work with a partner.\n\nSetup\n\nPerson A: go to your wage-analysis repo on GitHub → Settings → Collaborators → Add your partner’s GitHub username.\nPerson B: accept the invitation (check your email or GitHub notifications), then clone Person A’s repo:\n\ngit clone git@github.com:PERSONA_USERNAME/wage-analysis.git\ncd wage-analysis\n\n\nCreate branches and PRs\n\nBoth partners: create a branch with your name, add a new .R file, commit, and push:\n\ngit checkout -b yourname-feature\nCreate a file (e.g., descriptive_stats.R or robustness_check.R) with a few lines of R code.\ngit add your_file.R\ngit commit -m \"Add descriptive statistics\"\ngit push -u origin yourname-feature\n\nBoth partners: go to GitHub and open a pull request from your branch into main.\nReview each other’s PR. Click on “Files changed” to see the diff. Leave a comment (e.g., “Looks good!” or “Maybe add a header comment?”). Then click Merge pull request.\nPull the merged changes locally:\n\ngit checkout main\ngit pull origin main\nBoth files should now be on main.",
+    "crumbs": [
+      "Session 2 — GitHub & Collaboration"
+    ]
+  },
+  {
+    "objectID": "session2.html#tags-for-reproducibility",
+    "href": "session2.html#tags-for-reproducibility",
+    "title": "Session 2: GitHub & Collaboration",
+    "section": "Tags for Reproducibility",
+    "text": "Tags for Reproducibility\nTags mark a specific point in history. They are the mechanism for recording the code that produced a given version of your paper: the first submission, the R&R revision, the final accepted manuscript, the posted replication package. Years later you can return to any of those versions in one command.\nA typical research project has a tag for each submission milestone:\nv0.1-first-submission       (code used in the initial JPE submission)\nv0.2-first-RR               (code for the first round of R&R)\nv0.3-second-RR              (code for the second round)\nv1.0-accepted               (final version in the published paper)\nv1.0-replication-package    (the archive you posted on AEA/Zenodo/ICPSR)\n\nCreate a tag\ngit tag -a v0.1-first-submission -m \"Code for initial JPE submission\"\n\n\nPush tags to GitHub\ngit push --tags\n\n\nCheck out a tag later\ngit checkout v1.0\nThis puts you in “detached HEAD” state. You can look around and run code, but any new commits won’t belong to a branch. To go back:\ngit checkout main\n\n\nGitHub Releases\nOn GitHub, tags appear under the Releases tab. You can attach files (data documentation, README) to a release, making it a self-contained replication package.\n\n\n\n\n\n\nImportant\n\n\n\nMany journals now require replication packages. A tagged GitHub release with a README is a clean, standard way to comply.",
+    "crumbs": [
+      "Session 2 — GitHub & Collaboration"
+    ]
+  },
+  {
+    "objectID": "session2.html#summary",
+    "href": "session2.html#summary",
+    "title": "Session 2: GitHub & Collaboration",
+    "section": "Summary",
+    "text": "Summary\nYou now have the tools to:\n\n\n\nTask\nCommands\n\n\n\n\nTrack changes locally\ngit init, add, commit\n\n\nView history\ngit log, diff\n\n\nBack up to GitHub\ngit remote add, push, pull\n\n\nCollaborate\ngit branch, checkout, merge\n\n\nReview changes\nPull requests on GitHub\n\n\nMark reproducible versions\ngit tag\n\n\n\n\nNext steps\n\nPut your current research project on GitHub today\nUse branches for every new analysis or robustness check\nWrite meaningful commit messages\nBookmark this companion website for reference\n\n\n\nResources\n\nPro Git book (free online)\nGitHub Docs\nHappy Git with R by Jenny Bryan: an excellent guide for R users",
+    "crumbs": [
+      "Session 2 — GitHub & Collaboration"
+    ]
+  },
+  {
+    "objectID": "session1.html",
+    "href": "session1.html",
+    "title": "Session 1: Git Fundamentals",
+    "section": "",
+    "text": "Version control is a systematic record of how your code changes. It matters in three situations every applied economist now faces.\n\n\nIf your project folder has ever looked like this:\nanalysis_v1.R\nanalysis_v2.R\nanalysis_FINAL.R\nanalysis_FINAL_v2.R\nanalysis_REALLY_FINAL.R\nanalysis_FINAL_USE_THIS.R\n…then you already know the cost. You made choices you cannot reconstruct. You changed something that worked and cannot remember what.\nGit replaces this chaos with a clean history of snapshots. Each snapshot (called a commit) records exactly what changed, when, and why. You can return to any previous version at any time.\nThis matters especially for managing paper submissions. Every paper moves through several versions of code: the first submission, the R&R revision, the final accepted version, the posted replication package. A reviewer asks, three months after you submitted, “what exactly did you do for the coefficient in Table 2?” Without version control, answering that question means digging through emails and folders. With Git, you mark each submission with a tag (covered in Session 2) and return to it in one command, even years later.\n\n\n\nIncreasingly you will write research code alongside AI coding assistants: Claude Code, GitHub Copilot, Cursor, Codex, and similar tools. These systems produce dozens of lines in seconds. Most of it is useful; some of it is subtly wrong in ways you will not catch on first read.\nVersion control is what makes this workflow safe. Every AI-assisted change becomes a commit you can review before accepting, revert cleanly when a test breaks three hours later, or roll back selectively while keeping the parts that worked. It also produces a written record of what came from a model and what you wrote yourself. That record is increasingly expected by journal disclosure policies and by AEA replication review.\n\n\n\nApplied economics papers increasingly have two, three, or four co-authors writing code together. Someone edits the cleaning script on Monday; someone else reworks the regression specification on Tuesday. Without version control, the only way to combine those edits is to email files back and forth. That process silently destroys work.\nGit (and GitHub, which we cover next session) makes collaboration explicit. Every change is attributed to a specific author, every conflict between edits is surfaced rather than overwritten, and every co-author sees the same history.\n\n\n\n\n\n\nNoteThese three motivations connect the whole course\n\n\n\nYourself over time is the reproducibility theme (Sessions 2–3 with Lars). AI tools are Sessions 6–7. Co-authors are Session 2 (GitHub). Version control is the connective infrastructure that makes all three workable.",
+    "crumbs": [
+      "Session 1 — Git Fundamentals"
+    ]
+  },
+  {
+    "objectID": "session1.html#why-version-control",
+    "href": "session1.html#why-version-control",
+    "title": "Session 1: Git Fundamentals",
+    "section": "",
+    "text": "Version control is a systematic record of how your code changes. It matters in three situations every applied economist now faces.\n\n\nIf your project folder has ever looked like this:\nanalysis_v1.R\nanalysis_v2.R\nanalysis_FINAL.R\nanalysis_FINAL_v2.R\nanalysis_REALLY_FINAL.R\nanalysis_FINAL_USE_THIS.R\n…then you already know the cost. You made choices you cannot reconstruct. You changed something that worked and cannot remember what.\nGit replaces this chaos with a clean history of snapshots. Each snapshot (called a commit) records exactly what changed, when, and why. You can return to any previous version at any time.\nThis matters especially for managing paper submissions. Every paper moves through several versions of code: the first submission, the R&R revision, the final accepted version, the posted replication package. A reviewer asks, three months after you submitted, “what exactly did you do for the coefficient in Table 2?” Without version control, answering that question means digging through emails and folders. With Git, you mark each submission with a tag (covered in Session 2) and return to it in one command, even years later.\n\n\n\nIncreasingly you will write research code alongside AI coding assistants: Claude Code, GitHub Copilot, Cursor, Codex, and similar tools. These systems produce dozens of lines in seconds. Most of it is useful; some of it is subtly wrong in ways you will not catch on first read.\nVersion control is what makes this workflow safe. Every AI-assisted change becomes a commit you can review before accepting, revert cleanly when a test breaks three hours later, or roll back selectively while keeping the parts that worked. It also produces a written record of what came from a model and what you wrote yourself. That record is increasingly expected by journal disclosure policies and by AEA replication review.\n\n\n\nApplied economics papers increasingly have two, three, or four co-authors writing code together. Someone edits the cleaning script on Monday; someone else reworks the regression specification on Tuesday. Without version control, the only way to combine those edits is to email files back and forth. That process silently destroys work.\nGit (and GitHub, which we cover next session) makes collaboration explicit. Every change is attributed to a specific author, every conflict between edits is surfaced rather than overwritten, and every co-author sees the same history.\n\n\n\n\n\n\nNoteThese three motivations connect the whole course\n\n\n\nYourself over time is the reproducibility theme (Sessions 2–3 with Lars). AI tools are Sessions 6–7. Co-authors are Session 2 (GitHub). Version control is the connective infrastructure that makes all three workable.",
+    "crumbs": [
+      "Session 1 — Git Fundamentals"
+    ]
+  },
+  {
+    "objectID": "session1.html#what-is-git",
+    "href": "session1.html#what-is-git",
+    "title": "Session 1: Git Fundamentals",
+    "section": "What Is Git?",
+    "text": "What Is Git?\nGit is a distributed version control system. It takes a snapshot of your entire project every time you commit. Think of it as a timeline:\nv1: Load data  →  v2: Clean variables  →  v3: Run regression\nEach point on the timeline is a commit. Git stores the full history locally on your computer.\n\n\n\n\n\n\nImportant\n\n\n\nGit ≠ GitHub. Git is the tool that runs on your computer. GitHub is a cloud hosting service where you can store and share your Git repositories online. We cover GitHub in Session 2.",
+    "crumbs": [
+      "Session 1 — Git Fundamentals"
+    ]
+  },
+  {
+    "objectID": "session1.html#setup",
+    "href": "session1.html#setup",
+    "title": "Session 1: Git Fundamentals",
+    "section": "Setup",
+    "text": "Setup\nYou should already have Git installed from the pre-class setup on the Preliminaries page. Let’s confirm, then configure your identity.\n\nConfirm Git is installed\ngit --version\nYou should see something like git version 2.39.0. If you get “command not found”, go back to the Preliminaries page and follow the install instructions before continuing.\n\n\nConfigure your identity\nGit attaches your name and email to every commit.\nFirst, check whether you already have this set. Many students have Git configured from earlier coursework or other projects.\ngit config --global user.name\ngit config --global user.email\nIf both commands return your name and email, you are already configured. You can skip the rest of this section.\nIf either command returns nothing, set them now:\ngit config --global user.name \"Your Name\"\ngit config --global user.email \"you@email.com\"\nReplace \"Your Name\" and \"you@email.com\" with your actual name and email. Git stores these globally, so you only do this once per machine.\n\n\n\n\n\n\nTipWant to see everything Git has configured?\n\n\n\ngit config --global --list\nThis prints your full global configuration (name, email, default editor, default branch name, and any other settings). Useful for diagnosing “why is Git acting strange” later.\n\n\n\n\n\n\n\n\nNotePrivacy: your email becomes public on every commit\n\n\n\nIf you plan to push your work to public GitHub repositories, the email you set above will be visible in the commit log to anyone who views the repo. If you prefer to keep your real email private, GitHub provides a stable noreply address you can use instead. We cover the setup in Session 2.",
+    "crumbs": [
+      "Session 1 — Git Fundamentals"
+    ]
+  },
+  {
+    "objectID": "session1.html#the-three-areas-of-git",
+    "href": "session1.html#the-three-areas-of-git",
+    "title": "Session 1: Git Fundamentals",
+    "section": "The Three Areas of Git",
+    "text": "The Three Areas of Git\nEvery Git project has three areas. Understanding them is the key mental model:\n\n\n\n\n\n\n\n\nArea\nWhat it is\nHow you interact\n\n\n\n\nWorking Directory\nThe files you see and edit\nYou edit files normally\n\n\nStaging Area\nA holding zone for the next commit\ngit add moves files here\n\n\nRepository\nThe permanent history of commits\ngit commit saves a snapshot\n\n\n\nThe workflow is: edit → stage → commit.\n\n\n\n\n\n\nTipA mental model: the shopping cart\n\n\n\nThink of Git’s workflow as online shopping.\n\nWorking directory is browsing the store and dropping items into your cart. You can add, remove, change your mind freely.\nStaging area is the checkout page where you review your cart before ordering. You can still remove things or add more.\nRepository is your order history. Every order is timestamped and permanent.\n\nThe command mapping is straightforward:\n\ngit add moves a file to the checkout page.\ngit restore --staged removes a file from the checkout page (we cover this later).\ngit commit presses Place Order. You get a confirmation number (the commit hash), and the order joins your permanent history.\ngit log is your order history page.\n\nThe staging step exists for the same reason stores have a checkout review: before you make anything permanent, you want to see exactly what you are about to commit to.",
+    "crumbs": [
+      "Session 1 — Git Fundamentals"
+    ]
+  },
+  {
+    "objectID": "session1.html#your-first-repository",
+    "href": "session1.html#your-first-repository",
+    "title": "Session 1: Git Fundamentals",
+    "section": "Your First Repository",
+    "text": "Your First Repository\n\n\n\n\n\n\nWarningKeep Git repositories out of cloud-sync folders\n\n\n\nBefore creating your first repository, make sure you are not inside Dropbox, Box, iCloud Drive, OneDrive, or Google Drive. These services can race against Git’s internal file writes and silently corrupt your repository. GitHub itself is the cloud backup for Git; layering another cloud sync on top creates conflicts.\nA common convention is to keep all Git projects in a single dedicated folder in your home directory, for example ~/github/. Each project is a subfolder of that.\nIf you do not have this folder yet, create it now:\nmkdir ~/github\ncd ~/github\nFrom now on, all mkdir some-new-project commands in this tutorial assume you are inside ~/github/.\n\n\n\n1. Create a project folder\nmkdir my-research\ncd my-research\n\n\n2. Initialize Git\ngit init\nThis creates a hidden .git/ folder inside your project. That folder stores all version history. You never need to touch it directly.\n\n\n3. Check the status\ngit status\nGit will tell you that you are on branch main and there are no commits yet. This is your starting point.",
+    "crumbs": [
+      "Session 1 — Git Fundamentals"
+    ]
+  },
+  {
+    "objectID": "session1.html#staging-and-committing",
+    "href": "session1.html#staging-and-committing",
+    "title": "Session 1: Git Fundamentals",
+    "section": "Staging and Committing",
+    "text": "Staging and Committing\n\nCreate a file\n\n\n\n\n\n\nWarningDo not use TextEdit or Notepad for code files\n\n\n\nmacOS TextEdit defaults to rich text (RTF) and silently adds .txt to your filenames, so clean_data.R becomes clean_data.R.txt with invisible formatting markup inside. Windows Notepad has similar encoding and line-ending issues that break code files.\nUse RStudio (File → New File → R Script) or VS Code (File → New File) instead. Both are installed as part of the Preliminaries setup and handle plain-text code files correctly. For Terminal users, running code . inside your project folder opens the whole folder in VS Code in one step.\n\n\nOpen your text editor (RStudio or VS Code) and create a file called clean_data.R with the following content:\n# clean_data.R\n# Load and clean the wage dataset\n# Uses wooldridge::wage1 (Jeffrey Wooldridge's teaching dataset; 526 obs)\n\nwages &lt;- wooldridge::wage1\n\n# Remove observations with missing wages (none in wage1, but real data always needs this)\nwages &lt;- wages[!is.na(wages$wage), ]\n\n# Log transformation\nwages$log_wage &lt;- log(wages$wage)\nSave the file in your my-research folder.\n\n\nStage the file\n\n\n\n\n\n\nNoteThree interfaces, same Git\n\n\n\n\n\nFrom here on, command blocks appear in tabs: Terminal, RStudio, and VS Code. All three do exactly the same thing. In class we walk through the Terminal tab on the projector.\nWhy Terminal for teaching? Four reasons worth naming up front.\n\nThe mental model is cleaner. edit → stage → commit is three explicit commands. In a GUI, staging is often just a checkbox, and students never really register what the operation is until something breaks. A rigorous researcher needs to understand the operation, not just the button.\nTerminal Git works everywhere. GUIs do not. You will eventually use Cornell’s CAC cluster, FSRDC secure computing environments, AWS or Google Cloud VMs, or any other remote machine. None of those have a GUI. A researcher who only knows the RStudio Git pane is stuck the first time they work with a dataset that does not fit on their laptop.\nDocumentation, error messages, and AI tools all speak command-line. Every answer on Stack Overflow, every chapter of the Pro Git book and Happy Git with R, every response from Claude Code, GitHub Copilot, and Cursor will tell you to run a Git command. If the only Git you know is “I clicked the button in RStudio”, you cannot use any of those resources to get unstuck.\nGit is scriptable. Researchers use system(\"git log --pretty=format:%h\") inside R to embed a commit hash in an output file for reproducibility. They run git archive inside a Makefile to package data. They call git tag automatically from a submission script at paper-submission time. None of this is available through a GUI.\n\nThe bottom line. We teach commands in class so you have the vocabulary, the portability, and the safety net when things go wrong. Once you understand what each command does, feel free to use RStudio or VS Code for daily work. The tabs on this page show the equivalent actions in each interface.\n\n\n\n\nTerminalRStudioVS Code\n\n\ngit add clean_data.R\n\n\nClick Commit in the Git pane (top-right of the IDE). The Review Changes dialog opens. Select clean_data.R in the top pane. The bottom pane shows your diff. Click the Stage button, or tick the checkbox next to the file. It moves from the Unstaged list to the Staged list.\nQuick shortcut. If you already know what you are staging and do not need to see the diff, tick the Staged checkbox directly in the Git pane without opening the dialog.\nNo Git pane? The project must be an RStudio Project (.Rproj) inside a Git repository. Tools → Project Options → Git/SVN → Version control system: Git, then restart RStudio.\n\n\nOpen the Source Control panel (branch icon in the left activity bar, or ⌃⇧G / Ctrl+Shift+G). Under Changes, click clean_data.R. A diff view opens in the editor showing your changes. In the Source Control panel, hover over clean_data.R and click the + icon to stage. The file moves from Changes to Staged Changes.\nQuick shortcut. If you already know what you are staging, click the + directly without previewing the diff.\n\n\n\nAll three do the same thing: they tell Git “include this file in the next commit.”\n\n\nCheck the status again\ngit status\nYou should see clean_data.R listed under “Changes to be committed.”\n\n\n\n\n\n\nTipYour editor shows the same state in real time\n\n\n\nIf you have VS Code or RStudio open on this folder right now, they are already displaying everything git status just told you. You do not need to run the command to know the state of your repo; your editor is watching.\nVS Code. The Source Control panel (branch icon, left activity bar) lists all modified and staged files, updating live. The file tree shows letters next to each file: U for untracked, M for modified, A for added/staged. Open a file and the gutter next to the line numbers shows green/blue/red bars for added, modified, and deleted lines compared to the last commit.\nRStudio. The Git pane (top-right) shows the same information with status icons. It refreshes automatically every time you save a file or run a Git command in the Terminal.\nThis is one of the underrated benefits of keeping an editor open on your project: the Git state is ambient, not something you have to query. You can run Terminal commands in class and watch the editor reflect each change instantly.\n\n\n\n\nCommit\ngit commit -m \"Add data cleaning script\"\nThe -m flag lets you write the commit message inline. Every commit needs a message that explains why you made the change.\n\n\nMake another change and commit\nEdit clean_data.R. For example, add a new line:\n# Keep only workers with at least a high school education\nwages &lt;- wages[wages$educ &gt;= 12, ]\nThen stage and commit:\ngit add clean_data.R\ngit commit -m \"Filter to workers with high school education or more\"\n\n\nWriting good commits\nA commit has two parts: what changed (the files you staged) and why (the message). Both matter.\nBe specific in the message. “Fix bug” is unhelpful. “Fix off-by-one error in sample selection” is useful. Your future self, three months from now, will thank you. Your co-authors will thank you even more.\nOne logical change per commit. If you need the word “and” to describe what a commit does, it is probably two commits. Good messages read like a research changelog:\nAdd control for state fixed effects\nSwitch to winsorized outcome at 1%\nFix sample filter for pre-2000 observations\nMixing unrelated changes in one commit makes it impossible to revert just one of them later.\nBack to the shopping cart. Each commit is an order. If an order contains one coherent purchase (all the groceries for the week), returning it makes sense. If it contains a book, a stapler, and a bag of flour lumped together, returning just one item is painful. Before committing, ask yourself: if I had to undo just this commit six months from now, would that make sense as a unit?\nDifferent styles exist. Researchers differ in how granular their commits are:\n\nAtomic commits. Every small change is a commit. Very detailed history. Easy to review and revert. Standard in open source software. Recommended by Jenny Bryan in Happy Git with R, the canonical Git guide for R users.\nFeature commits. One commit per completed task, for example “baseline regression table done”. Bigger commits but still coherent. More common in solo research.\nEnd-of-session commits. One commit per day, bundling everything. Tempting but loses the ability to audit what you did and where.\n\nFor PhD research, aim between atomic and feature. Commit after each logical step in your workflow: data pulled, sample selected, variables built, model estimated, figure produced. Roughly one commit per line you would write in a research diary.\nWhen to commit. Whenever the code runs and produces the intended result after your change. Also before starting something risky (a refactor, an alternative specification), and before you stop working for the day.\nAvoid these messages. \"Fixed stuff\", \"WIP\", \"Lots of changes\", \".\". They mean you skipped thinking about what you changed. Either split the commit into pieces with meaningful messages, or think for another ten seconds about what to write.",
+    "crumbs": [
+      "Session 1 — Git Fundamentals"
+    ]
+  },
+  {
+    "objectID": "session1.html#exercise-1-create-a-project-and-make-commits",
+    "href": "session1.html#exercise-1-create-a-project-and-make-commits",
+    "title": "Session 1: Git Fundamentals",
+    "section": "Exercise 1: Create a Project and Make Commits",
+    "text": "Exercise 1: Create a Project and Make Commits\nTime: ~15 minutes\n\nCreate a folder called wage-analysis and initialize Git:\n\nmkdir wage-analysis\ncd wage-analysis\ngit init\n\nCreate a file called clean_data.R. Write a few lines of R code (anything is fine: loading a library, creating a variable, etc.).\nStage and commit:\n\ngit add clean_data.R\ngit commit -m \"Add data cleaning script\"\n\nEdit the file (add a comment or a new line of code), then stage and commit again:\n\ngit add clean_data.R\ngit commit -m \"Add full-time worker filter\"\n\nView your commits:\n\ngit log\nYou should see two commits with your messages, timestamps, and author info.",
+    "crumbs": [
+      "Session 1 — Git Fundamentals"
+    ]
+  },
+  {
+    "objectID": "session1.html#viewing-history",
+    "href": "session1.html#viewing-history",
+    "title": "Session 1: Git Fundamentals",
+    "section": "Viewing History",
+    "text": "Viewing History\n\ngit log\ngit log shows the full history of commits, most recent first. Each entry includes the commit hash (a unique ID), author, date, and message.\nFor a compact view:\ngit log --oneline\nOutput looks like:\na1b2c3d  Add regression output table\ne4f5g6h  Clean variable names\ni7j8k9l  Add data cleaning script\n\n\ngit diff\ngit diff shows what changed since the last commit (for unstaged files):\ngit diff\nExample output:\n- lm(wage ~ educ, data = df)\n+ lm(wage ~ educ + exper, data = df)\nLines starting with - were removed. Lines starting with + were added.\nTo see changes that are already staged:\ngit diff --staged",
+    "crumbs": [
+      "Session 1 — Git Fundamentals"
+    ]
+  },
+  {
+    "objectID": "session1.html#gitignore",
+    "href": "session1.html#gitignore",
+    "title": "Session 1: Git Fundamentals",
+    "section": ".gitignore",
+    "text": ".gitignore\nNot every file belongs in version control. Large data files, sensitive credentials, and system files should be excluded.\nCreate a file called .gitignore in your project root:\n# Data files (too large or sensitive for Git)\n*.csv\n*.dta\ndata/\n\n# R artifacts\n.Rhistory\n.RData\n.Rproj.user/\n\n# System files\n.DS_Store\nThumbs.db\nThen stage and commit it:\ngit add .gitignore\ngit commit -m \"Add .gitignore for data and R artifacts\"\n\n\n\n\n\n\nWarning\n\n\n\nData files do not belong in Git. Git is designed for code (small text files), not for large datasets. If you commit a 500 MB CSV, every collaborator will have to download it with the full repository. Use a shared drive, Dropbox, or a data repository for large files.",
+    "crumbs": [
+      "Session 1 — Git Fundamentals"
+    ]
+  },
+  {
+    "objectID": "session1.html#undoing-mistakes",
+    "href": "session1.html#undoing-mistakes",
+    "title": "Session 1: Git Fundamentals",
+    "section": "Undoing Mistakes",
+    "text": "Undoing Mistakes\nYou will make mistakes. Git has tools to recover from each of them.\n\nUnstage a file\nYou staged a file by accident and want to remove it from the staging area (without deleting the file):\ngit restore --staged clean_data.R\n\n\nDiscard local changes\nYou edited a file and want to go back to the last committed version:\ngit restore clean_data.R\n\n\n\n\n\n\nCaution\n\n\n\nThis is destructive. Your edits are gone. Git cannot recover them because they were never committed.\n\n\n\n\nUndo the last commit (keep changes)\nYou committed too early and want to undo the commit but keep the files staged:\ngit reset --soft HEAD~1\nHEAD~1 means “one commit before the current one.”",
+    "crumbs": [
+      "Session 1 — Git Fundamentals"
+    ]
+  },
+  {
+    "objectID": "session1.html#exercise-2-full-workflow-practice",
+    "href": "session1.html#exercise-2-full-workflow-practice",
+    "title": "Session 1: Git Fundamentals",
+    "section": "Exercise 2: Full Workflow Practice",
+    "text": "Exercise 2: Full Workflow Practice\nTime: ~15 minutes\n\nIn your wage-analysis project, create a .gitignore file with the contents shown above. Stage and commit it.\nCreate a new file called run_regression.R:\n\n# run_regression.R\n# Estimate a Mincer wage equation on wooldridge::wage1\n\nwages &lt;- wooldridge::wage1\n\n# Basic OLS\nmodel1 &lt;- lm(log(wage) ~ educ + exper + tenure, data = wages)\nsummary(model1)\nStage and commit:\ngit add run_regression.R\ngit commit -m \"Add basic wage regression\"\n\nEdit run_regression.R and add a second model:\n\n# Add experience squared\nmodel2 &lt;- lm(log(wage) ~ educ + exper + I(exper^2) + tenure, data = wages)\nsummary(model2)\nView the diff before committing:\ngit diff\nThen stage and commit:\ngit add run_regression.R\ngit commit -m \"Add quadratic experience specification\"\n\nPractice unstaging. Create a junk file, stage it, then unstage:\n\necho \"test\" &gt; junk.R\ngit add junk.R\ngit status\ngit restore --staged junk.R\ngit status\n\nView your full history:\n\ngit log --oneline",
+    "crumbs": [
+      "Session 1 — Git Fundamentals"
+    ]
+  },
+  {
+    "objectID": "session1.html#whats-next",
+    "href": "session1.html#whats-next",
+    "title": "Session 1: Git Fundamentals",
+    "section": "What’s Next",
+    "text": "What’s Next\nIn Session 2 we will connect your local repository to GitHub, learn to push and pull, create branches, and collaborate with pull requests.\nBefore next session: create a free account at github.com.",
+    "crumbs": [
+      "Session 1 — Git Fundamentals"
+    ]
+  }
+]
