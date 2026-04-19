@@ -136,6 +136,21 @@ $code-color:             $cornell-red-dark;
     border-radius: 0 4px 4px 0;
   }
 
+  // Tutorial cue: signals "switch to the tutorial now for a hands-on section"
+  .tutorial-cue {
+    margin-top: 1em;
+    background-color: rgba($cornell-red, 0.08);
+    border: 2px solid $cornell-red;
+    border-radius: 6px;
+    padding: 0.55em 1em;
+    font-family: $heading-font;
+    font-size: 0.78em;
+    font-weight: 700;
+    color: $cornell-red-dark;
+    text-align: center;
+    letter-spacing: 0.02em;
+  }
+
   // Three-areas diagram (HTML/CSS)
   .three-areas {
     display: flex;
@@ -174,13 +189,13 @@ $code-color:             $cornell-red-dark;
   .slide-number-b,
   .slide-number-delimiter {
     color: $cornell-gray !important;
-    font-size: 0.55em !important;
+    font-size: 0.75em !important;
     font-family: $heading-font !important;
     font-weight: 500 !important;
   }
 
   .slide-number {
-    padding: 0.3em 0.5em;
+    padding: 0.35em 0.6em;
   }
 
   // Lists

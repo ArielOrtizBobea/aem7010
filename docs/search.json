@@ -565,7 +565,7 @@
     "href": "version-control/slides/session4.html#a-mental-model-the-shopping-cart",
     "title": "Session 4: Git Fundamentals",
     "section": "A Mental Model: The Shopping Cart",
-    "text": "A Mental Model: The Shopping Cart\n§ Tutorial: A mental model: the shopping cart\n\n\n\nGit\nShopping cart\n\n\n\n\nWorking directory\nBrowsing the store, dropping items in the cart\n\n\nStaging area\nReviewing the cart at checkout\n\n\nRepository\nYour order history\n\n\ngit add\nMoving an item to the checkout page\n\n\ngit commit\nClicking Place Order. Confirmation number issued.\n\n\nCommit hash\nThe order confirmation number\n\n\ngit log\nYour order history page\n\n\n\nStaging exists because you want to see exactly what you are about to commit to, before it becomes permanent."
+    "text": "A Mental Model: The Shopping Cart\n§ Tutorial: The Three Areas of Git\n\n\n\nGit\nShopping cart\n\n\n\n\nWorking directory\nBrowsing the store, dropping items in the cart\n\n\nStaging area\nReviewing the cart at checkout\n\n\nRepository\nYour order history\n\n\ngit add\nMoving an item to the checkout page\n\n\ngit commit\nClicking Place Order. Confirmation number issued.\n\n\nCommit hash\nThe order confirmation number\n\n\ngit log\nYour order history page\n\n\n\nStaging exists because you want to see exactly what you are about to commit to, before it becomes permanent.\n\n⟶ Now switch to the tutorial: Setup, Your First Repository, Staging & Committing (~20 min hands-on)"
   },
   {
     "objectID": "version-control/slides/session4.html#three-interfaces-same-git",
@@ -593,7 +593,7 @@
     "href": "version-control/slides/session4.html#writing-good-commits",
     "title": "Session 4: Git Fundamentals",
     "section": "Writing Good Commits",
-    "text": "Writing Good Commits\n§ Tutorial: Writing good commits\nBe specific. “Fix bug” is useless. “Fix off-by-one error in sample selection” is useful.\nOne logical change per commit. If the message needs the word and, it is two commits.\nResearch changelog style:\nAdd control for state fixed effects\nSwitch to winsorized outcome at 1%\nFix sample filter for pre-2000 observations\nAvoid: “Fixed stuff”, “WIP”, “Lots of changes”, “.”"
+    "text": "Writing Good Commits\n§ Tutorial: Writing good commits\nBe specific. “Fix bug” is useless. “Fix off-by-one error in sample selection” is useful.\nOne logical change per commit. If the message needs the word and, it is two commits.\nResearch changelog style:\nAdd control for state fixed effects\nSwitch to winsorized outcome at 1%\nFix sample filter for pre-2000 observations\nAvoid: “Fixed stuff”, “WIP”, “Lots of changes”, “.”\n\n⟶ Now switch to the tutorial: Exercise 1 (~5 min hands-on)"
   },
   {
     "objectID": "version-control/slides/session4.html#gitignore-what-not-to-track",
@@ -635,6 +635,6 @@
     "href": "version-control/slides/session4.html#safety-rails-.gitignore-undoing-mistakes",
     "title": "Session 4: Git Fundamentals",
     "section": "Safety Rails: .gitignore + Undoing Mistakes",
-    "text": "Safety Rails: .gitignore + Undoing Mistakes\n§ Tutorial: .gitignore and Undoing Mistakes\nKeep files out of Git with a .gitignore:\n*.csv, *.dta, data/   # data (too large or sensitive)\n.Rhistory, .RData     # R artifacts\n.DS_Store, Thumbs.db  # system files\nThree undo operations:\n\nUnstage by accident staged file: git restore --staged &lt;file&gt;\nDiscard a bad edit (destructive): git restore &lt;file&gt;\nUndo last commit, keep the work: git reset --soft HEAD~1\n\n\nGit is forgiving, but only for states it knows about. Commit often."
+    "text": "Safety Rails: .gitignore + Undoing Mistakes\n§ Tutorial: .gitignore and Undoing Mistakes\nKeep files out of Git with a .gitignore:\n*.csv, *.dta, data/   # data (too large or sensitive)\n.Rhistory, .RData     # R artifacts\n.DS_Store, Thumbs.db  # system files\nThree undo operations:\n\nUnstage by accident staged file: git restore --staged &lt;file&gt;\nDiscard a bad edit (destructive): git restore &lt;file&gt;\nUndo last commit, keep the work: git reset --soft HEAD~1\n\n\nGit is forgiving, but only for states it knows about. Commit often.\n\n\n⟶ Now switch to the tutorial: Exercise 2 (~10 min hands-on)"
   }
 ]

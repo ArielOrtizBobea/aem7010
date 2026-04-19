@@ -84,7 +84,7 @@ The workflow: **edit → stage → commit**.
 
 ## A Mental Model: The Shopping Cart {.smaller}
 
-[§ Tutorial: A mental model: the shopping cart]{.anchor-tag}
+[§ Tutorial: The Three Areas of Git]{.anchor-tag}
 
 | Git | Shopping cart |
 |------|------|
@@ -97,6 +97,10 @@ The workflow: **edit → stage → commit**.
 | `git log` | Your order history page |
 
 Staging exists because you want to see exactly what you are about to commit to, before it becomes permanent.
+
+::: {.tutorial-cue}
+⟶ Now switch to the tutorial: Setup, Your First Repository, Staging & Committing (~20 min hands-on)
+:::
 
 ## Writing Good Commits {.smaller}
 
@@ -115,6 +119,10 @@ Fix sample filter for pre-2000 observations
 ```
 
 **Avoid:** "Fixed stuff", "WIP", "Lots of changes", "."
+
+::: {.tutorial-cue}
+⟶ Now switch to the tutorial: Exercise 1 (~5 min hands-on)
+:::
 
 ## Safety Rails: `.gitignore` + Undoing Mistakes {.smaller}
 
@@ -136,6 +144,10 @@ Fix sample filter for pre-2000 observations
 
 ::: {.note-box}
 Git is forgiving, but only for states it knows about. Commit often.
+:::
+
+::: {.tutorial-cue}
+⟶ Now switch to the tutorial: Exercise 2 (~10 min hands-on)
 :::
 
 ## What's Next
