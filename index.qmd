@@ -75,6 +75,6 @@ Homebrew is the standard macOS package manager. Think of it as an app store for 
 
 ## Companion Materials
 
-- [Session 4 slides (PowerPoint)](version-control/session4_git_fundamentals.pptx)
-- [Session 5 slides (PowerPoint)](version-control/session5_github_collaboration.pptx)
+- [Session 4 slides](version-control/slides/session4.qmd) (web-based, click through in your browser)
+- [Session 5 slides](version-control/session5_github_collaboration.pptx) (PowerPoint, being migrated)
 - [Exercise R scripts](version-control/exercises/)

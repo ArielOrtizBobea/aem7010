@@ -112,14 +112,14 @@ Your Computer  ←— git pull —→  GitHub (origin)
 First, create a new repository on GitHub:
 
 1. Go to [github.com/new](https://github.com/new)
-2. Name it (e.g., `wage-analysis`)
+2. Name it (e.g., `my-research`)
 3. **Do NOT** initialize with a README (your local repo already has commits)
 4. Click **Create repository**
 
 GitHub will show you setup commands. Use the SSH option:
 
 ```bash
-git remote add origin git@github.com:yourusername/wage-analysis.git
+git remote add origin git@github.com:yourusername/my-research.git
 ```
 
 ### Push your commits
@@ -143,8 +143,8 @@ git pull origin main
 `git clone` downloads an entire repository (with full history) from GitHub to your computer:
 
 ```bash
-git clone git@github.com:username/wage-analysis.git
-cd wage-analysis
+git clone git@github.com:username/my-research.git
+cd my-research
 ```
 
 After cloning, the remote `origin` is already configured. You can immediately push and pull.
@@ -157,13 +157,13 @@ Cloning is how you start working on a collaborator's project. You get the full h
 
 **Time: ~15 minutes**
 
-1. **Create a repository on GitHub.** Go to [github.com/new](https://github.com/new), name it `wage-analysis`, and click Create (do NOT initialize with README).
+1. **Create a repository on GitHub.** Go to [github.com/new](https://github.com/new), name it `my-research`, and click Create (do NOT initialize with README).
 
-2. **Add the remote** to your local `wage-analysis` project:
+2. **Add the remote** to your local `my-research` project:
 
 ```bash
-cd wage-analysis
-git remote add origin git@github.com:YOURUSERNAME/wage-analysis.git
+cd my-research
+git remote add origin git@github.com:YOURUSERNAME/my-research.git
 ```
 
 Replace `YOURUSERNAME` with your GitHub username.
@@ -306,12 +306,12 @@ Merge conflicts are normal, not dangerous. They happen whenever two people edit 
 
 ### Setup
 
-1. **Person A:** go to your `wage-analysis` repo on GitHub → Settings → Collaborators → Add your partner's GitHub username.
+1. **Person A:** go to your `my-research` repo on GitHub → Settings → Collaborators → Add your partner's GitHub username.
 2. **Person B:** accept the invitation (check your email or GitHub notifications), then clone Person A's repo:
 
 ```bash
-git clone git@github.com:PERSONA_USERNAME/wage-analysis.git
-cd wage-analysis
+git clone git@github.com:PERSONA_USERNAME/my-research.git
+cd my-research
 ```
 
 ### Create branches and PRs

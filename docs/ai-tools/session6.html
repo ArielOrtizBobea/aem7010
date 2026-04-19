@@ -42,7 +42,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-87f7908b905bb60864be3ee8ff803566.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-1bacbde4b63e150433a774eb88bf29aa.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-3061d1689d43ca99209e0acecaa1b3b9.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -143,6 +143,12 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../version-control/session4.html#situations-where-git-helps" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">· Situations where Git helps</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../version-control/session4.html#setup" class="sidebar-item-text sidebar-link">
  <span class="menu-text">· Setup</span></a>
   </div>
@@ -173,7 +179,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../version-control/session4.html#exercise-1-create-a-project-and-make-commits" class="sidebar-item-text sidebar-link">
+  <a href="../version-control/session4.html#exercise-1-add-a-second-script-and-commit-it" class="sidebar-item-text sidebar-link">
  <span class="menu-text">· Exercise 1</span></a>
   </div>
 </li>
@@ -191,13 +197,19 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../version-control/session4.html#linking-to-data-that-lives-elsewhere" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">· Linking to data elsewhere</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../version-control/session4.html#undoing-mistakes" class="sidebar-item-text sidebar-link">
  <span class="menu-text">· Undoing mistakes</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../version-control/session4.html#exercise-2-full-workflow-practice" class="sidebar-item-text sidebar-link">
+  <a href="../version-control/session4.html#exercise-2-practice-the-safety-rails" class="sidebar-item-text sidebar-link">
  <span class="menu-text">· Exercise 2</span></a>
   </div>
 </li>
@@ -549,7 +561,7 @@ ul.task-list li input[type="checkbox"] {
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp("https:\/\/ArielOrtizBobea\.github\.io\/aem7010-practical-skills\/");
+        var filterRegex = new RegExp('/' + window.location.host + '/');
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }

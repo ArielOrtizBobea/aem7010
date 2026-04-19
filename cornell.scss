@@ -89,6 +89,27 @@ code:not(.sourceCode) {
   font-weight: 600;
 }
 
+// Sidebar hierarchy: bold top-level page entries (Preliminaries,
+// Session N, Cheat Sheet) so they stand out from within-page subsections.
+// Subsection entries link to anchors (href contains #), so we select
+// links that do NOT contain # as the primary navigation entries.
+#quarto-sidebar a[href]:not([href*="#"]) {
+  font-weight: 600;
+}
+
+// Subsection entries (anchor links): deeper indent, smaller, softer color.
+// These are the within-page subsections under each Session.
+#quarto-sidebar a[href*="#"] {
+  padding-left: 1.75rem !important;
+  font-size: 0.88rem;
+  color: lighten($ink, 25%);
+  line-height: 1.35;
+}
+
+#quarto-sidebar a[href*="#"]:hover {
+  color: $cornell-red;
+}
+
 // Scrollspy: link for the section currently in view
 .sidebar-navigation a.scrollspy-current {
   color: $cornell-red !important;
@@ -126,4 +147,30 @@ code:not(.sourceCode) {
 .page-footer {
   color: $cornell-gray;
   font-size: 0.9rem;
+}
+
+// Parallel-view note: shows what an IDE displays at the same moment
+// as a Terminal command. Visually distinct from standard callouts.
+.editor-parallel {
+  border-left: 3px solid #4a3f8d;
+  background-color: rgba(74, 63, 141, 0.06);
+  padding: 0.55rem 0.95rem;
+  margin: 0.9rem 0;
+  border-radius: 0 4px 4px 0;
+  font-size: 0.93rem;
+  line-height: 1.55;
+
+  &::before {
+    content: "IN YOUR EDITOR, IN PARALLEL";
+    display: block;
+    font-weight: 700;
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    color: #4a3f8d;
+    margin-bottom: 0.35rem;
+  }
+
+  p:last-child {
+    margin-bottom: 0;
+  }
 }

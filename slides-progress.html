@@ -1,0 +1,60 @@
+<div id="section-progress"></div>
+<script>
+(function () {
+  // Short labels for slide titles, in order. Only titles listed here
+  // appear in the progress strip. Title slide and final slides skipped.
+  var sections = [
+    { match: /^Why Version Control/i,     label: "Why VC?" },
+    { match: /^Git ≠ GitHub/i,             label: "Git vs GitHub" },
+    { match: /^Situations Where/i,         label: "Situations" },
+    { match: /^The Three Areas/i,          label: "Three Areas" },
+    { match: /^A Mental Model/i,           label: "Shopping Cart" },
+    { match: /^Writing Good Commits/i,     label: "Good Commits" },
+    { match: /^Safety Rails/i,             label: "Safety Rails" },
+    { match: /^What['\u2019]s Next/i,      label: "Next" }
+  ];
+
+  function buildProgress() {
+    var container = document.getElementById('section-progress');
+    if (!container) return;
+
+    sections.forEach(function (s, i) {
+      var item = document.createElement('span');
+      item.className = 'section-progress-item';
+      item.dataset.index = i;
+      item.textContent = s.label;
+      container.appendChild(item);
+    });
+
+    updateActive();
+  }
+
+  function updateActive() {
+    var current = Reveal.getCurrentSlide();
+    var heading = current.querySelector('h1, h2');
+    var title = heading ? heading.textContent.trim() : '';
+    var activeIdx = -1;
+    for (var i = 0; i < sections.length; i++) {
+      if (sections[i].match.test(title)) {
+        activeIdx = i;
+        break;
+      }
+    }
+    document.querySelectorAll('.section-progress-item').forEach(function (el) {
+      el.classList.toggle('active', parseInt(el.dataset.index) === activeIdx);
+    });
+    document.getElementById('section-progress').classList.toggle(
+      'section-progress-hidden', activeIdx === -1
+    );
+  }
+
+  if (typeof Reveal !== 'undefined') {
+    if (Reveal.isReady()) {
+      buildProgress();
+    } else {
+      Reveal.on('ready', buildProgress);
+    }
+    Reveal.on('slidechanged', updateActive);
+  }
+})();
+</script>

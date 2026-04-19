@@ -16,53 +16,57 @@ website:
         contents:
           - text: "Session 4: Git Fundamentals"
             href: version-control/session4.qmd
-          - text: "  · Why version control?"
+          - text: "Why version control?"
             href: version-control/session4.qmd#why-version-control
-          - text: "  · What is Git?"
+          - text: "What is Git?"
             href: version-control/session4.qmd#what-is-git
-          - text: "  · Setup"
+          - text: "Situations where Git helps"
+            href: version-control/session4.qmd#situations-where-git-helps
+          - text: "Setup"
             href: version-control/session4.qmd#setup
-          - text: "  · The three areas"
+          - text: "The three areas"
             href: version-control/session4.qmd#the-three-areas-of-git
-          - text: "  · Your first repository"
+          - text: "Your first repository"
             href: version-control/session4.qmd#your-first-repository
-          - text: "  · Staging and committing"
+          - text: "Staging and committing"
             href: version-control/session4.qmd#staging-and-committing
-          - text: "  · Writing good commits"
+          - text: "Writing good commits"
             href: version-control/session4.qmd#writing-good-commits
-          - text: "  · Exercise 1"
-            href: version-control/session4.qmd#exercise-1-create-a-project-and-make-commits
-          - text: "  · Viewing history"
+          - text: "Exercise 1"
+            href: version-control/session4.qmd#exercise-1-add-a-second-script-and-commit-it
+          - text: "Viewing history"
             href: version-control/session4.qmd#viewing-history
-          - text: "  · .gitignore"
+          - text: ".gitignore"
             href: version-control/session4.qmd#gitignore
-          - text: "  · Undoing mistakes"
+          - text: "Linking to data elsewhere"
+            href: version-control/session4.qmd#linking-to-data-that-lives-elsewhere
+          - text: "Undoing mistakes"
             href: version-control/session4.qmd#undoing-mistakes
-          - text: "  · Exercise 2"
-            href: version-control/session4.qmd#exercise-2-full-workflow-practice
+          - text: "Exercise 2"
+            href: version-control/session4.qmd#exercise-2-practice-the-safety-rails
           - text: "Session 5: GitHub & Collaboration"
             href: version-control/session5.qmd
-          - text: "  · What is GitHub?"
+          - text: "What is GitHub?"
             href: version-control/session5.qmd#what-is-github
-          - text: "  · Keep your email private"
+          - text: "Keep your email private"
             href: version-control/session5.qmd#keep-your-email-private
-          - text: "  · SSH keys"
+          - text: "SSH keys"
             href: version-control/session5.qmd#connect-to-github-ssh-keys
-          - text: "  · Remotes: push & pull"
+          - text: "Remotes: push & pull"
             href: version-control/session5.qmd#remotes-push-and-pull
-          - text: "  · Cloning"
+          - text: "Cloning"
             href: version-control/session5.qmd#cloning-a-repository
-          - text: "  · Exercise 3"
+          - text: "Exercise 3"
             href: version-control/session5.qmd#exercise-3-push-to-github
-          - text: "  · Branches"
+          - text: "Branches"
             href: version-control/session5.qmd#branches
-          - text: "  · Pull requests"
+          - text: "Pull requests"
             href: version-control/session5.qmd#pull-requests
-          - text: "  · Merge conflicts"
+          - text: "Merge conflicts"
             href: version-control/session5.qmd#handling-merge-conflicts
-          - text: "  · Exercise 4"
+          - text: "Exercise 4"
             href: version-control/session5.qmd#exercise-4-branches-and-pull-requests
-          - text: "  · Tags for reproducibility"
+          - text: "Tags for reproducibility"
             href: version-control/session5.qmd#tags-for-reproducibility
           - text: "Git cheat sheet"
             href: version-control/cheatsheet.qmd

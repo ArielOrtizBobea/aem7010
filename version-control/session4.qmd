@@ -3,6 +3,10 @@ title: "Session 4: Git Fundamentals"
 subtitle: "Tracking your own work"
 ---
 
+::: {.callout-note appearance="minimal"}
+**Slides for this session:** [View the slide deck](slides/session4.qmd) (opens in your browser; press `F` for fullscreen). The slides are a lean anchor to the concepts below; the walkthrough on this page is the substantive material.
+:::
+
 ## Why Version Control?
 
 Version control is a systematic record of how your code changes. It matters in three situations every applied economist now faces.
@@ -57,39 +61,98 @@ Each point on the timeline is a commit. Git stores the full history locally on y
 **Git ≠ GitHub.** Git is the tool that runs on your computer. GitHub is a cloud hosting service where you can store and share your Git repositories online. We cover GitHub in Session 5.
 :::
 
+## Situations Where Git Helps
+
+Before we set up Git, it helps to see what using it looks like in practice. These scenarios introduce the vocabulary you will meet throughout both sessions, in context rather than abstractly.
+
+**Working solo, months later.** You wrote `clean_data.R` in February. It is now August, and a coefficient changed since the results you reported at a seminar in April. What did you change? With Git, every save-point is a **commit**. The list of commits is your **log**. The difference between any two versions is a **diff**. You find the change, understand it, and decide whether it was right.
+
+**Refactoring clunky code.** Your `analysis.R` has grown to 600 lines and does everything: data cleaning, regressions, tables, figures. Adding anything new is painful. You want to split it into three cleaner scripts with one job each, but the refactor touches nearly every line of the project and risks introducing bugs that quietly change your results. With Git, you create a **branch** called `restructure-scripts`, do the surgery there, and verify that the refactored code produces identical output before committing to it. If it works, you **merge** the branch back. If it breaks something you cannot diagnose, you delete the branch and your old working code is untouched.
+
+**Working with a co-author.** You are cleaning data; your co-author is writing the robustness checks. Both of you need to edit the same project simultaneously. Each of you keeps your own **clone** of the project. You **push** your changes to a shared **remote** on GitHub. Your co-author **pulls** your changes into their copy. If you both edited the same line, Git surfaces a **merge conflict** so one of you decides the final version. Nobody's work is silently overwritten.
+
+**Returning to a paper revision.** You submitted to a journal in March. The R&R comes back in August. You need to run new analyses but also reproduce the figures from the submitted version if a referee asks. With Git, you **tag** the submitted code with a name like `v1.0-first-submission`. A single `git checkout` brings it back to your screen, years later if needed.
+
+**Recovering from a mistake.** You edit `run_regression.R` for three hours, save, close, and then realize you deleted something you needed. If the earlier version was committed, Git lets you **restore** the file to that commit. If you committed the deletion too, you undo the commit with **reset**. Git is forgiving, but only for states it knows about, which is why committing often matters.
+
+**Working with AI coding tools.** You ask Claude Code or Copilot to refactor a function. It returns 40 lines of new code: some better than yours, some subtly wrong. With Git, you review the AI's suggestion as a **diff**, **stage** only the lines that are good, and **revert** the commit cleanly if something breaks hours later. Without Git, AI-assisted edits are a gamble.
+
+Each of the bolded terms is covered in detail below. For now, the point is that Git is not one workflow: it is a toolkit for different research situations.
+
 ## Setup
 
-You should already have Git installed from the pre-class setup on the [Preliminaries page](../index.qmd#before-you-begin). Let's confirm, then configure your identity.
+You should already have Git installed from the pre-class setup on the [Preliminaries page](../index.qmd#before-you-begin). We now need to verify the installation and tell Git who you are, so it can attach your name to every change you make. We go step by step.
 
-### Confirm Git is installed
+### Step 1: Open your terminal
+
+Every command in this session is typed into a **terminal**: a program that lets you send instructions to your computer as text.
+
+- **On Mac:** open the **Terminal** app. Find it by pressing `Cmd+Space` to open Spotlight, typing "Terminal", and pressing Enter.
+- **On Windows:** open **Git Bash** (installed together with Git). Find it by pressing the Windows key, typing "Git Bash", and pressing Enter.
+
+A window opens with a few lines of text ending in a **prompt** that looks like `yourname@yourlaptop ~ $` on Mac or `yourname@yourlaptop MINGW64 ~ $` on Windows. The `$` is where your typing goes. You write a command after it and press Enter to run it.
+
+Keep this window open for the rest of the session.
+
+### Step 2: Confirm Git is installed
+
+At the prompt, type the following and press Enter:
 
 ```bash
 git --version
 ```
 
-You should see something like `git version 2.39.0`. If you get "command not found", go back to the Preliminaries page and follow the install instructions before continuing.
+You should see output like:
 
-### Configure your identity
+```
+git version 2.39.0
+```
 
-Git attaches your name and email to every commit.
+The exact version number will differ. As long as the output begins with `git version`, Git is installed and you can move on. If instead you see `command not found` or a similar error, Git is not installed on this machine. Go back to the [Preliminaries page](../index.qmd#before-you-begin) and follow the install instructions before continuing.
 
-**First, check whether you already have this set.** Many students have Git configured from earlier coursework or other projects.
+### Step 3: Check whether your identity is already set
+
+Git attaches a name and email to every change you make. Before setting these values, check whether they are already set from earlier coursework or another project.
+
+At the prompt, type the following, pressing Enter after each line:
 
 ```bash
 git config --global user.name
 git config --global user.email
 ```
 
-If both commands return your name and email, you are already configured. You can skip the rest of this section.
+If both commands print a name and an email (one per command), Git already knows who you are. You can skip to [The Three Areas of Git](#the-three-areas-of-git) below.
 
-**If either command returns nothing**, set them now:
+If either command prints nothing (a blank line, or an empty prompt), continue to Step 4.
+
+### Step 4: Set your identity
+
+Replace `"Your Name"` and `"you@email.com"` with your actual name and email, then run each command:
 
 ```bash
 git config --global user.name "Your Name"
 git config --global user.email "you@email.com"
 ```
 
-Replace `"Your Name"` and `"you@email.com"` with your actual name and email. Git stores these globally, so you only do this once per machine.
+You will not see any output after either command. Silence means success. Git now knows who you are.
+
+These settings are **global**: stored once on your laptop, applied automatically to every Git project you ever work on. You do this once per machine.
+
+::: {.callout-note}
+## Privacy: your email becomes public on every commit
+If you plan to push your work to public GitHub repositories, the email you set above will be visible in the commit log to anyone who views the repo. If you prefer to keep your real email private, GitHub provides a stable `noreply` address you can use instead. We cover the setup in [Session 5](session5.qmd#keep-your-email-private).
+:::
+
+### Step 5: Verify the settings
+
+Run the two check commands from Step 3 again:
+
+```bash
+git config --global user.name
+git config --global user.email
+```
+
+Both should now return the name and email you just set. Setup is complete.
 
 ::: {.callout-tip}
 ## Want to see everything Git has configured?
@@ -97,11 +160,6 @@ Replace `"Your Name"` and `"you@email.com"` with your actual name and email. Git
 git config --global --list
 ```
 This prints your full global configuration (name, email, default editor, default branch name, and any other settings). Useful for diagnosing "why is Git acting strange" later.
-:::
-
-::: {.callout-note}
-## Privacy: your email becomes public on every commit
-If you plan to push your work to public GitHub repositories, the email you set above will be visible in the commit log to anyone who views the repo. If you prefer to keep your real email private, GitHub provides a stable `noreply` address you can use instead. We cover the setup in [Session 5](session5.qmd#keep-your-email-private).
 :::
 
 ## The Three Areas of Git
@@ -154,28 +212,65 @@ cd ~/github
 From now on, all `mkdir some-new-project` commands in this tutorial assume you are inside `~/github/`.
 :::
 
-### 1. Create a project folder
+### Step 1: Create a project folder
+
+At the prompt (still inside `~/github/` from the callout above), type the following two commands, pressing Enter after each:
 
 ```bash
 mkdir my-research
 cd my-research
 ```
 
-### 2. Initialize Git
+- `mkdir my-research` creates a new empty folder called `my-research`.
+- `cd my-research` changes your current location to inside that folder.
+
+Both commands produce no output. Your prompt should now end with `my-research`, something like `yourname@yourlaptop my-research $`. That ending signals you are now inside the project folder.
+
+### Step 2: Initialize Git
+
+At the prompt, type:
 
 ```bash
 git init
 ```
 
-This creates a hidden `.git/` folder inside your project. That folder stores all version history. You never need to touch it directly.
+You should see output similar to:
 
-### 3. Check the status
+```
+Initialized empty Git repository in /Users/yourname/github/my-research/.git/
+```
+
+This command created a hidden `.git/` folder inside `my-research`. That folder is where Git stores all version history, configurations, and internal bookkeeping. You never open it or touch its contents directly.
+
+::: {.callout-caution}
+Do **not** delete the `.git/` folder. Deleting it erases all the history of your project. The folder is hidden by default, so you are unlikely to find it by accident, but if you ever see it in a file browser with "show hidden files" turned on, leave it alone.
+:::
+
+### Step 3: Check the status
+
+At the prompt, type:
 
 ```bash
 git status
 ```
 
-Git will tell you that you are on branch `main` and there are no commits yet. This is your starting point.
+You should see output that looks roughly like this:
+
+```
+On branch main
+
+No commits yet
+
+nothing to commit (create/copy files and use "git add" to track)
+```
+
+Three things to notice:
+
+1. **You are on branch `main`.** Every Git repository has at least one branch, and the default branch is called `main`.
+2. **No commits yet.** Git knows the folder is now a repository, but you have not saved any snapshots of work yet.
+3. **Nothing to commit.** The folder contains no files yet, so Git has nothing to track.
+
+This is your starting point. In the next section, you will create a file and take the first snapshot.
 
 ## Staging and Committing
 
@@ -189,7 +284,50 @@ Git will tell you that you are on branch `main` and there are no commits yet. Th
 Use **RStudio** (File → New File → R Script) or **VS Code** (File → New File) instead. Both are installed as part of the [Preliminaries setup](../index.qmd#before-you-begin) and handle plain-text code files correctly. For Terminal users, running `code .` inside your project folder opens the whole folder in VS Code in one step.
 :::
 
-Open your text editor (RStudio or VS Code) and create a file called `clean_data.R` with the following content:
+We create the file in two steps: first **open the project** in your editor, then **create the file**. Opening the project first is what lets your editor see the Git state live. Pick whichever editor you want to use:
+
+::: {.panel-tabset}
+
+## VS Code
+
+**Open the folder in VS Code.** Launch VS Code (from Applications, Spotlight, or the Start menu). Use **File → Open Folder**, browse to `my-research`, and click **Open**.
+
+VS Code opens a new window showing the contents of `my-research` in the left file explorer. The **Source Control** panel (branch icon in the left activity bar) now displays the Git state for this repository.
+
+::: {.callout-tip}
+## Optional shortcut: opening a folder from the terminal with `code .`
+
+Once you work with Git often, clicking through **File → Open Folder** each time becomes tedious. VS Code provides a shortcut: from your terminal, inside any folder, type `code .` and press Enter. The `.` means "this folder", and VS Code opens directly into it.
+
+**Why this is useful now.** You are already navigating to folders in your terminal to run Git commands. Being able to jump into the editor from that same spot, without switching to the File menu, keeps your workflow in one place. It also guarantees you open the exact folder you are currently in, so you cannot accidentally open the wrong one.
+
+**Why this pays off later.** Once you eventually SSH into Cornell's CAC cluster, FSRDC secure computing environments, or a cloud VM to run analyses too large for your laptop, VS Code's **Remote SSH** extension lets you type `code .` inside the remote terminal and have your local VS Code window show and edit files that actually live on the remote machine. The editor feels local; the files are remote. This workflow only works if the `code` command is on your PATH. Setting it up now means it just works the first time you need it, possibly years from now.
+
+**One-time setup:**
+
+1. Open VS Code.
+2. Press `Cmd+Shift+P` (Mac) or `Ctrl+Shift+P` (Windows/Linux) to open the **Command Palette**.
+3. Start typing `Shell Command`. Select **Shell Command: Install 'code' command in PATH**.
+4. Close and reopen your terminal window (the old one caches the PATH).
+
+Now, from any terminal, `code .` opens the current folder in VS Code. If you skip this setup, **File → Open Folder** still works fine.
+:::
+
+**Create the file.** In VS Code, use **File → New File** (or `Cmd+N` / `Ctrl+N`). Paste the content below. Use **File → Save As** and name the file `clean_data.R`, making sure it saves inside the `my-research` folder.
+
+## RStudio
+
+**Open the folder as an RStudio Project.** RStudio needs a Project (a `.Rproj` file) for Git integration to appear. Go to **File → New Project → Existing Directory**, browse to your `my-research` folder, and click **Create Project**. RStudio restarts in project mode. The **Git pane** appears in the top-right, connected to your local repository.
+
+**Create the file.** Use **File → New File → R Script**. Paste the content below. Save with **File → Save**, naming the file `clean_data.R`. RStudio saves it inside the project folder by default.
+
+## Terminal-only
+
+If you are not using an editor, open the file in any plain-text editor you have (not TextEdit or Notepad; see the warning above). Paste the content below and save as `clean_data.R` inside `my-research`.
+
+:::
+
+The content for the file:
 
 ```r
 # clean_data.R
@@ -205,7 +343,37 @@ wages <- wages[!is.na(wages$wage), ]
 wages$log_wage <- log(wages$wage)
 ```
 
-Save the file in your `my-research` folder.
+After saving, verify back in your Terminal (still inside `my-research`):
+
+```bash
+ls
+```
+
+You should see `clean_data.R` listed. Now run:
+
+```bash
+git status
+```
+
+You should see something like:
+
+```
+On branch main
+
+No commits yet
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	clean_data.R
+
+nothing added to commit but untracked files present (use "git add" to track)
+```
+
+`clean_data.R` appears under **Untracked files**. Git has noticed the file exists but is not yet tracking it. The next step stages it.
+
+::: {.editor-parallel}
+If you have `my-research` open in VS Code, `clean_data.R` appears in the file tree marked with a green **U** (untracked). In RStudio, the Git pane lists it with a yellow `?` icon. You do not need to do anything in the editor; it already reflects what `git status` just told you.
+:::
 
 ### Stage the file
 
@@ -255,11 +423,25 @@ All three do the same thing: they tell Git *"include this file in the next commi
 
 ### Check the status again
 
+At the prompt, run:
+
 ```bash
 git status
 ```
 
-You should see `clean_data.R` listed under "Changes to be committed."
+You should see output like:
+
+```
+On branch main
+
+No commits yet
+
+Changes to be committed:
+  (use "git rm --cached <file>..." to unstage)
+	new file:   clean_data.R
+```
+
+The key line is **`new file:   clean_data.R`** under "Changes to be committed". This confirms the file is **staged**, that is, ready to be included in the next commit.
 
 ::: {.callout-tip}
 ## Your editor shows the same state in real time
@@ -275,27 +457,74 @@ This is one of the underrated benefits of keeping an editor open on your project
 
 ### Commit
 
+At the prompt, run:
+
 ```bash
 git commit -m "Add data cleaning script"
 ```
 
-The `-m` flag lets you write the commit message inline. Every commit needs a message that explains *why* you made the change.
+You should see output like:
+
+```
+[main (root-commit) a1b2c3d] Add data cleaning script
+ 1 file changed, 10 insertions(+)
+ create mode 100644 clean_data.R
+```
+
+A few details to notice:
+
+- The first line shows the branch (`main`), a note that this is the **root commit** (the very first commit in the repository), and a short **commit hash** (`a1b2c3d` in the example; yours will differ).
+- The following lines summarize what changed: one file added with ten new lines.
+- The `-m` flag lets you write the commit message inline without opening an editor. Every commit needs a message. The message explains *why* the change happened.
+
+Run `git status` again:
+
+```bash
+git status
+```
+
+You should now see:
+
+```
+On branch main
+nothing to commit, working tree clean
+```
+
+"Working tree clean" means every change in your project folder has been committed. This is the state you want to leave your project in at the end of each work session.
+
+::: {.editor-parallel}
+In VS Code, `clean_data.R` disappears from the Source Control panel. The Staged and Changes lists are both empty. In RStudio, the Git pane empties out. Empty panels mean there is nothing pending, which matches "working tree clean" in the Terminal.
+:::
 
 ### Make another change and commit
 
-Edit `clean_data.R`. For example, add a new line:
+The workflow repeats for every change. Let us practice once.
+
+**Open `clean_data.R` in your editor** (RStudio or VS Code). Add this line at the end of the file:
 
 ```r
 # Keep only workers with at least a high school education
 wages <- wages[wages$educ >= 12, ]
 ```
 
-Then stage and commit:
+Save the file.
+
+Back at the Terminal prompt, stage the change and commit it:
 
 ```bash
 git add clean_data.R
 git commit -m "Filter to workers with high school education or more"
 ```
+
+You should see a commit message similar to before, this time reporting one file changed and two lines added. Run `git status` to confirm the working tree is clean again.
+
+::: {.editor-parallel}
+You now have two commits in the project history. You can browse them visually in your editor.
+
+**RStudio.** In the Git pane (top-right), click the **History** button (clock icon). A dialog opens listing every commit with its author, date, and message. Click any commit to see its diff in the lower pane. Both of your commits are there, newest on top.
+
+**VS Code.** Click on `clean_data.R` in the file explorer to open it. In the explorer sidebar, expand the **Timeline** section at the bottom. It lists every version of this file in the commit history, with your commit messages as labels. Click any entry to open the diff between that version and the next. For a full repo-wide commit graph, install the free **Git Graph** or **GitLens** extension from the Extensions marketplace.
+:::
 
 ### Writing good commits
 
@@ -327,92 +556,288 @@ For PhD research, aim between atomic and feature. Commit after each logical step
 
 **Avoid these messages.** `"Fixed stuff"`, `"WIP"`, `"Lots of changes"`, `"."`. They mean you skipped thinking about what you changed. Either split the commit into pieces with meaningful messages, or think for another ten seconds about what to write.
 
-## Exercise 1: Create a Project and Make Commits {.exercise}
+## Exercise 1: Add a Second Script and Commit It {.exercise}
 
-**Time: ~15 minutes**
+**Time: ~5 minutes. Work in your existing `my-research` project.**
 
-1. Create a folder called `wage-analysis` and initialize Git:
+So far you have been typing along with the walkthrough. In this exercise you apply the same loop independently with a new file. Pick the interface you want to use for the rest of the course and practice the full workflow in it: create a file, stage it, commit it, check the log.
 
-```bash
-mkdir wage-analysis
-cd wage-analysis
-git init
+### The task
+
+Add a second R script to `my-research` called `run_regression.R` with the content below. Stage it, commit it with a meaningful message, then view the resulting history.
+
+```r
+# run_regression.R
+# Estimate a Mincer wage equation on wooldridge::wage1
+
+wages <- wooldridge::wage1
+
+# Basic OLS
+model1 <- lm(log(wage) ~ educ + exper + tenure, data = wages)
+summary(model1)
 ```
 
-2. Create a file called `clean_data.R`. Write a few lines of R code (anything is fine: loading a library, creating a variable, etc.).
+### How to do it in each interface
 
-3. Stage and commit:
+::: {.panel-tabset}
 
-```bash
-git add clean_data.R
-git commit -m "Add data cleaning script"
-```
+## Terminal
 
-4. Edit the file (add a comment or a new line of code), then stage and commit again:
+1. Open `run_regression.R` in your editor (RStudio or VS Code) and save it inside `my-research` with the content above.
+2. Back at the prompt, confirm Git sees it:
 
 ```bash
-git add clean_data.R
-git commit -m "Add full-time worker filter"
+git status
 ```
 
-5. View your commits:
+You should see `run_regression.R` under **Untracked files**.
+
+3. Stage, commit, and check the log:
+
+```bash
+git add run_regression.R
+git commit -m "Add baseline Mincer wage regression"
+git log --oneline
+```
+
+You should see your new commit on top, followed by the commits from the walkthrough. Four commits total (or more, depending on how many you accumulated).
+
+## RStudio
+
+1. With `my-research` open as an RStudio Project, use **File → New File → R Script**. Paste the content. **File → Save** and name it `run_regression.R`.
+2. The Git pane (top-right) now lists `run_regression.R` as untracked (yellow `?`).
+3. Click the **Commit** button in the Git pane. The **Review Changes** dialog opens.
+4. Tick the **Staged** checkbox next to `run_regression.R` (or click the **Stage** button).
+5. In the message box at the top, type `Add baseline Mincer wage regression`.
+6. Click **Commit**. A dialog confirms the commit was made; close it.
+7. Click the **History** button (clock icon) in the Git pane. You should see your new commit on top, followed by the walkthrough commits.
+
+## VS Code
+
+1. With `my-research` open as a VS Code folder, use **File → New File**. Paste the content. Save with **File → Save As** and name it `run_regression.R` inside the `my-research` folder.
+2. In the **Source Control** panel (branch icon, left activity bar), `run_regression.R` appears under **Changes**.
+3. Hover over `run_regression.R` and click the **`+`** icon to stage it. It moves to **Staged Changes**.
+4. In the message box at the top of the Source Control panel, type `Add baseline Mincer wage regression`.
+5. Press `Cmd+Enter` (or click the checkmark icon) to commit.
+6. Open `run_regression.R` and expand the **Timeline** section in the file explorer. Your new commit appears at the top.
+
+:::
+
+### Expected result
+
+However you did it, at the end your repository has one additional commit. Running `git log --oneline` in the Terminal should produce something like:
+
+```
+a9b8c7d Add baseline Mincer wage regression
+7f3a2b1 Log number of rows after cleaning
+e4d5c6b Filter to workers with high school education or more
+2c5e8a1 Add data cleaning script
+```
+
+Newest on top. Four commits, one per logical change, each with a meaningful message. This is the habit we want.
+
+## Viewing History
+
+You now have two commits in your project. Git offers two commands to explore that history: `git log` lists commits, and `git diff` shows changes between them.
+
+### git log: the commit list
+
+At the prompt, run:
 
 ```bash
 git log
 ```
 
-You should see two commits with your messages, timestamps, and author info.
+You should see output like:
 
-## Viewing History
+```
+commit 7f3a2b1c9e5d4f6a8b2c1d3e4f5a6b7c8d9e0f1a (HEAD -> main)
+Author: Your Name <you@email.com>
+Date:   Fri Apr 18 15:30:22 2026 -0400
 
-### git log
+    Filter to workers with high school education or more
 
-`git log` shows the full history of commits, most recent first. Each entry includes the commit hash (a unique ID), author, date, and message.
+commit 2c5e8a1b3d9f4e7a6b2c1d3e4f5a6b7c8d9e0f1a
+Author: Your Name <you@email.com>
+Date:   Fri Apr 18 15:25:10 2026 -0400
 
-For a compact view:
+    Add data cleaning script
+```
+
+Each commit entry shows four fields: the **commit hash** (a 40-character unique ID), the **author**, the **date**, and the **message**. Your hashes will differ; they are generated from the content and metadata of each commit.
+
+::: {.callout-tip}
+## The output may open in a pager
+If your history fills more than one screen, Git opens the output in a **pager** program called `less`. The screen fills and the prompt disappears. Navigate with the arrow keys, Page Down, or Space. **To exit and return to your prompt, press `q`.** This is one of the most common "I am stuck in Git" moments for new users.
+:::
+
+For a compact one-line-per-commit view:
 
 ```bash
 git log --oneline
 ```
 
-Output looks like:
+Output:
 
 ```
-a1b2c3d  Add regression output table
-e4f5g6h  Clean variable names
-i7j8k9l  Add data cleaning script
+7f3a2b1 Filter to workers with high school education or more
+2c5e8a1 Add data cleaning script
 ```
 
-### git diff
+The seven-character hashes are short prefixes of the full ID. They are unique enough to refer to a specific commit in a small repository and much easier to read.
 
-`git diff` shows what changed since the last commit (for unstaged files):
+### git diff: what changed
+
+`git diff` shows what you have changed in the working directory since the last commit. Run it now:
 
 ```bash
 git diff
 ```
 
-Example output:
+You should see no output, and the prompt returns right away. Empty output means the working tree is clean: nothing has been modified since the last commit, so there is nothing to diff.
 
-```diff
-- lm(wage ~ educ, data = df)
-+ lm(wage ~ educ + exper, data = df)
+To see `git diff` in action, open `clean_data.R` in your editor and add one line at the end of the file:
+
+```r
+cat("Rows after cleaning:", nrow(wages), "\n")
 ```
 
-Lines starting with `-` were removed. Lines starting with `+` were added.
+Save the file. Back in the Terminal, run `git diff` again:
 
-To see changes that are already staged:
+```bash
+git diff
+```
+
+You should now see output like:
+
+```diff
+diff --git a/clean_data.R b/clean_data.R
+index 1a2b3c4..5d6e7f8 100644
+--- a/clean_data.R
++++ b/clean_data.R
+@@ -9,3 +9,5 @@ wages <- wages[!is.na(wages$wage), ]
+
+ # Log transformation
+ wages$log_wage <- log(wages$wage)
++
++cat("Rows after cleaning:", nrow(wages), "\n")
+```
+
+Lines starting with `+` are added. Lines starting with `-` are removed (none in this example). The `@@` line identifies where in the file the change begins. Git calls this a **unified diff**; it is the same format used by Stack Overflow, email patches, and GitHub pull requests.
+
+### git diff vs. git diff --staged
+
+Git separates the two halves of your change: what is in the **working directory** (edits you have saved on disk) versus what is in the **staging area** (edits you have marked with `git add`). Each half has its own diff command.
+
+- `git diff` shows the changes in the working directory that are **not yet staged**.
+- `git diff --staged` shows the changes that **are staged** and will go into the next commit.
+
+Run the staged-diff command now, before staging anything:
 
 ```bash
 git diff --staged
 ```
 
+You will see no output. That is expected: nothing has been staged yet. The difference between the last commit and what is currently staged is zero.
+
+Now stage the line you added:
+
+```bash
+git add clean_data.R
+```
+
+Re-run both diff commands:
+
+```bash
+git diff
+```
+
+Empty. Your edit is no longer in the working directory relative to the staging area; it has moved to the staging area.
+
+```bash
+git diff --staged
+```
+
+Now you see the `+` line that is waiting to be committed. The exact same diff you saw a moment ago, but it moved from the "unstaged" view to the "staged" view as soon as you ran `git add`.
+
+This is the practical value of `git diff --staged`: it is the command you run right before `git commit` to see exactly what will go into the next commit. Final review.
+
+### Commit it
+
+Since we like this edit, commit it:
+
+```bash
+git commit -m "Log number of rows after cleaning"
+```
+
+You should now have three commits. Verify:
+
+```bash
+git log --oneline
+```
+
+Three entries, newest on top.
+
+::: {.editor-parallel}
+The same history and diffs are available in your editor, in visual form.
+
+**RStudio.** The **History** button in the Git pane opens the same commit list, with click-to-diff on each entry. The Review Changes dialog shows diffs side-by-side and color-coded, which is easier to read than the Terminal output for anything longer than a few lines.
+
+**VS Code.** The **Timeline** section in the file explorer shows per-file version history. Click any entry to see the diff. Any open file also displays a `+/-` gutter on the left, marking modified, added, or deleted lines compared to the last commit in real time as you type.
+:::
+
 ## .gitignore
 
-Not every file belongs in version control. Large data files, sensitive credentials, and system files should be excluded.
+Not every file belongs in version control. Large data files, sensitive credentials, and system files should be excluded. Git uses a special file called `.gitignore` to know which patterns to skip.
 
-Create a file called `.gitignore` in your project root:
+### Create the file
 
+The file must be named **exactly `.gitignore`**, starting with a dot and with no extension after it. It lives in the top level of your project folder (the same folder as `clean_data.R`).
+
+::: {.panel-tabset}
+
+## Terminal
+
+From the prompt, inside `my-research`, create an empty `.gitignore` file with `touch`:
+
+```bash
+touch .gitignore
 ```
+
+`touch` creates an empty file with the given name. You will see no output; silence means success. Confirm with:
+
+```bash
+ls -a
+```
+
+The `-a` flag shows hidden files (those starting with a dot). You should see `.gitignore` in the listing. Now open it in your editor to add content:
+
+```bash
+code .gitignore
+```
+
+If you did not set up the `code` command, open it manually through RStudio or VS Code's file explorer.
+
+## RStudio
+
+In RStudio (with `my-research` open as a Project), use **File → New File → Text File**. A blank untyped document opens in the editor. Use **File → Save As** and enter the filename as **`.gitignore`** (starting with a dot, nothing else). Save inside `my-research`. RStudio may warn about files whose names begin with a dot; accept the warning and save.
+
+## VS Code
+
+In the **Explorer** sidebar (with `my-research` open as the workspace), hover over the top row showing the folder name `MY-RESEARCH`. A row of small icons appears to the right. Click the **New File** icon (a page with a `+`). Type **`.gitignore`** as the name and press Enter. The file is created and opens for editing.
+
+:::
+
+::: {.callout-note}
+## Hidden files starting with a dot
+On macOS, files whose names begin with a dot are hidden in Finder by default. Do not be alarmed if `.gitignore` does not appear when you browse the project folder in Finder. The Terminal (`ls -a`) and your code editors both show it normally.
+:::
+
+### Add the patterns
+
+In the `.gitignore` file you just opened, paste the following content and save:
+
+```bash
 # Data files (too large or sensitive for Git)
 *.csv
 *.dta
@@ -428,78 +853,193 @@ data/
 Thumbs.db
 ```
 
-Then stage and commit it:
+Each line is a pattern:
+
+- `*.csv` matches any `.csv` file anywhere in the project.
+- `data/` matches any folder called `data`, including all its contents.
+- `.DS_Store` matches exactly that filename (macOS folder metadata).
+- Lines starting with `#` are comments, ignored by Git.
+
+### Commit the .gitignore file
+
+Back in the Terminal (still in `my-research`), stage and commit:
 
 ```bash
 git add .gitignore
 git commit -m "Add .gitignore for data and R artifacts"
 ```
 
+`.gitignore` is itself a tracked file in your repository. Unlike the files it excludes, it belongs in Git: your collaborators need to see the same ignore patterns you do.
+
 ::: {.callout-warning}
 **Data files do not belong in Git.** Git is designed for code (small text files), not for large datasets. If you commit a 500 MB CSV, every collaborator will have to download it with the full repository. Use a shared drive, Dropbox, or a data repository for large files.
 :::
 
+### Linking to data that lives elsewhere
+
+You have told Git to ignore your data folder. But your code still needs to read the data. In practice most applied economists split their project files across two places:
+
+- **Code** in `~/github/my-research/` (this Git project, not on Dropbox).
+- **Data** in a cloud-synced folder like `~/Dropbox/projects/my-research/data/` (backed up, shared across machines, not version-controlled with Git).
+
+The cleanest bridge between the two is a **symbolic link** (or **symlink**): a tiny pointer file that *looks* like a folder but actually redirects to another location. You put a symlink called `data` inside your project that points to your Dropbox data folder. Your code reads from `data/wages.csv`, and the operating system transparently serves it from Dropbox.
+
+Think of it as a signpost: `data` lives here (in the project folder) but actually points there (to Dropbox). R, Python, Stata, and almost every other tool follow symlinks automatically without knowing anything is unusual.
+
+::: {.callout-tip}
+## Set up the symlink (optional, can do this later)
+
+The exact command depends on your operating system. Run this once per project.
+
+::: {.panel-tabset}
+
+## Mac / Linux
+
+First, navigate to your project folder from the Terminal. This is essential: `ln -s` creates the symlink in whatever folder you are currently in.
+
+```bash
+cd ~/github/my-research
+```
+
+Then create the symlink:
+
+```bash
+ln -s ~/Dropbox/projects/my-research/data data
+```
+
+This creates a file called `data` inside `my-research` that points to `~/Dropbox/projects/my-research/data`. Verify:
+
+```bash
+ls data/
+```
+
+You should see the contents of the Dropbox folder listed, as if they were inside `my-research`.
+
+## Windows
+
+On Windows, the equivalent is a **junction**, which does not require administrator rights (unlike true symlinks on Windows). Open **Command Prompt** (not Git Bash) and first navigate to your project folder. Junctions are created in the current directory, so this step matters.
+
+```cmd
+cd %USERPROFILE%\github\my-research
+```
+
+Then create the junction:
+
+```cmd
+mklink /J data "%USERPROFILE%\Dropbox\projects\my-research\data"
+```
+
+`mklink /J` creates a directory junction called `data` inside `my-research`, pointing to the Dropbox folder. It behaves identically to a symlink for reading files.
+
+## Graphical alternatives (not recommended)
+
+Both operating systems offer menu-based alternatives: **Make Alias** on Mac, **Create Shortcut** on Windows. Do not use these for this purpose. Aliases and shortcuts are recognized only by the graphical file manager; programs like R do not follow them. Use the Terminal commands above instead.
+
+:::
+
+:::
+
+**A few notes.**
+
+First, add `data` to your `.gitignore` if it is not there already. The symlink itself is a small file, but you do not want Git to track a pointer to a Dropbox path that will differ on every collaborator's machine. The existing `data/` line in the `.gitignore` above already covers this.
+
+Second, each collaborator creates their own symlink with their own Dropbox path. The symlink is not shared through the repo; that is by design. You and your co-author may both have a `data/` folder in your projects, but pointing to different absolute locations on your laptops.
+
+Third, symlinks make your project portable only for the person who created them. If a stranger clones the repo, they need both the code and the data, and a way to connect them. For published replication packages, you include the data directly in the archive or link to it by a citation, not by a symlink.
+
 ## Undoing Mistakes
 
-You will make mistakes. Git has tools to recover from each of them.
+You will make mistakes. Git has tools to recover from each of the common ones. We cover three: unstaging a file, discarding an edit, and undoing the last commit.
 
 ### Unstage a file
 
-You staged a file by accident and want to remove it from the staging area (without deleting the file):
+**Scenario.** You ran `git add` on a file you did not mean to include in the next commit. The file itself is fine; you just want to pull it out of the staging area so it does not get committed.
+
+::: {.panel-tabset}
+
+## Terminal
 
 ```bash
 git restore --staged clean_data.R
 ```
 
+No output. Run `git status` to confirm: the file is now listed as "modified" or "untracked" rather than under "Changes to be committed".
+
+## RStudio
+
+In the **Git pane** (top-right), find the file in the list and **uncheck** the box under the Staged column. The file moves from Staged back to Modified.
+
+Alternatively, from the Review Changes dialog (click Commit to open), select the file in the top pane and click the **Unstage** button.
+
+## VS Code
+
+In the **Source Control** panel, find the file under **Staged Changes**. Hover over the row; a `-` icon (minus) appears to the right. Click it. The file moves back down to **Changes**.
+
+Alternatively, right-click the staged file and select **Unstage Changes**.
+
+:::
+
 ### Discard local changes
 
-You edited a file and want to go back to the last committed version:
+**Scenario.** You edited a file, decided the change is wrong, and want to revert to the last committed version.
+
+::: {.callout-caution}
+This operation is destructive. Uncommitted edits cannot be recovered. If you might want the edit later, commit it first (even with a placeholder message like "WIP: exploring alternative spec"). Once committed, you can always roll back to a previous version.
+:::
+
+::: {.panel-tabset}
+
+## Terminal
 
 ```bash
 git restore clean_data.R
 ```
 
-::: {.callout-caution}
-This is **destructive**. Your edits are gone. Git cannot recover them because they were never committed.
+Git overwrites the working-directory version of the file with the last committed version. Your edits are gone.
+
+## RStudio
+
+In the **Git pane**, select the file. Click **More → Discard** in the pane's toolbar, or right-click the file and choose **Revert**. RStudio asks you to confirm. Click Yes. The file returns to its last committed state.
+
+## VS Code
+
+In the **Source Control** panel, find the file under **Changes**. Hover over it; a `↺` icon (discard) appears. Click it. Confirm in the dialog. The edits are discarded.
+
+Alternatively, right-click the file and select **Discard Changes**.
+
 :::
 
-### Undo the last commit (keep changes)
+### Undo the last commit (keep the changes)
 
-You committed too early and want to undo the commit but keep the files staged:
+**Scenario.** You committed too early. You want to pull the commit back so you can edit more, then recommit with a better message or a different scope. The file changes should stay in your staging area, ready to commit again.
 
 ```bash
 git reset --soft HEAD~1
 ```
 
-`HEAD~1` means "one commit before the current one."
+`HEAD~1` means "one commit before the current commit". The `--soft` flag tells Git: undo the commit, but leave all the file changes exactly as they were before the commit, staged and ready.
 
-## Exercise 2: Full Workflow Practice {.exercise}
+Run `git status` after. You should see the changes from the undone commit listed under "Changes to be committed". No file content is lost.
 
-**Time: ~15 minutes**
+::: {.callout-note}
+## Soft reset is Terminal-only by default
+Neither RStudio nor VS Code exposes soft reset through its built-in interface. Run this command in the Terminal. If you use VS Code often, the popular **GitLens** extension adds an "Undo Last Commit" command that does exactly this.
+:::
 
-1. In your `wage-analysis` project, create a `.gitignore` file with the contents shown above. Stage and commit it.
+## Exercise 2: Practice the Safety Rails {.exercise}
 
-2. Create a new file called `run_regression.R`:
+**Time: ~10 minutes. Continue in `my-research`.**
 
-```r
-# run_regression.R
-# Estimate a Mincer wage equation on wooldridge::wage1
+You have the add-and-commit loop down. This exercise practices the "undo" tools: unstaging, discarding changes, and viewing the diff before committing. These are the safety rails that make committing often feel low-stakes.
 
-wages <- wooldridge::wage1
+::: {.callout-tip}
+## Use whichever interface you prefer
+Do these operations in your editor of choice. The Terminal version is shown below for concreteness, but every step has an RStudio and VS Code equivalent in the earlier sections: staging is in **Staging and Committing**, unstaging and discarding are in **Undoing Mistakes**, and the log view is in **Viewing History**. Pick your preferred interface and scroll back to any section if you need the clicks.
+:::
 
-# Basic OLS
-model1 <- lm(log(wage) ~ educ + exper + tenure, data = wages)
-summary(model1)
-```
+### 1. Modify `run_regression.R`
 
-Stage and commit:
-
-```bash
-git add run_regression.R
-git commit -m "Add basic wage regression"
-```
-
-3. Edit `run_regression.R` and add a second model:
+Open `run_regression.R` in your editor and add a second specification at the end of the file:
 
 ```r
 # Add experience squared
@@ -507,34 +1047,77 @@ model2 <- lm(log(wage) ~ educ + exper + I(exper^2) + tenure, data = wages)
 summary(model2)
 ```
 
-View the diff before committing:
+Save the file.
+
+### 2. See your changes before staging
+
+At the Terminal prompt:
 
 ```bash
 git diff
 ```
 
-Then stage and commit:
+You should see your new lines marked with `+`. The diff is your preview of what you are about to commit.
+
+### 3. Stage and commit
 
 ```bash
 git add run_regression.R
 git commit -m "Add quadratic experience specification"
 ```
 
-4. Practice unstaging. Create a junk file, stage it, then unstage:
+### 4. Practice unstaging
+
+Create a junk file you do not want to commit, stage it by accident, then unstage it:
 
 ```bash
-echo "test" > junk.R
+echo "temporary scratch" > junk.R
 git add junk.R
 git status
+```
+
+You should see `junk.R` under "Changes to be committed". Unstage it:
+
+```bash
 git restore --staged junk.R
 git status
 ```
 
-5. View your full history:
+Now `junk.R` appears as **untracked** again. The file still exists on disk, but Git no longer plans to include it in the next commit. Delete the junk file:
+
+```bash
+rm junk.R
+```
+
+### 5. Practice discarding an edit
+
+Open `clean_data.R` in your editor. Add any line (say, a silly comment: `# this is a test edit`). Save the file.
+
+Check the diff:
+
+```bash
+git diff
+```
+
+Your edit shows as a `+` line. Now discard it:
+
+```bash
+git restore clean_data.R
+```
+
+Open `clean_data.R` in your editor again. The edit is gone. This is a **destructive** operation: uncommitted edits cannot be recovered. Git only remembers things you committed.
+
+### 6. View your full history
 
 ```bash
 git log --oneline
 ```
+
+You should see five commits, newest on top. Each one describes a single logical change. Each one is a point you can return to.
+
+::: {.editor-parallel}
+Your RStudio Git pane and VS Code Source Control panel mirrored every step of this exercise in real time: showing you which files were staged, what the diff looked like, and when the working tree returned to clean. Over time you will develop a sense for whether to consult the Terminal or the editor for any given question. Both show the same underlying Git state.
+:::
 
 ## What's Next
 
