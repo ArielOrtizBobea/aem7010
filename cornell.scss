@@ -60,10 +60,19 @@ code:not(.sourceCode) {
   border-radius: 3px;
 }
 
-// Sidebar branding: course code as eyebrow label, course title below
+// Sidebar branding: Cornell logo, course code as eyebrow label, course title below.
+// Logo + text both centered in the sidebar.
+.sidebar-logo {
+  display: block;
+  max-width: 140px;
+  height: auto;
+  margin: 0 auto 0.75rem auto;   // centered, some breathing room above AEM code
+}
+
 .sidebar-title {
   line-height: 1.2;
   margin-bottom: 0.5rem;
+  text-align: center;
 
   .course-code {
     display: block;

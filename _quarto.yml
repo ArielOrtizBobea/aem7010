@@ -86,8 +86,10 @@ website:
             href: version-control/session5.qmd#pull-requests
           - text: "Merge conflicts"
             href: version-control/session5.qmd#handling-merge-conflicts
-          - text: "Exercise 4"
-            href: version-control/session5.qmd#exercise-4-branches-and-pull-requests
+          - text: "Exercise 4 (in-class)"
+            href: version-control/session5.qmd#exercise-4-stage-and-resolve-a-merge-conflict
+          - text: "Take-home: pair PR"
+            href: version-control/session5.qmd#additional-practice-take-home-pair-pr-workflow
           - text: "Tags for reproducibility"
             href: version-control/session5.qmd#tags-for-reproducibility
           - text: "Data: too large or restricted"

@@ -127,6 +127,8 @@ If either command prints nothing (a blank line, or an empty prompt), continue to
 
 ### Step 4: Set your identity
 
+Both commands use the `--global` flag, which means the setting is stored **once per laptop** and applied automatically to every Git project on this machine. You do this once; you do not repeat it for each project.
+
 Replace `"Your Name"` and `"you@email.com"` with your actual name and email, then run each command:
 
 ```bash
@@ -135,8 +137,6 @@ git config --global user.email "you@email.com"
 ```
 
 You will not see any output after either command. Silence means success. Git now knows who you are.
-
-These settings are **global**: stored once on your laptop, applied automatically to every Git project you ever work on. You do this once per machine.
 
 ::: {.callout-note}
 ## Privacy: your email becomes public on every commit
@@ -292,7 +292,7 @@ We create the file in two steps: first **open the project** in your editor, then
 
 **Open the folder in VS Code.** Launch VS Code (from Applications, Spotlight, or the Start menu). Use **File → Open Folder**, browse to `my-research`, and click **Open**.
 
-VS Code opens a new window showing the contents of `my-research` in the left file explorer. The **Source Control** panel (branch icon in the left activity bar) now displays the Git state for this repository.
+VS Code opens a new window showing the contents of `my-research` in the left file explorer. The **Source Control** panel (Source Control icon (three-node fork shape) in the left activity bar) now displays the Git state for this repository.
 
 ::: {.callout-tip}
 ## Optional shortcut: opening a folder from the terminal with `code .`
@@ -328,6 +328,14 @@ If you are not using an editor, open the file in any plain-text editor you have 
 :::
 
 The content for the file:
+
+::: {.callout-tip appearance="minimal"}
+The script uses the `wooldridge` R package, which bundles Jeffrey Wooldridge's teaching datasets. Install it once (in R or RStudio's console) before running the script:
+
+```r
+install.packages("wooldridge")
+```
+:::
 
 ```r
 # clean_data.R
@@ -413,7 +421,7 @@ Click **Commit** in the Git pane (top-right of the IDE). The **Review Changes** 
 
 ## VS Code
 
-Open the **Source Control** panel (branch icon in the left activity bar, or `⌃⇧G` / `Ctrl+Shift+G`). Under *Changes*, click `clean_data.R`. A diff view opens in the editor showing your changes. In the Source Control panel, hover over `clean_data.R` and click the `+` icon to stage. The file moves from *Changes* to *Staged Changes*.
+Open the **Source Control** panel (Source Control icon (three-node fork shape) in the left activity bar, or `⌃⇧G` / `Ctrl+Shift+G`). Under *Changes*, click `clean_data.R`. A diff view opens in the editor showing your changes. In the Source Control panel, hover over `clean_data.R` and click the `+` icon to stage. The file moves from *Changes* to *Staged Changes*.
 
 *Quick shortcut.* If you already know what you are staging, click the `+` directly without previewing the diff.
 
@@ -476,6 +484,15 @@ A few details to notice:
 - The first line shows the branch (`main`), a note that this is the **root commit** (the very first commit in the repository), and a short **commit hash** (`a1b2c3d` in the example; yours will differ).
 - The following lines summarize what changed: one file added with ten new lines.
 - The `-m` flag lets you write the commit message inline without opening an editor. Every commit needs a message. The message explains *why* the change happened.
+
+::: {.callout-warning appearance="minimal"}
+**If you forget `-m`**, Git opens its default text editor (usually `vi`, sometimes `nano`) so you can type a multi-line message. If you are unfamiliar with these editors, the terminal can feel stuck. Escape routes:
+
+- **In `vi` / `vim`:** press `Esc`, then type `:wq` and press Enter to save and quit. Or `:q!` Enter to quit without saving.
+- **In `nano`:** press `Ctrl+X`, then `Y`, then Enter.
+
+Next time, include `-m "your message"` to avoid the editor entirely.
+:::
 
 Run `git status` again:
 
@@ -629,16 +646,15 @@ However you did it, at the end your repository has one additional commit. Runnin
 
 ```
 a9b8c7d Add baseline Mincer wage regression
-7f3a2b1 Log number of rows after cleaning
 e4d5c6b Filter to workers with high school education or more
 2c5e8a1 Add data cleaning script
 ```
 
-Newest on top. Four commits, one per logical change, each with a meaningful message. This is the habit we want.
+Newest on top. Three commits, one per logical change, each with a meaningful message. This is the habit we want.
 
 ## Viewing History
 
-You now have two commits in your project. Git offers two commands to explore that history: `git log` lists commits, and `git diff` shows changes between them.
+You now have three commits in your project. Git offers two commands to explore that history: `git log` lists commits, and `git diff` shows changes between them.
 
 ### git log: the commit list
 
@@ -846,6 +862,12 @@ On macOS, files whose names begin with a dot are hidden in Finder by default. Do
 
 ### Add the patterns
 
+Before pasting patterns, three bits of `.gitignore` syntax:
+
+- `*` is a wildcard that matches any characters in a filename, so `*.csv` means "any file ending in `.csv`."
+- A trailing `/` marks a directory; `data/` ignores the folder `data` and everything inside it.
+- A pattern without a `/` matches at any depth in the project. A pattern beginning with `/` anchors it to the project root.
+
 In the `.gitignore` file you just opened, paste the following content and save:
 
 ```bash
@@ -962,7 +984,7 @@ Third, symlinks make your project portable only for the person who created them.
 
 You will make mistakes. Git has tools to recover from the common ones. Four operations cover almost every situation you will hit in the first year.
 
-Each operation below opens with a small before/after diagram using `A → B → C ← HEAD` notation. `HEAD` is Git's pointer to your current commit; see the [HEAD callout in Viewing History](#viewing-history) for a full explanation if you skipped it.
+Each operation below opens with a small before/after diagram using `A → B → C ← HEAD` notation. Letters are commits in chronological order (A is oldest, C is newest), and each arrow points from an earlier commit to the next one. `HEAD` is Git's pointer to your current commit; see the [HEAD callout in Viewing History](#viewing-history) for a full explanation if you skipped it.
 
 | Operation | When to use it | Command |
 |---|---|---|
@@ -1263,7 +1285,7 @@ git commit -m "Add quadratic experience specification"
 
 ### 4. Practice unstaging
 
-Create a junk file you do not want to commit, stage it by accident, then unstage it:
+Create a junk file you do not want to commit, stage it by accident, then unstage it. The shell `>` below redirects the output of `echo` into a new file, creating `junk.R` with one line of text:
 
 ```bash
 echo "temporary scratch" > junk.R
@@ -1278,7 +1300,7 @@ git restore --staged junk.R
 git status
 ```
 
-Now `junk.R` appears as **untracked** again. The file still exists on disk, but Git no longer plans to include it in the next commit. Delete the junk file:
+Now `junk.R` appears as **untracked** again. The file still exists on disk, but Git no longer plans to include it in the next commit. Delete the junk file (`rm` is the shell command to remove a file):
 
 ```bash
 rm junk.R

@@ -46,9 +46,9 @@ Journals increasingly require replication packages. Top journals in economics ex
 ::: {.callout-tip}
 These four motivations map to the Git and GitHub concepts covered below.
 
-- **Backup and cross-machine work**: `git push` uploads your commits to GitHub, `git pull` downloads new commits from GitHub.
-- **Co-authors**: **branches** are parallel lines of development where you can experiment without disturbing working code. **Pull requests** are GitHub's interface for reviewing those branches and merging them back into the main version.
-- **Sharing**: **tags** mark specific commits as named snapshots (for example `v1.0-accepted`). **GitHub Releases** bundle a tag with downloadable files, which is how you post a self-contained replication archive.
+- **Backup and cross-machine work**: `git push` uploads your commits to GitHub, `git pull` downloads new commits from GitHub (see [Push and Pull](#push-and-pull)).
+- **Co-authors**: [**branches**](#branches) are parallel lines of development where you can experiment without disturbing working code. [**Pull requests**](#pull-requests) are GitHub's interface for reviewing those branches and merging them back into the main version.
+- **Sharing**: [**tags**](#tags-for-reproducibility) mark specific commits as named snapshots (for example `v1.0-accepted`). **GitHub Releases** bundle a tag with downloadable files, which is how you post a self-contained replication archive.
 :::
 
 ## Connect to GitHub: SSH Keys
@@ -103,7 +103,7 @@ ls -al ~/.ssh
 
 Two possible outcomes:
 
-- **You see files called `id_ed25519` and `id_ed25519.pub`** in the listing. You already have an ed25519 key pair. **Skip ahead to Step 4** (copy the public key).
+- **You see files called `id_ed25519` and `id_ed25519.pub`** (or an older `id_rsa` / `id_rsa.pub` pair) in the listing. You already have an SSH key pair, which GitHub will accept. **Skip ahead to Step 4** (copy the public key, substituting `id_rsa.pub` if that is what you have).
 - **You see an error like `ls: /Users/yourname/.ssh: No such file or directory`, or the folder exists but does not contain those files.** You do not have an SSH key on this machine yet. **Continue with Step 2.** This is the expected state for most first-timers. A GitHub account by itself does not create local SSH keys; the `.ssh` folder is only created the first time you run `ssh-keygen`.
 
 ::: {.callout-note}
@@ -171,12 +171,14 @@ You should see both `id_ed25519` (private key — keep this secret) and `id_ed25
 
 ### Step 3: Start the SSH agent and add your key
 
+The **ssh-agent** is a small background process that holds your unlocked private key in memory so Git does not re-prompt you for the passphrase on every push or pull. You start the agent, then tell it which key to load.
+
 ```bash
 eval "$(ssh-agent -s)"
 ssh-add ~/.ssh/id_ed25519
 ```
 
-The first line starts the background process that holds your key in memory. The second tells it about your new key.
+The first line starts the agent (the `eval` part sets the environment variables Git will use to find it). The second registers your new key with the running agent.
 
 ::: {.callout-tip}
 ## On macOS, persist the key across reboots
@@ -241,7 +243,7 @@ Back in your terminal:
 ssh -T git@github.com
 ```
 
-The first time you connect, you will see a warning asking you to confirm GitHub's host fingerprint. Type `yes` and press Enter. If the setup worked, you will see:
+The first time you connect, you will see a warning asking you to confirm GitHub's host fingerprint. This is SSH's trust-on-first-use mechanism: it records github.com's identity in `~/.ssh/known_hosts` so future connections can verify they are still talking to the real GitHub. Type `yes` (the full word; `y` is rejected) and press Enter. If the setup worked, you will see:
 
 ```
 Hi yourusername! You've successfully authenticated, but GitHub does not provide shell access.
@@ -261,7 +263,7 @@ Everywhere in this tutorial we use an SSH URL (`git@github.com:user/repo.git`). 
 
 ## Keep Your Email Private
 
-As flagged in [Session 4](session4.qmd), every commit records the name and email you set with `git config`. Once you push to a public repo, that email is searchable by anyone browsing GitHub. The fix is a GitHub-provided `noreply` address.
+As flagged in [Session 4 (Setup, Step 4)](session4.qmd#step-4-set-your-identity), every commit records the name and email you set with `git config`. Once you push to a public repo, that email is searchable by anyone browsing GitHub. The fix is a GitHub-provided `noreply` address.
 
 You should already be signed into GitHub from Step 5 of the SSH setup. Stay in the browser.
 
@@ -409,6 +411,7 @@ origin  git@github.com:YOURUSERNAME/my-research.git (push)
 Once a remote is set up (either because you cloned, or because you added one with `git remote add`), two commands keep your laptop and GitHub in sync.
 
 ```{mermaid}
+%%{init: { 'theme': 'neutral' }}%%
 flowchart LR
   laptop["Your Laptop"] -- git push --> github["GitHub&nbsp;(origin)"]
   github -- git pull --> laptop
@@ -465,7 +468,7 @@ If this is the first push on a new branch, RStudio may ask you to confirm settin
 
 ## VS Code
 
-Open the **Source Control** panel (branch icon in the left activity bar, or `⌃⇧G` / `Ctrl+Shift+G`). Click the **Sync** button (circular arrows in the top row) or the **... More actions** menu → **Push**.
+Click the **Sync** icon in the **status bar** (bottom of the window, next to the branch name — a cloud with up/down arrows). Alternatively, open the **Source Control** panel (Source Control icon in the left activity bar, or `⌃⇧G` / `Ctrl+Shift+G`) → click the **...** (More Actions) menu → **Push**.
 
 The first time you push a new branch, VS Code prompts you to publish the branch; click **OK** to set up tracking.
 
@@ -489,7 +492,7 @@ In the Git pane, click the **blue down-arrow ⬇ Pull** button. A dialog shows t
 
 ## VS Code
 
-In Source Control, click the **Sync** button (does both pull and push in one step) or the **... menu → Pull**.
+Click the **Sync** icon in the status bar (bottom, next to the branch name). Sync does both pull and push in one step. Alternatively, in the Source Control panel, click the **... menu → Pull** for pull only.
 
 :::
 
@@ -498,7 +501,7 @@ In Source Control, click the **Sync** button (does both pull and push in one ste
 When a push succeeds, GitHub's website refreshes to show your files and commit history. Common errors and their fixes:
 
 - `Permission denied (publickey)`: your SSH key is not recognized by GitHub. Run `ssh -T git@github.com` to check the connection (see [Step 6](#step-6-test-the-connection)). If that also fails, revisit the SSH setup.
-- `rejected — non-fast-forward`: the remote has commits your local copy does not. Run `git pull` first to bring them in, resolve any conflicts, then push again.
+- `rejected — non-fast-forward`: the remote has commits your local copy does not. A **fast-forward** push is one where GitHub's history is a simple linear extension of yours; when it is not, the push is rejected to avoid accidentally overwriting the co-author's work. Run `git pull` first to bring the remote commits down (resolving any conflicts), then push again.
 - `fatal: The current branch main has no upstream branch`: you started from `git init` and have not set tracking. Use `git push -u origin main` for the first push.
 
 ## Starting From Scratch
@@ -509,7 +512,7 @@ When a push succeeds, GitHub's website refreshes to show your files and commit h
 
 If you began a project on your laptop without a remote (the session 4 flow: `git init`, commits, no GitHub connection yet), attaching a GitHub remote takes two commands.
 
-1. Create a new empty repository on [github.com/new](https://github.com/new). Name it, leave **Initialize with README** unchecked (your local repo already has commits), click **Create repository**.
+1. Create a new empty repository on [github.com/new](https://github.com/new). Name it, leave **Initialize with README** unchecked, click **Create repository**. Leaving it unchecked matters: if you check it, GitHub creates an initial commit on the remote that will diverge from your local history, and your first `git push` will be rejected as non-fast-forward.
 
 2. In your terminal, inside the local project folder:
 
@@ -678,7 +681,7 @@ git commit -m "Add modification note to clean_data.R"
 
 ## VS Code
 
-1. Open the **Source Control** panel (branch icon in the left activity bar, or `⌃⇧G` / `Ctrl+Shift+G`).
+1. Open the **Source Control** panel (Source Control icon (three-node fork shape) in the left activity bar, or `⌃⇧G` / `Ctrl+Shift+G`).
 2. Under **Changes**, hover over `clean_data.R` and click the **+** icon to stage. The file moves to **Staged Changes**.
 3. In the message box above the staged changes, type `Add modification note to clean_data.R`.
 4. Click the **✓ Commit** button.
@@ -703,7 +706,7 @@ In the Git pane, click the **green up-arrow ⬆ Push** button. A dialog shows th
 
 ## VS Code
 
-In the Source Control panel, click the **Sync** button (circular arrows, top row) or the **... menu → Push**.
+Click the **Sync** icon in the status bar (bottom of the window, next to the branch name). Alternatively, open the Source Control panel and click the **... menu → Push**.
 
 :::
 
@@ -736,7 +739,7 @@ In the Git pane, click the **blue down-arrow ⬇ Pull** button. A dialog shows t
 
 ## VS Code
 
-In the Source Control panel, click the **Sync** button or the **... menu → Pull**.
+Click the **Sync** icon in the status bar (bottom, next to the branch name) to pull and push in one step. Alternatively, in the Source Control panel, click the **... menu → Pull** for pull only.
 
 :::
 
@@ -745,6 +748,38 @@ Open `clean_data.R` and confirm the edit made on GitHub now appears locally.
 ## Branches
 
 A **branch** is a parallel version of your code. You can experiment on a branch without affecting the main version. When the work is ready, you merge it back.
+
+A picture of the concept:
+
+```{mermaid}
+%%{init: {
+  'theme': 'base',
+  'themeVariables': {
+    'git0': '#8EC6E8',
+    'git1': '#8FC88E',
+    'gitBranchLabel0': '#1B1B1B',
+    'gitBranchLabel1': '#1B1B1B',
+    'tagLabelBackground': '#F7F4E9',
+    'tagLabelColor': '#1B1B1B',
+    'tagLabelBorder': '#BBBBBB'
+  },
+  'gitGraph': { 'parallelCommits': true, 'showCommitLabel': false }
+}}%%
+gitGraph
+   commit tag: "A"
+   commit tag: "B"
+   branch add-iv-analysis
+   checkout add-iv-analysis
+   commit tag: "D"
+   commit tag: "E"
+   checkout main
+   commit tag: "C"
+   merge add-iv-analysis tag: "F"
+```
+
+Reading left to right: `A` and `B` are commits on `main`. At `B`, **branching** creates `add-iv-analysis` (the fork). The branch accumulates its own commits `D` and `E` (the IV-analysis work) while `main` independently continues with `C` (something else you or a co-author did). At `F`, **merging** brings `add-iv-analysis` back into `main`. `F` is a merge commit whose history includes everything from both lines.
+
+The two actions in this picture map directly to the two Git commands introduced below: **branching** is `git checkout -b add-iv-analysis`, and **merging** is `git merge add-iv-analysis` (run from `main`). Everything between those two actions is just ordinary committing on one side or the other.
 
 ### When to branch
 
@@ -776,6 +811,22 @@ What *not* to branch for: typo fixes, one-line adjustments, obvious bug fixes. T
 
 ### Create and switch to a branch
 
+::: {.callout-note}
+## You saw `git checkout` in session 4; it does two different things
+
+`git checkout` is an old, overloaded Git command that plays two distinct roles:
+
+- **File-restoration role** (session 4, [Return to an earlier version of a file](session4.qmd#return-to-an-earlier-version-of-a-file)). `git checkout <commit> -- clean_data.R` restored the version of a file from an older commit. In session 4 we used `git restore` for the simpler "discard my uncommitted changes" case; the `git checkout` form was reserved for pulling an older version of a file back to the working directory.
+- **Branch-navigation role** (this session). `git checkout main` or `git checkout -b add-iv-analysis` **switches branches** (with `-b`, creates a new branch first). Think of it as a *navigation* operation between branches.
+
+Same command, different contexts. The two uses are easy to distinguish in practice because the argument tells you what you are acting on: a file path (with `--`) for the restoration case, a branch name for the switch case. Git 2.23+ split these roles into two single-purpose commands to reduce confusion:
+
+- `git restore` for discarding changes, and `git restore --source=<commit> -- clean_data.R` for restoring from an older commit.
+- `git switch main` or `git switch -c add-iv-analysis` for switching branches.
+
+Both the old and new forms still work. Most tutorials (including this one) use `git checkout` because it is what you will encounter most often in Stack Overflow answers, books, and older scripts.
+:::
+
 ::: {.panel-tabset}
 
 ## Terminal
@@ -793,7 +844,7 @@ The `-b` flag on `git checkout` stands for "branch": it tells Git to create the 
 
 ## RStudio
 
-1. In the **Git pane** (top-right of the IDE), click the **New Branch** button (purple branch icon next to the current branch dropdown). The New Branch dialog opens.
+1. In the **Git pane** (top-right of the IDE), click the **New Branch** button (branch icon next to the current branch dropdown). The New Branch dialog opens.
 2. **Branch name:** type `add-iv-analysis`.
 3. Leave **Sync branch with remote** checked if you plan to push this branch to GitHub.
 4. Click **Create**.
@@ -812,15 +863,45 @@ VS Code creates the branch and checks it out. The status bar now shows `add-iv-a
 
 ### Work on the branch
 
-Make your edits, stage, and commit as usual (see session 4's three-interface walkthrough if you need a refresher). Commits made now exist only on the branch.
+Commits made while on the branch exist only on the branch; they do not touch `main` until you merge. For demonstration, create a file called `iv_analysis.R` containing one comment line, then stage and commit it.
 
-A minimal terminal example for demonstration:
+::: {.panel-tabset}
+
+## Terminal
 
 ```bash
 echo '# IV regression using 2SLS' > iv_analysis.R
 git add iv_analysis.R
 git commit -m "Add IV analysis script"
 ```
+
+The `echo ... > file` redirect writes the string to `iv_analysis.R`, creating the file if it does not exist.
+
+## RStudio
+
+1. Create the file: **File → New File → R Script**. Paste `# IV regression using 2SLS` into the editor.
+2. **File → Save As**, name it `iv_analysis.R`, save inside the project folder.
+3. In the **Git pane** (top-right), tick the checkbox next to `iv_analysis.R` to stage it.
+4. Click **Commit**. The Review Changes dialog opens.
+5. Type `Add IV analysis script` in the message box, click **Commit**.
+
+## VS Code
+
+1. Create the file: **File → New File**, name it `iv_analysis.R`, press Enter.
+2. In the editor, type `# IV regression using 2SLS`. Save with `Cmd+S` / `Ctrl+S`.
+3. Open the **Source Control** panel (`⌃⇧G` / `Ctrl+Shift+G`).
+4. Under **Changes**, hover over `iv_analysis.R` and click **+** to stage.
+5. Type `Add IV analysis script` in the commit message box, click the **✓ Commit** button.
+
+:::
+
+::: {.callout-note appearance="minimal"}
+**A few structural points worth naming briefly:**
+
+- **Commit syntax is identical on every branch.** `git add` and `git commit` behave the same regardless of where you are; Git records the commit on whichever branch you currently have checked out. Confirm your current branch with `git status` (top line shows "On branch X") or `git branch` (asterisk marks the current one) before committing.
+- **`main` is just a branch.** Git has no "primary branch" concept in its data model. `main` is convention (it used to be `master`). You *could* rename it to anything, but there is no practical reason to. `main` is what every tutorial, collaborator, and AI coding tool will expect.
+- **Typical research pattern: `main` plus short-lived branches.** For most applied-economics projects, a flat structure works well: every branch comes off `main`, each does one focused thing, merges back into `main`, and gets deleted. You *can* also branch from a branch (`git checkout -b sub-branch` while on any existing branch), which is occasionally useful for scoped multi-week work like one sub-branch per referee's concerns inside a larger R&R branch. But each extra layer of nesting adds merge coordination, so stay flat unless you have a concrete reason not to.
+:::
 
 ### Switch back to main
 
@@ -844,73 +925,146 @@ Click the current branch name in the bottom-left status bar and select `main` fr
 
 Notice that `iv_analysis.R` disappears from your working directory. It only exists on the other branch. Your working directory reflects whichever branch you are on.
 
+::: {.callout-note appearance="minimal"}
+**Switching branches requires a clean working tree.** If you have uncommitted edits to any file, Git refuses the switch with `error: Your local changes to the following files would be overwritten`. Commit your work, discard it, or use `git stash` to temporarily set it aside before switching.
+:::
+
 ### Merge the branch
 
 When you are satisfied with the work on your branch, merge it back to main.
 
-::: {.callout-note appearance="minimal"}
-**Merge and delete are terminal-primary.** RStudio's Git pane does not expose a merge action. VS Code has `Git: Merge Branch` in the Command Palette, but most users stay in the terminal for clarity and for the diagnostic messages Git prints. If you prefer to stay in your editor, RStudio users can open the Terminal tab (**Tools → Terminal → New Terminal**), and VS Code users can open the integrated terminal (``Ctrl+` ``). Then run the commands below.
-:::
+::: {.panel-tabset}
+
+## Terminal
 
 ```bash
 git checkout main
 git merge add-iv-analysis
 ```
 
+## RStudio
+
+RStudio's Git pane does not expose a merge action. Open RStudio's built-in terminal (**Tools → Terminal → New Terminal**, or use the Terminal tab at the bottom of the IDE) and run the Terminal commands above. The Terminal tab is a real shell that inherits your project's working directory.
+
+## VS Code
+
+Two equivalent paths. Pick whichever you prefer.
+
+**Keyboard-driven (Command Palette).**
+
+1. Make sure you are on `main` (click the branch name in the bottom-left status bar and select `main`).
+2. Open the **Command Palette** (`Cmd+Shift+P` / `Ctrl+Shift+P`).
+3. Type `Git: Merge Branch` and press Enter.
+4. Select `add-iv-analysis` from the list of branches.
+
+**Mouse-driven (no typing).**
+
+1. Click the branch name in the bottom-left status bar and select `main`.
+2. Open the **Source Control** panel (Source Control icon (three-node fork shape) in the left activity bar, or `⌃⇧G` / `Ctrl+Shift+G`).
+3. Click the **...** (More Actions) menu at the top of the Source Control panel → **Branch → Merge Branch...**
+4. Click `add-iv-analysis` in the list.
+
+Either way, VS Code runs the merge and reports the result.
+
+:::
+
 Now `iv_analysis.R` appears on `main` and all the branch's commits are part of main's history.
 
 ### Delete the branch (optional)
 
-After merging, you can clean up. Same terminal-primary convention:
+After merging, you can clean up.
+
+::: {.panel-tabset}
+
+## Terminal
 
 ```bash
 git branch -d add-iv-analysis
 ```
+
+## RStudio
+
+Same pattern as merge: RStudio does not expose a delete-branch action. Open the Terminal tab (**Tools → Terminal → New Terminal**) and run the Terminal command above.
+
+## VS Code
+
+1. Open the **Command Palette** and type `Git: Delete Branch`.
+2. Select `add-iv-analysis` from the list.
+
+Alternative GUI path: click the branch picker in the bottom-left status bar, locate `add-iv-analysis` in the list, and click the trash icon that appears on hover.
+
+:::
 
 ## Pull Requests
 
 A **pull request** (PR) is GitHub's way of proposing changes. Instead of merging locally, you push a branch to GitHub and ask for it to be reviewed before merging. Pull requests are the standard collaboration workflow in both industry and academic research. They create a written record of what changed and why, which is valuable for reproducibility.
 
 ::: {.callout-note appearance="minimal"}
-**Where the PR workflow lives.** Creating, reviewing, and merging pull requests happens on **GitHub.com**, in your browser. Neither RStudio nor VS Code has full PR support built in. If you prefer to stay in your editor, two optional paths:
+**"Pull request" is not the same as `git pull`.** Despite the shared word, these are two different things:
+
+- **`git pull`** is the plain Git command that downloads commits from the remote. It works in all three interfaces (Terminal, RStudio, VS Code); see the [Push and Pull](#push-and-pull) section above.
+- **Pull request (PR)** is a GitHub code-review workflow: push a branch, open a discussion around the proposed changes, review, merge. This is a github.com feature, not a Git feature.
+
+**Where the PR workflow lives.** Creating, reviewing, and merging pull requests happens primarily on **GitHub.com**, in your browser. RStudio has no PR UI at all. VS Code has excellent PR support via the official **GitHub Pull Requests and Issues** extension (made by Microsoft, not bundled by default; install from the Extensions marketplace and sign in to GitHub). If you prefer to stay in your editor, two optional paths:
 
 - **GitHub CLI** (`gh`): terminal tool for PRs. Install from [cli.github.com](https://cli.github.com). Useful commands: `gh pr create`, `gh pr review`, `gh pr merge`.
-- **VS Code extension**: "GitHub Pull Requests and Issues" lets you open and review PRs inside VS Code. Install from the Extensions marketplace, then sign in to GitHub.
+- **VS Code extension**: once installed, a "Pull Requests" panel appears in the activity bar. You can open, diff, comment, and merge PRs without leaving the editor.
 
-The walkthrough below uses the github.com browser interface, which is the canonical path and the one we use in class.
+The walkthrough below uses the github.com browser interface, which is the canonical path and what we use in class.
 :::
+
+### `git pull` and pull requests are different tools that work together
+
+A **`git pull`** downloads new commits from the remote into your local copy. No review, no approval. You run it whenever you want to sync.
+
+A **pull request (PR)** proposes that your branch be merged into another branch (usually `main`). It is a review gateway: a co-author reads the diff, leaves comments, and clicks merge when satisfied.
+
+They typically run **in sequence**, not as alternatives:
+
+1. You branch, commit, and push your branch to GitHub.
+2. You open a **PR** asking for your branch to be merged into `main`.
+3. A reviewer approves and merges. The merge happens on GitHub, server-side.
+4. Other collaborators (and your other machines) run **`git pull`** to bring the merged work into their local `main`.
+
+So the PR is the gateway for work *entering* `main`. `git pull` is how everyone's local copies catch up *after* work has passed through that gateway.
+
+**When a PR is essential:** multi-author projects, any project where `main` should always run end-to-end, and open-source contributions where you do not have push access to the target repo.
+
+**When you can skip the PR:** solo research projects (no reviewer needed; commit directly or merge locally), and trivial fixes like typos where the review ceremony costs more than it adds. `git pull` remains useful even in solo work if you move across a laptop, office desktop, and cluster.
 
 ### The pull request workflow
 
-1. **Create a branch and make your commits.** Use the three-interface pattern from the [Branches](#branches) section above.
+The steps below describe the full PR cycle from the first push to a merged branch. You will put this into practice in the take-home pair exercise at the end of this session. Read through for reference now; no action required on your own repo at this point.
 
-2. **Push the branch to GitHub.** The first push on a new branch needs `-u` to set the upstream.
+**Step 1: Create a branch and make your commits.** Use the three-interface pattern from the [Branches](#branches) section above.
 
-    ::: {.panel-tabset}
+**Step 2: Push the branch to GitHub.** The first push on a new branch needs `-u` to set the upstream.
 
-    ## Terminal
+::: {.panel-tabset}
 
-    ```bash
-    git push -u origin add-iv-analysis
-    ```
+## Terminal
 
-    ## RStudio
+```bash
+git push -u origin add-iv-analysis
+```
 
-    In the Git pane, confirm you are on the `add-iv-analysis` branch (check the dropdown). Click the **green up-arrow ⬆ Push** button. If this is the first push on this branch, RStudio prompts you to set upstream tracking; accept.
+## RStudio
 
-    ## VS Code
+In the Git pane, confirm you are on the `add-iv-analysis` branch (check the dropdown). Click the **green up-arrow ⬆ Push** button. If this is the first push on this branch, RStudio prompts you to set upstream tracking; accept.
 
-    Click the current branch name (`add-iv-analysis`) in the bottom-left status bar. In the dropdown at the top, select **Publish Branch** (this option appears whenever a local branch has no remote counterpart yet). VS Code pushes the branch and sets upstream in one step.
+## VS Code
 
-    :::
+Click the current branch name (`add-iv-analysis`) in the bottom-left status bar. In the dropdown at the top, select **Publish Branch** (this option appears whenever a local branch has no remote counterpart yet). VS Code pushes the branch and sets upstream in one step.
 
-3. **Open a PR on github.com.** Visit your repository's page. You will usually see a yellow banner reading "`add-iv-analysis` had recent pushes" with a green **Compare & pull request** button. Click it. If the banner is gone (it disappears after a few minutes), go to the **Pull requests** tab → **New pull request** → set the **compare** branch to `add-iv-analysis` → click **Create pull request**.
+:::
 
-4. **Write a description** explaining what you changed and why. One paragraph is usually enough for a research PR. Reference specific tables, figures, or robustness checks when relevant.
+**Step 3: Open a PR on github.com.** Visit your repository's page. You will usually see a yellow banner reading "`add-iv-analysis` had recent pushes" with a green **Compare & pull request** button. Click it. If the banner is gone (it disappears after a few minutes), go to the **Pull requests** tab → **New pull request** → set the **compare** branch to `add-iv-analysis` → click **Create pull request**.
 
-5. **Review.** Your co-author reads the diff under **Files changed**, leaves inline comments on specific lines, and approves the PR (or requests changes).
+**Step 4: Write a description** explaining what you changed and why. One paragraph is usually enough for a research PR. Reference specific tables, figures, or robustness checks when relevant.
 
-6. **Merge.** Click **Merge pull request** on GitHub. GitHub then offers to delete the branch; accept unless you have a reason to keep it.
+**Step 5: Review.** Your co-author reads the diff under **Files changed**, leaves inline comments on specific lines, and approves the PR (or requests changes).
+
+**Step 6: Merge.** Click **Merge pull request** on GitHub. GitHub then offers to delete the branch; accept unless you have a reason to keep it.
 
 ## Handling Merge Conflicts
 
@@ -940,6 +1094,49 @@ lm(log(wage) ~ educ + exper + tenure, data = df)
 
 - Between `<<<<<<< HEAD` and `=======` is **your current branch's version**.
 - Between `=======` and `>>>>>>> add-iv-analysis` is **the incoming version from the other branch**.
+
+### Two concrete examples
+
+The right resolution depends on whether the two edits can be combined or express genuinely incompatible choices.
+
+**Example 1: combinable changes.** You added `nonwhite` as a control on your branch; your co-author added `female` on `main`. Pulling their work triggers:
+
+```
+<<<<<<< HEAD
+model1 <- lm(log(wage) ~ educ + exper + tenure + nonwhite, data = wages)
+=======
+model1 <- lm(log(wage) ~ educ + exper + tenure + female, data = wages)
+>>>>>>> main
+```
+
+Both changes are additive and compatible. Edit the file to keep both controls, removing the markers:
+
+```r
+model1 <- lm(log(wage) ~ educ + exper + tenure + nonwhite + female, data = wages)
+```
+
+Stage and commit. The merge is done.
+
+**Example 2: incompatible changes.** You changed the sample filter in `clean_data.R` on your branch to keep only positive wages. Your co-author pushed a change to `main` that tightens the filter to workers with at least high-school education. The two edits land on the same line:
+
+```
+<<<<<<< HEAD
+wages <- wages[wages$wage > 0 & !is.na(wages$wage), ]
+=======
+wages <- wages[wages$educ >= 12 & !is.na(wages$wage), ]
+>>>>>>> main
+```
+
+Here you cannot blindly combine; the two edits express different sample definitions. Two paths:
+
+- **Pick one.** Decide with your co-author which filter reflects the current analysis, delete the other block, remove the markers.
+- **Combine the intents explicitly**, if both filters should apply:
+
+    ```r
+    wages <- wages[wages$wage > 0 & wages$educ >= 12 & !is.na(wages$wage), ]
+    ```
+
+Either way, save, stage, and commit. The choice is substantive; Git can surface the disagreement but not settle it.
 
 ### How to resolve
 
@@ -979,142 +1176,309 @@ VS Code has the most polished conflict UI of the three.
 4. In the Source Control panel, the file moves from **Merge Changes** to **Staged Changes**.
 5. Type a commit message and click the **✓ Commit** button.
 
+::: {.callout-tip appearance="minimal"}
+VS Code 1.75+ may also offer a **"Resolve in Merge Editor"** button when you open a conflicted file. The merge editor is a 3-pane view (Current / Incoming / Result). Use whichever UI feels cleaner; both produce the same resolved file. If you prefer the inline actions described above, just close the merge editor or click "Open in text editor."
+:::
+
 :::
 
 ::: {.callout-tip}
 Merge conflicts are normal, not dangerous. They happen whenever two people edit the same line. The fix is always the same in spirit: decide which version to keep, remove the markers, stage and commit.
 :::
 
-## Exercise 4: Branches and Pull Requests {.exercise}
+## Exercise 4: Stage and resolve a merge conflict {.exercise}
 
-**Time: ~20 minutes.** Work with a partner.
+**Time: ~10 minutes. Work solo** on your own `my-research` repo (the one from Exercise 3).
 
-### Setup
+The goal is to experience a real merge conflict and resolve it. You will deliberately edit the same line of `run_regression.R` on two different branches, attempt the merge, and work through the resolution.
 
-1. **Person A:** go to your `my-research` repo on GitHub → **Settings → Collaborators → Add people**. Enter your partner's GitHub username and send the invitation.
-2. **Person B:** accept the invitation (check your email or GitHub notifications), then clone Person A's repo. Replace `PERSONA_USERNAME` with Person A's actual GitHub handle throughout.
+### 1. Confirm you are on `main` with a clean working tree
 
-    ::: {.panel-tabset}
+```bash
+cd ~/github/my-research
+git status
+```
 
-    ## Terminal
+You should see `On branch main` and `nothing to commit, working tree clean`. If you have uncommitted work from Exercise 3, commit or discard it first.
 
-    ```bash
-    cd ~/github
-    git clone git@github.com:PERSONA_USERNAME/my-research.git
-    cd my-research
-    ```
+### 2. Create a branch and add a `female` control
 
-    ## RStudio
+Create a branch named `add-female-control`:
 
-    1. **File → New Project → Version Control → Git**.
-    2. **Repository URL:** `git@github.com:PERSONA_USERNAME/my-research.git`.
-    3. **Project directory name:** leave as `my-research` (or change to `my-research-partner` to avoid collision with your own repo of the same name).
-    4. **Create project as subdirectory of:** `~/github`.
-    5. Click **Create Project**.
+::: {.panel-tabset}
 
-    ## VS Code
+## Terminal
 
-    1. Open the Command Palette (`Cmd+Shift+P` / `Ctrl+Shift+P`) → `Git: Clone`.
-    2. Paste `git@github.com:PERSONA_USERNAME/my-research.git`, press Enter.
-    3. Choose `~/github` as the parent folder (or rename the target folder to avoid collision).
-    4. Click **Open** when VS Code prompts.
+```bash
+git checkout -b add-female-control
+```
 
-    :::
+## RStudio
 
-### Create branches and PRs
+Git pane → **New Branch** (branch icon) → type `add-female-control` → **Create**.
 
-3. **Both partners:** create a branch with your name.
+## VS Code
 
-    ::: {.panel-tabset}
+Click the branch name in the bottom-left status bar → **+ Create new branch...** → type `add-female-control` → Enter.
 
-    ## Terminal
+:::
 
-    ```bash
-    git checkout -b yourname-feature
-    ```
+Open `run_regression.R`. Find the first regression line:
 
-    ## RStudio
+```r
+model1 <- lm(log(wage) ~ educ + exper + tenure, data = wages)
+```
 
-    In the Git pane, click the **New Branch** button (purple branch icon). Type `yourname-feature` as the name, leave Sync with remote checked, click **Create**.
+Change it to add `female` as a control:
 
-    ## VS Code
+```r
+model1 <- lm(log(wage) ~ educ + exper + tenure + female, data = wages)
+```
 
-    Click the current branch name in the bottom-left status bar → **+ Create new branch...** → type `yourname-feature` → Enter.
+Save. Stage and commit:
 
-    :::
+```bash
+git add run_regression.R
+git commit -m "Add female as a control"
+```
 
-4. **Both partners:** add a new `.R` file with a few lines of R code (for example `descriptive_stats.R` or `robustness_check.R`), stage it, and commit.
+### 3. Switch back to `main` and add a different control to the same line
 
-    ::: {.panel-tabset}
+Switch back:
 
-    ## Terminal
+```bash
+git checkout main
+```
 
-    ```bash
-    # After creating your_file.R in any editor:
-    git add your_file.R
-    git commit -m "Add descriptive statistics"
-    ```
+Open `run_regression.R` again. The line is back to the original (no `female`). Now change the **same line** to add `nonwhite` instead:
 
-    ## RStudio
+```r
+model1 <- lm(log(wage) ~ educ + exper + tenure + nonwhite, data = wages)
+```
 
-    Create the file (**File → New File → R Script**, paste your content, save as `your_file.R` inside the project). In the Git pane, tick the checkbox next to the file, click **Commit**, type the message, click **Commit**.
+Save. Stage and commit:
 
-    ## VS Code
+```bash
+git add run_regression.R
+git commit -m "Add nonwhite as a control"
+```
 
-    Create the file (**File → New File**, paste your content, save as `your_file.R` inside the cloned folder). In the Source Control panel, click **+** next to the file, type the commit message, click **✓ Commit**.
+At this point, `main` and `add-female-control` each have a commit that edits the same line of the same file differently. This is the ingredient for a conflict.
 
-    :::
+### 4. Attempt the merge, hit the conflict
 
-5. **Both partners:** push your branch to GitHub.
+From `main`, try to merge the branch:
 
-    ::: {.panel-tabset}
+```bash
+git merge add-female-control
+```
 
-    ## Terminal
+Git responds:
 
-    ```bash
-    git push -u origin yourname-feature
-    ```
+```
+Auto-merging run_regression.R
+CONFLICT (content): Merge conflict in run_regression.R
+Automatic merge failed; fix conflicts and then commit the result.
+```
 
-    ## RStudio
+This is the conflict you designed for. Git has paused the merge.
 
-    Click the **green up-arrow ⬆ Push** button in the Git pane. Accept the "set upstream" prompt on the first push.
+### 5. Resolve the conflict by combining both changes
 
-    ## VS Code
+Open `run_regression.R`. You will see conflict markers:
 
-    In the bottom-left status bar, click the branch name and select **Publish Branch** from the dropdown.
+```
+<<<<<<< HEAD
+model1 <- lm(log(wage) ~ educ + exper + tenure + nonwhite, data = wages)
+=======
+model1 <- lm(log(wage) ~ educ + exper + tenure + female, data = wages)
+>>>>>>> add-female-control
+```
 
-    :::
+Both changes are additive, so combine them. Edit the file to read (and remove the three marker lines):
 
-6. **Both partners:** go to GitHub and open a pull request from your branch into `main` (see the [Pull Requests](#pull-requests) workflow above if you need the steps).
+```r
+model1 <- lm(log(wage) ~ educ + exper + tenure + nonwhite + female, data = wages)
+```
 
-7. **Review each other's PR.** Click **Files changed** to see the diff. Leave a comment (for example "Looks good!" or "Add a header comment?"). When you are satisfied, click **Merge pull request**.
+Save. Stage and commit:
 
-8. **Pull the merged changes locally** so your laptop has both new files.
+```bash
+git add run_regression.R
+git commit -m "Resolve conflict: keep both nonwhite and female"
+```
 
-    ::: {.panel-tabset}
+Git completes the merge.
 
-    ## Terminal
+### 6. Verify
 
-    ```bash
-    git checkout main
-    git pull
-    ```
+Check the log:
 
-    ## RStudio
+```bash
+git log --oneline -5
+```
 
-    In the Git pane, switch to `main` via the branch dropdown, then click the **blue down-arrow ⬇ Pull** button.
+You should see the merge commit at the top, followed by the `main`-side commit ("Add nonwhite..."), the branch-side commit ("Add female..."), and the initial starter commits. Open `run_regression.R` to confirm the line has both controls.
 
-    ## VS Code
+Optional cleanup:
 
-    Click the branch name in the status bar and select `main`, then click **Sync** (or **... menu → Pull**).
+```bash
+git branch -d add-female-control
+```
 
-    :::
+### What you just practiced
+
+- Creating a branch, committing, switching back, and merging — the full local loop.
+- The exact thing that produces a conflict: two commits that edit the same line of the same file on different lines of history.
+- Resolving a conflict is a substantive choice, not a mechanical one. Git highlights the disagreement. You decide which version is correct (or how to combine them).
+
+## Additional practice (take-home): Pair PR workflow {.exercise}
+
+**Time: ~20 minutes. Work with a partner**, any time after class. This exercise lets you experience the collaboration side of Git — pushing a branch, opening a pull request, reviewing someone else's diff, merging, and pulling the result.
+
+### 1. Person A invites Person B as collaborator
+
+**Person A:** go to your `my-research` repo on GitHub → **Settings → Collaborators → Add people**. Enter your partner's GitHub username and send the invitation.
+
+### 2. Person B clones Person A's repo
+
+**Person B:** accept the invitation (check your email or GitHub notifications), then clone. Replace `PARTNER_USERNAME` (your partner's GitHub handle, visible in their GitHub profile URL) with Person A's actual GitHub handle throughout.
+
+::: {.panel-tabset}
+
+## Terminal
+
+```bash
+cd ~/github
+git clone git@github.com:PARTNER_USERNAME/my-research.git
+cd my-research
+```
+
+## RStudio
+
+1. **File → New Project → Version Control → Git**.
+2. **Repository URL:** `git@github.com:PARTNER_USERNAME/my-research.git`.
+3. **Project directory name:** leave as `my-research` (or change to `my-research-partner` to avoid collision with your own repo of the same name).
+4. **Create project as subdirectory of:** `~/github`.
+5. Click **Create Project**.
+
+## VS Code
+
+1. Open the Command Palette (`Cmd+Shift+P` / `Ctrl+Shift+P`) → `Git: Clone`.
+2. Paste `git@github.com:PARTNER_USERNAME/my-research.git`, press Enter.
+3. Choose `~/github` as the parent folder (or rename the target folder to avoid collision).
+4. Click **Open** when VS Code prompts.
+
+:::
+
+### 3. Both partners create a branch
+
+Create a branch named after yourself.
+
+::: {.panel-tabset}
+
+## Terminal
+
+```bash
+git checkout -b yourname-feature
+```
+
+## RStudio
+
+In the Git pane, click the **New Branch** button (branch icon). Type `yourname-feature`, leave Sync with remote checked, click **Create**.
+
+## VS Code
+
+Click the current branch name in the bottom-left status bar → **+ Create new branch...** → type `yourname-feature` → Enter.
+
+:::
+
+### 4. Both partners add a file and commit
+
+Add a new `.R` file with a few lines of R code (for example `descriptive_stats.R` or `robustness_check.R`), stage, and commit.
+
+::: {.panel-tabset}
+
+## Terminal
+
+```bash
+# After creating your_file.R in any editor:
+git add your_file.R
+git commit -m "Add descriptive statistics"
+```
+
+## RStudio
+
+Create the file (**File → New File → R Script**, paste your content, save as `your_file.R` inside the project). In the Git pane, tick the checkbox next to the file, click **Commit**, type the message, click **Commit**.
+
+## VS Code
+
+Create the file (**File → New File**, paste your content, save as `your_file.R` inside the cloned folder). In the Source Control panel, click **+** next to the file, type the commit message, click **✓ Commit**.
+
+:::
+
+### 5. Both partners push the branch
+
+::: {.panel-tabset}
+
+## Terminal
+
+```bash
+git push -u origin yourname-feature
+```
+
+## RStudio
+
+Click the **green up-arrow ⬆ Push** button in the Git pane. Accept the "set upstream" prompt on the first push.
+
+## VS Code
+
+In the bottom-left status bar, click the branch name and select **Publish Branch** from the dropdown.
+
+:::
+
+### 6. Both partners open a pull request
+
+Go to GitHub and open a pull request from your branch into `main`. See the [Pull Requests](#pull-requests) workflow above if you need the steps.
+
+### 7. Review each other's PR
+
+Click **Files changed** to see the diff. Leave a comment (for example "Looks good!" or "Add a header comment?"). When you are satisfied, click **Merge pull request**.
+
+### 8. Pull the merged changes locally
+
+Now that both PRs are merged, update your local copy of `main` so your laptop has both new files.
+
+::: {.panel-tabset}
+
+## Terminal
+
+```bash
+git checkout main
+git pull
+```
+
+## RStudio
+
+In the Git pane, switch to `main` via the branch dropdown, then click the **blue down-arrow ⬇ Pull** button.
+
+## VS Code
+
+Click the branch name in the status bar and select `main`, then click the **Sync** icon in the status bar (or open the Source Control panel → **... menu → Pull**).
+
+:::
 
 Both partners now have `main` containing both of your contributions.
 
 ## Tags for Reproducibility
 
 Tags mark a specific point in history. They are the mechanism for recording the code that produced a given version of your paper: the first submission, the R&R revision, the final accepted manuscript, the posted replication package. Years later you can return to any of those versions in one command.
+
+::: {.callout-note appearance="minimal"}
+**A tag is a named pointer to a commit, not a separate snapshot.** The commit is the actual content and history; the tag is a human-readable label attached to it so you can find that commit by name instead of by its 40-character SHA. Like a bookmark in a book, the tag references a page that exists regardless; removing the bookmark does not delete the page.
+
+**Tags attach to commits, not to branches.** In research, you typically tag commits on `main` because `main` holds your canonical paper state. But technically a tag can point to any commit in the repository's history, on any branch, or on no branch at all. Once placed, the tag stays with that commit even if the branch is later deleted.
+:::
 
 A typical research project has a tag for each submission milestone:
 
@@ -1152,6 +1516,8 @@ Or push a single tag:
 git push origin v0.1-first-submission
 ```
 
+After pushing, see [Viewing tags on GitHub](#viewing-tags-on-github) below to confirm the tag landed correctly.
+
 ### Check out a tag later
 
 ```bash
@@ -1163,6 +1529,15 @@ This puts you in **detached HEAD** state. You can look around and run code, but 
 ```bash
 git checkout main
 ```
+
+### Viewing tags on GitHub
+
+Once you push tags to GitHub, they appear in two places:
+
+- **Tags tab** at `https://github.com/YOURUSERNAME/my-research/tags`. Reachable from the repo's main page by clicking the branch selector dropdown and switching to the **Tags** sub-tab, or directly via the URL. Lists every tag with the commit it points to, the date, and links to browse or download the repository's state as a zip or tarball at that tag.
+- **Releases tab** at `https://github.com/YOURUSERNAME/my-research/releases`. Each Release is built on top of a tag and adds a title, body text, and optional file attachments. Tags that have not been promoted to a Release appear only in the Tags tab.
+
+The repo's main page also shows a **Releases** section in the right sidebar with the most recent release.
 
 ### GitHub Releases
 
@@ -1184,6 +1559,26 @@ GitHub is not a data archive. Files over 100 MB trigger warnings; files over 2 G
 - **ICPSR** ([icpsr.umich.edu](https://www.icpsr.umich.edu)): long-established social-science archive, often required by journals and funders.
 
 **If the data cannot be shared.** Confidential administrative records, licensed commercial data, and some Census microdata cannot be posted publicly. Journal policies accept a **data availability statement** that describes the data, its source, the access restrictions, and how an authorized researcher can obtain it. You still post the **code** so that anyone with equivalent access can reproduce your analysis.
+
+### How code on GitHub and data in an archive stay linked
+
+The mechanical pattern is just `.gitignore` plus a clear README:
+
+1. Keep data in a `data/` folder on your laptop (or cross-synced via Dropbox). The session 5 starter's `.gitignore` already excludes `data/`, so Git never tracks the files inside it.
+2. Your code paths reference files by relative path: `read_csv("data/cps_2020.csv")`, `readRDS("data/clean_wages.rds")`, etc.
+3. Upload the data itself to openICPSR, Zenodo, or Dataverse (as appropriate for your journal) to get a DOI.
+4. Your README tells the replicator: "Download the data from [DOI], place it in a folder called `data/` at the repository root, then run `master.R`."
+
+The replicator clones the repo, follows the README, and the relative paths in the code resolve to the data they downloaded.
+
+### GitHub integrations with data archives
+
+The automation story varies widely.
+
+- **Zenodo has fully automated GitHub integration.** Connect once in your [Zenodo → Settings → GitHub](https://zenodo.org) panel, toggle the repository on, and every future GitHub Release is automatically archived on Zenodo with a DOI. This is the gold-standard workflow for small-data or code-only replication packages. The DOI is citable and permanent.
+- **openICPSR / AEA has no automatic integration.** For AEA-journal replication packages you typically upload code and data together as one bundle via openICPSR's web interface. The manual step is: export your code from GitHub at the submission tag, combine it with the data files in a folder, and upload. openICPSR mints a DOI. Your GitHub README links to that DOI.
+- **Harvard Dataverse has a REST API** that supports semi-automated syncing, though there is no one-click workflow like Zenodo's.
+- **ICPSR** is a curated archive (staff review your deposit), so there is no "push from GitHub" workflow by design.
 
 ::: {.callout-warning}
 **Avoid Git LFS (Large File Storage) for replication archives.** GitHub's large-file extension is metered, costs money past a small quota, and the files disappear if the repository owner stops paying. They are also difficult to cite. Use a dedicated archive instead.
