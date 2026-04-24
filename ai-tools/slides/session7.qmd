@@ -1,0 +1,232 @@
+---
+title: "Session 7: AI Tools II"
+subtitle: "Agentic desktop AI (Cowork)"
+author: "Prof. Ariel Ortiz-Bobea"
+date: "April 29, 2026"
+format:
+  revealjs:
+    theme: [default, ../../slides-theme.scss]
+    slide-number: c/t
+    width: 1280
+    height: 720
+    chalkboard: false
+    incremental: false
+    transition: fade
+    transition-speed: fast
+    progress: true
+    controls: true
+    menu:
+      side: left
+    include-after-body: ../../slides-progress.html
+---
+
+## Pre-Class Checklist
+
+[§ Tutorial: Pre-class checklist]{.anchor-tag}
+
+Two things from Session 6's "For Wednesday" must be done:
+
+- **Cowork installed and signed in.**
+- **`~/github/aem7010-ai` created locally and pushed to GitHub.**
+
+The first ten minutes of class are for stragglers. If you are stuck, say so immediately. Do not try to catch up silently.
+
+::: {.note-box}
+Setup block is in the Session 6 tutorial, "For Wednesday" → item 2. Five-minute job.
+:::
+
+## Quick Recap: Session 6
+
+[§ Tutorial: Where we are]{.anchor-tag}
+
+Session 6: **chat**. Probabilistic pattern-completer, copy-paste interface. No file access. No code execution.
+
+**Mode A vs Mode B:**
+
+- **Mode A:** AI *does* the thing. Output is data. Reasoning hidden. → Almost always wrong for research.
+- **Mode B:** AI *writes code that does* the thing. Output is a script. Reasoning visible. → The reproducible path.
+
+Chat forced Mode B by accident. **Cowork does not.** Every prompt we write today bakes Mode B in explicitly.
+
+## What Changes When the Agent Can Reach Your Files {.smaller}
+
+[§ Tutorial: What changes]{.anchor-tag}
+
+Three capabilities shift at once.
+
+- **File access.** The agent sees every file in the folder you grant. You no longer paste snippets. You no longer choose what it sees. Granting a folder is a trust decision.
+- **Code execution.** R, Python, shell, in a **sandboxed shell** — an isolated terminal on the agent's side, scoped to your folder.
+- **On-disk modifications.** The agent creates, edits, and deletes files. Without asking each time, by design.
+
+All three are upgrades. All three are new surfaces for silent damage.
+
+::: {.note-box}
+**The guardrail is Git.** `git status` and `git diff` are your only reliable audit trail of what the agent actually did.
+:::
+
+## Git as the Safety Net
+
+[§ Tutorial: Git as the safety net]{.anchor-tag}
+
+Every Cowork session in this course follows the same skeleton:
+
+```bash
+# Before
+cd ~/github/aem7010-ai
+mkdir -p session7 && cd session7
+git status            # clean
+
+# ... you run Cowork ...
+
+# After
+git status            # review what it touched
+git diff              # read every line
+git add <files to keep>
+git commit -m "Session 7: <what you did>"
+```
+
+The chat transcript describes what Cowork **claims** it did. Git tells you what it **actually** did. If they disagree, Git wins.
+
+## Confirm the Repo, Grant Permissions
+
+[§ Tutorial: Confirm repo · Cowork permissions]{.anchor-tag}
+
+**30-second check** that last Monday's setup held:
+
+```bash
+cd ~/github/aem7010-ai
+ls                    # README.md, .gitignore
+git status            # clean
+```
+
+**Then, Cowork on the floor.** Launch it. Grant access to `~/github/aem7010-ai`. Confirm three things:
+
+1. You can see the folder path in Cowork's UI.
+2. You can see the chat transcript beside the file tree.
+3. You have found the **stop** button *before* you need it.
+
+::: {.tutorial-cue}
+⟶ Switch to the tutorial: **Confirm the AI-module repo** and **Cowork permissions, on the floor** (~5 min).
+:::
+
+## Chat and Cowork, Side by Side {.smaller}
+
+[§ Tutorial: Chat and Cowork, side by side]{.anchor-tag}
+
+Same underlying model. Different surface, capabilities, risks.
+
+| Dimension | Chat (Session 6) | Cowork (today) |
+|---|---|---|
+| Context | Manual paste | Automatic from folder |
+| Read files? | No | Yes |
+| Run code? | No | Yes, sandboxed |
+| Edit files? | No | Yes, directly |
+| Model "knows" | Only what you typed | Full files, real errors |
+| Audit trail | Git commit of pasted code | Git diff of touched folder |
+| Friction | Copy-paste fatigue | Permission + trust decisions |
+
+Capability goes up. Friction goes down. **Risk goes up.** Git turns that risk from catastrophic to annoying.
+
+## What Cowork Is Good At / Bad At {.smaller}
+
+[§ Tutorial: What Cowork is good at · What Cowork is bad at]{.anchor-tag}
+
+**Good:**
+
+- Exploratory data work (real columns, real distributions)
+- Multi-step tasks with intermediate state (scrape → clean → plot)
+- Debugging with full context ("run this, fix the error")
+- Boilerplate (scaffolding, `.gitignore`, `renv` setup)
+
+**Bad:**
+
+- Outputs you cannot sanity-check by eye (an elasticity estimate appears: is it right?)
+- Tasks that must run unattended (no cron jobs)
+- Work whose reasoning must survive the session (classify 200 rows, save only the CSV → the rule is gone)
+- Anything where a confident-sounding hallucination would cost you (fake `rvest` functions, untested selectors)
+
+## The Shared Prompt
+
+[§ Tutorial: Shared prompt handout]{.anchor-tag}
+
+We all paste the **same prompt**. Four design choices matter:
+
+- **Output schema specified exactly** (column names, order, separator)
+- **Selector strategy given** (anchor on heading text, not CSS class)
+- **Artifact declared** ("the R script is what I care about; do not paste the data")
+- **Scope closed** ("do not create other files; do not edit my `.gitignore`")
+
+::: {.note-box}
+Mode B enforcement is load-bearing. Do not paraphrase the prompt.
+:::
+
+::: {.tutorial-cue}
+⟶ Switch to the tutorial: **Shared prompt handout**. Read it before pasting.
+:::
+
+## Hands-On: Guided Scrape (~20 min)
+
+[§ Tutorial: Your turn (hands-on) · Verification checklist]{.anchor-tag}
+
+Paste the prompt. Let Cowork write `scrape_dyson_cowork.R`. Do **not** trust the row count it reports.
+
+**Five-step verification checklist** (all must pass before commit):
+
+1. Script exists at `session7/scrape_dyson_cowork.R`?
+2. `Rscript scrape_dyson_cowork.R` runs cleanly from a fresh session?
+3. CSV has ≥ 80 rows and the 4 expected columns in the right order?
+4. Three random rows match the live page?
+5. You can explain every line?
+
+If a check fails, ask Cowork for a **patch**, not a full rewrite.
+
+::: {.tutorial-cue}
+⟶ Switch to the tutorial: **Your turn (hands-on)** (~20 min). Commit when all five checks pass.
+:::
+
+## Stress Test: Three Silent Failures {.smaller}
+
+[§ Tutorial: Stress test]{.anchor-tag}
+
+Add one column: `is_postdoc`, `country`, or `placement_sector`. Ask Cowork. Rerun. Verify **again**.
+
+Three common silent failures:
+
+- **Silent row loss.** Parsing chokes on an unexpected pattern, drops rows. 93 → 90. Nobody notices.
+- **Silent row gain.** Agent rewrites parsing, stops filtering blank rows. 93 → 95.
+- **Silent column reordering.** You asked for the new column at the end. Agent put it in the middle. Downstream code that expected column 3 to be `placement` now reads the new column. **The most pernicious failure in agent-driven data work.**
+
+::: {.note-box}
+**Time-boxed.** If the main exercise ran long, skip this slide's hands-on and just name the three failures out loud.
+:::
+
+## What Session 6 Forced, What Cowork Allows {.smaller}
+
+[§ Tutorial: Debrief]{.anchor-tag}
+
+The central lesson of the module is not about a tool. It is about noticing when a tool's constraints were protecting you, and replacing them with discipline when they fall away.
+
+| Behavior | Session 6 (chat) | Session 7 (Cowork) |
+|---|---|---|
+| Running the script | You had to | The agent can, so you have to *choose* to |
+| Verifying the output | You had to | The agent reports; you have to *insist* |
+| Saving an artifact | Only as a pasted script | As script *or* displayed table; Mode B is your rule |
+| Editing files | You, one paste at a time | The agent, many files, possibly silently |
+| Ending the session | Clean by default | Requires `git diff` to know what happened |
+
+**The more capable the tool, the more of the verification reflex you own directly.**
+
+## What's Next
+
+**Next Monday (Session 8): Claude Code.** Terminal-native agent, git-aware, scales to multi-file projects.
+
+**For Monday:**
+
+1. **Push today's repo to GitHub** so your Session 7 work is backed up.
+2. Any install steps for Claude Code will be posted on the course site by Saturday. Ten minutes at the start of Monday for troubleshooting.
+
+::: {.note-box}
+**The bottleneck is no longer typing. It is verification.** Faster tools do not remove verification work; they move it to the end of the pipeline, where it is easier to skip.
+:::
+
+Companion site: [arielortizbobea.github.io/aem7010-practical-skills](https://arielortizbobea.github.io/aem7010-practical-skills/)

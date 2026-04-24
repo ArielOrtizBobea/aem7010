@@ -1,49 +1,368 @@
 ---
 title: "Session 7: AI Tools II"
-subtitle: "Agentic AI on your desktop (Cowork)"
+subtitle: "Agentic desktop AI (Cowork)"
 ---
 
-::: {.callout-note}
-## This session is under development
-The detailed walkthrough will be added before **April 29, 2026**. The outline below mirrors the planned 75-minute structure. The running exercise (scraping the Cornell Dyson PhD placement page with Cowork) picks up from [Session 6](session6.qmd) and continues into [Session 8](session8.qmd).
+::: {.callout-note appearance="minimal"}
+**Slides for this session:** [View the slide deck](slides/session7.qmd) (opens in your browser; press `F` for fullscreen). The slides are a lean anchor to the concepts below. The walkthrough on this page is the substantive material and the reference you will come back to.
 :::
 
-## Recap and safety brief (~10 min) {#recap-and-safety}
+::: {.callout-note appearance="minimal"}
+**Instructor pre-flight (the weekend before class).** Open the [Dyson placements page](https://dyson.cornell.edu/programs/graduate/placements/) in a browser and confirm it still renders the same 4-column PhD table. Run `ai-tools/scrape_dyson_cowork.R` from a fresh R session. Check that it produces a `data/placements_dyson.csv` with 80 or more rows. If the selector has broken, patch the XPath noted in the script header before class.
+:::
 
-- Mode A vs Mode B, carried over from Session 6.
-- What changes with Cowork: it can see your files, run code on your machine, and modify files on disk.
-- Git is the safety net. Every exercise starts with a clean commit and ends with another.
-- Cowork permissions walk-through: which folder is shared, how to see what the agent has done, how to stop a session.
-- Three-minute setup check on the floor.
+::: {.callout-warning appearance="simple"}
+**Pre-class checklist.** Two things from Session 6's "For Wednesday" must be done before you walk in: (1) Cowork installed and signed in, (2) `~/github/aem7010-ai` created locally and pushed to GitHub. The first ten minutes of class are reserved for stragglers; if you are stuck, say so immediately.
+:::
+
+## Where we are in the course {#where-we-are}
+
+Today builds directly on [Session 6](session6.qmd). Same running exercise, same page, same verification reflex. What changes is the tool.
+
+In Session 6 we worked with chat. Chat is a probabilistic pattern-completer with a copy-paste interface. It has no access to your files and cannot run your code. You carried the context across the boundary yourself, pasting snippets in and scripts out. That friction forced Mode B by accident: the artifact you walked away with was always an R script, because there was nothing else chat could give you.
+
+Today we raise the ceiling. Cowork is the same underlying model, wrapped in an interface that can see a folder on your machine and run code in a sandboxed shell. A sandboxed shell is an isolated terminal the agent drives on its side. It can execute R, Python, and shell commands in the folder you granted, but nothing else on your computer is visible to it. Almost everything that was slow in Session 6 becomes fast. A new class of risks appears. The discipline that keeps you safe is the same discipline that kept you safe in Session 6.
+
+The comparison between chat and Cowork is the spine of this session. Keep Session 6 in mind as a reference point.
+
+::: {.callout-note}
+## These sessions assume Sessions 4 and 5
+Every exercise starts with `git init` in a clean folder and ends with a `git commit`. Without Git, you cannot safely let an AI touch your working directory. Today that matters more than last week, because today the AI can actually touch it.
+:::
+
+## Recap and safety brief {#recap-and-safety}
+
+### Mode A vs Mode B, one more time
+
+The single most important distinction from Session 6 carries straight into today. Write it down again if you have to.
+
+**Mode A: AI as runtime.** You ask the AI to *do* the thing. The output is data. The reasoning lives inside the model.
+
+**Mode B: AI as code author.** You ask the AI to *write code that does the thing*. The output is a script. The reasoning lives in the script, visible and rerunnable.
+
+Mode B is the reproducible path. Mode A almost never belongs in a paper.
+
+Chat forced Mode B by accident. Cowork does not. Cowork will happily run code for you and show you the result table without ever saving a script. That is the central temptation of this session. Every prompt we write today has Mode B baked in explicitly.
+
+### What changes when the agent can reach your files
+
+Three capabilities shift all at once.
+
+First, **file access.** The agent sees the contents of whatever folder you grant it. It can read your data, your existing scripts, your notes, and your `.gitignore`. You no longer paste snippets in. You also no longer choose what it sees. Granting a folder is a trust decision.
+
+Second, **code execution.** The agent can run R, Python, and shell commands in a sandboxed process. It gets real output, real errors, real data frames. Its next suggestion can be informed by the actual shape of your data rather than a plausible guess.
+
+Third, **on-disk modifications.** The agent can create, edit, and delete files in the folder you granted. It will do this without asking each time, by design. If you told it to produce `scrape.R` and a `data/` subfolder, it will produce them. If it decides midway that it also needs to edit `.gitignore`, it will do that too.
+
+All three capabilities are upgrades. All three are also new surfaces for silent damage. The guardrail, as in Session 6, is Git.
+
+### Git as the safety net
+
+Every Cowork session in this course follows the same skeleton.
+
+```bash
+# Before the session
+cd ~/github/aem7010-ai
+mkdir -p session7
+cd session7
+git status            # should be clean
+
+# ... you run Cowork against the session7/ folder ...
+
+# After the session
+git status            # review every file Cowork created or changed
+git diff              # read every line of every change
+git add <files you want to keep>
+git commit -m "Session 7: <what you did>"
+```
+
+The point is not ceremony. The point is that `git status` and `git diff` are the only reliable audit trail of what Cowork actually did. The chat transcript will describe what it *claims* it did. Git will tell you what it *actually* did.
+
+If the two disagree, Git wins. This happens more often than you would expect.
+
+::: {.callout-warning}
+## Never point Cowork at a dirty working tree
+If `git status` is not clean before you start, commit or stash first. Otherwise you cannot tell which changes came from you and which came from the agent. This is the single most common mistake in the first week of using any agentic tool.
+:::
+
+### Confirm the AI-module repo {#dedicated-repo}
+
+You created `~/github/aem7010-ai` as pre-class homework for today (Session 6's "For Wednesday"). We spend 30 seconds confirming it works. Run these three checks:
+
+```bash
+cd ~/github/aem7010-ai
+ls                    # should show README.md and .gitignore
+git status            # should say "nothing to commit, working tree clean"
+```
+
+If any of them fails, flag it now and use the shared troubleshooting block. Do not try to catch up silently.
+
+### Cowork permissions, on the floor
+
+Now, with the repo confirmed, launch Cowork and grant it access to `~/github/aem7010-ai` (the whole repo, not a subfolder). Confirm three things:
+
+1. You can see the folder path Cowork is working in.
+2. You can see the chat transcript side-by-side with the file tree.
+3. You can stop the agent mid-action if you need to, and the button to do that is something you have found before running the main exercise, not during it.
+
+If any of these are unclear, flag it now. The rest of the session assumes all three.
 
 ## Cowork as a category {#cowork-as-a-category}
 
-- What Cowork is: chat plus file access plus code execution.
-- Current examples in the category: Cowork, ChatGPT with desktop integration, Gemini in Workspace. The category name ("agentic desktop AI") matters more than the product name.
-- The shift from chat: context becomes automatic, action happens in your environment, audit trail has three sources (session log, file changes, git diff).
-- Mode B discipline still applies. The artifact is the R script, not the session.
-- What Cowork is good at: multi-step tasks with intermediate state, debugging with full context, code that uses your actual data shape.
-- What Cowork is bad at: anything that cannot be verified by reading the output, production pipelines, and work where the hidden reasoning ends up in your paper.
+### The category, not the brand
 
-## Guided scrape of Cornell Dyson placements (~30 min) {#guided-scrape}
+Cowork is a current example of **agentic desktop AI**: a chat interface attached to a model that can see files on your computer and run code in a sandbox. The brand names rotate. At the time of writing they include Cowork, ChatGPT's desktop integration, and Gemini in Google Workspace. In two years the list will look different. The category will not.
 
-- Target: [Cornell Dyson PhD placements page](https://dyson.cornell.edu/programs/graduate/placements/).
-- Goal output: `placements_dyson.csv` with columns `name`, `year`, `placement`, `source_url`.
-- A shared prompt handout, including explicit Mode B enforcement.
-- Instructor live demo first, then students repeat on their laptops.
-- Verification checklist, repeated from Session 6.
-- Commit point: everyone commits before moving on.
+What you should remember is the category profile, because that is what transfers.
 
-## Stress test: add a field (~10 min) {#stress-test}
+### Chat and Cowork, side by side
 
-- Ask Cowork to modify the working script to add one of: `is_postdoc`, `country`, or `placement_sector`.
-- What to watch for: silent row loss, silent row gain, column reordering that breaks downstream code.
-- Two students share what broke. Instructor writes the pattern on the board.
+The clearest way to place Cowork is against the chat interface you used in Session 6. Same underlying model, different surface, different capabilities, different risks.
 
-## Debrief and preview of Session 8 {#debrief}
+| Dimension | Chat (Session 6) | Cowork (today) |
+|---|---|---|
+| How context arrives | You paste it in manually | Automatic from the folder you grant |
+| Can read your files? | No | Yes, any file in the folder |
+| Can run your code? | No | Yes, in a sandboxed shell |
+| Can edit your files? | No, you paste its output | Yes, it creates and edits files directly |
+| Native surface | Web browser | Desktop app |
+| What the model "knows" | Only what you typed | Full file contents, real data shapes, real errors |
+| Audit trail | Your git commit of pasted code | Your git diff of the folder it touched |
+| Typical friction | Copy-paste fatigue | Permission dialogs, trust decisions |
 
-- What worked, what did not. Highlight verification catches.
-- Why this was manageable: one page, one department, clean HTML.
-- Why Session 8 will be different: four more departments, four more HTML structures, classification of each placement.
-- Three-modes table, now with a lived experience for mode 2.
-- For Monday: install Claude Code (instructions posted), push today's repo to GitHub, think about which applied econ departments you would scrape if you could.
+Read the table as a set of trades. Capability goes up. Friction goes down. Risk goes up. A chat model cannot delete your thesis; Cowork can, if you grant it the wrong folder. Git is what turns that risk from catastrophic to annoying.
+
+The table also explains why the *same* research task feels so different in the two sessions. In Session 6 you spent most of your time pasting HTML snippets and comparing the model's guess to the actual page. In Session 7 Cowork fetches the page itself. That shift is worth forty minutes on the clock. It is also worth new habits.
+
+### What Cowork is good at
+
+Cowork is strong in four areas.
+
+- **Exploratory data work.** "Here is a CSV I just received. Describe the columns, show me the distribution of `placement`, flag any rows with missing `year`." The agent runs the code, sees the output, and revises. This is genuinely fast.
+- **Multi-step tasks with intermediate state.** Scrape, clean, reshape, save, then plot. Each step can reference the real output of the previous step, not a plausible guess at what the previous step returned.
+- **Debugging with full context.** You can say "run `session7/scrape.R` and fix whatever error it throws." The agent reads the file, runs it, sees the real error, and patches. Compare to chat, where you paste the error and hope the model guesses right.
+- **Translating your intent into boilerplate.** Project scaffolding, `.gitignore` entries, README drafts, `renv` setup. Boring work that the agent does at speed.
+
+### What Cowork is bad at
+
+Cowork is a poor fit for four kinds of work.
+
+- **Outputs you cannot sanity-check by eye.** Example: "compute the elasticity of yield with respect to temperature in this panel." A number appears. You cannot tell by looking whether it is correct. This covers most econometric estimates, which is to say, most research claims.
+- **Tasks that must run unattended.** Example: a nightly cron job that pulls USDA data at 3am. Cowork needs a human to grant permissions and watch for errors. It cannot run on a schedule.
+- **Work whose reasoning must survive the session.** Example: "classify these 200 placements as academic or non-academic" with only the output CSV saved. The rule that labelled each row is gone. You have data you cannot rerun, audit, or defend in a paper.
+- **Anything where a confident-sounding hallucination would cost you.** Example: Cowork cites an `rvest` function that does not exist, or a CSS selector it never tested. The answer looks authoritative either way. The committed code is yours; the agent is not on your author list.
+
+### The Mode B discipline, ported
+
+Three rules carry from Session 6, with updated teeth now that the agent can act.
+
+1. **Always ask for a script, never for a result.** The handout on the next screen shows you how to phrase this.
+2. **Always run the script yourself, from a fresh R session.** Not "Cowork tells me it ran clean." You open RStudio, `source()` the file, watch it work.
+3. **Always commit the script, not the session log.** Cowork session transcripts are not reproducible artifacts, just as chat transcripts were not.
+
+## Guided scrape of Cornell Dyson placements {#guided-scrape}
+
+### The task
+
+We return to the Cornell Dyson PhD placements page, this time with Cowork. This is the same page the instructor demoed in Session 6, deliberately.
+
+Goal output: a CSV at `session7/data/placements_dyson.csv` with the following columns.
+
+| Column | Example |
+|---|---|
+| `name` | Sharan Banerjee |
+| `year` | 2025 |
+| `placement` | Postdoctoral Fellow at KAPSARC School of Public Policy, Riyadh |
+| `source_url` | <https://dyson.cornell.edu/programs/graduate/placements/> |
+
+A working script, a CSV of about 90 rows spanning 2015 to 2025, and a clean Git commit. That is the deliverable.
+
+### Live demo (instructor)
+
+The instructor does the full pipeline on the projector first, so you see the rhythm before running it yourself. The demo is short.
+
+1. Create a fresh `session7/` subfolder inside `aem7010-ai`. Confirm `git status` is clean.
+2. Open Cowork, grant it access to `aem7010-ai`.
+3. Paste the shared prompt (below).
+4. Watch Cowork write `scrape_dyson_cowork.R`, run it, and produce `data/placements_dyson.csv`.
+5. Run the verification checklist (below) on the result.
+6. Stage and commit the `.R` file and the CSV.
+
+Watch for the moments where Cowork wants to reply with a table instead of a script. That is the Mode A temptation. The prompt below is written to prevent it, but the agent will still drift if you are not watching.
+
+### Shared prompt handout {#prompt-handout}
+
+This is the exact text you paste into Cowork. Do not paraphrase. Mode B enforcement is load-bearing; the middle paragraph is doing most of the work.
+
+::: {.callout-note appearance="simple"}
+## Prompt to paste into Cowork
+
+I am working inside this folder. Please do the following.
+
+1. Write an R script named `scrape_dyson_cowork.R` that scrapes the PhD placements table from <https://dyson.cornell.edu/programs/graduate/placements/>. The script should save a CSV at `data/placements_dyson.csv` with exactly these columns, in this order: `name`, `year`, `placement`, `source_url`. The `placement` column is the job title joined to the institution by the word "at", like "Assistant Professor at University of Illinois Urbana-Champaign". The `source_url` column is the URL above, repeated on every row.
+
+2. Use `rvest` and `readr`. Anchor your selector on the heading text "Recent PhD Job Placements" so the script is robust to changes in CSS class names. Drop any row in the table where all four cells are empty.
+
+3. The R script is the artifact I care about. Do not paste the scraped data into this chat. I will run the script myself from a fresh R session to verify it works. Include a one-line `message()` at the end reporting the number of rows written.
+
+4. After writing the script, run it once in the sandbox so we know it works. Report the row count and stop. Do not create any other files. Do not edit my `.gitignore`.
+:::
+
+Read the prompt before pasting. Note four things about it.
+
+- The **output schema is specified exactly.** Column names, column order, separator word for the `placement` column. If you say "a CSV with the relevant info", you will get something you did not want.
+- The **selector strategy is given.** "Anchor on the heading text" is the same rule the fallback script follows. If you leave this out, Cowork picks a CSS class that may not survive the next page redesign.
+- The **artifact is declared.** "The R script is the artifact I care about. Do not paste the data." This is Mode B in one sentence.
+- The **scope is closed.** "Do not create any other files. Do not edit my `.gitignore`." Without this, Cowork sometimes adds a README, a `renv.lock`, or a helper script you did not ask for. Harmless most of the time, noisy in a git diff.
+
+### Your turn (hands-on) {#hands-on-exercise .exercise}
+
+**Time: ~20 minutes.** Work in a new `session7/` folder inside your `aem7010-ai` repo.
+
+::: {.panel-tabset}
+
+## Terminal
+
+```bash
+cd ~/github/aem7010-ai
+mkdir -p session7
+cd session7
+git status
+```
+
+`git status` should show `session7/` as an untracked directory. You will commit at the end.
+
+## RStudio
+
+Open `aem7010-ai` as an RStudio Project. In the **Files** pane, create a new `session7/` folder. You can do the git steps from the Git pane at the end, but open a Terminal tab (Tools → Terminal → New Terminal) for the `git status` check first.
+
+## VS Code
+
+Open `~/github/aem7010-ai` in VS Code. Create `session7/` in the Explorer sidebar. Use the integrated terminal for `git status`.
+
+:::
+
+Cowork already has access to `~/github/aem7010-ai` from the permissions step at the start of class. Paste the shared prompt. Let it run.
+
+When Cowork reports a row count, do not yet trust it. Move to the verification checklist.
+
+### Verification checklist {#verification-checklist}
+
+Five checks, in order. All five must pass before you commit. If any fails, fix it first.
+
+1. **Does the script exist at `session7/scrape_dyson_cowork.R`?** If Cowork named it differently, rename it. The name is part of the contract.
+2. **Does `Rscript scrape_dyson_cowork.R` run cleanly from the `session7/` folder?** Open a fresh R session or a terminal. Do not trust "it ran in the sandbox". Run it yourself.
+3. **Does `data/placements_dyson.csv` have 80 or more rows, and the four expected columns in the right order?** Check with `readr::read_csv("data/placements_dyson.csv")` and `nrow()`, `names()`.
+4. **Pick three random rows and verify them against the live page.** Open the browser, find the row, compare name, year, and the join of position-plus-institution. If any of the three is wrong, the scraper is wrong, even if the row count looks right.
+5. **Can you explain every line of the script?** If a line uses a function you do not recognize, ask Cowork to explain it until you can restate what it does in your own words. Then decide whether to keep it.
+
+If a check fails, prompt Cowork to fix that specific failure. Do not accept a new full-rewrite response: ask for a patch.
+
+### Commit
+
+When all five checks pass, commit.
+
+::: {.panel-tabset}
+
+## Terminal
+
+```bash
+cd ~/github/aem7010-ai/session7
+git add scrape_dyson_cowork.R data/placements_dyson.csv
+git commit -m "Session 7: Cowork-drafted scraper for Dyson PhD placements"
+```
+
+## RStudio
+
+Git pane → tick the new `.R` file and the CSV → **Commit** → message "Session 7: Cowork-drafted scraper for Dyson PhD placements" → **Commit**.
+
+## VS Code
+
+Source Control panel → stage both files → type the same message → `Cmd+Enter` (Mac) or `Ctrl+Enter` (Windows).
+
+:::
+
+Do not push yet. We are going to modify the script in the next section and commit again.
+
+## Stress test: add a field {#stress-test}
+
+::: {.callout-note appearance="simple"}
+**Time-boxed.** This section is where the session absorbs slack. If the guided scrape ran clean, allow eight to ten minutes for the stress test. If it ran long, the instructor can shorten this to "name the three silent failure modes out loud" and move to the debrief.
+:::
+
+### The task
+
+Pick one of the following and add it as a new column to the output CSV. Pick the one you find most interesting; the choice does not matter for the lesson.
+
+- `is_postdoc`: a logical column that is `TRUE` when the position string contains the word "Postdoc" (case-insensitive) and `FALSE` otherwise.
+- `country`: a best-effort guess at the country of the institution, from the institution name. United States entries should say `"United States"`.
+- `placement_sector`: one of `"academic"`, `"government"`, `"industry"`, `"other"`, based on a short rule you write out explicitly in the script.
+
+Prompt Cowork with something close to:
+
+> "Modify `scrape_dyson_cowork.R` to add a column `<your choice>` with the definition <your short definition>. Keep the existing four columns in the same order; add the new one at the end. Rerun the script and report the row count. Do not paste the data."
+
+### What to watch for
+
+This is the point of the stress test. Two failure modes are common, and both are silent.
+
+- **Silent row loss.** A naive implementation of `country` might parse the institution string, throw on an unexpected pattern, and drop the row. The row count goes from 93 to 90 and nobody notices unless they are checking.
+- **Silent row gain.** If the agent rewrites the parsing logic, it might stop filtering out the header or the blank spacer row. Your row count goes up by two. Spot-checking the tail of the CSV will catch this.
+- **Silent column reordering.** You asked for the new column at the end. The agent put it between `year` and `placement`. Downstream code that expected column 3 to be `placement` now reads the new column instead. This is the single most pernicious failure mode in agent-driven data work.
+
+Run the five-step verification checklist again. The row count matters more than it did before, because now you have a reference: whatever it was last time, it should be the same now. If it changed, justify why.
+
+### Two volunteers share
+
+Two students project their modified script for about ninety seconds each. Focus:
+
+- Which of the three failure modes did you see, if any?
+- How did the verification checklist catch it, or how did it hide?
+- Did your prompt enforce column order? If not, add that to the shared prompt handout in your own notes for next time.
+
+### Commit again
+
+When the modified script passes verification, commit.
+
+```bash
+git add scrape_dyson_cowork.R data/placements_dyson.csv
+git commit -m "Session 7: add <column> to Dyson placements scraper"
+```
+
+Two commits in one session is a healthy pattern. It gives you a clean diff between "works" and "works plus new field", which is the shape of an actual research workflow.
+
+## Debrief {#debrief}
+
+### What we learned
+
+Cowork compresses a forty-minute chat-and-paste workflow into a three-minute interaction. The CSV on your disk is the same CSV you would have produced in Session 6 with chat and patience. The risks are different. Silent edits. Silent row loss. Silent column reordering. A chat transcript that says everything worked while the git diff tells a different story.
+
+The verification reflex does not change. Row count, spot-check against the live page, every line explainable, committed to the repo. You ran the reflex twice today. It should be a muscle by now.
+
+### What Session 6 forced, what Cowork allows
+
+The central lesson of the module is not about a specific tool. It is about noticing when a tool's constraints were protecting you, and replacing them with discipline when those constraints fall away.
+
+| Behavior | In Session 6 (chat) | In Session 7 (Cowork) |
+|---|---|---|
+| Running the script | You had to, by pasting and executing | The agent can, so you have to make yourself |
+| Verifying the output | You had to, the agent could not | The agent reports a row count, so you have to insist |
+| Saving an artifact | Only possible as a script, pasted in | Possible as a script *or* as a displayed table; Mode B becomes your rule, not the tool's |
+| Editing files | You, one paste at a time | The agent, potentially many files at once, possibly silently |
+| Ending the session | Clean by default, nothing to undo | Requires `git diff` to know what happened |
+
+Every row is a place where Session 6 protected you by being weak, and Session 7 requires you to be vigilant instead. That pattern generalizes. The more capable the tool, the more of the verification reflex you own directly.
+
+### The bottleneck is no longer typing
+
+You saw today that the bottleneck is verification, and it always will be. Faster tools do not remove verification work. They move it closer to the end of the pipeline, where it is easier to skip. The Mode B discipline and the verification checklist are how you do not skip it.
+
+## For Monday {#for-monday}
+
+1. **Push today's repo to GitHub** so your Session 7 work is backed up. Session 5 covered the commands.
+2. Any install steps for the next tool will be posted on the course site by Saturday. Ten minutes of class will be reserved at the start of Monday for troubleshooting.
+
+::: {.callout-note}
+## Instructor fallback
+If Cowork misbehaves during the live demo, a working scraper lives at `ai-tools/scrape_dyson_cowork.R` in the course repo. It takes about 10 seconds to run and produces the same CSV. Use it as a reference or a literal drop-in if the demo derails.
+:::

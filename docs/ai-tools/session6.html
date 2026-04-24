@@ -487,6 +487,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../ai-tools/session7.html#where-we-are" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Where we are</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../ai-tools/session7.html#recap-and-safety" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Recap and safety brief</span></a>
   </div>
@@ -505,6 +511,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../ai-tools/session7.html#prompt-handout" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">— Prompt handout</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai-tools/session7.html#hands-on-exercise" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">— Hands-on exercise</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai-tools/session7.html#verification-checklist" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">— Verification checklist</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../ai-tools/session7.html#stress-test" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Stress test: add a field</span></a>
   </div>
@@ -513,6 +537,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="sidebar-item-container"> 
   <a href="../ai-tools/session7.html#debrief" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Debrief</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai-tools/session7.html#for-monday" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">For Monday</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -822,11 +852,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Terminal</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">RStudio</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false" href="">VS Code</a></li></ul>
 <div class="tab-content">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ~/github/aem7010-practical-skills-YOURNAME</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ~/github/my-research</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> session6/data</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> session6</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> status</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Replace <code>aem7010-practical-skills-YOURNAME</code> with the actual name of your course repo. <code>git status</code> should show <code>session6/</code> as an untracked directory. You will commit after you have something worth committing.</p>
+<p>Work inside your own research repo from Sessions 4-5 (<code>~/github/my-research</code> if you followed the Session 4 naming; substitute your actual folder name otherwise). On Wednesday we will spin up a separate repo for the agentic tools. <code>git status</code> should show <code>session6/</code> as an untracked directory. You will commit after you have something worth committing.</p>
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
 <p>Open your course repo as an RStudio Project. In the <strong>Files</strong> pane, create a new folder named <code>session6</code>, then a subfolder <code>data/</code> inside it. Work inside <code>session6/</code> for the rest of the exercise.</p>
@@ -1009,9 +1039,30 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="for-wednesday" class="level2">
 <h2 class="anchored" data-anchor-id="for-wednesday">For Wednesday (Session 7)</h2>
 <ol type="1">
-<li><strong>Install Cowork</strong> if you do not already have it. Cowork is currently a feature of the Claude desktop app, in research preview. Download the desktop app, sign in, and enable Cowork mode. If you hit install issues we will troubleshoot in the first ten minutes of class.</li>
-<li><strong>Bring a laptop with working R, RStudio, and Git.</strong> We confirmed the setup in Sessions 4 and 5.</li>
-<li><strong>Think about</strong> one research task in your own work that you would want an AI to do if it could see your files. Bring it to class. We will discuss these briefly in the opening block.</li>
+<li><p><strong>Install Cowork</strong> if you do not already have it. Cowork is currently a feature of the Claude desktop app, in research preview. Download the desktop app, sign in, and enable Cowork mode. If you hit install issues we will troubleshoot in the first ten minutes of class.</p></li>
+<li><p><strong>Create a dedicated repo for the AI module.</strong> The Cowork and Claude Code exercises go into a separate repo, <code>aem7010-ai</code>, kept apart from your <code>my-research</code> repo so the agent’s file access stays narrow. Do this before class; it takes about five minutes and saves class time.</p>
+<p><strong>On GitHub.</strong> Go to <a href="https://github.com/new" class="uri">https://github.com/new</a>. Name: <code>aem7010-ai</code>. Public. Leave “Add a README”, “Add .gitignore”, and “Choose a license” unchecked. Click <strong>Create repository</strong>. Copy the SSH URL from the quick-setup block.</p>
+<p><strong>On your laptop.</strong></p>
+<p>::: {.panel-tabset}</p>
+<p>## Terminal</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ~/github</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> aem7010-ai <span class="kw">&amp;&amp;</span> <span class="bu">cd</span> aem7010-ai</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> init <span class="at">-b</span> main</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"# AEM 7010 AI module"</span> <span class="op">&gt;</span> README.md</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="bu">printf</span> <span class="st">".Rhistory\n.RData\n.Ruserdata\n.Rproj.user/\n.DS_Store\n"</span> <span class="op">&gt;</span> .gitignore</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> add README.md .gitignore</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"Initialize AI module repo"</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> remote add origin git@github.com:YOURNAME/aem7010-ai.git</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> push <span class="at">-u</span> origin main</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Replace <code>YOURNAME</code> with your GitHub handle. If the <code>git push</code> fails because SSH is not set up on this machine, use the HTTPS URL from the same quick-setup block on GitHub (<code>https://github.com/YOURNAME/aem7010-ai.git</code>) in place of the SSH URL.</p>
+<p>## RStudio</p>
+<p><strong>File → New Project → New Directory → New Project.</strong> Name <code>aem7010-ai</code>, parent <code>~/github/</code>, tick <strong>Create a git repository</strong>. In the Files pane, create <code>README.md</code> and <code>.gitignore</code> with the content shown in the Terminal tab. Stage and commit from the Git pane. Then open <strong>Tools → Terminal → New Terminal</strong> and run the <code>git remote add</code> and <code>git push -u origin main</code> lines.</p>
+<p>## VS Code</p>
+<p>Open <code>~/github/</code> as a folder. New folder <code>aem7010-ai</code>, then open it as a workspace. In the integrated terminal, run the commands from the Terminal tab.</p>
+<p>:::</p>
+<p>Refresh the GitHub page. You should see <code>README.md</code> and <code>.gitignore</code>. If you cannot finish this before class, flag it in the first ten minutes Wednesday.</p></li>
+<li><p><strong>Bring a laptop with working R, RStudio, and Git.</strong> We confirmed the setup in Sessions 4 and 5.</p></li>
+<li><p><strong>Think about</strong> one research task in your own work that you would want an AI to do if it could see your files. Bring it to class. We will discuss these briefly in the opening block.</p></li>
 </ol>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">

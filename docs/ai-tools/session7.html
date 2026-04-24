@@ -23,6 +23,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -83,7 +118,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../ai-tools/session6.html">AI Tools</a></li><li class="breadcrumb-item"><a href="../ai-tools/session7.html">Session 7: AI in Research Practice</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../ai-tools/session6.html">AI Tools</a></li><li class="breadcrumb-item"><a href="../ai-tools/session7.html">Session 7: AI Tools II (Cowork)</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -447,7 +482,103 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../ai-tools/session7.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Session 7: AI in Research Practice</span></a>
+ <span class="menu-text">Session 7: AI Tools II (Cowork)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai-tools/session7.html#where-we-are" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Where we are</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai-tools/session7.html#recap-and-safety" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Recap and safety brief</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai-tools/session7.html#cowork-as-a-category" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Cowork as a category</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai-tools/session7.html#guided-scrape" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Guided scrape: Dyson placements</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai-tools/session7.html#prompt-handout" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">— Prompt handout</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai-tools/session7.html#hands-on-exercise" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">— Hands-on exercise</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai-tools/session7.html#verification-checklist" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">— Verification checklist</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai-tools/session7.html#stress-test" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Stress test: add a field</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai-tools/session7.html#debrief" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Debrief</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai-tools/session7.html#for-monday" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">For Monday</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai-tools/session8.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Session 8: AI Tools III (Claude Code)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai-tools/session8.html#claude-code-intro" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Claude Code intro</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai-tools/session8.html#scaffold" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Scaffolding the scraper</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai-tools/session8.html#classification" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Classification: rules + LLM</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai-tools/session8.html#analysis" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Analysis and write-up</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai-tools/session8.html#synthesis" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Synthesis and course wrap</span></a>
   </div>
 </li>
       </ul>
@@ -461,10 +592,10 @@ ul.task-list li input[type="checkbox"] {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../ai-tools/session6.html">AI Tools</a></li><li class="breadcrumb-item"><a href="../ai-tools/session7.html">Session 7: AI in Research Practice</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../ai-tools/session6.html">AI Tools</a></li><li class="breadcrumb-item"><a href="../ai-tools/session7.html">Session 7: AI Tools II (Cowork)</a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title">Session 7: AI Tools II</h1>
-<p class="subtitle lead">Agentic AI on your desktop (Cowork)</p>
+<p class="subtitle lead">Agentic desktop AI (Cowork)</p>
 </div>
 
 
@@ -481,68 +612,488 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><strong>Slides for this session:</strong> <a href="../ai-tools/slides/session7.html">View the slide deck</a> (opens in your browser; press <code>F</code> for fullscreen). The slides are a lean anchor to the concepts below. The walkthrough on this page is the substantive material and the reference you will come back to.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><strong>Instructor pre-flight (the weekend before class).</strong> Open the <a href="https://dyson.cornell.edu/programs/graduate/placements/">Dyson placements page</a> in a browser and confirm it still renders the same 4-column PhD table. Run <code>ai-tools/scrape_dyson_cowork.R</code> from a fresh R session. Check that it produces a <code>data/placements_dyson.csv</code> with 80 or more rows. If the selector has broken, patch the XPath noted in the script header before class.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-warning">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><strong>Pre-class checklist.</strong> Two things from Session 6’s “For Wednesday” must be done before you walk in: (1) Cowork installed and signed in, (2) <code>~/github/aem7010-ai</code> created locally and pushed to GitHub. The first ten minutes of class are reserved for stragglers; if you are stuck, say so immediately.</p>
+</div>
+</div>
+</div>
+<section id="where-we-are" class="level2">
+<h2 class="anchored" data-anchor-id="where-we-are">Where we are in the course</h2>
+<p>Today builds directly on <a href="../ai-tools/session6.html">Session 6</a>. Same running exercise, same page, same verification reflex. What changes is the tool.</p>
+<p>In Session 6 we worked with chat. Chat is a probabilistic pattern-completer with a copy-paste interface. It has no access to your files and cannot run your code. You carried the context across the boundary yourself, pasting snippets in and scripts out. That friction forced Mode B by accident: the artifact you walked away with was always an R script, because there was nothing else chat could give you.</p>
+<p>Today we raise the ceiling. Cowork is the same underlying model, wrapped in an interface that can see a folder on your machine and run code in a sandboxed shell. A sandboxed shell is an isolated terminal the agent drives on its side. It can execute R, Python, and shell commands in the folder you granted, but nothing else on your computer is visible to it. Almost everything that was slow in Session 6 becomes fast. A new class of risks appears. The discipline that keeps you safe is the same discipline that kept you safe in Session 6.</p>
+<p>The comparison between chat and Cowork is the spine of this session. Keep Session 6 in mind as a reference point.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>This session is under development
+<span class="screen-reader-only">Note</span>These sessions assume Sessions 4 and 5
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>The detailed walkthrough will be added before <strong>April 29, 2026</strong>. The outline below mirrors the planned 75-minute structure. The running exercise (scraping the Cornell Dyson PhD placement page with Cowork) picks up from <a href="../ai-tools/session6.html">Session 6</a> and continues into <a href="session8.qmd">Session 8</a>.</p>
+<p>Every exercise starts with <code>git init</code> in a clean folder and ends with a <code>git commit</code>. Without Git, you cannot safely let an AI touch your working directory. Today that matters more than last week, because today the AI can actually touch it.</p>
 </div>
 </div>
+</section>
 <section id="recap-and-safety" class="level2">
-<h2 class="anchored" data-anchor-id="recap-and-safety">Recap and safety brief (~10 min)</h2>
-<ul>
-<li>Mode A vs Mode B, carried over from Session 6.</li>
-<li>What changes with Cowork: it can see your files, run code on your machine, and modify files on disk.</li>
-<li>Git is the safety net. Every exercise starts with a clean commit and ends with another.</li>
-<li>Cowork permissions walk-through: which folder is shared, how to see what the agent has done, how to stop a session.</li>
-<li>Three-minute setup check on the floor.</li>
-</ul>
+<h2 class="anchored" data-anchor-id="recap-and-safety">Recap and safety brief</h2>
+<section id="mode-a-vs-mode-b-one-more-time" class="level3">
+<h3 class="anchored" data-anchor-id="mode-a-vs-mode-b-one-more-time">Mode A vs Mode B, one more time</h3>
+<p>The single most important distinction from Session 6 carries straight into today. Write it down again if you have to.</p>
+<p><strong>Mode A: AI as runtime.</strong> You ask the AI to <em>do</em> the thing. The output is data. The reasoning lives inside the model.</p>
+<p><strong>Mode B: AI as code author.</strong> You ask the AI to <em>write code that does the thing</em>. The output is a script. The reasoning lives in the script, visible and rerunnable.</p>
+<p>Mode B is the reproducible path. Mode A almost never belongs in a paper.</p>
+<p>Chat forced Mode B by accident. Cowork does not. Cowork will happily run code for you and show you the result table without ever saving a script. That is the central temptation of this session. Every prompt we write today has Mode B baked in explicitly.</p>
+</section>
+<section id="what-changes-when-the-agent-can-reach-your-files" class="level3">
+<h3 class="anchored" data-anchor-id="what-changes-when-the-agent-can-reach-your-files">What changes when the agent can reach your files</h3>
+<p>Three capabilities shift all at once.</p>
+<p>First, <strong>file access.</strong> The agent sees the contents of whatever folder you grant it. It can read your data, your existing scripts, your notes, and your <code>.gitignore</code>. You no longer paste snippets in. You also no longer choose what it sees. Granting a folder is a trust decision.</p>
+<p>Second, <strong>code execution.</strong> The agent can run R, Python, and shell commands in a sandboxed process. It gets real output, real errors, real data frames. Its next suggestion can be informed by the actual shape of your data rather than a plausible guess.</p>
+<p>Third, <strong>on-disk modifications.</strong> The agent can create, edit, and delete files in the folder you granted. It will do this without asking each time, by design. If you told it to produce <code>scrape.R</code> and a <code>data/</code> subfolder, it will produce them. If it decides midway that it also needs to edit <code>.gitignore</code>, it will do that too.</p>
+<p>All three capabilities are upgrades. All three are also new surfaces for silent damage. The guardrail, as in Session 6, is Git.</p>
+</section>
+<section id="git-as-the-safety-net" class="level3">
+<h3 class="anchored" data-anchor-id="git-as-the-safety-net">Git as the safety net</h3>
+<p>Every Cowork session in this course follows the same skeleton.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Before the session</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ~/github/aem7010-ai</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> session7</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> session7</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> status            <span class="co"># should be clean</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># ... you run Cowork against the session7/ folder ...</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co"># After the session</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> status            <span class="co"># review every file Cowork created or changed</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> diff              <span class="co"># read every line of every change</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> add <span class="op">&lt;</span>files you want to keep<span class="op">&gt;</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"Session 7: &lt;what you did&gt;"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The point is not ceremony. The point is that <code>git status</code> and <code>git diff</code> are the only reliable audit trail of what Cowork actually did. The chat transcript will describe what it <em>claims</em> it did. Git will tell you what it <em>actually</em> did.</p>
+<p>If the two disagree, Git wins. This happens more often than you would expect.</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>Never point Cowork at a dirty working tree
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If <code>git status</code> is not clean before you start, commit or stash first. Otherwise you cannot tell which changes came from you and which came from the agent. This is the single most common mistake in the first week of using any agentic tool.</p>
+</div>
+</div>
+</section>
+<section id="dedicated-repo" class="level3">
+<h3 class="anchored" data-anchor-id="dedicated-repo">Confirm the AI-module repo</h3>
+<p>You created <code>~/github/aem7010-ai</code> as pre-class homework for today (Session 6’s “For Wednesday”). We spend 30 seconds confirming it works. Run these three checks:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ~/github/aem7010-ai</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span>                    <span class="co"># should show README.md and .gitignore</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> status            <span class="co"># should say "nothing to commit, working tree clean"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>If any of them fails, flag it now and use the shared troubleshooting block. Do not try to catch up silently.</p>
+</section>
+<section id="cowork-permissions-on-the-floor" class="level3">
+<h3 class="anchored" data-anchor-id="cowork-permissions-on-the-floor">Cowork permissions, on the floor</h3>
+<p>Now, with the repo confirmed, launch Cowork and grant it access to <code>~/github/aem7010-ai</code> (the whole repo, not a subfolder). Confirm three things:</p>
+<ol type="1">
+<li>You can see the folder path Cowork is working in.</li>
+<li>You can see the chat transcript side-by-side with the file tree.</li>
+<li>You can stop the agent mid-action if you need to, and the button to do that is something you have found before running the main exercise, not during it.</li>
+</ol>
+<p>If any of these are unclear, flag it now. The rest of the session assumes all three.</p>
+</section>
 </section>
 <section id="cowork-as-a-category" class="level2">
 <h2 class="anchored" data-anchor-id="cowork-as-a-category">Cowork as a category</h2>
+<section id="the-category-not-the-brand" class="level3">
+<h3 class="anchored" data-anchor-id="the-category-not-the-brand">The category, not the brand</h3>
+<p>Cowork is a current example of <strong>agentic desktop AI</strong>: a chat interface attached to a model that can see files on your computer and run code in a sandbox. The brand names rotate. At the time of writing they include Cowork, ChatGPT’s desktop integration, and Gemini in Google Workspace. In two years the list will look different. The category will not.</p>
+<p>What you should remember is the category profile, because that is what transfers.</p>
+</section>
+<section id="chat-and-cowork-side-by-side" class="level3">
+<h3 class="anchored" data-anchor-id="chat-and-cowork-side-by-side">Chat and Cowork, side by side</h3>
+<p>The clearest way to place Cowork is against the chat interface you used in Session 6. Same underlying model, different surface, different capabilities, different risks.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Dimension</th>
+<th>Chat (Session 6)</th>
+<th>Cowork (today)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>How context arrives</td>
+<td>You paste it in manually</td>
+<td>Automatic from the folder you grant</td>
+</tr>
+<tr class="even">
+<td>Can read your files?</td>
+<td>No</td>
+<td>Yes, any file in the folder</td>
+</tr>
+<tr class="odd">
+<td>Can run your code?</td>
+<td>No</td>
+<td>Yes, in a sandboxed shell</td>
+</tr>
+<tr class="even">
+<td>Can edit your files?</td>
+<td>No, you paste its output</td>
+<td>Yes, it creates and edits files directly</td>
+</tr>
+<tr class="odd">
+<td>Native surface</td>
+<td>Web browser</td>
+<td>Desktop app</td>
+</tr>
+<tr class="even">
+<td>What the model “knows”</td>
+<td>Only what you typed</td>
+<td>Full file contents, real data shapes, real errors</td>
+</tr>
+<tr class="odd">
+<td>Audit trail</td>
+<td>Your git commit of pasted code</td>
+<td>Your git diff of the folder it touched</td>
+</tr>
+<tr class="even">
+<td>Typical friction</td>
+<td>Copy-paste fatigue</td>
+<td>Permission dialogs, trust decisions</td>
+</tr>
+</tbody>
+</table>
+<p>Read the table as a set of trades. Capability goes up. Friction goes down. Risk goes up. A chat model cannot delete your thesis; Cowork can, if you grant it the wrong folder. Git is what turns that risk from catastrophic to annoying.</p>
+<p>The table also explains why the <em>same</em> research task feels so different in the two sessions. In Session 6 you spent most of your time pasting HTML snippets and comparing the model’s guess to the actual page. In Session 7 Cowork fetches the page itself. That shift is worth forty minutes on the clock. It is also worth new habits.</p>
+</section>
+<section id="what-cowork-is-good-at" class="level3">
+<h3 class="anchored" data-anchor-id="what-cowork-is-good-at">What Cowork is good at</h3>
+<p>Cowork is strong in four areas.</p>
 <ul>
-<li>What Cowork is: chat plus file access plus code execution.</li>
-<li>Current examples in the category: Cowork, ChatGPT with desktop integration, Gemini in Workspace. The category name (“agentic desktop AI”) matters more than the product name.</li>
-<li>The shift from chat: context becomes automatic, action happens in your environment, audit trail has three sources (session log, file changes, git diff).</li>
-<li>Mode B discipline still applies. The artifact is the R script, not the session.</li>
-<li>What Cowork is good at: multi-step tasks with intermediate state, debugging with full context, code that uses your actual data shape.</li>
-<li>What Cowork is bad at: anything that cannot be verified by reading the output, production pipelines, and work where the hidden reasoning ends up in your paper.</li>
+<li><strong>Exploratory data work.</strong> “Here is a CSV I just received. Describe the columns, show me the distribution of <code>placement</code>, flag any rows with missing <code>year</code>.” The agent runs the code, sees the output, and revises. This is genuinely fast.</li>
+<li><strong>Multi-step tasks with intermediate state.</strong> Scrape, clean, reshape, save, then plot. Each step can reference the real output of the previous step, not a plausible guess at what the previous step returned.</li>
+<li><strong>Debugging with full context.</strong> You can say “run <code>session7/scrape.R</code> and fix whatever error it throws.” The agent reads the file, runs it, sees the real error, and patches. Compare to chat, where you paste the error and hope the model guesses right.</li>
+<li><strong>Translating your intent into boilerplate.</strong> Project scaffolding, <code>.gitignore</code> entries, README drafts, <code>renv</code> setup. Boring work that the agent does at speed.</li>
 </ul>
+</section>
+<section id="what-cowork-is-bad-at" class="level3">
+<h3 class="anchored" data-anchor-id="what-cowork-is-bad-at">What Cowork is bad at</h3>
+<p>Cowork is a poor fit for four kinds of work.</p>
+<ul>
+<li><strong>Outputs you cannot sanity-check by eye.</strong> Example: “compute the elasticity of yield with respect to temperature in this panel.” A number appears. You cannot tell by looking whether it is correct. This covers most econometric estimates, which is to say, most research claims.</li>
+<li><strong>Tasks that must run unattended.</strong> Example: a nightly cron job that pulls USDA data at 3am. Cowork needs a human to grant permissions and watch for errors. It cannot run on a schedule.</li>
+<li><strong>Work whose reasoning must survive the session.</strong> Example: “classify these 200 placements as academic or non-academic” with only the output CSV saved. The rule that labelled each row is gone. You have data you cannot rerun, audit, or defend in a paper.</li>
+<li><strong>Anything where a confident-sounding hallucination would cost you.</strong> Example: Cowork cites an <code>rvest</code> function that does not exist, or a CSS selector it never tested. The answer looks authoritative either way. The committed code is yours; the agent is not on your author list.</li>
+</ul>
+</section>
+<section id="the-mode-b-discipline-ported" class="level3">
+<h3 class="anchored" data-anchor-id="the-mode-b-discipline-ported">The Mode B discipline, ported</h3>
+<p>Three rules carry from Session 6, with updated teeth now that the agent can act.</p>
+<ol type="1">
+<li><strong>Always ask for a script, never for a result.</strong> The handout on the next screen shows you how to phrase this.</li>
+<li><strong>Always run the script yourself, from a fresh R session.</strong> Not “Cowork tells me it ran clean.” You open RStudio, <code>source()</code> the file, watch it work.</li>
+<li><strong>Always commit the script, not the session log.</strong> Cowork session transcripts are not reproducible artifacts, just as chat transcripts were not.</li>
+</ol>
+</section>
 </section>
 <section id="guided-scrape" class="level2">
-<h2 class="anchored" data-anchor-id="guided-scrape">Guided scrape of Cornell Dyson placements (~30 min)</h2>
+<h2 class="anchored" data-anchor-id="guided-scrape">Guided scrape of Cornell Dyson placements</h2>
+<section id="the-task" class="level3">
+<h3 class="anchored" data-anchor-id="the-task">The task</h3>
+<p>We return to the Cornell Dyson PhD placements page, this time with Cowork. This is the same page the instructor demoed in Session 6, deliberately.</p>
+<p>Goal output: a CSV at <code>session7/data/placements_dyson.csv</code> with the following columns.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Column</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>name</code></td>
+<td>Sharan Banerjee</td>
+</tr>
+<tr class="even">
+<td><code>year</code></td>
+<td>2025</td>
+</tr>
+<tr class="odd">
+<td><code>placement</code></td>
+<td>Postdoctoral Fellow at KAPSARC School of Public Policy, Riyadh</td>
+</tr>
+<tr class="even">
+<td><code>source_url</code></td>
+<td><a href="https://dyson.cornell.edu/programs/graduate/placements/" class="uri">https://dyson.cornell.edu/programs/graduate/placements/</a></td>
+</tr>
+</tbody>
+</table>
+<p>A working script, a CSV of about 90 rows spanning 2015 to 2025, and a clean Git commit. That is the deliverable.</p>
+</section>
+<section id="live-demo-instructor" class="level3">
+<h3 class="anchored" data-anchor-id="live-demo-instructor">Live demo (instructor)</h3>
+<p>The instructor does the full pipeline on the projector first, so you see the rhythm before running it yourself. The demo is short.</p>
+<ol type="1">
+<li>Create a fresh <code>session7/</code> subfolder inside <code>aem7010-ai</code>. Confirm <code>git status</code> is clean.</li>
+<li>Open Cowork, grant it access to <code>aem7010-ai</code>.</li>
+<li>Paste the shared prompt (below).</li>
+<li>Watch Cowork write <code>scrape_dyson_cowork.R</code>, run it, and produce <code>data/placements_dyson.csv</code>.</li>
+<li>Run the verification checklist (below) on the result.</li>
+<li>Stage and commit the <code>.R</code> file and the CSV.</li>
+</ol>
+<p>Watch for the moments where Cowork wants to reply with a table instead of a script. That is the Mode A temptation. The prompt below is written to prevent it, but the agent will still drift if you are not watching.</p>
+</section>
+<section id="prompt-handout" class="level3">
+<h3 class="anchored" data-anchor-id="prompt-handout">Shared prompt handout</h3>
+<p>This is the exact text you paste into Cowork. Do not paraphrase. Mode B enforcement is load-bearing; the middle paragraph is doing most of the work.</p>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Prompt to paste into Cowork
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>I am working inside this folder. Please do the following.</p>
+<ol type="1">
+<li><p>Write an R script named <code>scrape_dyson_cowork.R</code> that scrapes the PhD placements table from <a href="https://dyson.cornell.edu/programs/graduate/placements/" class="uri">https://dyson.cornell.edu/programs/graduate/placements/</a>. The script should save a CSV at <code>data/placements_dyson.csv</code> with exactly these columns, in this order: <code>name</code>, <code>year</code>, <code>placement</code>, <code>source_url</code>. The <code>placement</code> column is the job title joined to the institution by the word “at”, like “Assistant Professor at University of Illinois Urbana-Champaign”. The <code>source_url</code> column is the URL above, repeated on every row.</p></li>
+<li><p>Use <code>rvest</code> and <code>readr</code>. Anchor your selector on the heading text “Recent PhD Job Placements” so the script is robust to changes in CSS class names. Drop any row in the table where all four cells are empty.</p></li>
+<li><p>The R script is the artifact I care about. Do not paste the scraped data into this chat. I will run the script myself from a fresh R session to verify it works. Include a one-line <code>message()</code> at the end reporting the number of rows written.</p></li>
+<li><p>After writing the script, run it once in the sandbox so we know it works. Report the row count and stop. Do not create any other files. Do not edit my <code>.gitignore</code>.</p></li>
+</ol>
+</div>
+</div>
+<p>Read the prompt before pasting. Note four things about it.</p>
 <ul>
-<li>Target: <a href="https://dyson.cornell.edu/programs/graduate/placements/">Cornell Dyson PhD placements page</a>.</li>
-<li>Goal output: <code>placements_dyson.csv</code> with columns <code>name</code>, <code>year</code>, <code>placement</code>, <code>source_url</code>.</li>
-<li>A shared prompt handout, including explicit Mode B enforcement.</li>
-<li>Instructor live demo first, then students repeat on their laptops.</li>
-<li>Verification checklist, repeated from Session 6.</li>
-<li>Commit point: everyone commits before moving on.</li>
+<li>The <strong>output schema is specified exactly.</strong> Column names, column order, separator word for the <code>placement</code> column. If you say “a CSV with the relevant info”, you will get something you did not want.</li>
+<li>The <strong>selector strategy is given.</strong> “Anchor on the heading text” is the same rule the fallback script follows. If you leave this out, Cowork picks a CSS class that may not survive the next page redesign.</li>
+<li>The <strong>artifact is declared.</strong> “The R script is the artifact I care about. Do not paste the data.” This is Mode B in one sentence.</li>
+<li>The <strong>scope is closed.</strong> “Do not create any other files. Do not edit my <code>.gitignore</code>.” Without this, Cowork sometimes adds a README, a <code>renv.lock</code>, or a helper script you did not ask for. Harmless most of the time, noisy in a git diff.</li>
 </ul>
+</section>
+<section id="hands-on-exercise" class="level3 exercise">
+<h3 class="exercise anchored" data-anchor-id="hands-on-exercise">Your turn (hands-on)</h3>
+<p><strong>Time: ~20 minutes.</strong> Work in a new <code>session7/</code> folder inside your <code>aem7010-ai</code> repo.</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Terminal</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">RStudio</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false" href="">VS Code</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ~/github/aem7010-ai</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> session7</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> session7</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> status</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>git status</code> should show <code>session7/</code> as an untracked directory. You will commit at the end.</p>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<p>Open <code>aem7010-ai</code> as an RStudio Project. In the <strong>Files</strong> pane, create a new <code>session7/</code> folder. You can do the git steps from the Git pane at the end, but open a Terminal tab (Tools → Terminal → New Terminal) for the <code>git status</code> check first.</p>
+</div>
+<div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
+<p>Open <code>~/github/aem7010-ai</code> in VS Code. Create <code>session7/</code> in the Explorer sidebar. Use the integrated terminal for <code>git status</code>.</p>
+</div>
+</div>
+</div>
+<p>Cowork already has access to <code>~/github/aem7010-ai</code> from the permissions step at the start of class. Paste the shared prompt. Let it run.</p>
+<p>When Cowork reports a row count, do not yet trust it. Move to the verification checklist.</p>
+</section>
+<section id="verification-checklist" class="level3">
+<h3 class="anchored" data-anchor-id="verification-checklist">Verification checklist</h3>
+<p>Five checks, in order. All five must pass before you commit. If any fails, fix it first.</p>
+<ol type="1">
+<li><strong>Does the script exist at <code>session7/scrape_dyson_cowork.R</code>?</strong> If Cowork named it differently, rename it. The name is part of the contract.</li>
+<li><strong>Does <code>Rscript scrape_dyson_cowork.R</code> run cleanly from the <code>session7/</code> folder?</strong> Open a fresh R session or a terminal. Do not trust “it ran in the sandbox”. Run it yourself.</li>
+<li><strong>Does <code>data/placements_dyson.csv</code> have 80 or more rows, and the four expected columns in the right order?</strong> Check with <code>readr::read_csv("data/placements_dyson.csv")</code> and <code>nrow()</code>, <code>names()</code>.</li>
+<li><strong>Pick three random rows and verify them against the live page.</strong> Open the browser, find the row, compare name, year, and the join of position-plus-institution. If any of the three is wrong, the scraper is wrong, even if the row count looks right.</li>
+<li><strong>Can you explain every line of the script?</strong> If a line uses a function you do not recognize, ask Cowork to explain it until you can restate what it does in your own words. Then decide whether to keep it.</li>
+</ol>
+<p>If a check fails, prompt Cowork to fix that specific failure. Do not accept a new full-rewrite response: ask for a patch.</p>
+</section>
+<section id="commit" class="level3">
+<h3 class="anchored" data-anchor-id="commit">Commit</h3>
+<p>When all five checks pass, commit.</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true" href="">Terminal</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false" href="">RStudio</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-3" role="tab" aria-controls="tabset-2-3" aria-selected="false" href="">VS Code</a></li></ul>
+<div class="tab-content">
+<div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ~/github/aem7010-ai/session7</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> add scrape_dyson_cowork.R data/placements_dyson.csv</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"Session 7: Cowork-drafted scraper for Dyson PhD placements"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
+<p>Git pane → tick the new <code>.R</code> file and the CSV → <strong>Commit</strong> → message “Session 7: Cowork-drafted scraper for Dyson PhD placements” → <strong>Commit</strong>.</p>
+</div>
+<div id="tabset-2-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-3-tab">
+<p>Source Control panel → stage both files → type the same message → <code>Cmd+Enter</code> (Mac) or <code>Ctrl+Enter</code> (Windows).</p>
+</div>
+</div>
+</div>
+<p>Do not push yet. We are going to modify the script in the next section and commit again.</p>
+</section>
 </section>
 <section id="stress-test" class="level2">
-<h2 class="anchored" data-anchor-id="stress-test">Stress test: add a field (~10 min)</h2>
+<h2 class="anchored" data-anchor-id="stress-test">Stress test: add a field</h2>
+<div class="callout callout-style-simple callout-note">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><strong>Time-boxed.</strong> This section is where the session absorbs slack. If the guided scrape ran clean, allow eight to ten minutes for the stress test. If it ran long, the instructor can shorten this to “name the three silent failure modes out loud” and move to the debrief.</p>
+</div>
+</div>
+</div>
+<section id="the-task-1" class="level3">
+<h3 class="anchored" data-anchor-id="the-task-1">The task</h3>
+<p>Pick one of the following and add it as a new column to the output CSV. Pick the one you find most interesting; the choice does not matter for the lesson.</p>
 <ul>
-<li>Ask Cowork to modify the working script to add one of: <code>is_postdoc</code>, <code>country</code>, or <code>placement_sector</code>.</li>
-<li>What to watch for: silent row loss, silent row gain, column reordering that breaks downstream code.</li>
-<li>Two students share what broke. Instructor writes the pattern on the board.</li>
+<li><code>is_postdoc</code>: a logical column that is <code>TRUE</code> when the position string contains the word “Postdoc” (case-insensitive) and <code>FALSE</code> otherwise.</li>
+<li><code>country</code>: a best-effort guess at the country of the institution, from the institution name. United States entries should say <code>"United States"</code>.</li>
+<li><code>placement_sector</code>: one of <code>"academic"</code>, <code>"government"</code>, <code>"industry"</code>, <code>"other"</code>, based on a short rule you write out explicitly in the script.</li>
+</ul>
+<p>Prompt Cowork with something close to:</p>
+<blockquote class="blockquote">
+<p>“Modify <code>scrape_dyson_cowork.R</code> to add a column <code>&lt;your choice&gt;</code> with the definition <your short="" definition="">. Keep the existing four columns in the same order; add the new one at the end. Rerun the script and report the row count. Do not paste the data.”</your></p>
+</blockquote>
+</section>
+<section id="what-to-watch-for" class="level3">
+<h3 class="anchored" data-anchor-id="what-to-watch-for">What to watch for</h3>
+<p>This is the point of the stress test. Two failure modes are common, and both are silent.</p>
+<ul>
+<li><strong>Silent row loss.</strong> A naive implementation of <code>country</code> might parse the institution string, throw on an unexpected pattern, and drop the row. The row count goes from 93 to 90 and nobody notices unless they are checking.</li>
+<li><strong>Silent row gain.</strong> If the agent rewrites the parsing logic, it might stop filtering out the header or the blank spacer row. Your row count goes up by two. Spot-checking the tail of the CSV will catch this.</li>
+<li><strong>Silent column reordering.</strong> You asked for the new column at the end. The agent put it between <code>year</code> and <code>placement</code>. Downstream code that expected column 3 to be <code>placement</code> now reads the new column instead. This is the single most pernicious failure mode in agent-driven data work.</li>
+</ul>
+<p>Run the five-step verification checklist again. The row count matters more than it did before, because now you have a reference: whatever it was last time, it should be the same now. If it changed, justify why.</p>
+</section>
+<section id="two-volunteers-share" class="level3">
+<h3 class="anchored" data-anchor-id="two-volunteers-share">Two volunteers share</h3>
+<p>Two students project their modified script for about ninety seconds each. Focus:</p>
+<ul>
+<li>Which of the three failure modes did you see, if any?</li>
+<li>How did the verification checklist catch it, or how did it hide?</li>
+<li>Did your prompt enforce column order? If not, add that to the shared prompt handout in your own notes for next time.</li>
 </ul>
 </section>
+<section id="commit-again" class="level3">
+<h3 class="anchored" data-anchor-id="commit-again">Commit again</h3>
+<p>When the modified script passes verification, commit.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> add scrape_dyson_cowork.R data/placements_dyson.csv</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"Session 7: add &lt;column&gt; to Dyson placements scraper"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Two commits in one session is a healthy pattern. It gives you a clean diff between “works” and “works plus new field”, which is the shape of an actual research workflow.</p>
+</section>
+</section>
 <section id="debrief" class="level2">
-<h2 class="anchored" data-anchor-id="debrief">Debrief and preview of Session 8</h2>
-<ul>
-<li>What worked, what did not. Highlight verification catches.</li>
-<li>Why this was manageable: one page, one department, clean HTML.</li>
-<li>Why Session 8 will be different: four more departments, four more HTML structures, classification of each placement.</li>
-<li>Three-modes table, now with a lived experience for mode 2.</li>
-<li>For Monday: install Claude Code (instructions posted), push today’s repo to GitHub, think about which applied econ departments you would scrape if you could.</li>
-</ul>
+<h2 class="anchored" data-anchor-id="debrief">Debrief</h2>
+<section id="what-we-learned" class="level3">
+<h3 class="anchored" data-anchor-id="what-we-learned">What we learned</h3>
+<p>Cowork compresses a forty-minute chat-and-paste workflow into a three-minute interaction. The CSV on your disk is the same CSV you would have produced in Session 6 with chat and patience. The risks are different. Silent edits. Silent row loss. Silent column reordering. A chat transcript that says everything worked while the git diff tells a different story.</p>
+<p>The verification reflex does not change. Row count, spot-check against the live page, every line explainable, committed to the repo. You ran the reflex twice today. It should be a muscle by now.</p>
+</section>
+<section id="what-session-6-forced-what-cowork-allows" class="level3">
+<h3 class="anchored" data-anchor-id="what-session-6-forced-what-cowork-allows">What Session 6 forced, what Cowork allows</h3>
+<p>The central lesson of the module is not about a specific tool. It is about noticing when a tool’s constraints were protecting you, and replacing them with discipline when those constraints fall away.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Behavior</th>
+<th>In Session 6 (chat)</th>
+<th>In Session 7 (Cowork)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Running the script</td>
+<td>You had to, by pasting and executing</td>
+<td>The agent can, so you have to make yourself</td>
+</tr>
+<tr class="even">
+<td>Verifying the output</td>
+<td>You had to, the agent could not</td>
+<td>The agent reports a row count, so you have to insist</td>
+</tr>
+<tr class="odd">
+<td>Saving an artifact</td>
+<td>Only possible as a script, pasted in</td>
+<td>Possible as a script <em>or</em> as a displayed table; Mode B becomes your rule, not the tool’s</td>
+</tr>
+<tr class="even">
+<td>Editing files</td>
+<td>You, one paste at a time</td>
+<td>The agent, potentially many files at once, possibly silently</td>
+</tr>
+<tr class="odd">
+<td>Ending the session</td>
+<td>Clean by default, nothing to undo</td>
+<td>Requires <code>git diff</code> to know what happened</td>
+</tr>
+</tbody>
+</table>
+<p>Every row is a place where Session 6 protected you by being weak, and Session 7 requires you to be vigilant instead. That pattern generalizes. The more capable the tool, the more of the verification reflex you own directly.</p>
+</section>
+<section id="the-bottleneck-is-no-longer-typing" class="level3">
+<h3 class="anchored" data-anchor-id="the-bottleneck-is-no-longer-typing">The bottleneck is no longer typing</h3>
+<p>You saw today that the bottleneck is verification, and it always will be. Faster tools do not remove verification work. They move it closer to the end of the pipeline, where it is easier to skip. The Mode B discipline and the verification checklist are how you do not skip it.</p>
+</section>
+</section>
+<section id="for-monday" class="level2">
+<h2 class="anchored" data-anchor-id="for-monday">For Monday</h2>
+<ol type="1">
+<li><strong>Push today’s repo to GitHub</strong> so your Session 7 work is backed up. Session 5 covered the commands.</li>
+<li>Any install steps for the next tool will be posted on the course site by Saturday. Ten minutes of class will be reserved at the start of Monday for troubleshooting.</li>
+</ol>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Instructor fallback
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If Cowork misbehaves during the live demo, a working scraper lives at <code>ai-tools/scrape_dyson_cowork.R</code> in the course repo. It takes about 10 seconds to run and produces the same CSV. Use it as a reference or a literal drop-in if the demo derails.</p>
+</div>
+</div>
 
 
 </section>

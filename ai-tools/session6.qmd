@@ -216,13 +216,13 @@ Prepare a clean working directory inside your course Git repo.
 ## Terminal
 
 ```bash
-cd ~/github/aem7010-practical-skills-YOURNAME
+cd ~/github/my-research
 mkdir -p session6/data
 cd session6
 git status
 ```
 
-Replace `aem7010-practical-skills-YOURNAME` with the actual name of your course repo. `git status` should show `session6/` as an untracked directory. You will commit after you have something worth committing.
+Work inside your own research repo from Sessions 4-5 (`~/github/my-research` if you followed the Session 4 naming; substitute your actual folder name otherwise). On Wednesday we will spin up a separate repo for the agentic tools. `git status` should show `session6/` as an untracked directory. You will commit after you have something worth committing.
 
 ## RStudio
 
@@ -352,8 +352,46 @@ Today you used mode 1. Wednesday you use mode 2. Next Monday you use mode 3. Eac
 ## For Wednesday (Session 7) {#for-wednesday}
 
 1. **Install Cowork** if you do not already have it. Cowork is currently a feature of the Claude desktop app, in research preview. Download the desktop app, sign in, and enable Cowork mode. If you hit install issues we will troubleshoot in the first ten minutes of class.
-2. **Bring a laptop with working R, RStudio, and Git.** We confirmed the setup in Sessions 4 and 5.
-3. **Think about** one research task in your own work that you would want an AI to do if it could see your files. Bring it to class. We will discuss these briefly in the opening block.
+
+2. **Create a dedicated repo for the AI module.** The Cowork and Claude Code exercises go into a separate repo, `aem7010-ai`, kept apart from your `my-research` repo so the agent's file access stays narrow. Do this before class; it takes about five minutes and saves class time.
+
+    **On GitHub.** Go to <https://github.com/new>. Name: `aem7010-ai`. Public. Leave "Add a README", "Add .gitignore", and "Choose a license" unchecked. Click **Create repository**. Copy the SSH URL from the quick-setup block.
+
+    **On your laptop.**
+
+    ::: {.panel-tabset}
+
+    ## Terminal
+
+    ```bash
+    cd ~/github
+    mkdir aem7010-ai && cd aem7010-ai
+    git init -b main
+    echo "# AEM 7010 AI module" > README.md
+    printf ".Rhistory\n.RData\n.Ruserdata\n.Rproj.user/\n.DS_Store\n" > .gitignore
+    git add README.md .gitignore
+    git commit -m "Initialize AI module repo"
+    git remote add origin git@github.com:YOURNAME/aem7010-ai.git
+    git push -u origin main
+    ```
+
+    Replace `YOURNAME` with your GitHub handle. If the `git push` fails because SSH is not set up on this machine, use the HTTPS URL from the same quick-setup block on GitHub (`https://github.com/YOURNAME/aem7010-ai.git`) in place of the SSH URL.
+
+    ## RStudio
+
+    **File → New Project → New Directory → New Project.** Name `aem7010-ai`, parent `~/github/`, tick **Create a git repository**. In the Files pane, create `README.md` and `.gitignore` with the content shown in the Terminal tab. Stage and commit from the Git pane. Then open **Tools → Terminal → New Terminal** and run the `git remote add` and `git push -u origin main` lines.
+
+    ## VS Code
+
+    Open `~/github/` as a folder. New folder `aem7010-ai`, then open it as a workspace. In the integrated terminal, run the commands from the Terminal tab.
+
+    :::
+
+    Refresh the GitHub page. You should see `README.md` and `.gitignore`. If you cannot finish this before class, flag it in the first ten minutes Wednesday.
+
+3. **Bring a laptop with working R, RStudio, and Git.** We confirmed the setup in Sessions 4 and 5.
+
+4. **Think about** one research task in your own work that you would want an AI to do if it could see your files. Bring it to class. We will discuss these briefly in the opening block.
 
 ::: {.callout-note}
 ## Reading that is useful but optional

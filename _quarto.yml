@@ -122,16 +122,26 @@ website:
             href: ai-tools/session6.qmd#for-wednesday
           - text: "Session 7: AI Tools II (Cowork)"
             href: ai-tools/session7.qmd
+          - text: "Where we are"
+            href: ai-tools/session7.qmd#where-we-are
           - text: "Recap and safety brief"
             href: ai-tools/session7.qmd#recap-and-safety
           - text: "Cowork as a category"
             href: ai-tools/session7.qmd#cowork-as-a-category
           - text: "Guided scrape: Dyson placements"
             href: ai-tools/session7.qmd#guided-scrape
+          - text: "— Prompt handout"
+            href: ai-tools/session7.qmd#prompt-handout
+          - text: "— Hands-on exercise"
+            href: ai-tools/session7.qmd#hands-on-exercise
+          - text: "— Verification checklist"
+            href: ai-tools/session7.qmd#verification-checklist
           - text: "Stress test: add a field"
             href: ai-tools/session7.qmd#stress-test
           - text: "Debrief"
             href: ai-tools/session7.qmd#debrief
+          - text: "For Monday"
+            href: ai-tools/session7.qmd#for-monday
           - text: "Session 8: AI Tools III (Claude Code)"
             href: ai-tools/session8.qmd
           - text: "Claude Code intro"

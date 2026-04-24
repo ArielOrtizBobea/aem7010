@@ -1,0 +1,233 @@
+---
+title: "Session 6: AI Tools I"
+subtitle: "How LLMs work, and the limits of chat"
+author: "Prof. Ariel Ortiz-Bobea"
+date: "April 27, 2026"
+format:
+  revealjs:
+    theme: [default, ../../slides-theme.scss]
+    slide-number: c/t
+    width: 1280
+    height: 720
+    chalkboard: false
+    incremental: false
+    transition: fade
+    transition-speed: fast
+    progress: true
+    controls: true
+    menu:
+      side: left
+    include-after-body: ../../slides-progress.html
+---
+
+## Where We Are in the Course
+
+[§ Tutorial: Where we are in the course]{.anchor-tag}
+
+Sessions 4 and 5 gave you Git. Sessions 6, 7, and 8 give you AI.
+
+- **Today (Session 6): chat.** Claude.ai, ChatGPT, Gemini. Build the mental model. Feel the ceiling.
+- **Wednesday (Session 7): agentic desktop AI.** Cowork. The agent sees your files.
+- **Next Monday (Session 8): code-native agents.** Claude Code. Terminal-native, git-aware.
+
+Three tools, three sessions, one framework. The discipline is the same across all three.
+
+::: {.note-box}
+These sessions assume Sessions 4 and 5. Every exercise starts with `git init` and ends with `git commit`.
+:::
+
+## A Mental Model of LLMs
+
+[§ Tutorial: A mental model of LLMs]{.anchor-tag}
+
+You will use these tools for the rest of your research life. You do not need the math. You need four facts.
+
+1. They **predict the next token**.
+2. They **generate, they do not retrieve**.
+3. They are **non-deterministic**.
+4. The **context window is finite**.
+
+Each fact has a consequence for research.
+
+## Fact 1: They Predict the Next Token {.smaller}
+
+[§ Tutorial: Fact 1]{.anchor-tag}
+
+Your phone guesses the next word. A large language model does the same thing, at scale. Text in, next token out, loop until stop.
+
+- A **token** is a chunk of text. "the" is one token. "understanding" is usually three.
+- The model outputs a probability distribution over the next token. Samples one. Appends. Repeats.
+- The training gives patterns that *look like* reasoning. At heart: pattern completion.
+
+::: {.note-box}
+**Research implication.** Plausible continuations are useful for prose, common-pattern code, explanations. They are risky for numbers, citations, and statistical claims. Plausible is not the same as correct.
+:::
+
+## Fact 2: They Generate, They Do Not Retrieve {.smaller}
+
+[§ Tutorial: Fact 2]{.anchor-tag}
+
+A chat interface is not a database. Asked for a citation, it **generates a string that looks like a citation**, token by token.
+
+- *Mata v. Avianca* (2023): two NY attorneys filed a brief with six fabricated case citations from ChatGPT. Sanctioned.
+- Economics has its own version. Ask for a literature summary, paste the citations into Scholar, a nontrivial fraction will not exist.
+- This is the architecture working as designed. It is not a bug.
+
+::: {.note-box}
+**Rule of thumb.** If an AI gives you a citation, verify it before you use it. Paste the title into Scholar. Check the DOI. Read the paper.
+:::
+
+## Fact 3: They Are Non-Deterministic {.smaller}
+
+[§ Tutorial: Fact 3]{.anchor-tag}
+
+The model samples from a probability distribution. **Temperature** scales the distribution.
+
+- **Temperature 0:** most likely token every time. Still not bit-for-bit reproducible across calls.
+- **Temperature ~1:** the default for chat products. Varied but coherent.
+- **Temperature > 1.5:** often incoherent.
+
+Where it is exposed:
+
+- **Chat web apps** (Claude.ai, ChatGPT, Gemini): locked near 1 by the product. Not user-adjustable.
+- **APIs and consoles** (Anthropic, OpenAI, Google AI Studio): exposed as a parameter.
+
+Two students, same prompt, same tool, same minute → different outputs. We will see this live in class.
+
+::: {.note-box}
+**A chat transcript is not a replication artifact.** You cannot rerun it. Even five minutes later. Even by yourself.
+:::
+
+## Fact 4: The Context Window Is Finite {.smaller}
+
+[§ Tutorial: Fact 4]{.anchor-tag}
+
+Everything the model "sees" lives in its **context window**: your prompts, its replies, any files pasted in.
+
+- The window has a hard size limit.
+- When you fill it, the **oldest content falls out silently**. No warning.
+- Long conversations degrade: the model "forgets" the framing you set at the start.
+
+::: {.note-box}
+**Three implications.** (1) Verify everything probabilistic. (2) Summarize long sessions and restart. (3) What you cannot verify, you cannot cite. The strictest rule of the module.
+:::
+
+## Chat as a Category {.smaller}
+
+[§ Tutorial: Chat as a category]{.anchor-tag}
+
+Brand names rotate. Category persists: turn-based conversation, copy-paste workflow.
+
+**Good at:**
+
+- Drafting prose and pseudocode
+- Explaining concepts at your level
+- Translating code between languages
+- Explaining error messages
+
+**Bad at:**
+
+- Running code (cannot)
+- Seeing your files (cannot, unless pasted)
+- Remembering across sessions (does not)
+- Knowing what it does not know (tone of certainty is the same either way)
+
+## Mode A vs Mode B
+
+[§ Tutorial: Mode A vs Mode B]{.anchor-tag}
+
+**The single most important distinction in the module.** Write it down.
+
+::: {.three-areas}
+::: {.area}
+**Mode A**<br>AI as runtime<br>*"Do the thing."*<br>Output: data<br>Reasoning: hidden
+:::
+::: {.arrow}
+vs
+:::
+::: {.area}
+**Mode B**<br>AI as code author<br>*"Write code that does the thing."*<br>Output: script<br>Reasoning: visible
+:::
+:::
+
+Mode A is faster. Mode A is almost always wrong for research.
+
+::: {.note-box}
+**The reproducible artifact is always code.** A chat transcript is not a method. An R script your co-author can run is.
+:::
+
+## Live Demo: Chat Writes a Scraper
+
+[§ Tutorial: Live demo]{.anchor-tag}
+
+We do the Cornell Dyson PhD placements page on the projector. Three failure modes any of which will surface:
+
+- **Wrong selector.** Script runs. CSV is silently wrong.
+- **Hallucinated function argument.** Script errors out. Easiest kind of failure.
+- **Fabricated citation in the preamble.** Looks plausible. Is not real.
+
+The tool's confidence is **not** evidence of correctness.
+
+::: {.tutorial-cue}
+⟶ Switch to the tutorial for the live demo on the projector (~10 min). You will see one of these three happen in real time.
+:::
+
+## The Verification Reflex
+
+[§ Tutorial: The verification reflex]{.anchor-tag}
+
+Five checks, every time. The habit that recurs in every session.
+
+1. Does the script run end-to-end without errors?
+2. Does the row count match the live page?
+3. Can you explain every line?
+4. Is the `.R` file committed?
+5. Is the output either committed or explicitly gitignored?
+
+If any fails, do not commit until it passes.
+
+## Hands-On: Scrape With Chat (~20 min)
+
+[§ Tutorial: Hands-on exercise]{.anchor-tag}
+
+You each pick a **different department's** placement page. Cornell Dyson is reserved for Wednesday.
+
+- Berkeley ARE, Davis ARE, Minnesota APEC, Wisconsin AAE
+- Maryland AREC, MSU AFRE, Purdue Ag Econ
+
+Three rules:
+
+- The artifact is the `.R` script. Not pasted data.
+- You can explain every line.
+- Commit your work before leaving, even if it does not run. A committed failure is research evidence.
+
+::: {.tutorial-cue}
+⟶ Switch to the tutorial: **Hands-on exercise** (~20 min). Claim a department. Write the script. Run the verification reflex. Commit.
+:::
+
+## Gallery and Debrief
+
+[§ Tutorial: Gallery · Debrief]{.anchor-tag}
+
+Two or three volunteers project their work (~5 min total). Focus:
+
+- Which prompt style worked?
+- What did the verification reflex catch?
+- Where did chat hit a ceiling?
+
+**The ceiling of chat:** you pasted HTML in, you pasted scripts out. That friction cost time and cost errors. The next two sessions lift that ceiling. Same discipline, more power.
+
+## What's Next
+
+**Wednesday (Session 7): Cowork.** Same model, new interface. The agent sees your files and runs code.
+
+**Before Wednesday, four things:**
+
+1. **Install Cowork** (Claude desktop app, research preview).
+2. **Create `aem7010-ai`** — a dedicated repo for the AI module. Full setup block is in the tutorial's "For Wednesday" section. Takes five minutes.
+3. Bring a laptop with R, RStudio, and Git.
+4. Think of one research task you would want an AI to do if it could see your files.
+
+::: {.note-box}
+Full walkthrough with copy-paste commands on the companion site: [arielortizbobea.github.io/aem7010-practical-skills](https://arielortizbobea.github.io/aem7010-practical-skills/)
+:::
