@@ -1,0 +1,6 @@
+placement,model,date_run,raw_response,label
+"Assistant Professor at University of Illinois Urbana-Champaign",claude-haiku-4-5-20251001,2026-01-01,"academic",academic
+"Postdoctoral Fellow at NBER",claude-haiku-4-5-20251001,2026-01-01,"academic",academic
+"Research Economist at Federal Reserve Bank of Kansas City",claude-haiku-4-5-20251001,2026-01-01,"government",government
+"Data Scientist at Uber",claude-haiku-4-5-20251001,2026-01-01,"industry",industry
+"Senior Economist at the World Bank",claude-haiku-4-5-20251001,2026-01-01,"government",government

@@ -175,16 +175,58 @@ website:
             href: ai-tools/session7.qmd#for-monday
           - text: "Session 8: AI Tools III (Claude Code)"
             href: ai-tools/session8.qmd
-          - text: "Claude Code intro"
-            href: ai-tools/session8.qmd#claude-code-intro
-          - text: "Scaffolding the scraper"
-            href: ai-tools/session8.qmd#scaffold
-          - text: "Classification: rules + LLM"
-            href: ai-tools/session8.qmd#classification
-          - text: "Analysis and write-up"
-            href: ai-tools/session8.qmd#analysis
-          - text: "Synthesis and course wrap"
-            href: ai-tools/session8.qmd#synthesis
+          - text: "Where we are"
+            href: ai-tools/session8.qmd#where-we-are
+          - text: "Recap and the third rung"
+            href: ai-tools/session8.qmd#recap
+          - text: "Claude Code as a category"
+            href: ai-tools/session8.qmd#claude-code-as-a-category
+          - text: "— Examples: which tool?"
+            href: ai-tools/session8.qmd#which-tool-examples
+          - text: "Today's arc"
+            href: ai-tools/session8.qmd#todays-arc
+          - text: "Setup and first run"
+            href: ai-tools/session8.qmd#setup-and-first-run
+          - text: "Author CLAUDE.md"
+            href: ai-tools/session8.qmd#author-claude-md
+          - text: "Scale to five departments"
+            href: ai-tools/session8.qmd#scale-to-five
+          - text: "— Scrape prompt"
+            href: ai-tools/session8.qmd#scrape-prompt
+          - text: "— Hands-on exercise"
+            href: ai-tools/session8.qmd#scrape-exercise
+          - text: "— Verification checklist"
+            href: ai-tools/session8.qmd#scrape-verification
+          - text: "Commit & push #1"
+            href: ai-tools/session8.qmd#commit-and-push-1
+          - text: "LLM classifier"
+            href: ai-tools/session8.qmd#llm-classifier
+          - text: "— Classifier prompt"
+            href: ai-tools/session8.qmd#classify-prompt
+          - text: "— Hands-on exercise"
+            href: ai-tools/session8.qmd#classify-exercise
+          - text: "— Verification checklist"
+            href: ai-tools/session8.qmd#classify-verification
+          - text: "Commit & push #2"
+            href: ai-tools/session8.qmd#commit-and-push-2
+          - text: "Descriptive write-up"
+            href: ai-tools/session8.qmd#write-up
+          - text: "— output/ vs paper/"
+            href: ai-tools/session8.qmd#output-vs-paper
+          - text: "— Analysis prompt"
+            href: ai-tools/session8.qmd#analysis-prompt
+          - text: "— Hands-on exercise"
+            href: ai-tools/session8.qmd#analysis-exercise
+          - text: "Final commit and push"
+            href: ai-tools/session8.qmd#final-commit
+          - text: "Agents, templates, critics"
+            href: ai-tools/session8.qmd#agents-and-templates
+          - text: "— Live demo: fact-checker"
+            href: ai-tools/session8.qmd#agent-demo
+          - text: "Debrief"
+            href: ai-tools/session8.qmd#debrief
+          - text: "After class"
+            href: ai-tools/session8.qmd#after-class
   page-footer:
     left: "Prof. Ariel Ortiz-Bobea — Cornell Dyson School"
     right: "Built with [Quarto](https://quarto.org)"

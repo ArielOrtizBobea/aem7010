@@ -14,7 +14,7 @@ Session 7 is the middle of a three-session AI module. The whole module uses one 
 
 ## What lives in the repo
 
-Repo root: `/Users/ao332/github/aem7010-practical-skills/`. Quarto website, renders to `docs/`.
+Repo root: `/Users/ao332/github/aem7010/`. Quarto website, renders to `docs/`.
 
 - `ai-tools/session6.qmd` — full Session 6 tutorial companion. Read this first. Session 7 should match its tone and structure.
 - `ai-tools/session7.qmd` — current **stub** with five anchored sections: `#recap-and-safety`, `#cowork-as-a-category`, `#guided-scrape`, `#stress-test`, `#debrief`. These are the headings to fill in.

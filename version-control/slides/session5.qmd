@@ -205,5 +205,5 @@ Today: GitHub as remote. Cloning, pushing, pulling, branches, merge conflicts, t
 - Make sure your GitHub account is set up and SSH works; we will use it extensively in sessions 6–7.
 
 ::: {.note-box}
-Companion site with copy-paste commands and the full walkthrough: [arielortizbobea.github.io/aem7010-practical-skills](https://arielortizbobea.github.io/aem7010-practical-skills/)
+Companion site with copy-paste commands and the full walkthrough: [arielortizbobea.github.io/aem7010](https://arielortizbobea.github.io/aem7010/)
 :::

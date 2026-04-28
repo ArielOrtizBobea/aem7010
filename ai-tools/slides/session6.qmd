@@ -229,5 +229,5 @@ Two or three volunteers project their work (~5 min total). Focus:
 4. Think of one research task you would want an AI to do if it could see your files.
 
 ::: {.note-box}
-Full walkthrough with copy-paste commands on the companion site: [arielortizbobea.github.io/aem7010-practical-skills](https://arielortizbobea.github.io/aem7010-practical-skills/)
+Full walkthrough with copy-paste commands on the companion site: [arielortizbobea.github.io/aem7010](https://arielortizbobea.github.io/aem7010/)
 :::

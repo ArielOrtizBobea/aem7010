@@ -340,11 +340,12 @@ The other lesson, every week. Notice when a tool's constraints were protecting y
 
 **For Monday:**
 
-1. Your `aem7010-ai` repo on GitHub is your Session 7 deliverable. Confirm at least two commits are visible.
-2. Install steps for Claude Code will be posted on the course site by Saturday. Ten minutes at the start of Monday for troubleshooting.
+1. Confirm two commits visible on `github.com/<your-handle>/aem7010-ai`.
+2. **Install Claude Code.** `npm install -g @anthropic-ai/claude-code`, then `claude --version`. Full guide at <https://docs.claude.com/en/docs/claude-code/setup>. Free Claude account required.
+3. Have the `aem7010-ai` repo open in a terminal at the repo root before class.
 
 ::: {.note-box}
 **The bottleneck is no longer typing. It is verification.**
 :::
 
-Companion site: [arielortizbobea.github.io/aem7010-practical-skills](https://arielortizbobea.github.io/aem7010-practical-skills/)
+Companion site: [arielortizbobea.github.io/aem7010](https://arielortizbobea.github.io/aem7010/)

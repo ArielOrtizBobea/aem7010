@@ -571,7 +571,15 @@ The bottleneck is verification, and it always will be. Faster tools do not remov
 ## For Monday {#for-monday}
 
 1. Your `aem7010-ai` repo on GitHub is your Session 7 deliverable. Confirm at least two commits are visible at `github.com/<your-handle>/aem7010-ai`.
-2. Any install steps for the next tool (Claude Code) will be posted on the course site by Saturday. Ten minutes of class will be reserved at the start of Monday for troubleshooting.
+2. **Install Claude Code before class.** Follow the official install guide at <https://docs.claude.com/en/docs/claude-code/setup> for your operating system. On macOS the simplest path is:
+
+   ```bash
+   npm install -g @anthropic-ai/claude-code
+   claude --version
+   ```
+
+   You will need a Claude account (free signup at <https://claude.com>). The in-class exercises will not require a paid plan. Bring any install errors to the first ten minutes of class on Monday; that time is reserved for troubleshooting.
+3. **Open the `aem7010-ai` repo in your terminal at the repo root.** That is the directory Claude Code will operate in on Monday. Confirm `git status` is clean before you arrive.
 
 ::: {.callout-note}
 ## Instructor fallback

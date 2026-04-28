@@ -166,4 +166,4 @@ Today: Git on your own laptop. Commits, staging, undoing mistakes, ignoring file
 Before Wednesday: create a free GitHub account at [github.com](https://github.com) if you have not already. **Questions now?**
 :::
 
-The full walkthrough with copy-paste commands, screenshots, and RStudio / VS Code equivalents is on the companion site: [arielortizbobea.github.io/aem7010-practical-skills](https://arielortizbobea.github.io/aem7010-practical-skills/)
+The full walkthrough with copy-paste commands, screenshots, and RStudio / VS Code equivalents is on the companion site: [arielortizbobea.github.io/aem7010](https://arielortizbobea.github.io/aem7010/)
