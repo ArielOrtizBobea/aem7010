@@ -1,6 +1,6 @@
 ---
 title: "Session 7: AI Tools II"
-subtitle: "Agentic desktop AI (Cowork)"
+subtitle: "Agentic desktop AI (Cowork): from empty folder to GitHub"
 author: "Prof. Ariel Ortiz-Bobea"
 date: "April 29, 2026"
 format:
@@ -24,15 +24,16 @@ format:
 
 [§ Tutorial: Pre-class checklist]{.anchor-tag}
 
-Two things from Session 6's "For Wednesday" must be done:
+One thing only:
 
 - **Cowork installed and signed in.**
-- **`~/github/aem7010-ai` created locally and pushed to GitHub.**
 
-The first ten minutes of class are for stragglers. If you are stuck, say so immediately. Do not try to catch up silently.
+We start from an empty folder today. Nothing to clone, nothing to push ahead of time.
+
+The first ten minutes of class are for stragglers. If Cowork is not installed, say so immediately.
 
 ::: {.note-box}
-Setup block is in the Session 6 tutorial, "For Wednesday" → item 2. Five-minute job.
+VS Code is our IDE today. If you have not used it for Git yet, the Source Control panel is the third icon on the left sidebar.
 :::
 
 ## Quick Recap: Session 6
@@ -46,7 +47,7 @@ Session 6: **chat**. Probabilistic pattern-completer, copy-paste interface. No f
 - **Mode A:** AI *does* the thing. Output is data. Reasoning hidden. → Almost always wrong for research.
 - **Mode B:** AI *writes code that does* the thing. Output is a script. Reasoning visible. → The reproducible path.
 
-Chat forced Mode B by accident. **Cowork does not.** Every prompt we write today bakes Mode B in explicitly.
+Chat forced Mode B by accident. **Cowork does not.** Every prompt today bakes Mode B in explicitly.
 
 ## What Changes When the Agent Can Reach Your Files {.smaller}
 
@@ -55,58 +56,13 @@ Chat forced Mode B by accident. **Cowork does not.** Every prompt we write today
 Three capabilities shift at once.
 
 - **File access.** The agent sees every file in the folder you grant. You no longer paste snippets. You no longer choose what it sees. Granting a folder is a trust decision.
-- **Code execution.** R, Python, shell, in a **sandboxed shell** — an isolated terminal on the agent's side, scoped to your folder.
+- **Code execution.** R, Python, shell, in a **sandboxed shell**: an isolated terminal on the agent's side, scoped to your folder.
 - **On-disk modifications.** The agent creates, edits, and deletes files. Without asking each time, by design.
 
 All three are upgrades. All three are new surfaces for silent damage.
 
 ::: {.note-box}
 **The guardrail is Git.** `git status` and `git diff` are your only reliable audit trail of what the agent actually did.
-:::
-
-## Git as the Safety Net
-
-[§ Tutorial: Git as the safety net]{.anchor-tag}
-
-Every Cowork session in this course follows the same skeleton:
-
-```bash
-# Before
-cd ~/github/aem7010-ai
-mkdir -p session7 && cd session7
-git status            # clean
-
-# ... you run Cowork ...
-
-# After
-git status            # review what it touched
-git diff              # read every line
-git add <files to keep>
-git commit -m "Session 7: <what you did>"
-```
-
-The chat transcript describes what Cowork **claims** it did. Git tells you what it **actually** did. If they disagree, Git wins.
-
-## Confirm the Repo, Grant Permissions
-
-[§ Tutorial: Confirm repo · Cowork permissions]{.anchor-tag}
-
-**30-second check** that last Monday's setup held:
-
-```bash
-cd ~/github/aem7010-ai
-ls                    # README.md, .gitignore
-git status            # clean
-```
-
-**Then, Cowork on the floor.** Launch it. Grant access to `~/github/aem7010-ai`. Confirm three things:
-
-1. You can see the folder path in Cowork's UI.
-2. You can see the chat transcript beside the file tree.
-3. You have found the **stop** button *before* you need it.
-
-::: {.tutorial-cue}
-⟶ Switch to the tutorial: **Confirm the AI-module repo** and **Cowork permissions, on the floor** (~5 min).
 :::
 
 ## Chat and Cowork, Side by Side {.smaller}
@@ -133,10 +89,10 @@ Capability goes up. Friction goes down. **Risk goes up.** Git turns that risk fr
 
 **Good:**
 
+- Bootstrapping projects (README, `.gitignore`, folder layout, `renv` setup)
 - Exploratory data work (real columns, real distributions)
 - Multi-step tasks with intermediate state (scrape → clean → plot)
 - Debugging with full context ("run this, fix the error")
-- Boilerplate (scaffolding, `.gitignore`, `renv` setup)
 
 **Bad:**
 
@@ -145,7 +101,95 @@ Capability goes up. Friction goes down. **Risk goes up.** Git turns that risk fr
 - Work whose reasoning must survive the session (classify 200 rows, save only the CSV → the rule is gone)
 - Anything where a confident-sounding hallucination would cost you (fake `rvest` functions, untested selectors)
 
-## The Shared Prompt
+## Today's Arc: GitHub Repo, Then Cowork {.smaller}
+
+[§ Tutorial: Today's arc]{.anchor-tag}
+
+With the framing in place, here is the arc for the next 75 minutes:
+
+1. **Create** the repo on github.com (README + R `.gitignore` template).
+2. **Clone** it locally in your terminal.
+3. **Open** in VS Code. **Grant** Cowork access. **Scaffold** the project (README + `.Rproj`).
+4. **Scrape.** Cowork writes `scrape_dyson_cowork.R`. Verify, commit, push.
+5. **Pipeline.** Cowork writes `pipeline_dyson.R`: parse, classify, plot, summarize. Verify, commit, push.
+6. **Stretch:** add Berkeley ARE for a cross-school comparison.
+
+First half feels like Session 6 at speed. Second half is something chat could not have finished.
+
+## Step 1: Create the Repo on github.com {.smaller}
+
+[§ Tutorial: Create the repo on GitHub]{.anchor-tag}
+
+In your browser, go to <https://github.com/new>. Fill in the form:
+
+- **Repository name:** `aem7010-ai`
+- **Description:** `Cowork and Claude Code exercises for AEM 7010`
+- **Public** or **Private**: pick one. Either is fine for this course.
+- **Add a README file:** ✅ check it.
+- **Add .gitignore:** select **R** from the dropdown.
+- **License:** None for now.
+
+Click **Create repository**. You land on `github.com/<your-handle>/aem7010-ai`.
+
+::: {.note-box}
+The repo exists online. Nothing exists locally yet. That asymmetry is the point: GitHub is the canonical source.
+:::
+
+::: {.tutorial-cue}
+⟶ Switch to the tutorial: **Create the repo on GitHub** (~2 min).
+:::
+
+## Step 2: Clone in Your Terminal {.smaller}
+
+[§ Tutorial: Clone in terminal]{.anchor-tag}
+
+On the repo page, click **Code** → copy the **SSH** URL (or HTTPS if you skipped Session 5's SSH setup).
+
+Open a terminal. Replace `<your-handle>` and run:
+
+```bash
+cd ~/github
+git clone git@github.com:<your-handle>/aem7010-ai.git
+cd aem7010-ai
+```
+
+Sanity check:
+
+```bash
+ls -la
+git status        # nothing to commit
+git log --oneline # one "Initial commit" from GitHub
+```
+
+::: {.note-box}
+HTTPS form, if SSH not set up: `git clone https://github.com/<your-handle>/aem7010-ai.git`
+:::
+
+## Step 3: Open in VS Code, Grant Cowork, Scaffold {.smaller}
+
+[§ Tutorial: Open in VS Code · Grant Cowork access]{.anchor-tag}
+
+**Open** the cloned folder in VS Code: File → Open Folder → `~/github/aem7010-ai`. Or from the terminal: `code .`.
+
+**Grant Cowork access** to that folder. Confirm three things:
+
+1. The folder path appears in Cowork's UI.
+2. The chat transcript sits beside the file tree.
+3. You found the **stop** button *before* you need it.
+
+**Paste the scaffolding prompt** (full text in the tutorial). It asks Cowork for two things: one paragraph appended to the README, and an `aem7010-ai.Rproj` file. No subfolders pre-created. Scripts will write into `code/`, `data/`, and `output/` as they need them: functional names, not session-numbered.
+
+::: {.note-box}
+**Why the `.Rproj`?** Double-click it and RStudio opens the repo with the working directory set to the repo root. Every relative path (`data/...`, `output/...`) resolves correctly without `setwd()`. Reproducibility, free.
+:::
+
+Then **commit and push**: stage, message "Add RStudio project and project description", commit, sync. Refresh github.com to confirm two commits exist.
+
+::: {.tutorial-cue}
+⟶ Switch to the tutorial: **Open in VS Code, grant Cowork access** (~5 min).
+:::
+
+## The Shared Scrape Prompt
 
 [§ Tutorial: Shared prompt handout]{.anchor-tag}
 
@@ -164,47 +208,121 @@ Mode B enforcement is load-bearing. Do not paraphrase the prompt.
 ⟶ Switch to the tutorial: **Shared prompt handout**. Read it before pasting.
 :::
 
-## Hands-On: Guided Scrape (~20 min)
+## Paste, Wait, Verify, Commit (~20 min)
 
-[§ Tutorial: Your turn (hands-on) · Verification checklist]{.anchor-tag}
+[§ Tutorial: Paste and wait · Verification checklist]{.anchor-tag}
 
-Paste the prompt. Let Cowork write `scrape_dyson_cowork.R`. Do **not** trust the row count it reports.
+Paste the prompt. Cowork writes `code/scrape_dyson_cowork.R` and produces `data/placements_dyson.csv`. Do **not** trust the row count it reports.
 
-**Five-step verification checklist** (all must pass before commit):
+**Five-step verification** (all must pass before commit):
 
-1. Script exists at `session7/scrape_dyson_cowork.R`?
-2. `Rscript scrape_dyson_cowork.R` runs cleanly from a fresh session?
-3. CSV has ≥ 80 rows and the 4 expected columns in the right order?
+1. Script at `code/scrape_dyson_cowork.R`?
+2. Open in RStudio (project open), Restart R + Source. Runs clean?
+3. CSV at `data/placements_dyson.csv` has ≥ 80 rows and the 4 columns in the right order?
 4. Three random rows match the live page?
 5. You can explain every line?
 
 If a check fails, ask Cowork for a **patch**, not a full rewrite.
 
+## Commit and Push From VS Code
+
+[§ Tutorial: Commit and push #1]{.anchor-tag}
+
+Source Control panel:
+
+1. Stage `code/scrape_dyson_cowork.R` and `data/placements_dyson.csv`.
+2. Commit message: "Session 7: Cowork-drafted scraper for Dyson PhD placements".
+3. **Commit** (the checkmark, or `Cmd+Enter`).
+4. **Sync Changes** (the cloud-with-arrow icon at the bottom).
+
+Open github.com/<your-handle>/aem7010-ai. **Refresh.** Commit and files visible? If not, you have not actually pushed. Stop and fix.
+
+## Build the Pipeline (~30 min) {.smaller}
+
+[§ Tutorial: Build the pipeline]{.anchor-tag}
+
+Where Session 7 goes beyond Session 6. The pipeline below is a small project that chat could not have finished in 75 minutes.
+
+`code/pipeline_dyson.R` reads the CSV from the scrape and does four things:
+
+1. **Parse.** Split `placement` into `position_title` and `institution` on " at ".
+2. **Classify.** Each row → `academic | government | industry | other` by keyword rules.
+3. **Plot.** Stacked bar of placements per year, colored by category, to `output/figures/placements_dyson_by_year.png`.
+4. **Summarize.** Auto-generate `output/findings_dyson.md` with totals, counts, year range, top institution.
+
+The CSV is the boundary. Either side can be rerun without the other.
+
+## The Pipeline Prompt
+
+[§ Tutorial: Shared pipeline prompt]{.anchor-tag}
+
+Same lockstep rhythm. Paste the full prompt from the tutorial. It specifies:
+
+- **Exact file paths.** `code/pipeline_dyson.R`, `output/figures/placements_dyson_by_year.png`, `output/findings_dyson.md`.
+- **Classification rules in order.** Academic first, then government, then industry, then other.
+- **Two `message()` reports.** Parsing failure count, then category counts. These are what you reconcile against `findings.md`.
+- **Scope closed.** Do not modify the scrape. Do not edit `.gitignore` or `README.md`.
+
 ::: {.tutorial-cue}
-⟶ Switch to the tutorial: **Your turn (hands-on)** (~20 min). Commit when all five checks pass.
+⟶ Switch to the tutorial: **The pipeline prompt**. Read before pasting.
 :::
 
-## Stress Test: Three Silent Failures {.smaller}
+## Pipeline Verification Checklist {.smaller}
 
-[§ Tutorial: Stress test]{.anchor-tag}
+[§ Tutorial: Verification checklist (pipeline)]{.anchor-tag}
 
-Add one column: `is_postdoc`, `country`, or `placement_sector`. Ask Cowork. Rerun. Verify **again**.
+Five checks. All must pass before the second commit.
 
-Three common silent failures:
+1. Open `pipeline_dyson.R` in RStudio (project open), Restart R + Source. Runs clean?
+2. Parsing failures + sum of category counts = total rows? (The numbers reconcile.)
+3. `output/figures/placements_dyson_by_year.png` exists and looks right?
+4. `output/findings_dyson.md` exists, and its numbers match the messages and the CSV?
+5. You can explain every line, including each classification rule?
 
-- **Silent row loss.** Parsing chokes on an unexpected pattern, drops rows. 93 → 90. Nobody notices.
-- **Silent row gain.** Agent rewrites parsing, stops filtering blank rows. 93 → 95.
-- **Silent column reordering.** You asked for the new column at the end. Agent put it in the middle. Downstream code that expected column 3 to be `placement` now reads the new column. **The most pernicious failure in agent-driven data work.**
+If a check fails, ask Cowork for a **patch on that specific failure**. Do not accept a full rewrite.
 
-::: {.note-box}
-**Time-boxed.** If the main exercise ran long, skip this slide's hands-on and just name the three failures out loud.
-:::
+## Second Commit, Second Push
 
-## What Session 6 Forced, What Cowork Allows {.smaller}
+[§ Tutorial: Commit and push #2]{.anchor-tag}
+
+Source Control panel:
+
+1. Stage `code/pipeline_dyson.R`, `output/figures/placements_dyson_by_year.png`, `output/findings_dyson.md`.
+2. Commit message: "Session 7: pipeline (parse, classify, plot, summarize)".
+3. **Commit.** **Sync Changes.** Refresh github.com.
+
+Click `findings.md` on github.com. It renders as a small report. The numbers came from the data, not from the agent's prose. That is the artifact.
+
+## Stretch: Cross-School Comparison {.smaller}
+
+[§ Tutorial: Stretch]{.anchor-tag}
+
+If you finish early:
+
+> "Cowork, scrape Berkeley ARE PhD placements into `data/placements_berkeley.csv` using the same column contract. Run the same pipeline on it. Produce `output/findings_comparison.md` with category counts side by side for Cornell and Berkeley."
+
+Two things to watch:
+
+- **Different page, different selectors.** Berkeley does not anchor on the same heading. Cowork needs a different selector strategy.
+- **Same pipeline, different inputs.** The classifier and plot helper are reusable. Refactor them out into a helper file. That is the Session 8 move; doing it once today makes Monday feel familiar.
+
+## Three Sessions, One Ladder {.smaller}
 
 [§ Tutorial: Debrief]{.anchor-tag}
 
-The central lesson of the module is not about a tool. It is about noticing when a tool's constraints were protecting you, and replacing them with discipline when they fall away.
+The module is not about three tools. It is one ladder. Each rung adds one new dimension.
+
+| Rung | Tool | Task scope | Pipeline depth | Workflow style |
+|---|---|---|---|---|
+| Session 6 | chat | one school, one script | scrape only | manual paste |
+| Session 7 (today) | Cowork | one school, **small project** | scrape + parse + classify + plot + summary | interactive, you watch |
+| Session 8 (Monday) | Claude Code | **five schools, study** | same pipeline shape | delegated, you review the diff |
+
+Today added pipeline depth. Monday adds scope and delegation. Your Session 7 code is the seed of Session 8.
+
+## What Session 6 Forced, What Cowork Allows {.smaller}
+
+The other lesson, every week. Notice when a tool's constraints were protecting you, and replace them with discipline when they fall away.
 
 | Behavior | Session 6 (chat) | Session 7 (Cowork) |
 |---|---|---|
@@ -218,15 +336,15 @@ The central lesson of the module is not about a tool. It is about noticing when 
 
 ## What's Next
 
-**Next Monday (Session 8): Claude Code.** Terminal-native agent, git-aware, scales to multi-file projects.
+**Next Monday (Session 8): Claude Code.** Terminal-native, git-aware, scales to many files. Replaces the keyword classifier with an LLM, scrapes five schools at once, produces a write-up.
 
 **For Monday:**
 
-1. **Push today's repo to GitHub** so your Session 7 work is backed up.
-2. Any install steps for Claude Code will be posted on the course site by Saturday. Ten minutes at the start of Monday for troubleshooting.
+1. Your `aem7010-ai` repo on GitHub is your Session 7 deliverable. Confirm at least two commits are visible.
+2. Install steps for Claude Code will be posted on the course site by Saturday. Ten minutes at the start of Monday for troubleshooting.
 
 ::: {.note-box}
-**The bottleneck is no longer typing. It is verification.** Faster tools do not remove verification work; they move it to the end of the pipeline, where it is easier to skip.
+**The bottleneck is no longer typing. It is verification.**
 :::
 
 Companion site: [arielortizbobea.github.io/aem7010-practical-skills](https://arielortizbobea.github.io/aem7010-practical-skills/)

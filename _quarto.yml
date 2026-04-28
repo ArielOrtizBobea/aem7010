@@ -5,6 +5,7 @@ project:
 website:
   title: "<span class='course-code'>AEM 7010</span><span class='course-title'>Practical Skills: Git, GitHub &amp; AI</span>"
   description: "AEM 7010: Doing Applied Economics Research. Practical Skills. Sessions 4–8."
+  favicon: images/favicon.ico
   sidebar:
     logo: images/cornell_seal_simple_web_b31b1b.svg
     title: "<span class='course-code'>AEM 7010</span><span class='course-title'>Practical Skills: Git, GitHub &amp; AI</span>"
@@ -138,6 +139,16 @@ website:
             href: ai-tools/session7.qmd#recap-and-safety
           - text: "Cowork as a category"
             href: ai-tools/session7.qmd#cowork-as-a-category
+          - text: "— Examples: which tool?"
+            href: ai-tools/session7.qmd#which-tool-examples
+          - text: "Today's arc"
+            href: ai-tools/session7.qmd#todays-arc
+          - text: "— 1. Create repo on GitHub"
+            href: ai-tools/session7.qmd#create-on-github
+          - text: "— 2. Clone in terminal"
+            href: ai-tools/session7.qmd#clone-in-terminal
+          - text: "— 3. Open in VS Code + Cowork"
+            href: ai-tools/session7.qmd#open-in-vscode
           - text: "Guided scrape: Dyson placements"
             href: ai-tools/session7.qmd#guided-scrape
           - text: "— Prompt handout"
@@ -146,8 +157,18 @@ website:
             href: ai-tools/session7.qmd#hands-on-exercise
           - text: "— Verification checklist"
             href: ai-tools/session7.qmd#verification-checklist
-          - text: "Stress test: add a field"
-            href: ai-tools/session7.qmd#stress-test
+          - text: "Commit & push #1"
+            href: ai-tools/session7.qmd#commit-and-push
+          - text: "Build the pipeline"
+            href: ai-tools/session7.qmd#build-the-pipeline
+          - text: "— Pipeline prompt"
+            href: ai-tools/session7.qmd#pipeline-prompt
+          - text: "— Pipeline verification"
+            href: ai-tools/session7.qmd#pipeline-verification
+          - text: "Commit & push #2"
+            href: ai-tools/session7.qmd#commit-and-push-again
+          - text: "Stretch: cross-school"
+            href: ai-tools/session7.qmd#stretch
           - text: "Debrief"
             href: ai-tools/session7.qmd#debrief
           - text: "For Monday"

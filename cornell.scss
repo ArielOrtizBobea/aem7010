@@ -179,6 +179,84 @@ img.sidebar-logo,
   font-size: 0.9rem;
 }
 
+// Pros/cons lists with check and cross markers in place of standard bullets.
+// Wrap the markdown list in `::: {.good-list} :::` or `::: {.bad-list} :::`.
+.good-list ul,
+.bad-list ul {
+  list-style: none;
+  padding-left: 0.5rem;
+  margin-top: 0.4rem;
+
+  li {
+    position: relative;
+    padding-left: 1.85rem;
+    margin-bottom: 0.55rem;
+    line-height: 1.55;
+
+    &::before {
+      position: absolute;
+      left: 0;
+      top: 0;
+      font-weight: 700;
+      font-size: 1.1rem;
+      line-height: 1.55;
+    }
+  }
+}
+
+.good-list ul li::before {
+  content: "\2713";       // ✓ check
+  color: #1f7a3a;         // forest green
+}
+
+.bad-list ul li::before {
+  content: "\2717";       // ✗ cross
+  color: $cornell-red;
+}
+
+// Tool-choice example cards. Mark each example with .chat or .cowork
+// to color the left accent and the recommendation tag.
+.example-card {
+  padding: 0.9rem 1.25rem;
+  margin: 1.5rem 0;
+  border-radius: 0 6px 6px 0;
+  background-color: #FAFAF7;
+  border-left: 4px solid $cornell-gray;
+
+  .tool-tag {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: white;
+    background-color: $cornell-gray;
+    padding: 0.18rem 0.6rem;
+    border-radius: 3px;
+    margin-bottom: 0.55rem;
+  }
+
+  h4 {
+    margin-top: 0.25rem;
+    margin-bottom: 0.55rem;
+    font-size: 1.05rem;
+    color: $ink;
+    border-bottom: none;
+  }
+
+  p:last-child { margin-bottom: 0.25rem; }
+}
+
+.example-card.chat {
+  border-left-color: #4a6b7c;
+  .tool-tag { background-color: #4a6b7c; }
+}
+
+.example-card.cowork {
+  border-left-color: $cornell-red;
+  .tool-tag { background-color: $cornell-red; }
+}
+
 // Parallel-view note: shows what an IDE displays at the same moment
 // as a Terminal command. Visually distinct from standard callouts.
 .editor-parallel {

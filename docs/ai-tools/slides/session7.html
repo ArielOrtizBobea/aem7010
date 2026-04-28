@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en"><head>
+<link href="../../images/favicon.ico" rel="icon">
 <script src="../../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../../site_libs/quarto-html/tabby.min.js"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
@@ -198,7 +199,7 @@
 
 <section id="title-slide" class="quarto-title-block center">
   <h1 class="title">Session 7: AI Tools II</h1>
-  <p class="subtitle">Agentic desktop AI (Cowork)</p>
+  <p class="subtitle">Agentic desktop AI (Cowork): from empty folder to GitHub</p>
 
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
@@ -213,14 +214,14 @@ Prof.&nbsp;Ariel Ortiz-Bobea
 <section id="pre-class-checklist" class="slide level2">
 <h2>Pre-Class Checklist</h2>
 <p><span class="anchor-tag">§ Tutorial: Pre-class checklist</span></p>
-<p>Two things from Session 6’s “For Wednesday” must be done:</p>
+<p>One thing only:</p>
 <ul>
 <li><strong>Cowork installed and signed in.</strong></li>
-<li><strong><code>~/github/aem7010-ai</code> created locally and pushed to GitHub.</strong></li>
 </ul>
-<p>The first ten minutes of class are for stragglers. If you are stuck, say so immediately. Do not try to catch up silently.</p>
+<p>We start from an empty folder today. Nothing to clone, nothing to push ahead of time.</p>
+<p>The first ten minutes of class are for stragglers. If Cowork is not installed, say so immediately.</p>
 <div class="note-box">
-<p>Setup block is in the Session 6 tutorial, “For Wednesday” → item 2. Five-minute job.</p>
+<p>VS Code is our IDE today. If you have not used it for Git yet, the Source Control panel is the third icon on the left sidebar.</p>
 </div>
 </section>
 <section id="quick-recap-session-6" class="slide level2">
@@ -232,7 +233,7 @@ Prof.&nbsp;Ariel Ortiz-Bobea
 <li><strong>Mode A:</strong> AI <em>does</em> the thing. Output is data. Reasoning hidden. → Almost always wrong for research.</li>
 <li><strong>Mode B:</strong> AI <em>writes code that does</em> the thing. Output is a script. Reasoning visible. → The reproducible path.</li>
 </ul>
-<p>Chat forced Mode B by accident. <strong>Cowork does not.</strong> Every prompt we write today bakes Mode B in explicitly.</p>
+<p>Chat forced Mode B by accident. <strong>Cowork does not.</strong> Every prompt today bakes Mode B in explicitly.</p>
 </section>
 <section id="what-changes-when-the-agent-can-reach-your-files" class="slide level2 smaller">
 <h2>What Changes When the Agent Can Reach Your Files</h2>
@@ -240,47 +241,12 @@ Prof.&nbsp;Ariel Ortiz-Bobea
 <p>Three capabilities shift at once.</p>
 <ul>
 <li><strong>File access.</strong> The agent sees every file in the folder you grant. You no longer paste snippets. You no longer choose what it sees. Granting a folder is a trust decision.</li>
-<li><strong>Code execution.</strong> R, Python, shell, in a <strong>sandboxed shell</strong> — an isolated terminal on the agent’s side, scoped to your folder.</li>
+<li><strong>Code execution.</strong> R, Python, shell, in a <strong>sandboxed shell</strong>: an isolated terminal on the agent’s side, scoped to your folder.</li>
 <li><strong>On-disk modifications.</strong> The agent creates, edits, and deletes files. Without asking each time, by design.</li>
 </ul>
 <p>All three are upgrades. All three are new surfaces for silent damage.</p>
 <div class="note-box">
 <p><strong>The guardrail is Git.</strong> <code>git status</code> and <code>git diff</code> are your only reliable audit trail of what the agent actually did.</p>
-</div>
-</section>
-<section id="git-as-the-safety-net" class="slide level2">
-<h2>Git as the Safety Net</h2>
-<p><span class="anchor-tag">§ Tutorial: Git as the safety net</span></p>
-<p>Every Cowork session in this course follows the same skeleton:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a></a><span class="co"># Before</span></span>
-<span id="cb1-2"><a></a><span class="bu">cd</span> ~/github/aem7010-ai</span>
-<span id="cb1-3"><a></a><span class="fu">mkdir</span> <span class="at">-p</span> session7 <span class="kw">&amp;&amp;</span> <span class="bu">cd</span> session7</span>
-<span id="cb1-4"><a></a><span class="fu">git</span> status            <span class="co"># clean</span></span>
-<span id="cb1-5"><a></a></span>
-<span id="cb1-6"><a></a><span class="co"># ... you run Cowork ...</span></span>
-<span id="cb1-7"><a></a></span>
-<span id="cb1-8"><a></a><span class="co"># After</span></span>
-<span id="cb1-9"><a></a><span class="fu">git</span> status            <span class="co"># review what it touched</span></span>
-<span id="cb1-10"><a></a><span class="fu">git</span> diff              <span class="co"># read every line</span></span>
-<span id="cb1-11"><a></a><span class="fu">git</span> add <span class="op">&lt;</span>files to keep<span class="op">&gt;</span></span>
-<span id="cb1-12"><a></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"Session 7: &lt;what you did&gt;"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>The chat transcript describes what Cowork <strong>claims</strong> it did. Git tells you what it <strong>actually</strong> did. If they disagree, Git wins.</p>
-</section>
-<section id="confirm-the-repo-grant-permissions" class="slide level2">
-<h2>Confirm the Repo, Grant Permissions</h2>
-<p><span class="anchor-tag">§ Tutorial: Confirm repo · Cowork permissions</span></p>
-<p><strong>30-second check</strong> that last Monday’s setup held:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a></a><span class="bu">cd</span> ~/github/aem7010-ai</span>
-<span id="cb2-2"><a></a><span class="fu">ls</span>                    <span class="co"># README.md, .gitignore</span></span>
-<span id="cb2-3"><a></a><span class="fu">git</span> status            <span class="co"># clean</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p><strong>Then, Cowork on the floor.</strong> Launch it. Grant access to <code>~/github/aem7010-ai</code>. Confirm three things:</p>
-<ol type="1">
-<li>You can see the folder path in Cowork’s UI.</li>
-<li>You can see the chat transcript beside the file tree.</li>
-<li>You have found the <strong>stop</strong> button <em>before</em> you need it.</li>
-</ol>
-<div class="tutorial-cue">
-<p>⟶ Switch to the tutorial: <strong>Confirm the AI-module repo</strong> and <strong>Cowork permissions, on the floor</strong> (~5 min).</p>
 </div>
 </section>
 <section id="chat-and-cowork-side-by-side" class="slide level2 smaller">
@@ -340,10 +306,10 @@ Prof.&nbsp;Ariel Ortiz-Bobea
 <p><span class="anchor-tag">§ Tutorial: What Cowork is good at · What Cowork is bad at</span></p>
 <p><strong>Good:</strong></p>
 <ul>
+<li>Bootstrapping projects (README, <code>.gitignore</code>, folder layout, <code>renv</code> setup)</li>
 <li>Exploratory data work (real columns, real distributions)</li>
 <li>Multi-step tasks with intermediate state (scrape → clean → plot)</li>
 <li>Debugging with full context (“run this, fix the error”)</li>
-<li>Boilerplate (scaffolding, <code>.gitignore</code>, <code>renv</code> setup)</li>
 </ul>
 <p><strong>Bad:</strong></p>
 <ul>
@@ -353,8 +319,77 @@ Prof.&nbsp;Ariel Ortiz-Bobea
 <li>Anything where a confident-sounding hallucination would cost you (fake <code>rvest</code> functions, untested selectors)</li>
 </ul>
 </section>
-<section id="the-shared-prompt" class="slide level2">
-<h2>The Shared Prompt</h2>
+<section id="todays-arc-github-repo-then-cowork" class="slide level2 smaller">
+<h2>Today’s Arc: GitHub Repo, Then Cowork</h2>
+<p><span class="anchor-tag">§ Tutorial: Today’s arc</span></p>
+<p>With the framing in place, here is the arc for the next 75 minutes:</p>
+<ol type="1">
+<li><strong>Create</strong> the repo on github.com (README + R <code>.gitignore</code> template).</li>
+<li><strong>Clone</strong> it locally in your terminal.</li>
+<li><strong>Open</strong> in VS Code. <strong>Grant</strong> Cowork access. <strong>Scaffold</strong> the project (README + <code>.Rproj</code>).</li>
+<li><strong>Scrape.</strong> Cowork writes <code>scrape_dyson_cowork.R</code>. Verify, commit, push.</li>
+<li><strong>Pipeline.</strong> Cowork writes <code>pipeline_dyson.R</code>: parse, classify, plot, summarize. Verify, commit, push.</li>
+<li><strong>Stretch:</strong> add Berkeley ARE for a cross-school comparison.</li>
+</ol>
+<p>First half feels like Session 6 at speed. Second half is something chat could not have finished.</p>
+</section>
+<section id="step-1-create-the-repo-on-github.com" class="slide level2 smaller">
+<h2>Step 1: Create the Repo on github.com</h2>
+<p><span class="anchor-tag">§ Tutorial: Create the repo on GitHub</span></p>
+<p>In your browser, go to <a href="https://github.com/new" class="uri">https://github.com/new</a>. Fill in the form:</p>
+<ul>
+<li><strong>Repository name:</strong> <code>aem7010-ai</code></li>
+<li><strong>Description:</strong> <code>Cowork and Claude Code exercises for AEM 7010</code></li>
+<li><strong>Public</strong> or <strong>Private</strong>: pick one. Either is fine for this course.</li>
+<li><strong>Add a README file:</strong> ✅ check it.</li>
+<li><strong>Add .gitignore:</strong> select <strong>R</strong> from the dropdown.</li>
+<li><strong>License:</strong> None for now.</li>
+</ul>
+<p>Click <strong>Create repository</strong>. You land on <code>github.com/&lt;your-handle&gt;/aem7010-ai</code>.</p>
+<div class="note-box">
+<p>The repo exists online. Nothing exists locally yet. That asymmetry is the point: GitHub is the canonical source.</p>
+</div>
+<div class="tutorial-cue">
+<p>⟶ Switch to the tutorial: <strong>Create the repo on GitHub</strong> (~2 min).</p>
+</div>
+</section>
+<section id="step-2-clone-in-your-terminal" class="slide level2 smaller">
+<h2>Step 2: Clone in Your Terminal</h2>
+<p><span class="anchor-tag">§ Tutorial: Clone in terminal</span></p>
+<p>On the repo page, click <strong>Code</strong> → copy the <strong>SSH</strong> URL (or HTTPS if you skipped Session 5’s SSH setup).</p>
+<p>Open a terminal. Replace <code>&lt;your-handle&gt;</code> and run:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a></a><span class="bu">cd</span> ~/github</span>
+<span id="cb1-2"><a></a><span class="fu">git</span> clone git@github.com:<span class="op">&lt;</span>your-handle<span class="op">&gt;</span>/aem7010-ai.git</span>
+<span id="cb1-3"><a></a><span class="bu">cd</span> aem7010-ai</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Sanity check:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a></a><span class="fu">ls</span> <span class="at">-la</span></span>
+<span id="cb2-2"><a></a><span class="fu">git</span> status        <span class="co"># nothing to commit</span></span>
+<span id="cb2-3"><a></a><span class="fu">git</span> log <span class="at">--oneline</span> <span class="co"># one "Initial commit" from GitHub</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="note-box">
+<p>HTTPS form, if SSH not set up: <code>git clone https://github.com/&lt;your-handle&gt;/aem7010-ai.git</code></p>
+</div>
+</section>
+<section id="step-3-open-in-vs-code-grant-cowork-scaffold" class="slide level2 smaller">
+<h2>Step 3: Open in VS Code, Grant Cowork, Scaffold</h2>
+<p><span class="anchor-tag">§ Tutorial: Open in VS Code · Grant Cowork access</span></p>
+<p><strong>Open</strong> the cloned folder in VS Code: File → Open Folder → <code>~/github/aem7010-ai</code>. Or from the terminal: <code>code .</code>.</p>
+<p><strong>Grant Cowork access</strong> to that folder. Confirm three things:</p>
+<ol type="1">
+<li>The folder path appears in Cowork’s UI.</li>
+<li>The chat transcript sits beside the file tree.</li>
+<li>You found the <strong>stop</strong> button <em>before</em> you need it.</li>
+</ol>
+<p><strong>Paste the scaffolding prompt</strong> (full text in the tutorial). It asks Cowork for two things: one paragraph appended to the README, and an <code>aem7010-ai.Rproj</code> file. No subfolders pre-created. Scripts will write into <code>code/</code>, <code>data/</code>, and <code>output/</code> as they need them: functional names, not session-numbered.</p>
+<div class="note-box">
+<p><strong>Why the <code>.Rproj</code>?</strong> Double-click it and RStudio opens the repo with the working directory set to the repo root. Every relative path (<code>data/...</code>, <code>output/...</code>) resolves correctly without <code>setwd()</code>. Reproducibility, free.</p>
+</div>
+<p>Then <strong>commit and push</strong>: stage, message “Add RStudio project and project description”, commit, sync. Refresh github.com to confirm two commits exist.</p>
+<div class="tutorial-cue">
+<p>⟶ Switch to the tutorial: <strong>Open in VS Code, grant Cowork access</strong> (~5 min).</p>
+</div>
+</section>
+<section id="the-shared-scrape-prompt" class="slide level2">
+<h2>The Shared Scrape Prompt</h2>
 <p><span class="anchor-tag">§ Tutorial: Shared prompt handout</span></p>
 <p>We all paste the <strong>same prompt</strong>. Four design choices matter:</p>
 <ul>
@@ -370,41 +405,146 @@ Prof.&nbsp;Ariel Ortiz-Bobea
 <p>⟶ Switch to the tutorial: <strong>Shared prompt handout</strong>. Read it before pasting.</p>
 </div>
 </section>
-<section id="hands-on-guided-scrape-20-min" class="slide level2">
-<h2>Hands-On: Guided Scrape (~20 min)</h2>
-<p><span class="anchor-tag">§ Tutorial: Your turn (hands-on) · Verification checklist</span></p>
-<p>Paste the prompt. Let Cowork write <code>scrape_dyson_cowork.R</code>. Do <strong>not</strong> trust the row count it reports.</p>
-<p><strong>Five-step verification checklist</strong> (all must pass before commit):</p>
+<section id="paste-wait-verify-commit-20-min" class="slide level2">
+<h2>Paste, Wait, Verify, Commit (~20 min)</h2>
+<p><span class="anchor-tag">§ Tutorial: Paste and wait · Verification checklist</span></p>
+<p>Paste the prompt. Cowork writes <code>code/scrape_dyson_cowork.R</code> and produces <code>data/placements_dyson.csv</code>. Do <strong>not</strong> trust the row count it reports.</p>
+<p><strong>Five-step verification</strong> (all must pass before commit):</p>
 <ol type="1">
-<li>Script exists at <code>session7/scrape_dyson_cowork.R</code>?</li>
-<li><code>Rscript scrape_dyson_cowork.R</code> runs cleanly from a fresh session?</li>
-<li>CSV has ≥ 80 rows and the 4 expected columns in the right order?</li>
+<li>Script at <code>code/scrape_dyson_cowork.R</code>?</li>
+<li>Open in RStudio (project open), Restart R + Source. Runs clean?</li>
+<li>CSV at <code>data/placements_dyson.csv</code> has ≥ 80 rows and the 4 columns in the right order?</li>
 <li>Three random rows match the live page?</li>
 <li>You can explain every line?</li>
 </ol>
 <p>If a check fails, ask Cowork for a <strong>patch</strong>, not a full rewrite.</p>
+</section>
+<section id="commit-and-push-from-vs-code" class="slide level2">
+<h2>Commit and Push From VS Code</h2>
+<p><span class="anchor-tag">§ Tutorial: Commit and push #1</span></p>
+<p>Source Control panel:</p>
+<ol type="1">
+<li>Stage <code>code/scrape_dyson_cowork.R</code> and <code>data/placements_dyson.csv</code>.</li>
+<li>Commit message: “Session 7: Cowork-drafted scraper for Dyson PhD placements”.</li>
+<li><strong>Commit</strong> (the checkmark, or <code>Cmd+Enter</code>).</li>
+<li><strong>Sync Changes</strong> (the cloud-with-arrow icon at the bottom).</li>
+</ol>
+<p>Open github.com/<your-handle>/aem7010-ai. <strong>Refresh.</strong> Commit and files visible? If not, you have not actually pushed. Stop and fix.</your-handle></p>
+</section>
+<section id="build-the-pipeline-30-min" class="slide level2 smaller">
+<h2>Build the Pipeline (~30 min)</h2>
+<p><span class="anchor-tag">§ Tutorial: Build the pipeline</span></p>
+<p>Where Session 7 goes beyond Session 6. The pipeline below is a small project that chat could not have finished in 75 minutes.</p>
+<p><code>code/pipeline_dyson.R</code> reads the CSV from the scrape and does four things:</p>
+<ol type="1">
+<li><strong>Parse.</strong> Split <code>placement</code> into <code>position_title</code> and <code>institution</code> on ” at “.</li>
+<li><strong>Classify.</strong> Each row → <code>academic | government | industry | other</code> by keyword rules.</li>
+<li><strong>Plot.</strong> Stacked bar of placements per year, colored by category, to <code>output/figures/placements_dyson_by_year.png</code>.</li>
+<li><strong>Summarize.</strong> Auto-generate <code>output/findings_dyson.md</code> with totals, counts, year range, top institution.</li>
+</ol>
+<p>The CSV is the boundary. Either side can be rerun without the other.</p>
+</section>
+<section id="the-pipeline-prompt" class="slide level2">
+<h2>The Pipeline Prompt</h2>
+<p><span class="anchor-tag">§ Tutorial: Shared pipeline prompt</span></p>
+<p>Same lockstep rhythm. Paste the full prompt from the tutorial. It specifies:</p>
+<ul>
+<li><strong>Exact file paths.</strong> <code>code/pipeline_dyson.R</code>, <code>output/figures/placements_dyson_by_year.png</code>, <code>output/findings_dyson.md</code>.</li>
+<li><strong>Classification rules in order.</strong> Academic first, then government, then industry, then other.</li>
+<li><strong>Two <code>message()</code> reports.</strong> Parsing failure count, then category counts. These are what you reconcile against <code>findings.md</code>.</li>
+<li><strong>Scope closed.</strong> Do not modify the scrape. Do not edit <code>.gitignore</code> or <code>README.md</code>.</li>
+</ul>
 <div class="tutorial-cue">
-<p>⟶ Switch to the tutorial: <strong>Your turn (hands-on)</strong> (~20 min). Commit when all five checks pass.</p>
+<p>⟶ Switch to the tutorial: <strong>The pipeline prompt</strong>. Read before pasting.</p>
 </div>
 </section>
-<section id="stress-test-three-silent-failures" class="slide level2 smaller">
-<h2>Stress Test: Three Silent Failures</h2>
-<p><span class="anchor-tag">§ Tutorial: Stress test</span></p>
-<p>Add one column: <code>is_postdoc</code>, <code>country</code>, or <code>placement_sector</code>. Ask Cowork. Rerun. Verify <strong>again</strong>.</p>
-<p>Three common silent failures:</p>
+<section id="pipeline-verification-checklist" class="slide level2 smaller">
+<h2>Pipeline Verification Checklist</h2>
+<p><span class="anchor-tag">§ Tutorial: Verification checklist (pipeline)</span></p>
+<p>Five checks. All must pass before the second commit.</p>
+<ol type="1">
+<li>Open <code>pipeline_dyson.R</code> in RStudio (project open), Restart R + Source. Runs clean?</li>
+<li>Parsing failures + sum of category counts = total rows? (The numbers reconcile.)</li>
+<li><code>output/figures/placements_dyson_by_year.png</code> exists and looks right?</li>
+<li><code>output/findings_dyson.md</code> exists, and its numbers match the messages and the CSV?</li>
+<li>You can explain every line, including each classification rule?</li>
+</ol>
+<p>If a check fails, ask Cowork for a <strong>patch on that specific failure</strong>. Do not accept a full rewrite.</p>
+</section>
+<section id="second-commit-second-push" class="slide level2">
+<h2>Second Commit, Second Push</h2>
+<p><span class="anchor-tag">§ Tutorial: Commit and push #2</span></p>
+<p>Source Control panel:</p>
+<ol type="1">
+<li>Stage <code>code/pipeline_dyson.R</code>, <code>output/figures/placements_dyson_by_year.png</code>, <code>output/findings_dyson.md</code>.</li>
+<li>Commit message: “Session 7: pipeline (parse, classify, plot, summarize)”.</li>
+<li><strong>Commit.</strong> <strong>Sync Changes.</strong> Refresh github.com.</li>
+</ol>
+<p>Click <code>findings.md</code> on github.com. It renders as a small report. The numbers came from the data, not from the agent’s prose. That is the artifact.</p>
+</section>
+<section id="stretch-cross-school-comparison" class="slide level2 smaller">
+<h2>Stretch: Cross-School Comparison</h2>
+<p><span class="anchor-tag">§ Tutorial: Stretch</span></p>
+<p>If you finish early:</p>
+<blockquote>
+<p>“Cowork, scrape Berkeley ARE PhD placements into <code>data/placements_berkeley.csv</code> using the same column contract. Run the same pipeline on it. Produce <code>output/findings_comparison.md</code> with category counts side by side for Cornell and Berkeley.”</p>
+</blockquote>
+<p>Two things to watch:</p>
 <ul>
-<li><strong>Silent row loss.</strong> Parsing chokes on an unexpected pattern, drops rows. 93 → 90. Nobody notices.</li>
-<li><strong>Silent row gain.</strong> Agent rewrites parsing, stops filtering blank rows. 93 → 95.</li>
-<li><strong>Silent column reordering.</strong> You asked for the new column at the end. Agent put it in the middle. Downstream code that expected column 3 to be <code>placement</code> now reads the new column. <strong>The most pernicious failure in agent-driven data work.</strong></li>
+<li><strong>Different page, different selectors.</strong> Berkeley does not anchor on the same heading. Cowork needs a different selector strategy.</li>
+<li><strong>Same pipeline, different inputs.</strong> The classifier and plot helper are reusable. Refactor them out into a helper file. That is the Session 8 move; doing it once today makes Monday feel familiar.</li>
 </ul>
-<div class="note-box">
-<p><strong>Time-boxed.</strong> If the main exercise ran long, skip this slide’s hands-on and just name the three failures out loud.</p>
-</div>
+</section>
+<section id="three-sessions-one-ladder" class="slide level2 smaller">
+<h2>Three Sessions, One Ladder</h2>
+<p><span class="anchor-tag">§ Tutorial: Debrief</span></p>
+<p>The module is not about three tools. It is one ladder. Each rung adds one new dimension.</p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Rung</th>
+<th>Tool</th>
+<th>Task scope</th>
+<th>Pipeline depth</th>
+<th>Workflow style</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Session 6</td>
+<td>chat</td>
+<td>one school, one script</td>
+<td>scrape only</td>
+<td>manual paste</td>
+</tr>
+<tr class="even">
+<td>Session 7 (today)</td>
+<td>Cowork</td>
+<td>one school, <strong>small project</strong></td>
+<td>scrape + parse + classify + plot + summary</td>
+<td>interactive, you watch</td>
+</tr>
+<tr class="odd">
+<td>Session 8 (Monday)</td>
+<td>Claude Code</td>
+<td><strong>five schools, study</strong></td>
+<td>same pipeline shape</td>
+<td>delegated, you review the diff</td>
+</tr>
+</tbody>
+</table>
+<p>Today added pipeline depth. Monday adds scope and delegation. Your Session 7 code is the seed of Session 8.</p>
 </section>
 <section id="what-session-6-forced-what-cowork-allows" class="slide level2 smaller">
 <h2>What Session 6 Forced, What Cowork Allows</h2>
-<p><span class="anchor-tag">§ Tutorial: Debrief</span></p>
-<p>The central lesson of the module is not about a tool. It is about noticing when a tool’s constraints were protecting you, and replacing them with discipline when they fall away.</p>
+<p>The other lesson, every week. Notice when a tool’s constraints were protecting you, and replace them with discipline when they fall away.</p>
 <table class="caption-top">
 <colgroup>
 <col style="width: 33%">
@@ -450,14 +590,14 @@ Prof.&nbsp;Ariel Ortiz-Bobea
 </section>
 <section id="whats-next" class="slide level2">
 <h2>What’s Next</h2>
-<p><strong>Next Monday (Session 8): Claude Code.</strong> Terminal-native agent, git-aware, scales to multi-file projects.</p>
+<p><strong>Next Monday (Session 8): Claude Code.</strong> Terminal-native, git-aware, scales to many files. Replaces the keyword classifier with an LLM, scrapes five schools at once, produces a write-up.</p>
 <p><strong>For Monday:</strong></p>
 <ol type="1">
-<li><strong>Push today’s repo to GitHub</strong> so your Session 7 work is backed up.</li>
-<li>Any install steps for Claude Code will be posted on the course site by Saturday. Ten minutes at the start of Monday for troubleshooting.</li>
+<li>Your <code>aem7010-ai</code> repo on GitHub is your Session 7 deliverable. Confirm at least two commits are visible.</li>
+<li>Install steps for Claude Code will be posted on the course site by Saturday. Ten minutes at the start of Monday for troubleshooting.</li>
 </ol>
 <div class="note-box">
-<p><strong>The bottleneck is no longer typing. It is verification.</strong> Faster tools do not remove verification work; they move it to the end of the pipeline, where it is easier to skip.</p>
+<p><strong>The bottleneck is no longer typing. It is verification.</strong></p>
 </div>
 <p>Companion site: <a href="https://arielortizbobea.github.io/aem7010-practical-skills/">arielortizbobea.github.io/aem7010-practical-skills</a></p>
 
@@ -808,7 +948,7 @@ Prof.&nbsp;Ariel Ortiz-Bobea
         }
           var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
           var mailtoRegex = new RegExp(/^mailto:/);
-            var filterRegex = new RegExp("https:\/\/ArielOrtizBobea\.github\.io\/aem7010-practical-skills\/");
+            var filterRegex = new RegExp('/' + window.location.host + '/');
           var isInternal = (href) => {
               return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
           }

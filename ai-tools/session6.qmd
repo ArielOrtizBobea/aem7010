@@ -209,7 +209,7 @@ The point is not to produce a perfect scraper. The point is to run the verificat
 
 ### Setup
 
-Prepare a clean working directory inside your course Git repo.
+Prepare a clean working directory inside your course Git repo. We follow a functional layout: `code/` for R scripts, `data/` for inputs and processed CSVs, `notes/` for short markdown notes. Folder names describe content, not the date or session number.
 
 ::: {.panel-tabset}
 
@@ -217,20 +217,19 @@ Prepare a clean working directory inside your course Git repo.
 
 ```bash
 cd ~/github/my-research
-mkdir -p session6/data
-cd session6
+mkdir -p code data notes
 git status
 ```
 
-Work inside your own research repo from Sessions 4-5 (`~/github/my-research` if you followed the Session 4 naming; substitute your actual folder name otherwise). On Wednesday we will spin up a separate repo for the agentic tools. `git status` should show `session6/` as an untracked directory. You will commit after you have something worth committing.
+Work inside your own research repo from Sessions 4-5 (`~/github/my-research` if you followed the Session 4 naming; substitute your actual folder name otherwise). On Wednesday we will spin up a separate repo for the agentic tools. `git status` should show `code/`, `data/`, and `notes/` as untracked directories (or empty, depending on how Git lists them). You will commit after you have something worth committing.
 
 ## RStudio
 
-Open your course repo as an RStudio Project. In the **Files** pane, create a new folder named `session6`, then a subfolder `data/` inside it. Work inside `session6/` for the rest of the exercise.
+Open your course repo as an RStudio Project. In the **Files** pane, create three folders at the repo root: `code`, `data`, and `notes`. Work in `code/` for the script and `data/` for the CSV.
 
 ## VS Code
 
-Open your course repo folder in VS Code. In the Explorer sidebar, create a new folder `session6`, and a subfolder `data` inside it. Work inside `session6/`.
+Open your course repo folder in VS Code. In the Explorer sidebar, create three folders at the repo root: `code`, `data`, and `notes`. Work in `code/` and `data/`.
 
 :::
 
@@ -252,7 +251,7 @@ Before you prompt the model, open the page in your browser. Scroll through. Iden
 
 ### The task
 
-Write `session6/scrape_<dept>_chat.R` that produces `session6/data/placements_<dept>.csv` with columns `name`, `year`, and `placement`. Use a short department tag in the filename: `berkeley`, `davis`, `minnesota`, `wisconsin`, `maryland`, `msu`, `purdue`.
+Write `code/scrape_<dept>_chat.R` that produces `data/placements_<dept>.csv` with columns `name`, `year`, and `placement`. Use a short department tag in the filename: `berkeley`, `davis`, `minnesota`, `wisconsin`, `maryland`, `msu`, `purdue`.
 
 ### The rules
 
@@ -261,7 +260,7 @@ These rules are what make this a Mode B exercise rather than a Mode A one.
 1. The final artifact is an R script, not pasted data. Even if your chat session renders a table, the research output is the `.R` file.
 2. You must be able to explain every line of the script. If you cannot, rewrite that line or ask the model to explain it until you can.
 3. Commit the script before you leave class, even if it does not work. A failed attempt committed with a note in the README is more useful than no record of having tried.
-4. Apply the verification reflex (above). Document what passed and what failed in the commit message or in a short `session6/NOTES.md`.
+4. Apply the verification reflex (above). Document what passed and what failed in the commit message or in a short `notes/<dept>_chat.md`.
 
 ### Prompts to try
 
@@ -282,12 +281,12 @@ When your script works (or when you decide you have spent enough time on it), co
 ## Terminal
 
 ```bash
-git add session6/scrape_<dept>_chat.R
+git add code/scrape_<dept>_chat.R
 # Decide what to do with the CSV:
 #   commit it (transparent, small)
 #   or gitignore it (if it is large or sensitive)
 # For this exercise, commit it.
-git add session6/data/placements_<dept>.csv
+git add data/placements_<dept>.csv
 git commit -m "Session 6: chat-drafted scraper for <dept> placements"
 ```
 
@@ -304,8 +303,8 @@ Source Control panel → stage both files with the `+` icon → type the same me
 If your script did not work, still commit it with a message that says so:
 
 ```bash
-git add session6/scrape_<dept>_chat.R session6/NOTES.md
-git commit -m "Session 6: chat-drafted scraper; script errors, see NOTES.md"
+git add code/scrape_<dept>_chat.R notes/<dept>_chat.md
+git commit -m "Session 6: chat-drafted scraper; script errors, see notes/<dept>_chat.md"
 ```
 
 A committed failure is research evidence. A lost failure is not.

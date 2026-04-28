@@ -68,6 +68,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
+<link href="../images/favicon.ico" rel="icon">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -77,7 +78,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-87f7908b905bb60864be3ee8ff803566.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-6b74574afd3bed751016795cfeb713a6.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-5c393e57f1edb0ca10b602c2e6a89f7f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -545,6 +546,36 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../ai-tools/session7.html#which-tool-examples" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">— Examples: which tool?</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai-tools/session7.html#todays-arc" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Today’s arc</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai-tools/session7.html#create-on-github" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">— 1. Create repo on GitHub</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai-tools/session7.html#clone-in-terminal" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">— 2. Clone in terminal</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai-tools/session7.html#open-in-vscode" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">— 3. Open in VS Code + Cowork</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../ai-tools/session7.html#guided-scrape" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Guided scrape: Dyson placements</span></a>
   </div>
@@ -569,8 +600,38 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../ai-tools/session7.html#stress-test" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Stress test: add a field</span></a>
+  <a href="../ai-tools/session7.html#commit-and-push" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Commit &amp; push #1</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai-tools/session7.html#build-the-pipeline" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Build the pipeline</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai-tools/session7.html#pipeline-prompt" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">— Pipeline prompt</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai-tools/session7.html#pipeline-verification" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">— Pipeline verification</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai-tools/session7.html#commit-and-push-again" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Commit &amp; push #2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai-tools/session7.html#stretch" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Stretch: cross-school</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -887,22 +948,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>The point is not to produce a perfect scraper. The point is to run the verification reflex and feel, first-hand, where chat is helpful and where it is not.</p>
 <section id="setup" class="level3">
 <h3 class="anchored" data-anchor-id="setup">Setup</h3>
-<p>Prepare a clean working directory inside your course Git repo.</p>
+<p>Prepare a clean working directory inside your course Git repo. We follow a functional layout: <code>code/</code> for R scripts, <code>data/</code> for inputs and processed CSVs, <code>notes/</code> for short markdown notes. Folder names describe content, not the date or session number.</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Terminal</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">RStudio</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false" href="">VS Code</a></li></ul>
 <div class="tab-content">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ~/github/my-research</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> session6/data</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> session6</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> status</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Work inside your own research repo from Sessions 4-5 (<code>~/github/my-research</code> if you followed the Session 4 naming; substitute your actual folder name otherwise). On Wednesday we will spin up a separate repo for the agentic tools. <code>git status</code> should show <code>session6/</code> as an untracked directory. You will commit after you have something worth committing.</p>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> code data notes</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> status</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Work inside your own research repo from Sessions 4-5 (<code>~/github/my-research</code> if you followed the Session 4 naming; substitute your actual folder name otherwise). On Wednesday we will spin up a separate repo for the agentic tools. <code>git status</code> should show <code>code/</code>, <code>data/</code>, and <code>notes/</code> as untracked directories (or empty, depending on how Git lists them). You will commit after you have something worth committing.</p>
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
-<p>Open your course repo as an RStudio Project. In the <strong>Files</strong> pane, create a new folder named <code>session6</code>, then a subfolder <code>data/</code> inside it. Work inside <code>session6/</code> for the rest of the exercise.</p>
+<p>Open your course repo as an RStudio Project. In the <strong>Files</strong> pane, create three folders at the repo root: <code>code</code>, <code>data</code>, and <code>notes</code>. Work in <code>code/</code> for the script and <code>data/</code> for the CSV.</p>
 </div>
 <div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
-<p>Open your course repo folder in VS Code. In the Explorer sidebar, create a new folder <code>session6</code>, and a subfolder <code>data</code> inside it. Work inside <code>session6/</code>.</p>
+<p>Open your course repo folder in VS Code. In the Explorer sidebar, create three folders at the repo root: <code>code</code>, <code>data</code>, and <code>notes</code>. Work in <code>code/</code> and <code>data/</code>.</p>
 </div>
 </div>
 </div>
@@ -952,7 +1012,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="the-task-1" class="level3">
 <h3 class="anchored" data-anchor-id="the-task-1">The task</h3>
-<p>Write <code>session6/scrape_&lt;dept&gt;_chat.R</code> that produces <code>session6/data/placements_&lt;dept&gt;.csv</code> with columns <code>name</code>, <code>year</code>, and <code>placement</code>. Use a short department tag in the filename: <code>berkeley</code>, <code>davis</code>, <code>minnesota</code>, <code>wisconsin</code>, <code>maryland</code>, <code>msu</code>, <code>purdue</code>.</p>
+<p>Write <code>code/scrape_&lt;dept&gt;_chat.R</code> that produces <code>data/placements_&lt;dept&gt;.csv</code> with columns <code>name</code>, <code>year</code>, and <code>placement</code>. Use a short department tag in the filename: <code>berkeley</code>, <code>davis</code>, <code>minnesota</code>, <code>wisconsin</code>, <code>maryland</code>, <code>msu</code>, <code>purdue</code>.</p>
 </section>
 <section id="the-rules" class="level3">
 <h3 class="anchored" data-anchor-id="the-rules">The rules</h3>
@@ -961,7 +1021,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>The final artifact is an R script, not pasted data. Even if your chat session renders a table, the research output is the <code>.R</code> file.</li>
 <li>You must be able to explain every line of the script. If you cannot, rewrite that line or ask the model to explain it until you can.</li>
 <li>Commit the script before you leave class, even if it does not work. A failed attempt committed with a note in the README is more useful than no record of having tried.</li>
-<li>Apply the verification reflex (above). Document what passed and what failed in the commit message or in a short <code>session6/NOTES.md</code>.</li>
+<li>Apply the verification reflex (above). Document what passed and what failed in the commit message or in a short <code>notes/&lt;dept&gt;_chat.md</code>.</li>
 </ol>
 </section>
 <section id="prompts-to-try" class="level3">
@@ -981,12 +1041,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true" href="">Terminal</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false" href="">RStudio</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-3" role="tab" aria-controls="tabset-2-3" aria-selected="false" href="">VS Code</a></li></ul>
 <div class="tab-content">
 <div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> add session6/scrape_<span class="op">&lt;</span>dept<span class="op">&gt;</span>_chat.R</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> add code/scrape_<span class="op">&lt;</span>dept<span class="op">&gt;</span>_chat.R</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Decide what to do with the CSV:</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co">#   commit it (transparent, small)</span></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co">#   or gitignore it (if it is large or sensitive)</span></span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># For this exercise, commit it.</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> add session6/data/placements_<span class="op">&lt;</span>dept<span class="op">&gt;</span>.csv</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> add data/placements_<span class="op">&lt;</span>dept<span class="op">&gt;</span>.csv</span>
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"Session 6: chat-drafted scraper for &lt;dept&gt; placements"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
@@ -998,8 +1058,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>If your script did not work, still commit it with a message that says so:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> add session6/scrape_<span class="op">&lt;</span>dept<span class="op">&gt;</span>_chat.R session6/NOTES.md</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"Session 6: chat-drafted scraper; script errors, see NOTES.md"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> add code/scrape_<span class="op">&lt;</span>dept<span class="op">&gt;</span>_chat.R notes/<span class="op">&lt;</span>dept<span class="op">&gt;</span>_chat.md</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"Session 6: chat-drafted scraper; script errors, see notes/&lt;dept&gt;_chat.md"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>A committed failure is research evidence. A lost failure is not.</p>
 </section>
 </section>
