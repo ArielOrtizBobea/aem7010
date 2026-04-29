@@ -7,18 +7,21 @@ subtitle: "Code-native agents (Claude Code) at research scale"
 **Slides for this session:** [View the slide deck](slides/session8.qmd) (opens in your browser; press `F` for fullscreen). The slides are a lean anchor to the concepts below. The walkthrough on this page is the substantive material and the reference you will come back to.
 :::
 
-::: {.callout-note appearance="minimal"}
-**Instructor pre-flight (the weekend before class).** Open each of the five placement pages in a browser and confirm they still render PhD placement tables in the same shape: [Cornell Dyson](https://dyson.cornell.edu/programs/graduate/placements/), [UC Berkeley ARE](https://are.berkeley.edu/graduate/job-market-placement), [UC Davis ARE](https://are.ucdavis.edu/graduate/phd-program/placement), [Minnesota Applied Economics](https://apec.umn.edu/graduate/job-placements), [Wisconsin AAE](https://aae.wisc.edu/graduate-programs/placement/). Run the fallback `code/scrape_<dept>.R` scripts from a fresh R session and confirm each produces a CSV with at least 30 rows. Then run `code/classify_llm.R` once with your own `ANTHROPIC_API_KEY` to refresh `data/cache/llm_responses.csv`, and push the cache to the course's public URL. The cache file is what students download at the start of the LLM-classifier section, so they never need an API key in class.
-:::
+<!--
+Instructor pre-flight checklist for this session lives at ai-tools/seeds/README.md.
+That file is in the repo but not part of the rendered Quarto site. Edit it there.
+-->
+
 
 ::: {.callout-warning appearance="simple"}
-**Pre-class checklist.** Three things, all done before you walk in.
+**Pre-class checklist.** Four things, all done before you walk in.
 
 1. **Claude Code installed and logged in.** From a terminal, `claude --version` returns a version string and `claude` opens an interactive prompt without asking you to log in. The browser login completes once and persists.
 2. **The repo `~/github/aem7010-ai` exists, with a clean working tree.** If you completed the previous session, you already have it. If you did not, clone an empty `aem7010-ai` repo from GitHub now (see the previous session's tutorial for the steps; we will not redo them in class).
-3. **Internet works on your laptop.** One small file gets downloaded during the LLM-classifier section. Confirm `curl https://www.google.com` returns HTML, or just open a browser tab.
+3. **R installed, with the four packages we will use.** From R or RStudio, run `install.packages(c("tidyverse", "rvest", "readr", "ellmer"))` once before class. `ellmer` is recent and unlikely to be installed by default; the other three may already be there from previous sessions. The class is not the place to discover that a `library()` call fails because the package is missing.
+4. **Internet works on your laptop.** Two small files get downloaded during class (the LLM cache and the fact-checker agent). Confirm `curl https://www.google.com` returns HTML, or just open a browser tab.
 
-The first ten minutes of class are reserved for stragglers. If any of the three above failed, say so immediately.
+The first ten minutes of class are reserved for stragglers. If any of the four above failed, say so immediately.
 :::
 
 ## Where we are in the course {#where-we-are}
@@ -156,6 +159,261 @@ You want to scrape five PhD placement pages, stack them, classify each row with 
 **Why Claude Code?** This is a project. Five scrapers in `code/`, one classifier, one analysis script, one figure, one markdown report. The work happens across many files, the output of one step is the input to the next, and the reproducible artifact is the entire repo. Claude Code is the only one of the three tools that treats the repo as the unit of work. Today's session is exactly this task.
 :::
 
+## Subagents and templates {#subagents-and-templates}
+
+Most of today's hands-on work runs through one main Claude Code session. The agent reads files, writes scripts, runs them, and proposes diffs. But Claude Code can also delegate to **subagents**, and that capability is worth front-loading before the work starts.
+
+A mental image worth carrying. The set of agents in your repo's `.claude/agents/` folder is a small army of specialists. Each one has a single job, a constrained tool kit, and a standing order in its system prompt. Some are producers; they do the work. Some are critics; they inspect what was produced. The army travels with you from project to project, but the units you actually deploy on any given project you tailor for that project. We will use one specific specialist at the end of class, and the framing here is what makes the demo land.
+
+### What a subagent is
+
+A subagent is a specialized agent invoked by the main Claude Code session with a defined role, a constrained tool allowlist, and its own system prompt. It lives as a single markdown file in `.claude/agents/<name>.md`. The frontmatter declares the agent's name, description, allowed tools, and optionally a model. The body is the prompt that describes what this agent is for and how it should behave.
+
+A simple example, the kind of file we will use at the end of class:
+
+```markdown
+---
+name: fact-checker
+description: Verifies every numeric claim in a markdown report against the data it cites.
+tools: Read, Grep, Bash
+---
+
+You are a fact-checker for descriptive reports built from CSV data.
+
+Your job: read a markdown report and verify that every numeric claim in the prose
+appears in the report's tables, figure captions, or notes section, OR can be
+recomputed from the data file the report cites.
+
+For each claim you check, return one line: PASS, ROUNDED (the prose rounds a
+number from the table; report what was rounded and to what), or FAIL (the prose
+contains a number that does not appear in or follow from the data; show the
+prose claim and what the data actually says).
+
+End with a one-line summary of how many claims you checked and how many failed.
+Do not edit any file. Reading and reporting only.
+```
+
+The agent has a name (`fact-checker`), a description that tells the main agent when to invoke it, a tool allowlist (read-only here), and a system prompt that describes its job. That is the entire anatomy. Agents are markdown files. They are committed with the repo.
+
+### How does an LLM "check" anything? {#how-fact-checker-works}
+
+A reasonable question to pause on. The fact-checker is itself a language model. Language models generate tokens. So how can one *verify* anything?
+
+The answer is that subagents are not just text generators. They are text generators with **tools**. The `tools: Read, Grep, Bash` line in the frontmatter is doing the heavy lifting. When you ask the fact-checker to verify a numeric claim, the agent does not look the answer up in its training data, and it does not "remember" the contents of your data file. It does this:
+
+1. **Read the prose into context.** The `Read` tool returns the bytes of `output/analysis.md`. The text of every numeric claim now sits in the agent's context window, verbatim.
+2. **Reach for the data.** Either `Read` the CSV into context, or, for files too large to fit, run a `Bash` command like `head` or `wc` to get a usable slice. Either way the data the agent will reason about comes from disk, not from training.
+3. **Recompute each claim.** For each numeric claim from step 1, the agent generates a small `Bash` command that recomputes the same number from the data file. For example: `awk -F, '$1=="dyson" && $6=="academic" {n++} END {print n}' data/placements_all_classified.csv`. The shell runs the command. The shell returns a real integer.
+4. **Compare and report.** The prose number (from step 1) and the recomputed number (from step 3) are now both in the agent's context, side by side. The agent reports PASS, ROUNDED, or FAIL by comparing the two values.
+
+The LLM's role is **translation and adjudication**: turn an English claim into a query, run the query, compare the result against the prose. The actual numbers come from the file, not from the model. The model never has to "remember" that Berkeley placed fourteen students; it recomputes that number from the CSV every time, and only then compares.
+
+This is why the tool allowlist matters. Without `Read` and `Bash`, a fact-checker would be a language model hallucinating about numbers it has never seen. With them, the agent has a route to ground truth that does not pass through training data. Retrieval-and-recompute is the mechanism. Pure generation is not.
+
+::: {.bad-list}
+**Where this still fails, and what to watch for.**
+
+- **Misreading the prose.** The agent extracts a claim it did not see correctly. Catch by reading the agent's list of extracted claims; if it looks wrong, the verification of that claim is not meaningful.
+- **A wrong query.** The agent generates a `Bash` or `Grep` command that does not actually correspond to the prose claim (a wrong filter, a wrong column). The output is a real number, but it is the wrong real number. Catch by skimming the tool-call trace: each PASS or FAIL should be accompanied by a visible command whose logic you can follow.
+- **A claimed result without a real query.** Rare but possible. The agent reports a verification outcome without having actually run the tool. Catch by checking the tool-call trace: every numeric claim should have a corresponding tool invocation. If a number appears in the report without a query behind it, treat that line as unverified.
+:::
+
+The discipline carries through, in the same shape as everywhere else in this course. The artifact (the agent's report) is reviewable. The audit trail (the tool calls) is visible. The verification of the verifier is yours.
+
+### A second example: hallucinated citations and the citation-checker {#citation-checker-example}
+
+Numbers are not the only thing language models hallucinate. Citations are arguably the most notorious case for academic readers, and the fix follows the same pattern as the fact-checker. Worth walking through, because the failure mode is one every PhD student writing with AI assistance will encounter.
+
+A language model asked to support a claim with a citation will routinely produce a reference that *looks* real. Plausible authors. A plausible journal. A reasonable year. A DOI that follows the right format. None of it exists. The model has seen the *shape* of citations across its training data; it produces something with that shape; and the shape is convincing even when the content is invented.
+
+This is not hypothetical. In *Mata v. Avianca* (2023), a US lawyer filed a brief in federal court containing six citations to court cases that did not exist; ChatGPT had generated them. The lawyer was sanctioned. Editors of academic journals report similar issues with rejected submissions, and several PhD-program guidelines have started naming citation hallucination explicitly. If you write with AI assistance, this is a risk you actively manage.
+
+The mechanism behind the failure is the same one we just discussed for numbers. The model has seen many citations. It has not seen a database of which citations are real. Asked to produce one, it generates structure-conforming text. Asked from memory whether a citation is real, it generates a confident yes. There is no ground truth in the model's weights for this question.
+
+The fix is structurally identical to the numeric fact-checker. Build a critic with tools that *route around* the model's memory. The agent's job is not to remember whether a paper exists. The agent's job is to:
+
+1. Read the draft and extract every citation.
+2. For each citation, query an actual citation database (CrossRef, OpenAlex, PubMed for biomedical work). The query is constructed from the citation's metadata: title plus first author last name, or DOI when present.
+3. Compare what the database returns to what the draft cites.
+4. Report VERIFIED, MISMATCH (the paper exists but the cited metadata is wrong, for example a year that disagrees), or HALLUCINATED (no plausible match in the database).
+
+A minimal version of this agent's frontmatter:
+
+```markdown
+---
+name: citation-checker
+description: Verifies every citation in a markdown or LaTeX draft against CrossRef.
+tools: Read, Bash, WebFetch
+---
+
+You are a citation checker for academic drafts.
+
+Your job: read a draft and verify each citation against CrossRef (or
+OpenAlex, or another canonical citation database accessible from the
+shell).
+
+Workflow:
+1. Read the draft. Extract every citation, including in-text citations
+   and references.
+2. For each citation, query CrossRef using its API. The query is the
+   title plus first author last name, or the DOI when one is present.
+   Compare returned metadata to the citation in the draft.
+3. Return one line per citation: VERIFIED, MISMATCH (the paper exists
+   but the citation is wrong somewhere; show the disagreement), or
+   HALLUCINATED (no plausible match).
+
+Constraints. You are read-only. Do not edit the draft.
+```
+
+The shape is the fact-checker again, with `WebFetch` added so the agent can hit a public API. The LLM is still the translator and adjudicator: extract the claim, generate a query, compare what comes back. The ground truth lives in CrossRef, not in the model.
+
+This is the general lesson that hallucinated references make especially vivid. **The class of problems language models fail at by themselves is the class of problems where the answer is in a database the model has not seen.** The fix is not to make the model bigger, smarter, or more careful in its instructions. The fix is to give the model a tool that reaches the database, and to constrain the agent's job to translation and comparison. Numbers in a CSV, citations in CrossRef, DOIs in DataCite, gene names in NCBI, drug interactions in DrugBank: same shape every time. Different domain, same critic-with-tools pattern.
+
+::: {.callout-tip}
+## In your own writing, before any submission
+
+If you used AI to draft prose anywhere in a manuscript, run a citation-checker before you submit. The cost is a few minutes per draft. The cost of submitting a paper with a hallucinated reference can be a desk rejection, a retraction, or worse. The asymmetry favors checking.
+:::
+
+### Why agents matter for research
+
+Three reasons, each tied directly to the verification reflex that has been the spine of this course.
+
+First, **specialization beats generalist prompts.** A `fact-checker` agent that does only one job does that job better than the same model doing it as task seven of nine. The constrained system prompt cuts noise. The tool allowlist prevents drift.
+
+Second, **composition makes verification tractable.** A producer agent writes the analysis. A critic agent reviews it. Your eyes confirm. Three layers of checking that previously lived only in your eyes. The bottleneck moves, but the bottleneck always moves; what matters is that the verification work gets done at all.
+
+Third, **reusability turns one careful agent into infrastructure.** A `code-reviewer` written for this course's style works on any of your future projects with minimal edits. The agent file is portable. Your future self, on a different project, drops the same `fact-checker.md` into `.claude/agents/` and gets the same critic.
+
+### Templates: blueprints for whole armies
+
+A subagent codifies *what role to play*. A template is the level above: a blueprint for assembling a whole army of agents and conventions for a class of projects. The course has been showing you templates implicitly all along, in the functional folder layout, the verification checklists, and the `CLAUDE.md` you will write today. A formal template lives in a place the agent reads it: a `.claude/skills/<name>/SKILL.md` file, or an entire project-template repo on GitHub.
+
+By way of example, three templates worth knowing. A `scrape-placement-page` skill that captures how to handle these specific PhD pages, including selector strategies, common quirks, and the verification checks. A `paper-bootstrap` template that scaffolds a new research-paper repo with the right folders, a starter `CLAUDE.md`, a `Makefile`, a `.gitignore`, and a small army of stub agents. A `replication-package` template that turns a finished chapter into a reviewer-ready bundle.
+
+The way templates work in practice. You start a new paper. You clone the `paper-bootstrap` template. The first commit of the new project is not from scratch but from a tested baseline: the layout is already right, three or four agents are already in `.claude/agents/`, and a starter `CLAUDE.md` is in place.
+
+The catch is the army metaphor again. A copied army is rarely the right army for *your* fight. The agents that came in the template are general. Your project has specifics: a particular data shape, a particular verification rule, a methodological convention you want enforced. The work that makes the template useful rather than ceremonial is tailoring the inherited agents to your project.
+
+A practical workflow for tailoring. Open the inherited agent's markdown file in VS Code. Read it. Then open Cowork (the agentic desktop tool from the previous session), point it at your repo, and ask it to read your `CLAUDE.md` and a sample of your data and propose tighter wording for the agent's system prompt and a tighter tool allowlist. Iterate against two or three real examples in the chat. Save the result back to `.claude/agents/` and commit. This is one of the few places where Cowork's chat surface beats Claude Code's terminal: writing the prose that *is* an agent's system prompt is conversational work, and Cowork's loop is built for that. The output is still a committed markdown file. Mode B holds; the discipline does not change. You are using one mode (Cowork) to maintain the infrastructure of another (Claude Code).
+
+### Critics as a class
+
+Among the agent types you might write, the **critic** family is the one most directly tied to research discipline. A critic does not produce the artifact. It reviews it. Its job is to catch errors before you do.
+
+Three caveats worth keeping in mind. First, **a critic from the same model as the producer shares blind spots.** The same model can be wrong about the same things in the same direction. Diversification across providers (one model produces, a different model criticizes) is the eventual move; today, both layers are Claude. Second, **a critic does not replace your eyes.** It catches what it was told to catch. Errors outside the critic's scope still fall to you. Third, **a critic adds tokens and time.** Run it where the cost of a missed error is high.
+
+### Are agents implicit in chat and Cowork? {#implicit-agents}
+
+Yes, and the difference between implicit and explicit is the lesson worth carrying out of class.
+
+In **chat**, you have one continuous conversation with one general-purpose agent. There is no visible agent abstraction. The model adapts to the task by reading your prompt, but you cannot see, edit, or commit any specification of what role the model is playing.
+
+In **Cowork**, the system goes a step further. It loads skills and plugins automatically based on the task. Ask Cowork to "make a slide deck" and it routes through a presentation-building specialization. Ask it to "review this PDF" and it loads PDF skills. The specialization exists; the user does not write the spec.
+
+Claude Code's subagents are the same idea made explicit. The spec lives as a markdown file in your repo. You write it (or copy and tailor someone else's). It is versioned, diffable, and committed alongside the code.
+
+The trade-offs separate cleanly:
+
+| Implicit (chat / Cowork) | Explicit (Claude Code subagents) |
+|---|---|
+| Low setup, no agent literacy required | Setup cost; you write or copy a spec |
+| The provider can update behavior centrally | Updates are your job and your responsibility |
+| The role the model plays is invisible to you | The role is a markdown file you can read |
+| Cannot customize for your project | Tailorable to project conventions |
+| Not part of your repo | Versioned, committed, citable in methods |
+| Behavior can shift between releases without warning | Pinned to your committed file |
+
+For day-to-day exploration, the implicit path is faster and lighter. For research that has to survive peer review, the explicit path is the only one that survives.
+
+::: {.example-card .claude-code}
+[Why explicit, in one example]{.tool-tag}
+
+#### A coauthor opens your repo two years from now
+
+They want to extend your placements study to a sixth department, and they want to reproduce the labels you generated for the original five.
+
+**If your classifier ran in a Cowork chat session.** The transcript is gone. The exact prompt you used is gone. The model variant that was loaded behind the scenes is undocumented. Your coauthor can rerun a classifier, but only after reverse-engineering what method you actually used. The labels they get may not match the labels you committed.
+
+**If your classifier ran through `code/classify_llm.R` plus `.claude/agents/classifier.md`.** The script is in the repo. The agent file is in the repo. The system prompt is in the agent file. The model is pinned in the script. Your coauthor opens the agent, reads it, runs the script, and gets the same labels.
+
+That difference is the entire reason explicit agents matter for research. The implicit path is faster while you are working. The explicit path is faster two years later, when reproducing the work is the actual job.
+:::
+
+### A wider catalog of agent types {#agent-catalog}
+
+The pattern of capturing a specialized role in a markdown file is not unique to applied economics. The same shape is used across research and industry; only the role changes. Three brief catalogs to show how transferable the move is.
+
+**In applied economics and adjacent fields:**
+
+::: {.good-list}
+- `data-validator`: checks a panel CSV against a schema (column types, ranges, missingness). After every scrape or merge.
+- `regression-reviewer`: reads a regression script and flags missing controls, ad-hoc clustering, or specifications without clear identification.
+- `replication-tester`: clones a repo, runs the Makefile or script chain, compares outputs to committed expected outputs.
+- `table-formatter`: takes raw R or Stata output and produces a publication-ready LaTeX table.
+- `fact-checker`: verifies numeric claims in prose against the data. Today's demo.
+:::
+
+**In other research fields:**
+
+::: {.good-list}
+- `irb-reviewer` (social sciences): reads a survey instrument and flags wording that may need IRB review or that risks introducing bias.
+- `dataset-citer` (climate, earth sciences): checks that every dataset cited in a draft has a valid DOI and a matching license.
+- `protocol-reviewer` (biology, biomedical): reviews a wet-lab protocol against safety and method standards before a run.
+- `experiment-tracker` (machine learning): logs hyperparameters and evaluation results across runs into a structured ledger.
+- `figure-auditor` (any quantitative field): checks figures for missing axis labels, illegible legends, or stale data.
+:::
+
+**Outside academia:**
+
+::: {.good-list}
+- `code-reviewer` (software engineering): the canonical critic. Reads a diff before commit, flags style and correctness issues. Mature open-source examples exist for most languages.
+- `test-writer` (software): writes unit tests for new functions, often as a partner to the producer agent.
+- `pipeline-monitor` (data engineering): watches production data pipelines for schema drift or output anomalies, summarizes for the on-call.
+- `contract-reviewer` (legal): flags potentially problematic clauses in contract drafts, points the human at the sections that need attention.
+- `model-risk-reviewer` (finance): audits a quantitative model's assumptions, stress tests, and documentation against internal model-risk standards.
+:::
+
+The portable lesson is the shape, not the role. A markdown file in `.claude/agents/`, a tight system prompt, a constrained tool allowlist, and a clear job. What you encode reflects the domain you work in. The fact-checker we use at the end of class is one specific instance of a pattern you will reach for in every project that follows.
+
+::: {.callout-tip}
+## A note on where these lists came from
+
+Most of the catalog above is composite: a mix of agents that exist in production at large companies, agents described in research-tooling threads, and agents I have seen colleagues build for their own labs. None of them is canonical. The point is the *shape* of the pattern. When you read about a new "AI agent for X" in your own field over the next year, look for the markdown-file underneath. If it is there, the lesson from today applies. If it is not, the tool is something else.
+:::
+
+### Where did the idea come from, and is it here to stay? {#agents-history}
+
+A short intellectual history, because students will hear the word "agent" used a lot of different ways over the next few years, and the term has a longer arc than the current LLM moment.
+
+The word "agent" in AI is not new. Marvin Minsky's *Society of Mind* in the 1980s framed intelligence as the emergent product of many small specialized agents. Multi-agent systems have been a research area in computer science for decades. In machine learning specifically, actor-critic methods (a producer policy paired with a critic that scores its outputs) are textbook material from the late 1980s and early 1990s.
+
+The specific LLM-agent pattern we use today crystallized around 2022 and 2023. The ReAct paper (Yao and co-authors, 2022) showed that interleaving reasoning steps with tool calls produced better answers than either pure reasoning or pure tool use, and that paper is the most direct ancestor of how subagents work today. AutoGPT and BabyAGI in early 2023 popularized the idea that an LLM could decompose a task into subtasks and tackle each in sequence. Frameworks like LangChain, AutoGen, and CrewAI made the pattern accessible to ordinary developers. By 2024 and 2025, the convention of "specialized agent defined as a markdown file with a system prompt and a tool allowlist" had stabilized across several tools, including Claude Code.
+
+::: {.callout-note}
+## A note on Constitutional AI, and how the critic pattern differs across models
+
+The producer-critic pattern you are using today at inference time has a closer ancestor than ReAct: it has a direct mirror in how Anthropic trains the Claude family in the first place. The approach is called **Constitutional AI** (Bai and co-authors at Anthropic, 2022), and it is worth a brief explanation because the differences matter when you reach for any model as a critic.
+
+**Constitutional AI in one paragraph.** Most large models are post-trained with reinforcement learning from human feedback (RLHF): humans rank model outputs, a reward model is fitted to those rankings, and the base model is fine-tuned to produce outputs humans prefer. Constitutional AI replaces much of the human ranking step with AI feedback driven by an explicit set of principles, a "constitution". The training loop has two key moves. First, a helpful-but-uncritical model generates a response; then a critic instance of the model is shown the response together with a principle from the constitution and asked to identify problems and rewrite the response. The revised data is used for supervised fine-tuning. Second, a preference model is trained on AI-generated comparisons (this is the RLAIF step: reinforcement learning from AI feedback). The result is a model that has been shaped by an explicit, inspectable set of principles and that has had a critic in its training loop from the start.
+
+**Why this matters for what you are doing.** The producer-critic pattern is not just a clever inference-time trick. It is built into the training of the models we use as critics today. When you ask Claude to play a fact-checker role, you are activating a behavior shape the model has practiced thousands of times during training. That does not make the model immune to error. It does make the role-following more natural for this family of models than it might be for a model trained primarily with RLHF and no critic step.
+
+**Differences with other model families.** The contrast is more about training methodology than about raw capability, and any specific claim about which model is "better at being a critic" has to be earned with empirical evaluation on a real task. That said, two patterns are worth knowing.
+
+GPT and Gemini families are post-trained primarily with variants of RLHF, sometimes with constitutional or rule-based components added later. The principles guiding alignment are mostly implicit, encoded in the labelers' decisions. These models are generally strong at the producer role; the critic role is reachable through prompting but is not a first-class part of training.
+
+Open-weight models (Llama, Mistral, Qwen, others) are fine-tuned with various combinations of supervised fine-tuning, RLHF, DPO (direct preference optimization), and increasingly some constitutional-style methods. The diversity of approaches means the agent role-following can be inconsistent across these models, and a critic prompt that works on Claude may need careful adaptation on a different model. This is one reason why diversification across providers (one model produces, a different model criticizes) requires evaluation rather than blind trust.
+
+**The portable claim.** The producer-critic separation we deploy in `.claude/agents/` is the inference-time analog of a training-time pattern. The pattern works because criticism is a different cognitive task from production, and forcing the separation, whether at training time or at inference time, catches errors that a single pass would miss. Whichever model family you use, the discipline of separating roles holds; the specific reliability of each role on each model is something you check with your own examples.
+:::
+
+Why specialization helps is partly empirical and partly engineering. Empirically, focused prompts get better attention than long generalist ones; constrained tool kits prevent specific failure modes (an agent that cannot write files cannot corrupt data); separating producer from critic catches errors the producer alone would miss. Engineering-wise, the same logic that makes function decomposition useful in programming makes agent decomposition useful in LLM work. Smaller, scoped units are easier to test, replace, and reason about. None of this is unique to language models. It is software engineering applied to a new substrate.
+
+Will the abstraction stay? Two answers, both true. **The specific form may evolve.** Today's subagent in `.claude/agents/<name>.md` is one implementation choice. Other tools use other abstractions: graph nodes, role classes, mixtures of experts at the model level. As models become more capable at following long instructions, some of the specialization that today requires separate agents may collapse into different prompts within a single agent context. The exact name "agent" may shift again before the decade is out. **The underlying discipline is permanent.** Separating concerns, scoping responsibilities, building audit trails, composing small pieces into larger systems: this is software engineering, not an AI fad. As long as you are building research code that needs to survive scrutiny, some version of "this thing did this work, here is its scope, here is its log" will be there. Whether it is called an agent, a tool, a skill, or a job, the shape transfers.
+
+For your purposes in this course. Use the agent pattern when it earns the verification it adds. Do not use it where one prompt would do. The cost is real: more files, more tokens, more cognitive overhead. The benefit is real: auditable specialization, composition, reusability across projects. The tradeoff resolves the same way most engineering tradeoffs do, case by case, with a gentle preference for the more disciplined option as a project matures.
+
 ## Today's arc {#todays-arc}
 
 With the framing in place, here is the arc for the next 75 minutes.
@@ -164,7 +422,7 @@ With the framing in place, here is the arc for the next 75 minutes.
 2. **Scale to five departments.** Drive Claude Code with a short prompt to write `code/scrape_<dept>.R` for five departments and `code/stack.R`. The prompt is short because `CLAUDE.md` carries the context.
 3. **Classify with an LLM.** Drive Claude Code to write `code/classify_llm.R` using `ellmer`, with a cache layer. Hand-label twenty rows to verify.
 4. **Descriptive write-up.** Drive Claude Code to write `code/analysis.R` and `output/analysis.md`. Verify every number against the script's output.
-5. **Agents, templates, critics.** A short conceptual block, then a one-minute live demo of a fact-checker subagent reviewing the report you just produced. The shape of agents matters more than the specific demo.
+5. **Critic in action.** A short live demo of the `fact-checker` subagent reviewing the report you just produced. The conceptual framing is already in place from the [Subagents and templates](#subagents-and-templates) block earlier in this tutorial; the demo is where the framing becomes a concrete tool you have used.
 6. **Debrief** across the three modes you have now used, plus the new agent layer.
 
 The point is not the placements data. The point is the workflow: a Git project, a code-native agent reading a `CLAUDE.md` for standing context, a stack of small scripts each verifiable in isolation, a write-up where every number traces to code, and one critic agent that reviews the result before you do.
@@ -216,6 +474,16 @@ To exit, press `Ctrl+C` twice or type `exit`.
 ### Per-edit approval is the default
 
 When Claude Code wants to write or modify a file, it stops and asks. The prompt shows the file name, a preview of the diff, and three options: yes, yes for this kind of action this session, or no. **Today, choose yes per edit.** The auto-accept mode (Shift+Tab) exists, but using it on day one defeats the verification reflex this course is built around.
+
+### Quick package check
+
+The pre-class checklist asked you to install four R packages: `tidyverse`, `rvest`, `readr`, `ellmer`. If you skipped that step, run this one-liner in R or RStudio now, before any script runs. It is the only command in today's session that touches the package manager.
+
+```r
+install.packages(setdiff(c("tidyverse", "rvest", "readr", "ellmer"), rownames(installed.packages())))
+```
+
+The line installs only what is missing. If everything is already installed, it is a no-op. If `ellmer` is the only thing missing (the most common case), you will see one short install pass and nothing else. Once it returns, you are ready.
 
 ## Author `CLAUDE.md` together {#author-claude-md}
 
@@ -357,6 +625,48 @@ git push
 :::
 
 Refresh `github.com/<your-handle>/aem7010-ai`. The `CLAUDE.md` file is now the first thing a visitor sees on the repo page. That is what you want: anyone who lands on the repo, including future you and any future agent, reads the conventions before reading the code.
+
+### Beyond project conventions: encoding your personal style {#personal-style-in-claude-md}
+
+The `CLAUDE.md` we just committed is heavy on project-specific information: the five departments, the schemas, the LLM rules. The file is also the right place to encode your **personal style**, the choices that travel with you across projects rather than living in any one repo. This is the answer to a question every student asks within a week of using a code-native agent: *can I make it write code in my own style?* Yes. You write the style down once. The agent reads it on every prompt.
+
+A useful way to think about what to put in your personal-style section. Organize by dimension, not by ad-hoc rule. Below is a working taxonomy of eleven dimensions of code style. Pick the ones that matter to you and write one or two specific rules under each. The taxonomy is more durable than any specific rule, because it gives you somewhere to put a new rule when you discover one.
+
+::: {.good-list}
+- **Project structure.** Folder layout (functional or chronological), where data lives, where outputs land, naming conventions for script files. *Example rule:* "Functional folders only: `code/`, `data/`, `output/`. No session-numbered subfolders."
+
+- **File-level conventions.** What appears at the top of every script (purpose, inputs, outputs, dependencies), how to structure section dividers, maximum length before splitting. *Example rule:* "Every script begins with a four-line header: title, purpose, depends on, produces. Section dividers use `# ---- section name ----`."
+
+- **Naming.** Variables, functions, files, data-frame columns, constants. The most-asked dimension; the easiest to encode. *Example rule:* "`snake_case` for variables and functions. `UPPER_SNAKE` for constants. File names that mirror their main function."
+
+- **Formatting.** Indentation, line length, alignment, blank-line conventions. Most of this is handled by an autoformatter; what is left is taste. *Example rule:* "Two-space indent. Hard wrap at 100 characters. Two blank lines between top-level functions, one between logical blocks within a function."
+
+- **When to write a function.** The factoring rules. *Example rule:* "Three repetitions or thirty lines, whichever comes first. Helpers used by more than one script live in `code/helpers.R`. Helpers used in one script live near the top of that script."
+
+- **Function design.** Argument order, default values, the shape of return values, function-level documentation. *Example rule:* "Data first, options second. Functions returning multiple values return a named list, never a parallel-position vector. Roxygen documentation for any function called from another file."
+
+- **Control flow and language idioms.** Pipes versus nesting, loops versus map, base versus tidyverse. *Example rule:* "Use the native R pipe `|>`. Prefer `purrr::map_*()` over `for` loops when iteration is not for side effects. `dplyr` and `tidyr` for data manipulation; base R for inner loops where speed matters."
+
+- **Errors, messages, logging.** When to use which mechanism, and what to print at the start and end of long-running steps. *Example rule:* "`rlang::abort()` for errors. `cli::cli_inform()` for user-facing messages. Print row counts before and after every data-transformation step."
+
+- **Comments and documentation.** Density, format, function-level docs, READMEs. *Example rule:* "Roxygen for any exported function. Inline comments only when the *why* is not obvious from the code. One paragraph at the top of every script explaining what it does and what it produces."
+
+- **Interactive workflow.** Whether the script can be run line by line in the REPL with useful intermediate state, and whether you can drop a debugger in cleanly. This is the dimension easiest to lose to AI-generated code if you do not call it out. *Example rule:* "Break long pipes into intermediate named objects when each step is something you might want to inspect. Avoid anonymous lambdas longer than two lines inside `map_*()`. Anything you might `browser()` into should be its own named function."
+
+- **Reproducibility hygiene.** Paths, seeds, package management, runtime checks, inline assertions. *Example rule:* "All paths via `here::here()`. All `set.seed()` calls in one block at the top of an analysis. `renv.lock` committed. Every function that accepts a data frame asserts the schema with `stopifnot()` at the top."
+:::
+
+Two further notes on using this taxonomy. First, you do not need a rule under every dimension. Some dimensions you will not care about; leave them blank. The point is that when you find yourself fixing the same little thing in three of your scripts, you ask which dimension it lives under, and you add a rule there. The taxonomy is a thinking tool, not a checklist to fill in.
+
+Second, the dimensions interact. A rule about interactive workflow ("break long pipes into intermediate variables") changes the kind of code Claude Code writes more than a rule about formatting ever will, because it shifts the *shape* of the script and not just its appearance. When you weigh which dimension to encode next, prefer the ones that change shape over the ones that change appearance. Autoformatters can handle appearance; only `CLAUDE.md` can teach the agent to write scripts you can step through line by line.
+
+A small habit worth forming. When you start a new project, open the most recent project's `CLAUDE.md`, copy your personal-style section to the new repo, then add the project-specific conventions on top. Over a year, the personal-style block becomes a refined and battle-tested document. You bring it to coauthors. You hand it to your future students. It is one of the longest-lived artifacts in your research workflow, and it costs almost nothing to maintain.
+
+::: {.callout-tip}
+## Other places code style can live
+
+For style rules that are not specific to LLM agents, keep using the standard tools too. An `.editorconfig` file at the repo root tells most editors about indentation and line endings. R has the `styler` package for automatic formatting and `lintr` for static checks. Python has `black` and `ruff`. The agent will respect these conventions when they exist; `CLAUDE.md` is for the rules that go *beyond* what an autoformatter can enforce.
+:::
 
 ## Scale to five departments {#scale-to-five}
 
@@ -805,75 +1115,11 @@ git push origin v1.0-ai-tools
 
 Refresh `github.com/<your-handle>/aem7010-ai`. Click `output/analysis.md`. It renders as a small report with a heading, a table, a figure, and two paragraphs of prose.
 
-## Agents, templates, critics {#agents-and-templates}
+## Critic in action: the fact-checker demo {#agent-demo}
 
 ::: {.callout-note appearance="simple"}
-**Time: ~12 minutes.** A short conceptual block, then a one-minute live demo of a fact-checker subagent that reviews the report you just produced.
+**Time: ~5 minutes.** The conceptual framing is in the [Subagents and templates](#subagents-and-templates) block earlier in the tutorial. Here we deploy one specific specialist from that army on the report you just produced.
 :::
-
-### What a subagent is
-
-In Claude Code, a **subagent** is a specialized agent invoked by the main agent (or by you) with a defined role, a constrained set of tools, and its own system prompt. It lives as a single markdown file in `.claude/agents/<name>.md`. The frontmatter declares the agent's name, description, allowed tools, and optionally a model. The body is the prompt that describes what this agent is for and how it should behave.
-
-A simple example, the kind of file we will use in the demo:
-
-```markdown
----
-name: fact-checker
-description: Verifies every numeric claim in a markdown report against the data it cites.
-tools: Read, Grep, Bash
----
-
-You are a fact-checker for descriptive reports built from CSV data.
-
-Your job: read a markdown report and verify that every numeric claim in the prose
-appears in the report's tables, figure captions, or notes section, OR can be
-recomputed from the data file the report cites.
-
-For each claim you check, return one line: PASS, ROUNDED (the prose rounds a
-number from the table; report what was rounded and to what), or FAIL (the prose
-contains a number that does not appear in or follow from the data; show the
-prose claim and what the data actually says).
-
-End with a one-line summary of how many claims you checked and how many failed.
-Do not edit any file. Reading and reporting only.
-```
-
-The agent has a name (`fact-checker`), a description that explains when to invoke it, a tool allowlist (it can read files, search them, run shell commands, but not write or edit), and a system prompt that describes its job. That is the entire anatomy. Agents are markdown files. They are committed with the repo.
-
-### Why agents matter for research
-
-Three reasons, each one tied directly to the verification reflex that has been the spine of this course.
-
-First, **specialization beats generalist prompts.** A `fact-checker` agent that does only one job does that job better than the same model doing it as task seven of nine. The constrained system prompt cuts noise. The tool allowlist prevents drift.
-
-Second, **composition makes verification tractable.** A producer agent writes the analysis. A critic agent reviews it. Your eyes confirm. Three layers of checking that previously lived only in your eyes. The bottleneck moves, but the bottleneck always moves; what matters is that the verification work gets done at all.
-
-Third, **reusability turns one careful agent into infrastructure.** A `code-reviewer` written for this course's style works on any of your future projects with minimal edits. The agent file is portable. Your future self, on a different project six months from now, drops the same `fact-checker.md` into `.claude/agents/` and gets the same critic.
-
-### Templates as the same idea, applied to procedural knowledge
-
-A subagent codifies *what role to play*. A template codifies *what steps to follow*. The course has been showing you templates implicitly: the functional folder layout, the verification checklist, the prompt patterns. A formal template lives somewhere the agent reads it, like a `.claude/skills/<name>/SKILL.md` file or a project-template repo on GitHub.
-
-A short list, by way of example. A `scrape-placement-page` template that captures how to handle these specific PhD pages, including selector strategies, common quirks, and the verification checks. A `paper-bootstrap` template that scaffolds a new research paper repo with the right folders, a starter `CLAUDE.md`, a `Makefile`, a `.gitignore`, and stub agents. A `replication-package` template that turns a dissertation chapter into a reviewer-ready bundle.
-
-Templates and agents compose. A new paper repo created from `paper-bootstrap` arrives with three agents already installed. The first commit of a new project is therefore not from scratch but from a tested baseline. This is the move that turns "the workflow we did once in class" into "the workflow we use on every project".
-
-### Critics as a class
-
-Among the agent types you might write, the **critic** family is the one most directly tied to research discipline. A critic does not produce the artifact. It reviews it. Its job is to catch errors before you do.
-
-| Agent | What it does | Where it fits in this course |
-|---|---|---|
-| `code-reviewer` | Critiques a diff before commit | Blocks 2, 3, 4 |
-| `data-validator` | Checks a CSV against a schema in `CLAUDE.md` | After every scrape |
-| `fact-checker` | Verifies numeric claims in prose against the data | Block 4 (the write-up). The demo below. |
-| `replication-tester` | Clones the repo, runs the pipeline from clean, checks outputs match | Future-you, every paper |
-| `prose-editor` | Tightens prose in a draft (in `output/` only) | Once you have an `output/` report |
-
-Three caveats worth keeping in mind. First, **a critic from the same model as the producer shares blind spots.** The same model can be wrong about the same things in the same direction. Diversification across providers (one model produces, a different model criticizes) is the eventual move; today, both layers are Claude. Second, **a critic does not replace your eyes.** It catches what it was told to catch. Errors outside the critic's scope still fall to you. Third, **a critic adds tokens and time.** Run it where the cost of a missed error is high.
-
-### Live demo: the fact-checker on `output/analysis.md` {#agent-demo}
 
 The course repo ships a pre-built `fact-checker.md` agent. Two steps, then we watch it work.
 
@@ -892,9 +1138,23 @@ Use the fact-checker agent to review output/analysis.md against
 data/placements_all_classified.csv. Report the result. Do not edit anything.
 ```
 
-Claude Code will spawn the subagent, hand it the system prompt from `fact-checker.md`, and let it loose with read-only tools. The agent reads the report, extracts numeric claims, looks each one up in the table or computes it from the CSV, and reports PASS / ROUNDED / FAIL per claim.
+Claude Code will spawn the subagent, hand it the system prompt from `fact-checker.md`, and let it loose with read-only tools. The agent reads the report, extracts numeric claims, looks each one up in the table or recomputes it from the CSV with a small `Bash` command, and reports PASS / ROUNDED / FAIL per claim. The mechanism (an LLM doing retrieval-and-recompute through its tools, not "checking from memory") is described in detail in [How does an LLM "check" anything?](#how-fact-checker-works) earlier in this tutorial.
 
 You should see roughly five to ten claims checked and almost all PASS. If any FAIL, that is the critic catching something the producer missed. Read the report. Decide whether to edit the prose, edit the script, or both. Whatever you decide, the critic was doing the job your eyes would otherwise have done in the same minute.
+
+::: {.callout-tip}
+## If the natural-language invocation does not trigger the subagent
+
+Subagent invocation in Claude Code is robust most of the time but version-dependent at the margin. If after the prompt above Claude Code reads the files itself rather than spawning the `fact-checker` subagent (you can tell from the tool-call trace; a subagent invocation shows up explicitly), use the slash command instead:
+
+```
+/agents
+```
+
+This opens the agent picker. Select `fact-checker`, then provide the same instruction (review `output/analysis.md` against `data/placements_all_classified.csv`).
+
+The lesson is the same either way: the agent is a markdown file in `.claude/agents/`, the invocation is a one-line ask, and the critic adds a verification layer for almost no incremental friction. The exact triggering UX evolves between Claude Code releases; the file format does not.
+:::
 
 ::: {.callout-tip}
 ## Why we are not designing new agents today
@@ -969,7 +1229,9 @@ Today's demo used a pre-built `fact-checker.md`. Designing a new agent is the na
 The `fact-checker.md` you used today is one example. The community around Claude Code maintains a small library of agent templates that map cleanly to common research roles. The course repo's `ai-tools/seeds/agents/` folder is a good starting point; bring your own modifications back to office hours.
 :::
 
-::: {.callout-note}
-## Instructor fallback
-If Claude Code misbehaves on a student machine during the synchronous walkthrough, working versions of every script in this session live under `ai-tools/seeds/` in the course repo. They take a few seconds to run from the repo root and produce the same outputs. Use them as a reference, or as a literal drop-in if the room gets stuck on any single step.
-:::
+<!--
+Instructor fallback note: if Claude Code misbehaves on a student machine
+during the synchronous walkthrough, working versions of every script live
+under ai-tools/seeds/. Use them as a drop-in if the room gets stuck.
+-->
+

@@ -23,13 +23,14 @@ format:
 
 [§ Tutorial: Pre-class checklist]{.anchor-tag}
 
-Three things, all done before you walk in:
+Four things, all done before you walk in:
 
-- **Claude Code installed and logged in.** `claude --version` returns a version. `claude` opens an interactive prompt without asking you to log in.
+- **Claude Code installed and logged in.** `claude --version` returns a version. `claude` opens without an auth prompt.
 - **The repo `~/github/aem7010-ai` exists, with a clean working tree.** Clone an empty one if you missed the previous session.
-- **Internet works on your laptop.** Two small files get downloaded today (the LLM cache and the fact-checker agent).
+- **R installed, with `tidyverse`, `rvest`, `readr`, `ellmer`.** `ellmer` is recent and unlikely to be installed by default. `install.packages("ellmer")` once, before class.
+- **Internet works.** Two small files download today (the LLM cache and the fact-checker agent).
 
-The first ten minutes are for stragglers. If any of the three failed, say so immediately.
+The first ten minutes are for stragglers. If any of the four failed, say so immediately.
 
 ::: {.note-box}
 We will use VS Code's Source Control panel and the terminal interchangeably for Git. Whichever is closer to where you are working.
@@ -101,6 +102,158 @@ Capability up at each step. Workspace from buffer → folder → project. **Risk
 - Sensitive data you have not isolated (Claude Code reads everything in the project unless you constrain it)
 - Long stretches without review ("auto-accept edits" exists; today is not the day to use it)
 
+## Subagents: Your Small Army of Specialists {.smaller}
+
+[§ Tutorial: Subagents and templates]{.anchor-tag}
+
+Claude Code can delegate to **subagents**: specialized agents with a defined role, a constrained tool kit, and their own system prompt. Each lives as a markdown file in `.claude/agents/<name>.md`.
+
+::: {.note-box}
+**Mental image.** The set of agents in `.claude/agents/` is a small army of specialists. Each one has a single job, a constrained tool kit, a standing order in its system prompt. Some are **producers** (they do the work). Some are **critics** (they inspect what was produced). The army travels with you from project to project; the units you actually deploy on a given project, you tailor for that project.
+:::
+
+Why this matters for research:
+
+- **Specialization** beats generalist prompts (one job, done well)
+- **Composition** makes verification tractable (producer → critic → your eyes)
+- **Reusability** turns one careful agent into infrastructure across projects
+
+## Anatomy of a Subagent {.smaller}
+
+[§ Tutorial: What a subagent is]{.anchor-tag}
+
+```markdown
+---
+name: fact-checker
+description: Verifies every numeric claim in a markdown report against the data it cites.
+tools: Read, Grep, Bash
+---
+
+You are a fact-checker for descriptive reports built from CSV data.
+
+Your job: read a markdown report and verify that every numeric claim
+in the prose appears in the report's tables, figure captions, or notes
+section, OR can be recomputed from the data file the report cites.
+
+For each claim: PASS, ROUNDED, or FAIL. End with a one-line summary.
+Do not edit any file.
+```
+
+Four parts: `name`, `description`, `tools` (allowlist), and the body (system prompt). That is the entire anatomy. **Agents are markdown files. They are committed with the repo.**
+
+## How an LLM "Checks": Tools, Not Memory {.smaller}
+
+[§ Tutorial: How does an LLM "check" anything? · A second example: hallucinated citations]{.anchor-tag}
+
+The fact-checker is itself an LLM. So how does it verify?
+
+**Mechanism (same shape for numbers, citations, anything):**
+
+1. **Read** prose into context.
+2. **Reach for the data** via `Read` / `Bash` / `WebFetch` (whatever ground truth lives where).
+3. **Recompute or requery** the answer from the data, not from memory.
+4. **Compare** the prose claim to the recomputed result. Report PASS / FAIL.
+
+**The LLM's role:** translation (English → query) and adjudication (does the prose match what came back?). **Not memory.**
+
+::: {.note-box}
+**Hallucinated citations are the same pattern, different domain.** *Mata v. Avianca* (2023): lawyer sanctioned for a court brief containing six ChatGPT-generated citations to cases that did not exist. Fix: a `citation-checker` agent with `Read, Bash, WebFetch` tools. Query CrossRef per citation. Return VERIFIED / MISMATCH / HALLUCINATED.
+
+**General lesson.** LLMs fail at problems where the answer lives in a database they have not seen. The fix is not a smarter LLM; it is a critic with tools that reaches the database.
+:::
+
+## Implicit vs. Explicit Agents {.smaller}
+
+[§ Tutorial: Are agents implicit in chat and Cowork?]{.anchor-tag}
+
+Agents are not new today. They have been in chat and Cowork all along, just hidden.
+
+| Implicit (chat / Cowork) | Explicit (Claude Code) |
+|---|---|
+| Low setup, no agent literacy | You write or copy a spec |
+| Provider updates centrally | Updates are your job |
+| Role is invisible | Role is a markdown file you can read |
+| Cannot customize for your project | Tailorable to project conventions |
+| Not part of your repo | Versioned, committed, citable in methods |
+| Behavior shifts between releases | Pinned to your committed file |
+
+::: {.note-box}
+**Concrete example.** A coauthor opens your repo two years from now to extend your placements study. If your classifier ran in a Cowork chat session: the prompt is gone, the model variant is undocumented, the labels are not reproducible. If it ran through `code/classify_llm.R` plus `.claude/agents/classifier.md`: agent file in the repo, prompt in the script, model pinned, **labels reproducible**. That is why explicit matters for research.
+:::
+
+## A Wider Catalog of Agent Types {.smaller}
+
+[§ Tutorial: A wider catalog of agent types]{.anchor-tag}
+
+The pattern is not unique to applied economics. The same shape, different roles.
+
+| Domain | Examples |
+|---|---|
+| **Applied economics** | `data-validator`, `regression-reviewer`, `replication-tester`, `table-formatter`, `fact-checker` |
+| **Other research** | `irb-reviewer` (social sci), `dataset-citer` (climate), `protocol-reviewer` (bio), `experiment-tracker` (ML), `figure-auditor` |
+| **Outside academia** | `code-reviewer` (software), `test-writer`, `pipeline-monitor` (data eng), `contract-reviewer` (legal), `model-risk-reviewer` (finance) |
+
+::: {.note-box}
+**The portable lesson is the shape, not the role.** A markdown file in `.claude/agents/`, a tight system prompt, a constrained tool allowlist, a clear job. The army you assemble reflects the domain you work in.
+:::
+
+## Where Did "Agents" Come From, And Will They Stay? {.smaller}
+
+[§ Tutorial: Where did the idea come from, and is it here to stay?]{.anchor-tag}
+
+The word "agent" in AI is not new. Minsky's *Society of Mind* (1986). Actor-critic in RL (1980s-90s). Multi-agent systems as a research field for decades.
+
+**The specific LLM-agent pattern crystallized 2022-23:**
+
+- **ReAct** (Yao et al., 2022): interleaving reasoning + tool calls beats either alone. Direct ancestor.
+- **AutoGPT, BabyAGI** (early 2023): popularized task decomposition.
+- **LangChain, AutoGen, CrewAI**: made the pattern accessible.
+- By 2024-25: "agent as markdown file with system prompt and tool allowlist" stabilized as a convention.
+
+**Why specialization helps:** focused prompts get better attention; constrained tools prevent specific failures; producer + critic catches errors. Same logic as function decomposition in programming, applied to a new substrate.
+
+::: {.note-box}
+**Is it here to stay?** The specific form (markdown files in `.claude/agents/`) may evolve. **The underlying discipline is permanent**: separating concerns, scoping responsibilities, building audit trails. Software engineering, not AI fad.
+:::
+
+## Constitutional AI: The Critic Pattern at Training Time {.smaller}
+
+[§ Tutorial: A note on Constitutional AI, and how the critic pattern differs across models]{.anchor-tag}
+
+The producer-critic pattern you use today at *inference* time has a direct mirror in how Claude is trained.
+
+**Constitutional AI (CAI)**, Anthropic 2022. Replaces much of the human ranking step in alignment with **AI feedback driven by an explicit constitution**. The training loop: a helpful-but-uncritical model generates a response; a *critic* instance is shown the response plus a principle and asked to identify problems and revise. **RLAIF** (reinforcement learning from AI feedback) replaces RLHF's human ranking step.
+
+**Differences across model families:**
+
+| Family | Post-training | Critic in training? |
+|---|---|---|
+| Claude (Anthropic) | RLAIF + Constitutional AI | Yes, explicitly |
+| GPT (OpenAI), Gemini (Google) | Mostly RLHF, some rule-based components | Implicit in labeler decisions |
+| Open-weight (Llama, Mistral, Qwen) | SFT, RLHF, DPO, some CAI | Inconsistent across models |
+
+::: {.note-box}
+**Why this matters today.** When you ask Claude to play a fact-checker role, you activate a behavior shape it has practiced thousands of times during training. That does not make it immune to error; it does make role-following more natural for this family.
+
+**The portable claim.** Whichever model you use as a critic, the discipline of separating roles holds. The specific reliability of each role on each model is something you check with your own examples.
+:::
+
+## Templates: Blueprints for Whole Armies {.smaller}
+
+[§ Tutorial: Templates: blueprints for whole armies]{.anchor-tag}
+
+A subagent codifies *what role to play*. A template is the level above: a blueprint for a whole army plus conventions for a class of projects.
+
+Three templates worth knowing:
+
+- `scrape-placement-page` (skill): how to handle these specific PhD pages.
+- `paper-bootstrap` (project template): scaffolds a new paper repo with folders, a starter `CLAUDE.md`, a `Makefile`, and a small army of stub agents already installed.
+- `replication-package` (template): turns a finished chapter into a reviewer-ready bundle.
+
+::: {.note-box}
+**A copied army is rarely the right army for *your* fight.** Use the template as a starting line, not a finish line. **Tailoring tip:** open Cowork (last session's tool), point it at your `CLAUDE.md` and your data, ask it to propose tighter wording for an inherited agent's system prompt. Iterate, save back to `.claude/agents/`, commit. One mode (Cowork) maintaining the infrastructure of another (Claude Code).
+:::
+
 ## Today's Arc {.smaller}
 
 [§ Tutorial: Today's arc]{.anchor-tag}
@@ -109,8 +262,8 @@ Capability up at each step. Workspace from buffer → folder → project. **Risk
 2. **Scale to five departments** (~15 min). Short prompt. `CLAUDE.md` carries the context.
 3. **Classify with an LLM** (~15 min). `ellmer` + cached responses. No API key needed today.
 4. **Descriptive write-up** (~10 min). `code/analysis.R` + `output/analysis.md`. Verify the numbers.
-5. **Agents, templates, critics** (~12 min). Concept + one-minute live demo of a fact-checker subagent.
-6. **Debrief** (~8 min). Three modes + the agent layer.
+5. **Critic in action** (~5 min). Live demo: `fact-checker` subagent reviews the report you just produced.
+6. **Debrief** (~10 min). Three modes + the agent layer.
 
 ::: {.note-box}
 The point is the workflow: a Git project, a code-native agent reading `CLAUDE.md` for standing context, small scripts each verifiable in isolation, a write-up where every number traces to code, one critic agent that reviews the result before you do.
@@ -158,7 +311,7 @@ Two slash commands worth knowing:
 
 ## `CLAUDE.md` as Standing Context {.smaller}
 
-[§ Tutorial: What CLAUDE.md is]{.anchor-tag}
+[§ Tutorial: What CLAUDE.md is · Beyond project conventions: encoding your personal style]{.anchor-tag}
 
 `CLAUDE.md` is a markdown file Claude Code reads automatically on every session in this project. It is the standing context for the repo:
 
@@ -166,10 +319,12 @@ Two slash commands worth knowing:
 - What schemas the data follows
 - Which packages are allowed
 - Selector strategies, classifier rules, the `output/` versus `paper/` boundary
-- The "house style" of the repo
+- The "house style" of the repo, including **your personal style** (paths via `here::here()`, naming conventions, plotting defaults, logging patterns)
 
 ::: {.note-box}
 Once `CLAUDE.md` is in place, every prompt you write becomes shorter. The rules do not need to be re-stated. **The prompt is part of the artifact**: versioned, diffable, reviewable like code.
+
+**Your personal style travels with you.** Copy your personal-style block from project to project. Over a year it becomes a battle-tested document. The tutorial has a list of style rules worth encoding (paths, tidyverse vs base, naming, assignment, errors, returns, plotting, logging).
 :::
 
 ## Author `CLAUDE.md` Together {.smaller}
@@ -455,71 +610,11 @@ git push origin v1.0-ai-tools
 
 Refresh github.com. Click `output/analysis.md`. The report renders with description, table, figure, and notes.
 
-## Agents, Templates, Critics {.smaller}
+## Critic in Action: Fact-Checker Demo {.smaller}
 
-[§ Tutorial: Agents, templates, critics]{.anchor-tag}
+[§ Tutorial: Critic in action: the fact-checker demo]{.anchor-tag}
 
-A **subagent** is a specialized agent with a defined role, a constrained tool allowlist, and its own system prompt. It lives as a markdown file in `.claude/agents/<name>.md`. The agent is invoked as a tool call from the main Claude Code session.
-
-**Why agents matter for research:**
-
-- **Specialization beats generalist prompts.** A `fact-checker` does one job better than a generalist doing it as task seven of nine.
-- **Composition makes verification tractable.** Producer agent → critic agent → your eyes. Three layers, not one.
-- **Reusability turns one careful agent into infrastructure.** The same agent file works on your next paper, and the one after that.
-
-::: {.note-box}
-**Templates are the same idea, applied to procedural knowledge.** A `paper-bootstrap` template scaffolds a new repo. A `scrape-placement-page` skill captures how to handle this kind of page. The course's running exercise is a template waiting to be extracted.
-:::
-
-## Anatomy of a Subagent {.smaller}
-
-[§ Tutorial: What a subagent is]{.anchor-tag}
-
-```markdown
----
-name: fact-checker
-description: Verifies every numeric claim in a markdown report against the data it cites.
-tools: Read, Grep, Bash
----
-
-You are a fact-checker for descriptive reports built from CSV data.
-
-Your job: read a markdown report and verify that every numeric claim in the
-prose appears in the report's tables, figure captions, or notes section, OR
-can be recomputed from the data file the report cites.
-
-For each claim: PASS, ROUNDED (with what was rounded), or FAIL (with what
-the data actually says).
-
-End with a one-line summary. Do not edit any file.
-```
-
-**The whole anatomy in one file:**
-
-- `name`: how to invoke it
-- `description`: when to invoke it
-- `tools`: what it is allowed to do (read-only here)
-- `body`: the system prompt
-
-## A Catalog of Agent Types {.smaller}
-
-[§ Tutorial: Critics as a class]{.anchor-tag}
-
-| Agent | What it does | Where it fits |
-|---|---|---|
-| `code-reviewer` | Critiques a diff before commit | Every commit |
-| `data-validator` | Checks a CSV against a schema in `CLAUDE.md` | After every scrape |
-| `fact-checker` | Verifies numeric claims in prose against the data | Block 4. Today's demo. |
-| `replication-tester` | Clones the repo, runs the pipeline from clean, checks outputs match | Future-you, every paper |
-| `prose-editor` | Tightens prose in a draft (in `output/` only) | Once you have an `output/` report |
-
-::: {.note-box}
-**Three caveats.** A critic from the same model as the producer shares blind spots; diversification across providers is the eventual move. A critic does not replace your eyes. A critic adds tokens and time; run it where the cost of a missed error is high.
-:::
-
-## Live Demo: Fact-Checker {.smaller}
-
-[§ Tutorial: Live demo]{.anchor-tag}
+The conceptual framing is in place from the [agents block](#subagents-your-small-army-of-specialists) earlier. Here we deploy one specialist on the report we just produced.
 
 **Step 1.** Download the agent:
 
@@ -539,8 +634,12 @@ data/placements_all_classified.csv. Report the result. Do not edit anything.
 The agent reads the report, extracts numeric claims, verifies each against the CSV, and reports PASS / ROUNDED / FAIL. **Almost all should PASS.** Anything that FAILs is the critic catching what the producer missed.
 
 ::: {.note-box}
-**Why we are not designing new agents today.** The artifact is a markdown file, the invocation is a one-line ask. The lesson is that adding a critic costs almost no friction. *Designing* a new agent (system prompt iteration, tool allowlist tuning, eval against examples) is its own skill. Future session.
+**If the natural-language invocation does not spawn the subagent**, use `/agents` to open the picker, select `fact-checker`, and provide the same instruction. The triggering UX is version-dependent; the file format is not.
+
+**Why we are not designing new agents today.** Designing a new agent (system prompt iteration, tool allowlist tuning, eval against examples) is its own skill. Future session.
 :::
+
+**Then commit:** `git add .claude/agents/fact-checker.md && git commit -m "Add fact-checker subagent"`. The army travels with the repo.
 
 ## Three Modes + Agent Layer, Lived {.smaller}
 

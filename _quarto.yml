@@ -183,12 +183,24 @@ website:
             href: ai-tools/session8.qmd#claude-code-as-a-category
           - text: "— Examples: which tool?"
             href: ai-tools/session8.qmd#which-tool-examples
+          - text: "Subagents and templates"
+            href: ai-tools/session8.qmd#subagents-and-templates
+          - text: "— How does an LLM check?"
+            href: ai-tools/session8.qmd#how-fact-checker-works
+          - text: "— Implicit vs explicit agents"
+            href: ai-tools/session8.qmd#implicit-agents
+          - text: "— Catalog of agent types"
+            href: ai-tools/session8.qmd#agent-catalog
+          - text: "— Where did agents come from?"
+            href: ai-tools/session8.qmd#agents-history
           - text: "Today's arc"
             href: ai-tools/session8.qmd#todays-arc
           - text: "Setup and first run"
             href: ai-tools/session8.qmd#setup-and-first-run
           - text: "Author CLAUDE.md"
             href: ai-tools/session8.qmd#author-claude-md
+          - text: "— Personal style in CLAUDE.md"
+            href: ai-tools/session8.qmd#personal-style-in-claude-md
           - text: "Scale to five departments"
             href: ai-tools/session8.qmd#scale-to-five
           - text: "— Scrape prompt"
@@ -219,9 +231,7 @@ website:
             href: ai-tools/session8.qmd#analysis-exercise
           - text: "Final commit and push"
             href: ai-tools/session8.qmd#final-commit
-          - text: "Agents, templates, critics"
-            href: ai-tools/session8.qmd#agents-and-templates
-          - text: "— Live demo: fact-checker"
+          - text: "Critic in action: fact-checker"
             href: ai-tools/session8.qmd#agent-demo
           - text: "Debrief"
             href: ai-tools/session8.qmd#debrief

@@ -212,13 +212,14 @@ Prof.&nbsp;Ariel Ortiz-Bobea
 <section id="pre-class-checklist" class="slide level2">
 <h2>Pre-Class Checklist</h2>
 <p><span class="anchor-tag">§ Tutorial: Pre-class checklist</span></p>
-<p>Three things, all done before you walk in:</p>
+<p>Four things, all done before you walk in:</p>
 <ul>
-<li><strong>Claude Code installed and logged in.</strong> <code>claude --version</code> returns a version. <code>claude</code> opens an interactive prompt without asking you to log in.</li>
+<li><strong>Claude Code installed and logged in.</strong> <code>claude --version</code> returns a version. <code>claude</code> opens without an auth prompt.</li>
 <li><strong>The repo <code>~/github/aem7010-ai</code> exists, with a clean working tree.</strong> Clone an empty one if you missed the previous session.</li>
-<li><strong>Internet works on your laptop.</strong> Two small files get downloaded today (the LLM cache and the fact-checker agent).</li>
+<li><strong>R installed, with <code>tidyverse</code>, <code>rvest</code>, <code>readr</code>, <code>ellmer</code>.</strong> <code>ellmer</code> is recent and unlikely to be installed by default. <code>install.packages("ellmer")</code> once, before class.</li>
+<li><strong>Internet works.</strong> Two small files download today (the LLM cache and the fact-checker agent).</li>
 </ul>
-<p>The first ten minutes are for stragglers. If any of the three failed, say so immediately.</p>
+<p>The first ten minutes are for stragglers. If any of the four failed, say so immediately.</p>
 <div class="note-box">
 <p>We will use VS Code’s Source Control panel and the terminal interchangeably for Git. Whichever is closer to where you are working.</p>
 </div>
@@ -336,6 +337,208 @@ Prof.&nbsp;Ariel Ortiz-Bobea
 <li>Long stretches without review (“auto-accept edits” exists; today is not the day to use it)</li>
 </ul>
 </section>
+<section id="subagents-your-small-army-of-specialists" class="slide level2 smaller">
+<h2>Subagents: Your Small Army of Specialists</h2>
+<p><span class="anchor-tag">§ Tutorial: Subagents and templates</span></p>
+<p>Claude Code can delegate to <strong>subagents</strong>: specialized agents with a defined role, a constrained tool kit, and their own system prompt. Each lives as a markdown file in <code>.claude/agents/&lt;name&gt;.md</code>.</p>
+<div class="note-box">
+<p><strong>Mental image.</strong> The set of agents in <code>.claude/agents/</code> is a small army of specialists. Each one has a single job, a constrained tool kit, a standing order in its system prompt. Some are <strong>producers</strong> (they do the work). Some are <strong>critics</strong> (they inspect what was produced). The army travels with you from project to project; the units you actually deploy on a given project, you tailor for that project.</p>
+</div>
+<p>Why this matters for research:</p>
+<ul>
+<li><strong>Specialization</strong> beats generalist prompts (one job, done well)</li>
+<li><strong>Composition</strong> makes verification tractable (producer → critic → your eyes)</li>
+<li><strong>Reusability</strong> turns one careful agent into infrastructure across projects</li>
+</ul>
+</section>
+<section id="anatomy-of-a-subagent" class="slide level2 smaller">
+<h2>Anatomy of a Subagent</h2>
+<p><span class="anchor-tag">§ Tutorial: What a subagent is</span></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a></a><span class="co">---</span></span>
+<span id="cb1-2"><a></a><span class="an">name:</span><span class="co"> fact-checker</span></span>
+<span id="cb1-3"><a></a><span class="an">description:</span><span class="co"> Verifies every numeric claim in a markdown report against the data it cites.</span></span>
+<span id="cb1-4"><a></a><span class="an">tools:</span><span class="co"> Read, Grep, Bash</span></span>
+<span id="cb1-5"><a></a><span class="co">---</span></span>
+<span id="cb1-6"><a></a></span>
+<span id="cb1-7"><a></a>You are a fact-checker for descriptive reports built from CSV data.</span>
+<span id="cb1-8"><a></a></span>
+<span id="cb1-9"><a></a>Your job: read a markdown report and verify that every numeric claim</span>
+<span id="cb1-10"><a></a>in the prose appears in the report's tables, figure captions, or notes</span>
+<span id="cb1-11"><a></a>section, OR can be recomputed from the data file the report cites.</span>
+<span id="cb1-12"><a></a></span>
+<span id="cb1-13"><a></a>For each claim: PASS, ROUNDED, or FAIL. End with a one-line summary.</span>
+<span id="cb1-14"><a></a>Do not edit any file.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Four parts: <code>name</code>, <code>description</code>, <code>tools</code> (allowlist), and the body (system prompt). That is the entire anatomy. <strong>Agents are markdown files. They are committed with the repo.</strong></p>
+</section>
+<section id="how-an-llm-checks-tools-not-memory" class="slide level2 smaller">
+<h2>How an LLM “Checks”: Tools, Not Memory</h2>
+<p><span class="anchor-tag">§ Tutorial: How does an LLM “check” anything? · A second example: hallucinated citations</span></p>
+<p>The fact-checker is itself an LLM. So how does it verify?</p>
+<p><strong>Mechanism (same shape for numbers, citations, anything):</strong></p>
+<ol type="1">
+<li><strong>Read</strong> prose into context.</li>
+<li><strong>Reach for the data</strong> via <code>Read</code> / <code>Bash</code> / <code>WebFetch</code> (whatever ground truth lives where).</li>
+<li><strong>Recompute or requery</strong> the answer from the data, not from memory.</li>
+<li><strong>Compare</strong> the prose claim to the recomputed result. Report PASS / FAIL.</li>
+</ol>
+<p><strong>The LLM’s role:</strong> translation (English → query) and adjudication (does the prose match what came back?). <strong>Not memory.</strong></p>
+<div class="note-box">
+<p><strong>Hallucinated citations are the same pattern, different domain.</strong> <em>Mata v. Avianca</em> (2023): lawyer sanctioned for a court brief containing six ChatGPT-generated citations to cases that did not exist. Fix: a <code>citation-checker</code> agent with <code>Read, Bash, WebFetch</code> tools. Query CrossRef per citation. Return VERIFIED / MISMATCH / HALLUCINATED.</p>
+<p><strong>General lesson.</strong> LLMs fail at problems where the answer lives in a database they have not seen. The fix is not a smarter LLM; it is a critic with tools that reaches the database.</p>
+</div>
+</section>
+<section id="implicit-vs.-explicit-agents" class="slide level2 smaller">
+<h2>Implicit vs.&nbsp;Explicit Agents</h2>
+<p><span class="anchor-tag">§ Tutorial: Are agents implicit in chat and Cowork?</span></p>
+<p>Agents are not new today. They have been in chat and Cowork all along, just hidden.</p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Implicit (chat / Cowork)</th>
+<th>Explicit (Claude Code)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Low setup, no agent literacy</td>
+<td>You write or copy a spec</td>
+</tr>
+<tr class="even">
+<td>Provider updates centrally</td>
+<td>Updates are your job</td>
+</tr>
+<tr class="odd">
+<td>Role is invisible</td>
+<td>Role is a markdown file you can read</td>
+</tr>
+<tr class="even">
+<td>Cannot customize for your project</td>
+<td>Tailorable to project conventions</td>
+</tr>
+<tr class="odd">
+<td>Not part of your repo</td>
+<td>Versioned, committed, citable in methods</td>
+</tr>
+<tr class="even">
+<td>Behavior shifts between releases</td>
+<td>Pinned to your committed file</td>
+</tr>
+</tbody>
+</table>
+<div class="note-box">
+<p><strong>Concrete example.</strong> A coauthor opens your repo two years from now to extend your placements study. If your classifier ran in a Cowork chat session: the prompt is gone, the model variant is undocumented, the labels are not reproducible. If it ran through <code>code/classify_llm.R</code> plus <code>.claude/agents/classifier.md</code>: agent file in the repo, prompt in the script, model pinned, <strong>labels reproducible</strong>. That is why explicit matters for research.</p>
+</div>
+</section>
+<section id="a-wider-catalog-of-agent-types" class="slide level2 smaller">
+<h2>A Wider Catalog of Agent Types</h2>
+<p><span class="anchor-tag">§ Tutorial: A wider catalog of agent types</span></p>
+<p>The pattern is not unique to applied economics. The same shape, different roles.</p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Domain</th>
+<th>Examples</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Applied economics</strong></td>
+<td><code>data-validator</code>, <code>regression-reviewer</code>, <code>replication-tester</code>, <code>table-formatter</code>, <code>fact-checker</code></td>
+</tr>
+<tr class="even">
+<td><strong>Other research</strong></td>
+<td><code>irb-reviewer</code> (social sci), <code>dataset-citer</code> (climate), <code>protocol-reviewer</code> (bio), <code>experiment-tracker</code> (ML), <code>figure-auditor</code></td>
+</tr>
+<tr class="odd">
+<td><strong>Outside academia</strong></td>
+<td><code>code-reviewer</code> (software), <code>test-writer</code>, <code>pipeline-monitor</code> (data eng), <code>contract-reviewer</code> (legal), <code>model-risk-reviewer</code> (finance)</td>
+</tr>
+</tbody>
+</table>
+<div class="note-box">
+<p><strong>The portable lesson is the shape, not the role.</strong> A markdown file in <code>.claude/agents/</code>, a tight system prompt, a constrained tool allowlist, a clear job. The army you assemble reflects the domain you work in.</p>
+</div>
+</section>
+<section id="where-did-agents-come-from-and-will-they-stay" class="slide level2 smaller">
+<h2>Where Did “Agents” Come From, And Will They Stay?</h2>
+<p><span class="anchor-tag">§ Tutorial: Where did the idea come from, and is it here to stay?</span></p>
+<p>The word “agent” in AI is not new. Minsky’s <em>Society of Mind</em> (1986). Actor-critic in RL (1980s-90s). Multi-agent systems as a research field for decades.</p>
+<p><strong>The specific LLM-agent pattern crystallized 2022-23:</strong></p>
+<ul>
+<li><strong>ReAct</strong> (Yao et al., 2022): interleaving reasoning + tool calls beats either alone. Direct ancestor.</li>
+<li><strong>AutoGPT, BabyAGI</strong> (early 2023): popularized task decomposition.</li>
+<li><strong>LangChain, AutoGen, CrewAI</strong>: made the pattern accessible.</li>
+<li>By 2024-25: “agent as markdown file with system prompt and tool allowlist” stabilized as a convention.</li>
+</ul>
+<p><strong>Why specialization helps:</strong> focused prompts get better attention; constrained tools prevent specific failures; producer + critic catches errors. Same logic as function decomposition in programming, applied to a new substrate.</p>
+<div class="note-box">
+<p><strong>Is it here to stay?</strong> The specific form (markdown files in <code>.claude/agents/</code>) may evolve. <strong>The underlying discipline is permanent</strong>: separating concerns, scoping responsibilities, building audit trails. Software engineering, not AI fad.</p>
+</div>
+</section>
+<section id="constitutional-ai-the-critic-pattern-at-training-time" class="slide level2 smaller">
+<h2>Constitutional AI: The Critic Pattern at Training Time</h2>
+<p><span class="anchor-tag">§ Tutorial: A note on Constitutional AI, and how the critic pattern differs across models</span></p>
+<p>The producer-critic pattern you use today at <em>inference</em> time has a direct mirror in how Claude is trained.</p>
+<p><strong>Constitutional AI (CAI)</strong>, Anthropic 2022. Replaces much of the human ranking step in alignment with <strong>AI feedback driven by an explicit constitution</strong>. The training loop: a helpful-but-uncritical model generates a response; a <em>critic</em> instance is shown the response plus a principle and asked to identify problems and revise. <strong>RLAIF</strong> (reinforcement learning from AI feedback) replaces RLHF’s human ranking step.</p>
+<p><strong>Differences across model families:</strong></p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Family</th>
+<th>Post-training</th>
+<th>Critic in training?</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Claude (Anthropic)</td>
+<td>RLAIF + Constitutional AI</td>
+<td>Yes, explicitly</td>
+</tr>
+<tr class="even">
+<td>GPT (OpenAI), Gemini (Google)</td>
+<td>Mostly RLHF, some rule-based components</td>
+<td>Implicit in labeler decisions</td>
+</tr>
+<tr class="odd">
+<td>Open-weight (Llama, Mistral, Qwen)</td>
+<td>SFT, RLHF, DPO, some CAI</td>
+<td>Inconsistent across models</td>
+</tr>
+</tbody>
+</table>
+<div class="note-box">
+<p><strong>Why this matters today.</strong> When you ask Claude to play a fact-checker role, you activate a behavior shape it has practiced thousands of times during training. That does not make it immune to error; it does make role-following more natural for this family.</p>
+<p><strong>The portable claim.</strong> Whichever model you use as a critic, the discipline of separating roles holds. The specific reliability of each role on each model is something you check with your own examples.</p>
+</div>
+</section>
+<section id="templates-blueprints-for-whole-armies" class="slide level2 smaller">
+<h2>Templates: Blueprints for Whole Armies</h2>
+<p><span class="anchor-tag">§ Tutorial: Templates: blueprints for whole armies</span></p>
+<p>A subagent codifies <em>what role to play</em>. A template is the level above: a blueprint for a whole army plus conventions for a class of projects.</p>
+<p>Three templates worth knowing:</p>
+<ul>
+<li><code>scrape-placement-page</code> (skill): how to handle these specific PhD pages.</li>
+<li><code>paper-bootstrap</code> (project template): scaffolds a new paper repo with folders, a starter <code>CLAUDE.md</code>, a <code>Makefile</code>, and a small army of stub agents already installed.</li>
+<li><code>replication-package</code> (template): turns a finished chapter into a reviewer-ready bundle.</li>
+</ul>
+<div class="note-box">
+<p><strong>A copied army is rarely the right army for <em>your</em> fight.</strong> Use the template as a starting line, not a finish line. <strong>Tailoring tip:</strong> open Cowork (last session’s tool), point it at your <code>CLAUDE.md</code> and your data, ask it to propose tighter wording for an inherited agent’s system prompt. Iterate, save back to <code>.claude/agents/</code>, commit. One mode (Cowork) maintaining the infrastructure of another (Claude Code).</p>
+</div>
+</section>
 <section id="todays-arc" class="slide level2 smaller">
 <h2>Today’s Arc</h2>
 <p><span class="anchor-tag">§ Tutorial: Today’s arc</span></p>
@@ -344,8 +547,8 @@ Prof.&nbsp;Ariel Ortiz-Bobea
 <li><strong>Scale to five departments</strong> (~15 min). Short prompt. <code>CLAUDE.md</code> carries the context.</li>
 <li><strong>Classify with an LLM</strong> (~15 min). <code>ellmer</code> + cached responses. No API key needed today.</li>
 <li><strong>Descriptive write-up</strong> (~10 min). <code>code/analysis.R</code> + <code>output/analysis.md</code>. Verify the numbers.</li>
-<li><strong>Agents, templates, critics</strong> (~12 min). Concept + one-minute live demo of a fact-checker subagent.</li>
-<li><strong>Debrief</strong> (~8 min). Three modes + the agent layer.</li>
+<li><strong>Critic in action</strong> (~5 min). Live demo: <code>fact-checker</code> subagent reviews the report you just produced.</li>
+<li><strong>Debrief</strong> (~10 min). Three modes + the agent layer.</li>
 </ol>
 <div class="note-box">
 <p>The point is the workflow: a Git project, a code-native agent reading <code>CLAUDE.md</code> for standing context, small scripts each verifiable in isolation, a write-up where every number traces to code, one critic agent that reviews the result before you do.</p>
@@ -368,9 +571,9 @@ Prof.&nbsp;Ariel Ortiz-Bobea
 <h2>Setup and First Run</h2>
 <p><span class="anchor-tag">§ Tutorial: Setup and first run</span></p>
 <p>From a terminal at the repo root:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a></a><span class="bu">cd</span> ~/github/aem7010-ai</span>
-<span id="cb1-2"><a></a><span class="fu">git</span> status      <span class="co"># nothing to commit, working tree clean</span></span>
-<span id="cb1-3"><a></a><span class="ex">claude</span>          <span class="co"># launch Claude Code</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a></a><span class="bu">cd</span> ~/github/aem7010-ai</span>
+<span id="cb2-2"><a></a><span class="fu">git</span> status      <span class="co"># nothing to commit, working tree clean</span></span>
+<span id="cb2-3"><a></a><span class="ex">claude</span>          <span class="co"># launch Claude Code</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>First sanity check inside Claude Code:</p>
 <blockquote>
 <p>List the top-level files and folders in this repo. Do not edit anything.</p>
@@ -386,17 +589,18 @@ Prof.&nbsp;Ariel Ortiz-Bobea
 </section>
 <section id="claude.md-as-standing-context" class="slide level2 smaller">
 <h2><code>CLAUDE.md</code> as Standing Context</h2>
-<p><span class="anchor-tag">§ Tutorial: What CLAUDE.md is</span></p>
+<p><span class="anchor-tag">§ Tutorial: What CLAUDE.md is · Beyond project conventions: encoding your personal style</span></p>
 <p><code>CLAUDE.md</code> is a markdown file Claude Code reads automatically on every session in this project. It is the standing context for the repo:</p>
 <ul>
 <li>What folders exist and what each is for</li>
 <li>What schemas the data follows</li>
 <li>Which packages are allowed</li>
 <li>Selector strategies, classifier rules, the <code>output/</code> versus <code>paper/</code> boundary</li>
-<li>The “house style” of the repo</li>
+<li>The “house style” of the repo, including <strong>your personal style</strong> (paths via <code>here::here()</code>, naming conventions, plotting defaults, logging patterns)</li>
 </ul>
 <div class="note-box">
 <p>Once <code>CLAUDE.md</code> is in place, every prompt you write becomes shorter. The rules do not need to be re-stated. <strong>The prompt is part of the artifact</strong>: versioned, diffable, reviewable like code.</p>
+<p><strong>Your personal style travels with you.</strong> Copy your personal-style block from project to project. Over a year it becomes a battle-tested document. The tutorial has a list of style rules worth encoding (paths, tidyverse vs base, naming, assignment, errors, returns, plotting, logging).</p>
 </div>
 </section>
 <section id="author-claude.md-together" class="slide level2 smaller">
@@ -408,8 +612,8 @@ Prof.&nbsp;Ariel Ortiz-Bobea
 <ul id="tabset-1" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-1-1">Download the seed (faster)</a></li><li><a href="#tabset-1-2">Paste via Claude Code</a></li></ul>
 <div class="tab-content">
 <div id="tabset-1-1">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a></a><span class="ex">curl</span> <span class="at">-L</span> <span class="at">-o</span> CLAUDE.md <span class="dt">\</span></span>
-<span id="cb2-2"><a></a>  https://raw.githubusercontent.com/arielortizbobea/aem7010/main/ai-tools/seeds/CLAUDE.md</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a></a><span class="ex">curl</span> <span class="at">-L</span> <span class="at">-o</span> CLAUDE.md <span class="dt">\</span></span>
+<span id="cb3-2"><a></a>  https://raw.githubusercontent.com/arielortizbobea/aem7010/main/ai-tools/seeds/CLAUDE.md</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div id="tabset-1-2">
 <p>Tell Claude Code: “Replace CLAUDE.md with the content I am about to paste:” then paste from the tutorial.</p>
@@ -562,13 +766,13 @@ and report per-department row counts and the total.</code></pre>
 <h2>ellmer in 30 Seconds</h2>
 <p><span class="anchor-tag">§ Tutorial: A 30-second introduction to ellmer</span></p>
 <p><code>ellmer</code> is Posit’s R package for LLM APIs. One interface, multiple providers (Anthropic, OpenAI, Google, Groq).</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a></a><span class="fu">library</span>(ellmer)</span>
-<span id="cb4-2"><a></a></span>
-<span id="cb4-3"><a></a>chat <span class="ot">&lt;-</span> <span class="fu">chat_anthropic</span>(</span>
-<span id="cb4-4"><a></a>  <span class="at">model =</span> <span class="st">"claude-haiku-4-5-20251001"</span>,</span>
-<span id="cb4-5"><a></a>  <span class="at">params =</span> <span class="fu">params</span>(<span class="at">temperature =</span> <span class="dv">0</span>)</span>
-<span id="cb4-6"><a></a>)</span>
-<span id="cb4-7"><a></a>chat<span class="sc">$</span><span class="fu">chat</span>(<span class="st">"Classify this placement as academic, government, industry, or other: ..."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a></a><span class="fu">library</span>(ellmer)</span>
+<span id="cb5-2"><a></a></span>
+<span id="cb5-3"><a></a>chat <span class="ot">&lt;-</span> <span class="fu">chat_anthropic</span>(</span>
+<span id="cb5-4"><a></a>  <span class="at">model =</span> <span class="st">"claude-haiku-4-5-20251001"</span>,</span>
+<span id="cb5-5"><a></a>  <span class="at">params =</span> <span class="fu">params</span>(<span class="at">temperature =</span> <span class="dv">0</span>)</span>
+<span id="cb5-6"><a></a>)</span>
+<span id="cb5-7"><a></a>chat<span class="sc">$</span><span class="fu">chat</span>(<span class="st">"Classify this placement as academic, government, industry, or other: ..."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Two patterns, both visible in the script:</p>
 <ul>
 <li><strong>Line 1 of the chat.</strong> Pin the model. Pin the temperature. This is your reproducibility contract.</li>
@@ -580,9 +784,9 @@ and report per-department row counts and the total.</code></pre>
 <h2>Cache, Short Prompt, Defensive Cache-Miss (~12 min)</h2>
 <p><span class="anchor-tag">§ Tutorial: Download the cache · The shared classifier prompt</span></p>
 <p><strong>Download the cache:</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a></a><span class="fu">mkdir</span> <span class="at">-p</span> data/cache</span>
-<span id="cb5-2"><a></a><span class="ex">curl</span> <span class="at">-L</span> <span class="at">-o</span> data/cache/llm_responses.csv <span class="dt">\</span></span>
-<span id="cb5-3"><a></a>  https://raw.githubusercontent.com/arielortizbobea/aem7010/main/ai-tools/seeds/llm_responses.csv</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a></a><span class="fu">mkdir</span> <span class="at">-p</span> data/cache</span>
+<span id="cb6-2"><a></a><span class="ex">curl</span> <span class="at">-L</span> <span class="at">-o</span> data/cache/llm_responses.csv <span class="dt">\</span></span>
+<span id="cb6-3"><a></a>  https://raw.githubusercontent.com/arielortizbobea/aem7010/main/ai-tools/seeds/llm_responses.csv</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p><strong>Short prompt (paste into Claude Code):</strong></p>
 <pre><code>Write code/classify_llm.R that produces data/placements_all_classified.csv
 following the LLM classifier conventions in CLAUDE.md. Read placements from
@@ -685,102 +889,14 @@ source of truth for every number in the prose.</code></pre>
 <p>Stage four files: <code>code/analysis.R</code>, <code>output/analysis_table.csv</code>, <code>output/figures/academic_share_by_dept.png</code>, <code>output/analysis.md</code>.</p>
 <p>Commit message: <code>Descriptive analysis of multi-department placements</code>.</p>
 <p>To mark the analysis complete:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a></a><span class="fu">git</span> tag <span class="at">-a</span> v1.0-ai-tools <span class="at">-m</span> <span class="st">"End of AI-tools module"</span></span>
-<span id="cb8-2"><a></a><span class="fu">git</span> push origin v1.0-ai-tools</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a></a><span class="fu">git</span> tag <span class="at">-a</span> v1.0-ai-tools <span class="at">-m</span> <span class="st">"End of AI-tools module"</span></span>
+<span id="cb9-2"><a></a><span class="fu">git</span> push origin v1.0-ai-tools</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Refresh github.com. Click <code>output/analysis.md</code>. The report renders with description, table, figure, and notes.</p>
 </section>
-<section id="agents-templates-critics" class="slide level2 smaller">
-<h2>Agents, Templates, Critics</h2>
-<p><span class="anchor-tag">§ Tutorial: Agents, templates, critics</span></p>
-<p>A <strong>subagent</strong> is a specialized agent with a defined role, a constrained tool allowlist, and its own system prompt. It lives as a markdown file in <code>.claude/agents/&lt;name&gt;.md</code>. The agent is invoked as a tool call from the main Claude Code session.</p>
-<p><strong>Why agents matter for research:</strong></p>
-<ul>
-<li><strong>Specialization beats generalist prompts.</strong> A <code>fact-checker</code> does one job better than a generalist doing it as task seven of nine.</li>
-<li><strong>Composition makes verification tractable.</strong> Producer agent → critic agent → your eyes. Three layers, not one.</li>
-<li><strong>Reusability turns one careful agent into infrastructure.</strong> The same agent file works on your next paper, and the one after that.</li>
-</ul>
-<div class="note-box">
-<p><strong>Templates are the same idea, applied to procedural knowledge.</strong> A <code>paper-bootstrap</code> template scaffolds a new repo. A <code>scrape-placement-page</code> skill captures how to handle this kind of page. The course’s running exercise is a template waiting to be extracted.</p>
-</div>
-</section>
-<section id="anatomy-of-a-subagent" class="slide level2 smaller">
-<h2>Anatomy of a Subagent</h2>
-<p><span class="anchor-tag">§ Tutorial: What a subagent is</span></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb9-1"><a></a><span class="co">---</span></span>
-<span id="cb9-2"><a></a><span class="an">name:</span><span class="co"> fact-checker</span></span>
-<span id="cb9-3"><a></a><span class="an">description:</span><span class="co"> Verifies every numeric claim in a markdown report against the data it cites.</span></span>
-<span id="cb9-4"><a></a><span class="an">tools:</span><span class="co"> Read, Grep, Bash</span></span>
-<span id="cb9-5"><a></a><span class="co">---</span></span>
-<span id="cb9-6"><a></a></span>
-<span id="cb9-7"><a></a>You are a fact-checker for descriptive reports built from CSV data.</span>
-<span id="cb9-8"><a></a></span>
-<span id="cb9-9"><a></a>Your job: read a markdown report and verify that every numeric claim in the</span>
-<span id="cb9-10"><a></a>prose appears in the report's tables, figure captions, or notes section, OR</span>
-<span id="cb9-11"><a></a>can be recomputed from the data file the report cites.</span>
-<span id="cb9-12"><a></a></span>
-<span id="cb9-13"><a></a>For each claim: PASS, ROUNDED (with what was rounded), or FAIL (with what</span>
-<span id="cb9-14"><a></a>the data actually says).</span>
-<span id="cb9-15"><a></a></span>
-<span id="cb9-16"><a></a>End with a one-line summary. Do not edit any file.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p><strong>The whole anatomy in one file:</strong></p>
-<ul>
-<li><code>name</code>: how to invoke it</li>
-<li><code>description</code>: when to invoke it</li>
-<li><code>tools</code>: what it is allowed to do (read-only here)</li>
-<li><code>body</code>: the system prompt</li>
-</ul>
-</section>
-<section id="a-catalog-of-agent-types" class="slide level2 smaller">
-<h2>A Catalog of Agent Types</h2>
-<p><span class="anchor-tag">§ Tutorial: Critics as a class</span></p>
-<table class="caption-top">
-<colgroup>
-<col style="width: 33%">
-<col style="width: 33%">
-<col style="width: 33%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Agent</th>
-<th>What it does</th>
-<th>Where it fits</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code>code-reviewer</code></td>
-<td>Critiques a diff before commit</td>
-<td>Every commit</td>
-</tr>
-<tr class="even">
-<td><code>data-validator</code></td>
-<td>Checks a CSV against a schema in <code>CLAUDE.md</code></td>
-<td>After every scrape</td>
-</tr>
-<tr class="odd">
-<td><code>fact-checker</code></td>
-<td>Verifies numeric claims in prose against the data</td>
-<td>Block 4. Today’s demo.</td>
-</tr>
-<tr class="even">
-<td><code>replication-tester</code></td>
-<td>Clones the repo, runs the pipeline from clean, checks outputs match</td>
-<td>Future-you, every paper</td>
-</tr>
-<tr class="odd">
-<td><code>prose-editor</code></td>
-<td>Tightens prose in a draft (in <code>output/</code> only)</td>
-<td>Once you have an <code>output/</code> report</td>
-</tr>
-</tbody>
-</table>
-<div class="note-box">
-<p><strong>Three caveats.</strong> A critic from the same model as the producer shares blind spots; diversification across providers is the eventual move. A critic does not replace your eyes. A critic adds tokens and time; run it where the cost of a missed error is high.</p>
-</div>
-</section>
-<section id="live-demo-fact-checker" class="slide level2 smaller">
-<h2>Live Demo: Fact-Checker</h2>
-<p><span class="anchor-tag">§ Tutorial: Live demo</span></p>
+<section id="critic-in-action-fact-checker-demo" class="slide level2 smaller">
+<h2>Critic in Action: Fact-Checker Demo</h2>
+<p><span class="anchor-tag">§ Tutorial: Critic in action: the fact-checker demo</span></p>
+<p>The conceptual framing is in place from the <a href="#/subagents-your-small-army-of-specialists">agents block</a> earlier. Here we deploy one specialist on the report we just produced.</p>
 <p><strong>Step 1.</strong> Download the agent:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a></a><span class="fu">mkdir</span> <span class="at">-p</span> .claude/agents</span>
 <span id="cb10-2"><a></a><span class="ex">curl</span> <span class="at">-L</span> <span class="at">-o</span> .claude/agents/fact-checker.md <span class="dt">\</span></span>
@@ -790,8 +906,10 @@ source of truth for every number in the prose.</code></pre>
 data/placements_all_classified.csv. Report the result. Do not edit anything.</code></pre>
 <p>The agent reads the report, extracts numeric claims, verifies each against the CSV, and reports PASS / ROUNDED / FAIL. <strong>Almost all should PASS.</strong> Anything that FAILs is the critic catching what the producer missed.</p>
 <div class="note-box">
-<p><strong>Why we are not designing new agents today.</strong> The artifact is a markdown file, the invocation is a one-line ask. The lesson is that adding a critic costs almost no friction. <em>Designing</em> a new agent (system prompt iteration, tool allowlist tuning, eval against examples) is its own skill. Future session.</p>
+<p><strong>If the natural-language invocation does not spawn the subagent</strong>, use <code>/agents</code> to open the picker, select <code>fact-checker</code>, and provide the same instruction. The triggering UX is version-dependent; the file format is not.</p>
+<p><strong>Why we are not designing new agents today.</strong> Designing a new agent (system prompt iteration, tool allowlist tuning, eval against examples) is its own skill. Future session.</p>
 </div>
+<p><strong>Then commit:</strong> <code>git add .claude/agents/fact-checker.md &amp;&amp; git commit -m "Add fact-checker subagent"</code>. The army travels with the repo.</p>
 </section>
 <section id="three-modes-agent-layer-lived" class="slide level2 smaller">
 <h2>Three Modes + Agent Layer, Lived</h2>

@@ -678,6 +678,36 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../ai-tools/session8.html#subagents-and-templates" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Subagents and templates</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai-tools/session8.html#how-fact-checker-works" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">— How does an LLM check?</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai-tools/session8.html#implicit-agents" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">— Implicit vs explicit agents</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai-tools/session8.html#agent-catalog" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">— Catalog of agent types</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai-tools/session8.html#agents-history" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">— Where did agents come from?</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../ai-tools/session8.html#todays-arc" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Today’s arc</span></a>
   </div>
@@ -692,6 +722,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="sidebar-item-container"> 
   <a href="../ai-tools/session8.html#author-claude-md" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Author CLAUDE.md</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ai-tools/session8.html#personal-style-in-claude-md" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">— Personal style in CLAUDE.md</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -786,14 +822,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../ai-tools/session8.html#agents-and-templates" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Agents, templates, critics</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="../ai-tools/session8.html#agent-demo" class="sidebar-item-text sidebar-link">
- <span class="menu-text">— Live demo: fact-checker</span></a>
+ <span class="menu-text">Critic in action: fact-checker</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -849,29 +879,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<div class="callout callout-style-simple callout-note no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-body-container">
-<p><strong>Instructor pre-flight (the weekend before class).</strong> Open each of the five placement pages in a browser and confirm they still render PhD placement tables in the same shape: <a href="https://dyson.cornell.edu/programs/graduate/placements/">Cornell Dyson</a>, <a href="https://are.berkeley.edu/graduate/job-market-placement">UC Berkeley ARE</a>, <a href="https://are.ucdavis.edu/graduate/phd-program/placement">UC Davis ARE</a>, <a href="https://apec.umn.edu/graduate/job-placements">Minnesota Applied Economics</a>, <a href="https://aae.wisc.edu/graduate-programs/placement/">Wisconsin AAE</a>. Run the fallback <code>code/scrape_&lt;dept&gt;.R</code> scripts from a fresh R session and confirm each produces a CSV with at least 30 rows. Then run <code>code/classify_llm.R</code> once with your own <code>ANTHROPIC_API_KEY</code> to refresh <code>data/cache/llm_responses.csv</code>, and push the cache to the course’s public URL. The cache file is what students download at the start of the LLM-classifier section, so they never need an API key in class.</p>
-</div>
-</div>
-</div>
+<!--
+Instructor pre-flight checklist for this session lives at ai-tools/seeds/README.md.
+That file is in the repo but not part of the rendered Quarto site. Edit it there.
+-->
 <div class="callout callout-style-simple callout-warning">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-body-container">
-<p><strong>Pre-class checklist.</strong> Three things, all done before you walk in.</p>
+<p><strong>Pre-class checklist.</strong> Four things, all done before you walk in.</p>
 <ol type="1">
 <li><strong>Claude Code installed and logged in.</strong> From a terminal, <code>claude --version</code> returns a version string and <code>claude</code> opens an interactive prompt without asking you to log in. The browser login completes once and persists.</li>
 <li><strong>The repo <code>~/github/aem7010-ai</code> exists, with a clean working tree.</strong> If you completed the previous session, you already have it. If you did not, clone an empty <code>aem7010-ai</code> repo from GitHub now (see the previous session’s tutorial for the steps; we will not redo them in class).</li>
-<li><strong>Internet works on your laptop.</strong> One small file gets downloaded during the LLM-classifier section. Confirm <code>curl https://www.google.com</code> returns HTML, or just open a browser tab.</li>
+<li><strong>R installed, with the four packages we will use.</strong> From R or RStudio, run <code>install.packages(c("tidyverse", "rvest", "readr", "ellmer"))</code> once before class. <code>ellmer</code> is recent and unlikely to be installed by default; the other three may already be there from previous sessions. The class is not the place to discover that a <code>library()</code> call fails because the package is missing.</li>
+<li><strong>Internet works on your laptop.</strong> Two small files get downloaded during class (the LLM cache and the fact-checker agent). Confirm <code>curl https://www.google.com</code> returns HTML, or just open a browser tab.</li>
 </ol>
-<p>The first ten minutes of class are reserved for stragglers. If any of the three above failed, say so immediately.</p>
+<p>The first ten minutes of class are reserved for stragglers. If any of the four above failed, say so immediately.</p>
 </div>
 </div>
 </div>
@@ -1068,6 +1093,264 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </section>
 </section>
+<section id="subagents-and-templates" class="level2">
+<h2 class="anchored" data-anchor-id="subagents-and-templates">Subagents and templates</h2>
+<p>Most of today’s hands-on work runs through one main Claude Code session. The agent reads files, writes scripts, runs them, and proposes diffs. But Claude Code can also delegate to <strong>subagents</strong>, and that capability is worth front-loading before the work starts.</p>
+<p>A mental image worth carrying. The set of agents in your repo’s <code>.claude/agents/</code> folder is a small army of specialists. Each one has a single job, a constrained tool kit, and a standing order in its system prompt. Some are producers; they do the work. Some are critics; they inspect what was produced. The army travels with you from project to project, but the units you actually deploy on any given project you tailor for that project. We will use one specific specialist at the end of class, and the framing here is what makes the demo land.</p>
+<section id="what-a-subagent-is" class="level3">
+<h3 class="anchored" data-anchor-id="what-a-subagent-is">What a subagent is</h3>
+<p>A subagent is a specialized agent invoked by the main Claude Code session with a defined role, a constrained tool allowlist, and its own system prompt. It lives as a single markdown file in <code>.claude/agents/&lt;name&gt;.md</code>. The frontmatter declares the agent’s name, description, allowed tools, and optionally a model. The body is the prompt that describes what this agent is for and how it should behave.</p>
+<p>A simple example, the kind of file we will use at the end of class:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="an">name:</span><span class="co"> fact-checker</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="an">description:</span><span class="co"> Verifies every numeric claim in a markdown report against the data it cites.</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="an">tools:</span><span class="co"> Read, Grep, Bash</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>You are a fact-checker for descriptive reports built from CSV data.</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>Your job: read a markdown report and verify that every numeric claim in the prose</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>appears in the report's tables, figure captions, or notes section, OR can be</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>recomputed from the data file the report cites.</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>For each claim you check, return one line: PASS, ROUNDED (the prose rounds a</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>number from the table; report what was rounded and to what), or FAIL (the prose</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>contains a number that does not appear in or follow from the data; show the</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>prose claim and what the data actually says).</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>End with a one-line summary of how many claims you checked and how many failed.</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>Do not edit any file. Reading and reporting only.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The agent has a name (<code>fact-checker</code>), a description that tells the main agent when to invoke it, a tool allowlist (read-only here), and a system prompt that describes its job. That is the entire anatomy. Agents are markdown files. They are committed with the repo.</p>
+</section>
+<section id="how-fact-checker-works" class="level3">
+<h3 class="anchored" data-anchor-id="how-fact-checker-works">How does an LLM “check” anything?</h3>
+<p>A reasonable question to pause on. The fact-checker is itself a language model. Language models generate tokens. So how can one <em>verify</em> anything?</p>
+<p>The answer is that subagents are not just text generators. They are text generators with <strong>tools</strong>. The <code>tools: Read, Grep, Bash</code> line in the frontmatter is doing the heavy lifting. When you ask the fact-checker to verify a numeric claim, the agent does not look the answer up in its training data, and it does not “remember” the contents of your data file. It does this:</p>
+<ol type="1">
+<li><strong>Read the prose into context.</strong> The <code>Read</code> tool returns the bytes of <code>output/analysis.md</code>. The text of every numeric claim now sits in the agent’s context window, verbatim.</li>
+<li><strong>Reach for the data.</strong> Either <code>Read</code> the CSV into context, or, for files too large to fit, run a <code>Bash</code> command like <code>head</code> or <code>wc</code> to get a usable slice. Either way the data the agent will reason about comes from disk, not from training.</li>
+<li><strong>Recompute each claim.</strong> For each numeric claim from step 1, the agent generates a small <code>Bash</code> command that recomputes the same number from the data file. For example: <code>awk -F, '$1=="dyson" &amp;&amp; $6=="academic" {n++} END {print n}' data/placements_all_classified.csv</code>. The shell runs the command. The shell returns a real integer.</li>
+<li><strong>Compare and report.</strong> The prose number (from step 1) and the recomputed number (from step 3) are now both in the agent’s context, side by side. The agent reports PASS, ROUNDED, or FAIL by comparing the two values.</li>
+</ol>
+<p>The LLM’s role is <strong>translation and adjudication</strong>: turn an English claim into a query, run the query, compare the result against the prose. The actual numbers come from the file, not from the model. The model never has to “remember” that Berkeley placed fourteen students; it recomputes that number from the CSV every time, and only then compares.</p>
+<p>This is why the tool allowlist matters. Without <code>Read</code> and <code>Bash</code>, a fact-checker would be a language model hallucinating about numbers it has never seen. With them, the agent has a route to ground truth that does not pass through training data. Retrieval-and-recompute is the mechanism. Pure generation is not.</p>
+<div class="bad-list">
+<p><strong>Where this still fails, and what to watch for.</strong></p>
+<ul>
+<li><strong>Misreading the prose.</strong> The agent extracts a claim it did not see correctly. Catch by reading the agent’s list of extracted claims; if it looks wrong, the verification of that claim is not meaningful.</li>
+<li><strong>A wrong query.</strong> The agent generates a <code>Bash</code> or <code>Grep</code> command that does not actually correspond to the prose claim (a wrong filter, a wrong column). The output is a real number, but it is the wrong real number. Catch by skimming the tool-call trace: each PASS or FAIL should be accompanied by a visible command whose logic you can follow.</li>
+<li><strong>A claimed result without a real query.</strong> Rare but possible. The agent reports a verification outcome without having actually run the tool. Catch by checking the tool-call trace: every numeric claim should have a corresponding tool invocation. If a number appears in the report without a query behind it, treat that line as unverified.</li>
+</ul>
+</div>
+<p>The discipline carries through, in the same shape as everywhere else in this course. The artifact (the agent’s report) is reviewable. The audit trail (the tool calls) is visible. The verification of the verifier is yours.</p>
+</section>
+<section id="citation-checker-example" class="level3">
+<h3 class="anchored" data-anchor-id="citation-checker-example">A second example: hallucinated citations and the citation-checker</h3>
+<p>Numbers are not the only thing language models hallucinate. Citations are arguably the most notorious case for academic readers, and the fix follows the same pattern as the fact-checker. Worth walking through, because the failure mode is one every PhD student writing with AI assistance will encounter.</p>
+<p>A language model asked to support a claim with a citation will routinely produce a reference that <em>looks</em> real. Plausible authors. A plausible journal. A reasonable year. A DOI that follows the right format. None of it exists. The model has seen the <em>shape</em> of citations across its training data; it produces something with that shape; and the shape is convincing even when the content is invented.</p>
+<p>This is not hypothetical. In <em>Mata v. Avianca</em> (2023), a US lawyer filed a brief in federal court containing six citations to court cases that did not exist; ChatGPT had generated them. The lawyer was sanctioned. Editors of academic journals report similar issues with rejected submissions, and several PhD-program guidelines have started naming citation hallucination explicitly. If you write with AI assistance, this is a risk you actively manage.</p>
+<p>The mechanism behind the failure is the same one we just discussed for numbers. The model has seen many citations. It has not seen a database of which citations are real. Asked to produce one, it generates structure-conforming text. Asked from memory whether a citation is real, it generates a confident yes. There is no ground truth in the model’s weights for this question.</p>
+<p>The fix is structurally identical to the numeric fact-checker. Build a critic with tools that <em>route around</em> the model’s memory. The agent’s job is not to remember whether a paper exists. The agent’s job is to:</p>
+<ol type="1">
+<li>Read the draft and extract every citation.</li>
+<li>For each citation, query an actual citation database (CrossRef, OpenAlex, PubMed for biomedical work). The query is constructed from the citation’s metadata: title plus first author last name, or DOI when present.</li>
+<li>Compare what the database returns to what the draft cites.</li>
+<li>Report VERIFIED, MISMATCH (the paper exists but the cited metadata is wrong, for example a year that disagrees), or HALLUCINATED (no plausible match in the database).</li>
+</ol>
+<p>A minimal version of this agent’s frontmatter:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="an">name:</span><span class="co"> citation-checker</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="an">description:</span><span class="co"> Verifies every citation in a markdown or LaTeX draft against CrossRef.</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="an">tools:</span><span class="co"> Read, Bash, WebFetch</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>You are a citation checker for academic drafts.</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>Your job: read a draft and verify each citation against CrossRef (or</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>OpenAlex, or another canonical citation database accessible from the</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>shell).</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>Workflow:</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Read the draft. Extract every citation, including in-text citations</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>   and references.</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>For each citation, query CrossRef using its API. The query is the</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>   title plus first author last name, or the DOI when one is present.</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>   Compare returned metadata to the citation in the draft.</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Return one line per citation: VERIFIED, MISMATCH (the paper exists</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>   but the citation is wrong somewhere; show the disagreement), or</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>   HALLUCINATED (no plausible match).</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>Constraints. You are read-only. Do not edit the draft.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The shape is the fact-checker again, with <code>WebFetch</code> added so the agent can hit a public API. The LLM is still the translator and adjudicator: extract the claim, generate a query, compare what comes back. The ground truth lives in CrossRef, not in the model.</p>
+<p>This is the general lesson that hallucinated references make especially vivid. <strong>The class of problems language models fail at by themselves is the class of problems where the answer is in a database the model has not seen.</strong> The fix is not to make the model bigger, smarter, or more careful in its instructions. The fix is to give the model a tool that reaches the database, and to constrain the agent’s job to translation and comparison. Numbers in a CSV, citations in CrossRef, DOIs in DataCite, gene names in NCBI, drug interactions in DrugBank: same shape every time. Different domain, same critic-with-tools pattern.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>In your own writing, before any submission
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If you used AI to draft prose anywhere in a manuscript, run a citation-checker before you submit. The cost is a few minutes per draft. The cost of submitting a paper with a hallucinated reference can be a desk rejection, a retraction, or worse. The asymmetry favors checking.</p>
+</div>
+</div>
+</section>
+<section id="why-agents-matter-for-research" class="level3">
+<h3 class="anchored" data-anchor-id="why-agents-matter-for-research">Why agents matter for research</h3>
+<p>Three reasons, each tied directly to the verification reflex that has been the spine of this course.</p>
+<p>First, <strong>specialization beats generalist prompts.</strong> A <code>fact-checker</code> agent that does only one job does that job better than the same model doing it as task seven of nine. The constrained system prompt cuts noise. The tool allowlist prevents drift.</p>
+<p>Second, <strong>composition makes verification tractable.</strong> A producer agent writes the analysis. A critic agent reviews it. Your eyes confirm. Three layers of checking that previously lived only in your eyes. The bottleneck moves, but the bottleneck always moves; what matters is that the verification work gets done at all.</p>
+<p>Third, <strong>reusability turns one careful agent into infrastructure.</strong> A <code>code-reviewer</code> written for this course’s style works on any of your future projects with minimal edits. The agent file is portable. Your future self, on a different project, drops the same <code>fact-checker.md</code> into <code>.claude/agents/</code> and gets the same critic.</p>
+</section>
+<section id="templates-blueprints-for-whole-armies" class="level3">
+<h3 class="anchored" data-anchor-id="templates-blueprints-for-whole-armies">Templates: blueprints for whole armies</h3>
+<p>A subagent codifies <em>what role to play</em>. A template is the level above: a blueprint for assembling a whole army of agents and conventions for a class of projects. The course has been showing you templates implicitly all along, in the functional folder layout, the verification checklists, and the <code>CLAUDE.md</code> you will write today. A formal template lives in a place the agent reads it: a <code>.claude/skills/&lt;name&gt;/SKILL.md</code> file, or an entire project-template repo on GitHub.</p>
+<p>By way of example, three templates worth knowing. A <code>scrape-placement-page</code> skill that captures how to handle these specific PhD pages, including selector strategies, common quirks, and the verification checks. A <code>paper-bootstrap</code> template that scaffolds a new research-paper repo with the right folders, a starter <code>CLAUDE.md</code>, a <code>Makefile</code>, a <code>.gitignore</code>, and a small army of stub agents. A <code>replication-package</code> template that turns a finished chapter into a reviewer-ready bundle.</p>
+<p>The way templates work in practice. You start a new paper. You clone the <code>paper-bootstrap</code> template. The first commit of the new project is not from scratch but from a tested baseline: the layout is already right, three or four agents are already in <code>.claude/agents/</code>, and a starter <code>CLAUDE.md</code> is in place.</p>
+<p>The catch is the army metaphor again. A copied army is rarely the right army for <em>your</em> fight. The agents that came in the template are general. Your project has specifics: a particular data shape, a particular verification rule, a methodological convention you want enforced. The work that makes the template useful rather than ceremonial is tailoring the inherited agents to your project.</p>
+<p>A practical workflow for tailoring. Open the inherited agent’s markdown file in VS Code. Read it. Then open Cowork (the agentic desktop tool from the previous session), point it at your repo, and ask it to read your <code>CLAUDE.md</code> and a sample of your data and propose tighter wording for the agent’s system prompt and a tighter tool allowlist. Iterate against two or three real examples in the chat. Save the result back to <code>.claude/agents/</code> and commit. This is one of the few places where Cowork’s chat surface beats Claude Code’s terminal: writing the prose that <em>is</em> an agent’s system prompt is conversational work, and Cowork’s loop is built for that. The output is still a committed markdown file. Mode B holds; the discipline does not change. You are using one mode (Cowork) to maintain the infrastructure of another (Claude Code).</p>
+</section>
+<section id="critics-as-a-class" class="level3">
+<h3 class="anchored" data-anchor-id="critics-as-a-class">Critics as a class</h3>
+<p>Among the agent types you might write, the <strong>critic</strong> family is the one most directly tied to research discipline. A critic does not produce the artifact. It reviews it. Its job is to catch errors before you do.</p>
+<p>Three caveats worth keeping in mind. First, <strong>a critic from the same model as the producer shares blind spots.</strong> The same model can be wrong about the same things in the same direction. Diversification across providers (one model produces, a different model criticizes) is the eventual move; today, both layers are Claude. Second, <strong>a critic does not replace your eyes.</strong> It catches what it was told to catch. Errors outside the critic’s scope still fall to you. Third, <strong>a critic adds tokens and time.</strong> Run it where the cost of a missed error is high.</p>
+</section>
+<section id="implicit-agents" class="level3">
+<h3 class="anchored" data-anchor-id="implicit-agents">Are agents implicit in chat and Cowork?</h3>
+<p>Yes, and the difference between implicit and explicit is the lesson worth carrying out of class.</p>
+<p>In <strong>chat</strong>, you have one continuous conversation with one general-purpose agent. There is no visible agent abstraction. The model adapts to the task by reading your prompt, but you cannot see, edit, or commit any specification of what role the model is playing.</p>
+<p>In <strong>Cowork</strong>, the system goes a step further. It loads skills and plugins automatically based on the task. Ask Cowork to “make a slide deck” and it routes through a presentation-building specialization. Ask it to “review this PDF” and it loads PDF skills. The specialization exists; the user does not write the spec.</p>
+<p>Claude Code’s subagents are the same idea made explicit. The spec lives as a markdown file in your repo. You write it (or copy and tailor someone else’s). It is versioned, diffable, and committed alongside the code.</p>
+<p>The trade-offs separate cleanly:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Implicit (chat / Cowork)</th>
+<th>Explicit (Claude Code subagents)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Low setup, no agent literacy required</td>
+<td>Setup cost; you write or copy a spec</td>
+</tr>
+<tr class="even">
+<td>The provider can update behavior centrally</td>
+<td>Updates are your job and your responsibility</td>
+</tr>
+<tr class="odd">
+<td>The role the model plays is invisible to you</td>
+<td>The role is a markdown file you can read</td>
+</tr>
+<tr class="even">
+<td>Cannot customize for your project</td>
+<td>Tailorable to project conventions</td>
+</tr>
+<tr class="odd">
+<td>Not part of your repo</td>
+<td>Versioned, committed, citable in methods</td>
+</tr>
+<tr class="even">
+<td>Behavior can shift between releases without warning</td>
+<td>Pinned to your committed file</td>
+</tr>
+</tbody>
+</table>
+<p>For day-to-day exploration, the implicit path is faster and lighter. For research that has to survive peer review, the explicit path is the only one that survives.</p>
+<div class="example-card claude-code">
+<p><span class="tool-tag">Why explicit, in one example</span></p>
+<section id="a-coauthor-opens-your-repo-two-years-from-now" class="level4">
+<h4 class="anchored" data-anchor-id="a-coauthor-opens-your-repo-two-years-from-now">A coauthor opens your repo two years from now</h4>
+<p>They want to extend your placements study to a sixth department, and they want to reproduce the labels you generated for the original five.</p>
+<p><strong>If your classifier ran in a Cowork chat session.</strong> The transcript is gone. The exact prompt you used is gone. The model variant that was loaded behind the scenes is undocumented. Your coauthor can rerun a classifier, but only after reverse-engineering what method you actually used. The labels they get may not match the labels you committed.</p>
+<p><strong>If your classifier ran through <code>code/classify_llm.R</code> plus <code>.claude/agents/classifier.md</code>.</strong> The script is in the repo. The agent file is in the repo. The system prompt is in the agent file. The model is pinned in the script. Your coauthor opens the agent, reads it, runs the script, and gets the same labels.</p>
+<p>That difference is the entire reason explicit agents matter for research. The implicit path is faster while you are working. The explicit path is faster two years later, when reproducing the work is the actual job.</p>
+</section>
+</div>
+</section>
+<section id="agent-catalog" class="level3">
+<h3 class="anchored" data-anchor-id="agent-catalog">A wider catalog of agent types</h3>
+<p>The pattern of capturing a specialized role in a markdown file is not unique to applied economics. The same shape is used across research and industry; only the role changes. Three brief catalogs to show how transferable the move is.</p>
+<p><strong>In applied economics and adjacent fields:</strong></p>
+<div class="good-list">
+<ul>
+<li><code>data-validator</code>: checks a panel CSV against a schema (column types, ranges, missingness). After every scrape or merge.</li>
+<li><code>regression-reviewer</code>: reads a regression script and flags missing controls, ad-hoc clustering, or specifications without clear identification.</li>
+<li><code>replication-tester</code>: clones a repo, runs the Makefile or script chain, compares outputs to committed expected outputs.</li>
+<li><code>table-formatter</code>: takes raw R or Stata output and produces a publication-ready LaTeX table.</li>
+<li><code>fact-checker</code>: verifies numeric claims in prose against the data. Today’s demo.</li>
+</ul>
+</div>
+<p><strong>In other research fields:</strong></p>
+<div class="good-list">
+<ul>
+<li><code>irb-reviewer</code> (social sciences): reads a survey instrument and flags wording that may need IRB review or that risks introducing bias.</li>
+<li><code>dataset-citer</code> (climate, earth sciences): checks that every dataset cited in a draft has a valid DOI and a matching license.</li>
+<li><code>protocol-reviewer</code> (biology, biomedical): reviews a wet-lab protocol against safety and method standards before a run.</li>
+<li><code>experiment-tracker</code> (machine learning): logs hyperparameters and evaluation results across runs into a structured ledger.</li>
+<li><code>figure-auditor</code> (any quantitative field): checks figures for missing axis labels, illegible legends, or stale data.</li>
+</ul>
+</div>
+<p><strong>Outside academia:</strong></p>
+<div class="good-list">
+<ul>
+<li><code>code-reviewer</code> (software engineering): the canonical critic. Reads a diff before commit, flags style and correctness issues. Mature open-source examples exist for most languages.</li>
+<li><code>test-writer</code> (software): writes unit tests for new functions, often as a partner to the producer agent.</li>
+<li><code>pipeline-monitor</code> (data engineering): watches production data pipelines for schema drift or output anomalies, summarizes for the on-call.</li>
+<li><code>contract-reviewer</code> (legal): flags potentially problematic clauses in contract drafts, points the human at the sections that need attention.</li>
+<li><code>model-risk-reviewer</code> (finance): audits a quantitative model’s assumptions, stress tests, and documentation against internal model-risk standards.</li>
+</ul>
+</div>
+<p>The portable lesson is the shape, not the role. A markdown file in <code>.claude/agents/</code>, a tight system prompt, a constrained tool allowlist, and a clear job. What you encode reflects the domain you work in. The fact-checker we use at the end of class is one specific instance of a pattern you will reach for in every project that follows.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>A note on where these lists came from
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Most of the catalog above is composite: a mix of agents that exist in production at large companies, agents described in research-tooling threads, and agents I have seen colleagues build for their own labs. None of them is canonical. The point is the <em>shape</em> of the pattern. When you read about a new “AI agent for X” in your own field over the next year, look for the markdown-file underneath. If it is there, the lesson from today applies. If it is not, the tool is something else.</p>
+</div>
+</div>
+</section>
+<section id="agents-history" class="level3">
+<h3 class="anchored" data-anchor-id="agents-history">Where did the idea come from, and is it here to stay?</h3>
+<p>A short intellectual history, because students will hear the word “agent” used a lot of different ways over the next few years, and the term has a longer arc than the current LLM moment.</p>
+<p>The word “agent” in AI is not new. Marvin Minsky’s <em>Society of Mind</em> in the 1980s framed intelligence as the emergent product of many small specialized agents. Multi-agent systems have been a research area in computer science for decades. In machine learning specifically, actor-critic methods (a producer policy paired with a critic that scores its outputs) are textbook material from the late 1980s and early 1990s.</p>
+<p>The specific LLM-agent pattern we use today crystallized around 2022 and 2023. The ReAct paper (Yao and co-authors, 2022) showed that interleaving reasoning steps with tool calls produced better answers than either pure reasoning or pure tool use, and that paper is the most direct ancestor of how subagents work today. AutoGPT and BabyAGI in early 2023 popularized the idea that an LLM could decompose a task into subtasks and tackle each in sequence. Frameworks like LangChain, AutoGen, and CrewAI made the pattern accessible to ordinary developers. By 2024 and 2025, the convention of “specialized agent defined as a markdown file with a system prompt and a tool allowlist” had stabilized across several tools, including Claude Code.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>A note on Constitutional AI, and how the critic pattern differs across models
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The producer-critic pattern you are using today at inference time has a closer ancestor than ReAct: it has a direct mirror in how Anthropic trains the Claude family in the first place. The approach is called <strong>Constitutional AI</strong> (Bai and co-authors at Anthropic, 2022), and it is worth a brief explanation because the differences matter when you reach for any model as a critic.</p>
+<p><strong>Constitutional AI in one paragraph.</strong> Most large models are post-trained with reinforcement learning from human feedback (RLHF): humans rank model outputs, a reward model is fitted to those rankings, and the base model is fine-tuned to produce outputs humans prefer. Constitutional AI replaces much of the human ranking step with AI feedback driven by an explicit set of principles, a “constitution”. The training loop has two key moves. First, a helpful-but-uncritical model generates a response; then a critic instance of the model is shown the response together with a principle from the constitution and asked to identify problems and rewrite the response. The revised data is used for supervised fine-tuning. Second, a preference model is trained on AI-generated comparisons (this is the RLAIF step: reinforcement learning from AI feedback). The result is a model that has been shaped by an explicit, inspectable set of principles and that has had a critic in its training loop from the start.</p>
+<p><strong>Why this matters for what you are doing.</strong> The producer-critic pattern is not just a clever inference-time trick. It is built into the training of the models we use as critics today. When you ask Claude to play a fact-checker role, you are activating a behavior shape the model has practiced thousands of times during training. That does not make the model immune to error. It does make the role-following more natural for this family of models than it might be for a model trained primarily with RLHF and no critic step.</p>
+<p><strong>Differences with other model families.</strong> The contrast is more about training methodology than about raw capability, and any specific claim about which model is “better at being a critic” has to be earned with empirical evaluation on a real task. That said, two patterns are worth knowing.</p>
+<p>GPT and Gemini families are post-trained primarily with variants of RLHF, sometimes with constitutional or rule-based components added later. The principles guiding alignment are mostly implicit, encoded in the labelers’ decisions. These models are generally strong at the producer role; the critic role is reachable through prompting but is not a first-class part of training.</p>
+<p>Open-weight models (Llama, Mistral, Qwen, others) are fine-tuned with various combinations of supervised fine-tuning, RLHF, DPO (direct preference optimization), and increasingly some constitutional-style methods. The diversity of approaches means the agent role-following can be inconsistent across these models, and a critic prompt that works on Claude may need careful adaptation on a different model. This is one reason why diversification across providers (one model produces, a different model criticizes) requires evaluation rather than blind trust.</p>
+<p><strong>The portable claim.</strong> The producer-critic separation we deploy in <code>.claude/agents/</code> is the inference-time analog of a training-time pattern. The pattern works because criticism is a different cognitive task from production, and forcing the separation, whether at training time or at inference time, catches errors that a single pass would miss. Whichever model family you use, the discipline of separating roles holds; the specific reliability of each role on each model is something you check with your own examples.</p>
+</div>
+</div>
+<p>Why specialization helps is partly empirical and partly engineering. Empirically, focused prompts get better attention than long generalist ones; constrained tool kits prevent specific failure modes (an agent that cannot write files cannot corrupt data); separating producer from critic catches errors the producer alone would miss. Engineering-wise, the same logic that makes function decomposition useful in programming makes agent decomposition useful in LLM work. Smaller, scoped units are easier to test, replace, and reason about. None of this is unique to language models. It is software engineering applied to a new substrate.</p>
+<p>Will the abstraction stay? Two answers, both true. <strong>The specific form may evolve.</strong> Today’s subagent in <code>.claude/agents/&lt;name&gt;.md</code> is one implementation choice. Other tools use other abstractions: graph nodes, role classes, mixtures of experts at the model level. As models become more capable at following long instructions, some of the specialization that today requires separate agents may collapse into different prompts within a single agent context. The exact name “agent” may shift again before the decade is out. <strong>The underlying discipline is permanent.</strong> Separating concerns, scoping responsibilities, building audit trails, composing small pieces into larger systems: this is software engineering, not an AI fad. As long as you are building research code that needs to survive scrutiny, some version of “this thing did this work, here is its scope, here is its log” will be there. Whether it is called an agent, a tool, a skill, or a job, the shape transfers.</p>
+<p>For your purposes in this course. Use the agent pattern when it earns the verification it adds. Do not use it where one prompt would do. The cost is real: more files, more tokens, more cognitive overhead. The benefit is real: auditable specialization, composition, reusability across projects. The tradeoff resolves the same way most engineering tradeoffs do, case by case, with a gentle preference for the more disciplined option as a project matures.</p>
+</section>
+</section>
 <section id="todays-arc" class="level2">
 <h2 class="anchored" data-anchor-id="todays-arc">Today’s arc</h2>
 <p>With the framing in place, here is the arc for the next 75 minutes.</p>
@@ -1076,7 +1359,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><strong>Scale to five departments.</strong> Drive Claude Code with a short prompt to write <code>code/scrape_&lt;dept&gt;.R</code> for five departments and <code>code/stack.R</code>. The prompt is short because <code>CLAUDE.md</code> carries the context.</li>
 <li><strong>Classify with an LLM.</strong> Drive Claude Code to write <code>code/classify_llm.R</code> using <code>ellmer</code>, with a cache layer. Hand-label twenty rows to verify.</li>
 <li><strong>Descriptive write-up.</strong> Drive Claude Code to write <code>code/analysis.R</code> and <code>output/analysis.md</code>. Verify every number against the script’s output.</li>
-<li><strong>Agents, templates, critics.</strong> A short conceptual block, then a one-minute live demo of a fact-checker subagent reviewing the report you just produced. The shape of agents matters more than the specific demo.</li>
+<li><strong>Critic in action.</strong> A short live demo of the <code>fact-checker</code> subagent reviewing the report you just produced. The conceptual framing is already in place from the <a href="#subagents-and-templates">Subagents and templates</a> block earlier in this tutorial; the demo is where the framing becomes a concrete tool you have used.</li>
 <li><strong>Debrief</strong> across the three modes you have now used, plus the new agent layer.</li>
 </ol>
 <p>The point is not the placements data. The point is the workflow: a Git project, a code-native agent reading a <code>CLAUDE.md</code> for standing context, a stack of small scripts each verifiable in isolation, a write-up where every number traces to code, and one critic agent that reviews the result before you do.</p>
@@ -1099,15 +1382,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="open-the-repo" class="level3">
 <h3 class="anchored" data-anchor-id="open-the-repo">Open the repo</h3>
 <p>Open a terminal at the repo root.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ~/github/aem7010-ai</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> status</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ~/github/aem7010-ai</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> status</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p><code>git status</code> should report “nothing to commit, working tree clean”. If it does not, commit or stash first. Today we will accumulate a number of edits across several Claude Code sessions; starting from a clean slate is what makes each commit point useful.</p>
 <p>If you also want VS Code open in parallel for Source Control, run <code>code .</code> from the same folder. We will use VS Code’s diff view at the commit points, and the terminal for Claude Code itself.</p>
 </section>
 <section id="launch-claude" class="level3">
 <h3 class="anchored" data-anchor-id="launch-claude">Launch <code>claude</code></h3>
 <p>From the same terminal, run:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">claude</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">claude</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>You should see a Claude Code prompt with the project name and the current branch. The first thing to do is a tiny sanity check that the agent can see the repo. At the prompt, type:</p>
 <blockquote class="blockquote">
 <p>List the top-level files and folders in this repo. Do not edit anything.</p>
@@ -1126,6 +1409,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="per-edit-approval-is-the-default" class="level3">
 <h3 class="anchored" data-anchor-id="per-edit-approval-is-the-default">Per-edit approval is the default</h3>
 <p>When Claude Code wants to write or modify a file, it stops and asks. The prompt shows the file name, a preview of the diff, and three options: yes, yes for this kind of action this session, or no. <strong>Today, choose yes per edit.</strong> The auto-accept mode (Shift+Tab) exists, but using it on day one defeats the verification reflex this course is built around.</p>
+</section>
+<section id="quick-package-check" class="level3">
+<h3 class="anchored" data-anchor-id="quick-package-check">Quick package check</h3>
+<p>The pre-class checklist asked you to install four R packages: <code>tidyverse</code>, <code>rvest</code>, <code>readr</code>, <code>ellmer</code>. If you skipped that step, run this one-liner in R or RStudio now, before any script runs. It is the only command in today’s session that touches the package manager.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="fu">setdiff</span>(<span class="fu">c</span>(<span class="st">"tidyverse"</span>, <span class="st">"rvest"</span>, <span class="st">"readr"</span>, <span class="st">"ellmer"</span>), <span class="fu">rownames</span>(<span class="fu">installed.packages</span>())))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The line installs only what is missing. If everything is already installed, it is a no-op. If <code>ellmer</code> is the only thing missing (the most common case), you will see one short install pass and nothing else. Once it returns, you are ready.</p>
 </section>
 </section>
 <section id="author-claude-md" class="level2">
@@ -1150,8 +1439,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="tab-content">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
 <p>The course repo ships a known-good <code>CLAUDE.md</code> for this project. From a separate terminal at the repo root:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-L</span> <span class="at">-o</span> CLAUDE.md <span class="dt">\</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  https://raw.githubusercontent.com/arielortizbobea/aem7010/main/ai-tools/seeds/CLAUDE.md</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-L</span> <span class="at">-o</span> CLAUDE.md <span class="dt">\</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  https://raw.githubusercontent.com/arielortizbobea/aem7010/main/ai-tools/seeds/CLAUDE.md</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Open <code>CLAUDE.md</code> in VS Code and read it line by line. Make sure every section makes sense. If any rule looks wrong for your machine, edit it now.</p>
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
@@ -1163,67 +1452,67 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="the-full-claude.md-for-this-project" class="level3">
 <h3 class="anchored" data-anchor-id="the-full-claude.md-for-this-project">The full <code>CLAUDE.md</code> for this project</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># AEM 7010: AI-tools running exercise</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>This repository holds the multi-department PhD placements study built across the AI-tools module of AEM 7010.</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">## Project structure</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>Functional folders, no chronology.</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`code/`</span>: R scripts, one per task. Each script must run end-to-end from a fresh R session.</span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`data/`</span>: input data and processed CSVs. Schemas below.</span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`data/cache/`</span>: committed cache files for LLM-in-the-loop steps.</span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`output/`</span>: AI-drafted intermediate reports, tables, and figures.</span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`paper/`</span>: researcher-authored prose. The agent assists with code only here. (Empty for now.)</span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="fu">## The five departments</span></span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> dept code <span class="pp">|</span> URL <span class="pp">|</span></span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|</span></span>
-<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`dyson`</span> <span class="pp">|</span> https://dyson.cornell.edu/programs/graduate/placements/ <span class="pp">|</span></span>
-<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`berkeley`</span> <span class="pp">|</span> https://are.berkeley.edu/graduate/job-market-placement <span class="pp">|</span></span>
-<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`davis`</span> <span class="pp">|</span> https://are.ucdavis.edu/graduate/phd-program/placement <span class="pp">|</span></span>
-<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`minnesota`</span> <span class="pp">|</span> https://apec.umn.edu/graduate/job-placements <span class="pp">|</span></span>
-<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`wisconsin`</span> <span class="pp">|</span> https://aae.wisc.edu/graduate-programs/placement/ <span class="pp">|</span></span>
-<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a><span class="fu">## Data schemas</span></span>
-<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a><span class="in">`data/placements_&lt;dept&gt;.csv`</span> (per-department scraper output): <span class="in">`name`</span>, <span class="in">`year`</span>, <span class="in">`placement`</span>, <span class="in">`source_url`</span> in this order. The <span class="in">`placement`</span> column is the job title joined to the institution by " at ", e.g. "Assistant Professor at University of Illinois Urbana-Champaign". The <span class="in">`source_url`</span> column is the dept's page URL repeated on every row.</span>
-<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a><span class="in">`data/placements_all.csv`</span> (stacked): <span class="in">`dept`</span>, <span class="in">`name`</span>, <span class="in">`year`</span>, <span class="in">`placement`</span>, <span class="in">`source_url`</span>.</span>
-<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a><span class="in">`data/placements_all_classified.csv`</span> (classified): the columns above plus <span class="in">`class_llm`</span> with values in {<span class="in">`academic`</span>, <span class="in">`government`</span>, <span class="in">`industry`</span>, <span class="in">`other`</span>}.</span>
-<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a><span class="in">`data/cache/llm_responses.csv`</span> (LLM cache, one row per unique placement string): <span class="in">`placement`</span>, <span class="in">`model`</span>, <span class="in">`date_run`</span>, <span class="in">`raw_response`</span>, <span class="in">`label`</span>.</span>
-<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a><span class="fu">## Scraping conventions</span></span>
-<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Use only <span class="in">`rvest`</span> and <span class="in">`readr`</span>.</span>
-<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Anchor selectors on stable text (heading text, recognizable column header), not CSS class names.</span>
-<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Drop rows where all data cells are empty.</span>
-<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>End each script with a <span class="in">`message()`</span> reporting the row count.</span>
-<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a><span class="fu">## LLM classifier conventions</span></span>
-<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Use only <span class="in">`ellmer`</span>.</span>
-<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Pin the model to <span class="in">`claude-haiku-4-5-20251001`</span>.</span>
-<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Set sampling to deterministic: <span class="in">`params = params(temperature = 0)`</span>.</span>
-<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Always go through the cache at <span class="in">`data/cache/llm_responses.csv`</span>. Cache hit means no API call. Cache miss means one API call and one new cache row.</span>
-<span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Store the raw response, not just the label.</span>
-<span id="cb5-49"><a href="#cb5-49" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Commit the cache.</span>
-<span id="cb5-50"><a href="#cb5-50" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-51"><a href="#cb5-51" aria-hidden="true" tabindex="-1"></a><span class="fu">## Reports versus papers</span></span>
-<span id="cb5-52"><a href="#cb5-52" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-53"><a href="#cb5-53" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`output/`</span>: AI-drafted intermediate reports. Agent writes prose; you verify numbers.</span>
-<span id="cb5-54"><a href="#cb5-54" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`paper/`</span>: researcher-authored prose. The agent does not draft prose that survives into the manuscript. It assists with code, tables, and figures only. The voice and the argument are the researcher's.</span>
-<span id="cb5-55"><a href="#cb5-55" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-56"><a href="#cb5-56" aria-hidden="true" tabindex="-1"></a><span class="fu">## Scope rules for any task</span></span>
-<span id="cb5-57"><a href="#cb5-57" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-58"><a href="#cb5-58" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Stay inside the task. Do not modify files outside the requested scope.</span>
-<span id="cb5-59"><a href="#cb5-59" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Do not edit <span class="in">`.gitignore`</span> or <span class="in">`README.md`</span> unless the task says to.</span>
-<span id="cb5-60"><a href="#cb5-60" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Do not install packages beyond <span class="in">`tidyverse`</span>, <span class="in">`rvest`</span>, <span class="in">`readr`</span>, <span class="in">`ellmer`</span>.</span>
-<span id="cb5-61"><a href="#cb5-61" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Every script must run end-to-end from a fresh R session.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># AEM 7010: AI-tools running exercise</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>This repository holds the multi-department PhD placements study built across the AI-tools module of AEM 7010.</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="fu">## Project structure</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>Functional folders, no chronology.</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`code/`</span>: R scripts, one per task. Each script must run end-to-end from a fresh R session.</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`data/`</span>: input data and processed CSVs. Schemas below.</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`data/cache/`</span>: committed cache files for LLM-in-the-loop steps.</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`output/`</span>: AI-drafted intermediate reports, tables, and figures.</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`paper/`</span>: researcher-authored prose. The agent assists with code only here. (Empty for now.)</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a><span class="fu">## The five departments</span></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> dept code <span class="pp">|</span> URL <span class="pp">|</span></span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|</span></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`dyson`</span> <span class="pp">|</span> https://dyson.cornell.edu/programs/graduate/placements/ <span class="pp">|</span></span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`berkeley`</span> <span class="pp">|</span> https://are.berkeley.edu/graduate/job-market-placement <span class="pp">|</span></span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`davis`</span> <span class="pp">|</span> https://are.ucdavis.edu/graduate/phd-program/placement <span class="pp">|</span></span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`minnesota`</span> <span class="pp">|</span> https://apec.umn.edu/graduate/job-placements <span class="pp">|</span></span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`wisconsin`</span> <span class="pp">|</span> https://aae.wisc.edu/graduate-programs/placement/ <span class="pp">|</span></span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a><span class="fu">## Data schemas</span></span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a><span class="in">`data/placements_&lt;dept&gt;.csv`</span> (per-department scraper output): <span class="in">`name`</span>, <span class="in">`year`</span>, <span class="in">`placement`</span>, <span class="in">`source_url`</span> in this order. The <span class="in">`placement`</span> column is the job title joined to the institution by " at ", e.g. "Assistant Professor at University of Illinois Urbana-Champaign". The <span class="in">`source_url`</span> column is the dept's page URL repeated on every row.</span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a><span class="in">`data/placements_all.csv`</span> (stacked): <span class="in">`dept`</span>, <span class="in">`name`</span>, <span class="in">`year`</span>, <span class="in">`placement`</span>, <span class="in">`source_url`</span>.</span>
+<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a><span class="in">`data/placements_all_classified.csv`</span> (classified): the columns above plus <span class="in">`class_llm`</span> with values in {<span class="in">`academic`</span>, <span class="in">`government`</span>, <span class="in">`industry`</span>, <span class="in">`other`</span>}.</span>
+<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-33"><a href="#cb8-33" aria-hidden="true" tabindex="-1"></a><span class="in">`data/cache/llm_responses.csv`</span> (LLM cache, one row per unique placement string): <span class="in">`placement`</span>, <span class="in">`model`</span>, <span class="in">`date_run`</span>, <span class="in">`raw_response`</span>, <span class="in">`label`</span>.</span>
+<span id="cb8-34"><a href="#cb8-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-35"><a href="#cb8-35" aria-hidden="true" tabindex="-1"></a><span class="fu">## Scraping conventions</span></span>
+<span id="cb8-36"><a href="#cb8-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-37"><a href="#cb8-37" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Use only <span class="in">`rvest`</span> and <span class="in">`readr`</span>.</span>
+<span id="cb8-38"><a href="#cb8-38" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Anchor selectors on stable text (heading text, recognizable column header), not CSS class names.</span>
+<span id="cb8-39"><a href="#cb8-39" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Drop rows where all data cells are empty.</span>
+<span id="cb8-40"><a href="#cb8-40" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>End each script with a <span class="in">`message()`</span> reporting the row count.</span>
+<span id="cb8-41"><a href="#cb8-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-42"><a href="#cb8-42" aria-hidden="true" tabindex="-1"></a><span class="fu">## LLM classifier conventions</span></span>
+<span id="cb8-43"><a href="#cb8-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-44"><a href="#cb8-44" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Use only <span class="in">`ellmer`</span>.</span>
+<span id="cb8-45"><a href="#cb8-45" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Pin the model to <span class="in">`claude-haiku-4-5-20251001`</span>.</span>
+<span id="cb8-46"><a href="#cb8-46" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Set sampling to deterministic: <span class="in">`params = params(temperature = 0)`</span>.</span>
+<span id="cb8-47"><a href="#cb8-47" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Always go through the cache at <span class="in">`data/cache/llm_responses.csv`</span>. Cache hit means no API call. Cache miss means one API call and one new cache row.</span>
+<span id="cb8-48"><a href="#cb8-48" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Store the raw response, not just the label.</span>
+<span id="cb8-49"><a href="#cb8-49" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Commit the cache.</span>
+<span id="cb8-50"><a href="#cb8-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-51"><a href="#cb8-51" aria-hidden="true" tabindex="-1"></a><span class="fu">## Reports versus papers</span></span>
+<span id="cb8-52"><a href="#cb8-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-53"><a href="#cb8-53" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`output/`</span>: AI-drafted intermediate reports. Agent writes prose; you verify numbers.</span>
+<span id="cb8-54"><a href="#cb8-54" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`paper/`</span>: researcher-authored prose. The agent does not draft prose that survives into the manuscript. It assists with code, tables, and figures only. The voice and the argument are the researcher's.</span>
+<span id="cb8-55"><a href="#cb8-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-56"><a href="#cb8-56" aria-hidden="true" tabindex="-1"></a><span class="fu">## Scope rules for any task</span></span>
+<span id="cb8-57"><a href="#cb8-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-58"><a href="#cb8-58" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Stay inside the task. Do not modify files outside the requested scope.</span>
+<span id="cb8-59"><a href="#cb8-59" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Do not edit <span class="in">`.gitignore`</span> or <span class="in">`README.md`</span> unless the task says to.</span>
+<span id="cb8-60"><a href="#cb8-60" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Do not install packages beyond <span class="in">`tidyverse`</span>, <span class="in">`rvest`</span>, <span class="in">`readr`</span>, <span class="in">`ellmer`</span>.</span>
+<span id="cb8-61"><a href="#cb8-61" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Every script must run end-to-end from a fresh R session.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -1252,13 +1541,49 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ol>
 </div>
 <div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> add CLAUDE.md</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"Add project conventions for Claude Code"</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> push</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> add CLAUDE.md</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"Add project conventions for Claude Code"</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> push</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 </div>
 <p>Refresh <code>github.com/&lt;your-handle&gt;/aem7010-ai</code>. The <code>CLAUDE.md</code> file is now the first thing a visitor sees on the repo page. That is what you want: anyone who lands on the repo, including future you and any future agent, reads the conventions before reading the code.</p>
+</section>
+<section id="personal-style-in-claude-md" class="level3">
+<h3 class="anchored" data-anchor-id="personal-style-in-claude-md">Beyond project conventions: encoding your personal style</h3>
+<p>The <code>CLAUDE.md</code> we just committed is heavy on project-specific information: the five departments, the schemas, the LLM rules. The file is also the right place to encode your <strong>personal style</strong>, the choices that travel with you across projects rather than living in any one repo. This is the answer to a question every student asks within a week of using a code-native agent: <em>can I make it write code in my own style?</em> Yes. You write the style down once. The agent reads it on every prompt.</p>
+<p>A useful way to think about what to put in your personal-style section. Organize by dimension, not by ad-hoc rule. Below is a working taxonomy of eleven dimensions of code style. Pick the ones that matter to you and write one or two specific rules under each. The taxonomy is more durable than any specific rule, because it gives you somewhere to put a new rule when you discover one.</p>
+<div class="good-list">
+<ul>
+<li><p><strong>Project structure.</strong> Folder layout (functional or chronological), where data lives, where outputs land, naming conventions for script files. <em>Example rule:</em> “Functional folders only: <code>code/</code>, <code>data/</code>, <code>output/</code>. No session-numbered subfolders.”</p></li>
+<li><p><strong>File-level conventions.</strong> What appears at the top of every script (purpose, inputs, outputs, dependencies), how to structure section dividers, maximum length before splitting. <em>Example rule:</em> “Every script begins with a four-line header: title, purpose, depends on, produces. Section dividers use <code># ---- section name ----</code>.”</p></li>
+<li><p><strong>Naming.</strong> Variables, functions, files, data-frame columns, constants. The most-asked dimension; the easiest to encode. <em>Example rule:</em> “<code>snake_case</code> for variables and functions. <code>UPPER_SNAKE</code> for constants. File names that mirror their main function.”</p></li>
+<li><p><strong>Formatting.</strong> Indentation, line length, alignment, blank-line conventions. Most of this is handled by an autoformatter; what is left is taste. <em>Example rule:</em> “Two-space indent. Hard wrap at 100 characters. Two blank lines between top-level functions, one between logical blocks within a function.”</p></li>
+<li><p><strong>When to write a function.</strong> The factoring rules. <em>Example rule:</em> “Three repetitions or thirty lines, whichever comes first. Helpers used by more than one script live in <code>code/helpers.R</code>. Helpers used in one script live near the top of that script.”</p></li>
+<li><p><strong>Function design.</strong> Argument order, default values, the shape of return values, function-level documentation. <em>Example rule:</em> “Data first, options second. Functions returning multiple values return a named list, never a parallel-position vector. Roxygen documentation for any function called from another file.”</p></li>
+<li><p><strong>Control flow and language idioms.</strong> Pipes versus nesting, loops versus map, base versus tidyverse. <em>Example rule:</em> “Use the native R pipe <code>|&gt;</code>. Prefer <code>purrr::map_*()</code> over <code>for</code> loops when iteration is not for side effects. <code>dplyr</code> and <code>tidyr</code> for data manipulation; base R for inner loops where speed matters.”</p></li>
+<li><p><strong>Errors, messages, logging.</strong> When to use which mechanism, and what to print at the start and end of long-running steps. <em>Example rule:</em> “<code>rlang::abort()</code> for errors. <code>cli::cli_inform()</code> for user-facing messages. Print row counts before and after every data-transformation step.”</p></li>
+<li><p><strong>Comments and documentation.</strong> Density, format, function-level docs, READMEs. <em>Example rule:</em> “Roxygen for any exported function. Inline comments only when the <em>why</em> is not obvious from the code. One paragraph at the top of every script explaining what it does and what it produces.”</p></li>
+<li><p><strong>Interactive workflow.</strong> Whether the script can be run line by line in the REPL with useful intermediate state, and whether you can drop a debugger in cleanly. This is the dimension easiest to lose to AI-generated code if you do not call it out. <em>Example rule:</em> “Break long pipes into intermediate named objects when each step is something you might want to inspect. Avoid anonymous lambdas longer than two lines inside <code>map_*()</code>. Anything you might <code>browser()</code> into should be its own named function.”</p></li>
+<li><p><strong>Reproducibility hygiene.</strong> Paths, seeds, package management, runtime checks, inline assertions. <em>Example rule:</em> “All paths via <code>here::here()</code>. All <code>set.seed()</code> calls in one block at the top of an analysis. <code>renv.lock</code> committed. Every function that accepts a data frame asserts the schema with <code>stopifnot()</code> at the top.”</p></li>
+</ul>
+</div>
+<p>Two further notes on using this taxonomy. First, you do not need a rule under every dimension. Some dimensions you will not care about; leave them blank. The point is that when you find yourself fixing the same little thing in three of your scripts, you ask which dimension it lives under, and you add a rule there. The taxonomy is a thinking tool, not a checklist to fill in.</p>
+<p>Second, the dimensions interact. A rule about interactive workflow (“break long pipes into intermediate variables”) changes the kind of code Claude Code writes more than a rule about formatting ever will, because it shifts the <em>shape</em> of the script and not just its appearance. When you weigh which dimension to encode next, prefer the ones that change shape over the ones that change appearance. Autoformatters can handle appearance; only <code>CLAUDE.md</code> can teach the agent to write scripts you can step through line by line.</p>
+<p>A small habit worth forming. When you start a new project, open the most recent project’s <code>CLAUDE.md</code>, copy your personal-style section to the new repo, then add the project-specific conventions on top. Over a year, the personal-style block becomes a refined and battle-tested document. You bring it to coauthors. You hand it to your future students. It is one of the longest-lived artifacts in your research workflow, and it costs almost nothing to maintain.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Other places code style can live
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>For style rules that are not specific to LLM agents, keep using the standard tools too. An <code>.editorconfig</code> file at the repo root tells most editors about indentation and line endings. R has the <code>styler</code> package for automatic formatting and <code>lintr</code> for static checks. Python has <code>black</code> and <code>ruff</code>. The agent will respect these conventions when they exist; <code>CLAUDE.md</code> is for the rules that go <em>beyond</em> what an autoformatter can enforce.</p>
+</div>
+</div>
 </section>
 </section>
 <section id="scale-to-five" class="level2">
@@ -1365,7 +1690,7 @@ and report per-department row counts and the total.</code></pre>
 <p>That is the whole prompt. Three lines, no schema repetition, no scope clauses, no list of packages. The standing context handles the rest. Notice what is <em>not</em> in the prompt: the URLs (in <code>CLAUDE.md</code>), the column names (in <code>CLAUDE.md</code>), the selector strategy (in <code>CLAUDE.md</code>), the package allowlist (in <code>CLAUDE.md</code>), the run order (implied by “run all scripts”).</p>
 <p>This is the workflow you should expect to use in your own research once a project’s <code>CLAUDE.md</code> is in place. The conventions live in one file. The per-task prompts stay short, focused, and reusable.</p>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1374,7 +1699,7 @@ and report per-department row counts and the total.</code></pre>
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div id="callout-9" class="callout-9-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>If your <code>CLAUDE.md</code> is incomplete, or you want the all-in-one specification visible at the moment of pasting, this is the long-form prompt that does not require any standing context. It is the same shape we used in the previous session’s Cowork prompt, scaled up.</p>
 <pre><code>I want you to write five R scrapers and one stacker, then run them once. Work in this repo.
@@ -1411,7 +1736,7 @@ Scope. Do not modify any existing file in code/, data/, output/, .gitignore, or 
 <ol type="1">
 <li><p><strong>Do all six scripts exist at the expected paths?</strong> <code>code/scrape_dyson.R</code>, <code>code/scrape_berkeley.R</code>, <code>code/scrape_davis.R</code>, <code>code/scrape_minnesota.R</code>, <code>code/scrape_wisconsin.R</code>, <code>code/stack.R</code>. If any is named differently, rename it. The names are part of the contract.</p></li>
 <li><p><strong>Does <code>code/stack.R</code> run cleanly from a fresh R session?</strong> From the terminal:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> code/stack.R</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> code/stack.R</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Read the row counts in the message output. If <code>stack.R</code> errors, the problem is upstream; run each <code>scrape_&lt;dept&gt;.R</code> individually to find which one failed.</p></li>
 <li><p><strong>Does each per-department CSV have a plausible row count?</strong> All five should have at least 30 rows. If any has fewer than 10, the scraper either failed silently or the page changed.</p></li>
 <li><p><strong>Does <code>data/placements_all.csv</code> have the right schema?</strong> In R: <code>readr::read_csv("data/placements_all.csv")</code> then <code>names()</code> and <code>nrow()</code>. The columns must be <code>dept</code>, <code>name</code>, <code>year</code>, <code>placement</code>, <code>source_url</code>, in that order.</p></li>
@@ -1436,9 +1761,9 @@ Scope. Do not modify any existing file in code/, data/, output/, .gitignore, or 
 </ol>
 </div>
 <div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> add code/scrape_<span class="pp">*</span>.R code/stack.R data/placements_<span class="pp">*</span>.csv</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"Five-department scrape and stack"</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> push</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> add code/scrape_<span class="pp">*</span>.R code/stack.R data/placements_<span class="pp">*</span>.csv</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"Five-department scrape and stack"</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> push</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 </div>
@@ -1493,21 +1818,21 @@ Scope. Do not modify any existing file in code/, data/, output/, .gitignore, or 
 <section id="a-30-second-introduction-to-ellmer" class="level3">
 <h3 class="anchored" data-anchor-id="a-30-second-introduction-to-ellmer">A 30-second introduction to <code>ellmer</code></h3>
 <p><code>ellmer</code> is Posit’s R package for talking to language model APIs. It supports Anthropic, OpenAI, Google, Groq, and others under one consistent interface. The two patterns we will use today are simple.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ellmer)</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>chat <span class="ot">&lt;-</span> <span class="fu">chat_anthropic</span>(<span class="at">model =</span> <span class="st">"claude-haiku-4-5-20251001"</span>)</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>chat<span class="sc">$</span><span class="fu">chat</span>(<span class="st">"Classify this placement as academic, government, industry, or other: ..."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ellmer)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>chat <span class="ot">&lt;-</span> <span class="fu">chat_anthropic</span>(<span class="at">model =</span> <span class="st">"claude-haiku-4-5-20251001"</span>)</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>chat<span class="sc">$</span><span class="fu">chat</span>(<span class="st">"Classify this placement as academic, government, industry, or other: ..."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>The first line creates a chat object pinned to a specific model version. The second line sends a prompt and returns the model’s response as a string. There is no boilerplate to set up an API client by hand. The model name is part of the script, which is what we want for reproducibility.</p>
 <p>In class today, you will not call the API live. The script is real, and the API path is the canonical one, but a precomputed cache covers every placement we have. The cache is what you read.</p>
 </section>
 <section id="download-the-cache" class="level3">
 <h3 class="anchored" data-anchor-id="download-the-cache">Download the cache</h3>
 <p>Before we ask Claude Code to write the classifier, we need the cache file in the repo. From the terminal at the repo root, run:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> data/cache</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-L</span> <span class="at">-o</span> data/cache/llm_responses.csv <span class="dt">\</span></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  https://raw.githubusercontent.com/arielortizbobea/aem7010/main/ai-tools/seeds/llm_responses.csv</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> data/cache</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-L</span> <span class="at">-o</span> data/cache/llm_responses.csv <span class="dt">\</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  https://raw.githubusercontent.com/arielortizbobea/aem7010/main/ai-tools/seeds/llm_responses.csv</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>The cache is a CSV with one row per unique <code>placement</code> string, containing the model name, the date the call was made, the raw model response, and the parsed label. It covers every row in the five-department panel. Confirm with:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wc</span> <span class="at">-l</span> data/cache/llm_responses.csv</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wc</span> <span class="at">-l</span> data/cache/llm_responses.csv</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>You should see at least 300 rows.</p>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -1549,7 +1874,7 @@ report per-label counts.</code></pre>
 </div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-13-contents" aria-controls="callout-13" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1558,7 +1883,7 @@ report per-label counts.</code></pre>
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-9" class="callout-9-contents callout-collapse collapse">
+<div id="callout-13" class="callout-13-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>The all-in-one prompt that does not lean on <code>CLAUDE.md</code>:</p>
 <pre><code>Write code/classify_llm.R, then run it. Work in this repo.
@@ -1594,7 +1919,7 @@ After writing the script, run it once. Stop and report the per-label counts.</co
 <p>Five checks, in order. All must pass before the commit.</p>
 <ol type="1">
 <li><p><strong>Does <code>code/classify_llm.R</code> exist and run cleanly from a fresh R session?</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> code/classify_llm.R</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> code/classify_llm.R</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Read the per-label counts in the message output.</p></li>
 <li><p><strong>Does <code>data/placements_all_classified.csv</code> have the right schema?</strong> Columns <code>dept</code>, <code>name</code>, <code>year</code>, <code>placement</code>, <code>source_url</code>, <code>class_llm</code>, in that order. Same row count as <code>data/placements_all.csv</code>.</p></li>
 <li><p><strong>Are the labels well-formed?</strong> In R: <code>table(read_csv("data/placements_all_classified.csv")$class_llm)</code>. The expected values are <code>academic</code>, <code>government</code>, <code>industry</code>, <code>other</code>, and possibly <code>uncached</code>. Anything else is a parse failure. If you see <em>any</em> <code>uncached</code> rows, the cache is incomplete: the live page added placements after the pre-flight. Flag it now. The instructor will refresh the cache and push an updated seed; you re-download and re-run.</p></li>
@@ -1618,9 +1943,9 @@ After writing the script, run it once. Stop and report the per-label counts.</co
 </ol>
 </div>
 <div id="tabset-4-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-2-tab">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> add code/classify_llm.R data/placements_all_classified.csv data/cache/llm_responses.csv</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"LLM classifier with cached responses"</span></span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> push</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> add code/classify_llm.R data/placements_all_classified.csv data/cache/llm_responses.csv</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"LLM classifier with cached responses"</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> push</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 </div>
@@ -1686,7 +2011,7 @@ from the message block), ## Counts by department and class (the table),
 range, model, classification date). Run the script first; use its message
 output as the source of truth for every number in the prose.</code></pre>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-15-contents" aria-controls="callout-15" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1695,7 +2020,7 @@ output as the source of truth for every number in the prose.</code></pre>
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-11" class="callout-11-contents callout-collapse collapse">
+<div id="callout-15" class="callout-15-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <pre><code>Write code/analysis.R, then run it, then write output/analysis.md. Work in this repo.
 
@@ -1770,125 +2095,55 @@ Run the script first, then write the markdown using its message output. Stop and
 </ol>
 </div>
 <div id="tabset-5-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-5-2-tab">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> add code/analysis.R output/analysis_table.csv output/figures/academic_share_by_dept.png output/analysis.md</span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"Descriptive analysis of multi-department placements"</span></span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> push</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> add code/analysis.R output/analysis_table.csv output/figures/academic_share_by_dept.png output/analysis.md</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"Descriptive analysis of multi-department placements"</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> push</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 </div>
 <p>If you want to mark this commit as the end of the AI-tools module, tag it. From the terminal:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> tag <span class="at">-a</span> v1.0-ai-tools <span class="at">-m</span> <span class="st">"End of AI-tools module"</span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> push origin v1.0-ai-tools</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> tag <span class="at">-a</span> v1.0-ai-tools <span class="at">-m</span> <span class="st">"End of AI-tools module"</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> push origin v1.0-ai-tools</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Refresh <code>github.com/&lt;your-handle&gt;/aem7010-ai</code>. Click <code>output/analysis.md</code>. It renders as a small report with a heading, a table, a figure, and two paragraphs of prose.</p>
 </section>
-<section id="agents-and-templates" class="level2">
-<h2 class="anchored" data-anchor-id="agents-and-templates">Agents, templates, critics</h2>
+<section id="agent-demo" class="level2">
+<h2 class="anchored" data-anchor-id="agent-demo">Critic in action: the fact-checker demo</h2>
 <div class="callout callout-style-simple callout-note">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-body-container">
-<p><strong>Time: ~12 minutes.</strong> A short conceptual block, then a one-minute live demo of a fact-checker subagent that reviews the report you just produced.</p>
+<p><strong>Time: ~5 minutes.</strong> The conceptual framing is in the <a href="#subagents-and-templates">Subagents and templates</a> block earlier in the tutorial. Here we deploy one specific specialist from that army on the report you just produced.</p>
 </div>
 </div>
 </div>
-<section id="what-a-subagent-is" class="level3">
-<h3 class="anchored" data-anchor-id="what-a-subagent-is">What a subagent is</h3>
-<p>In Claude Code, a <strong>subagent</strong> is a specialized agent invoked by the main agent (or by you) with a defined role, a constrained set of tools, and its own system prompt. It lives as a single markdown file in <code>.claude/agents/&lt;name&gt;.md</code>. The frontmatter declares the agent’s name, description, allowed tools, and optionally a model. The body is the prompt that describes what this agent is for and how it should behave.</p>
-<p>A simple example, the kind of file we will use in the demo:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="an">name:</span><span class="co"> fact-checker</span></span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="an">description:</span><span class="co"> Verifies every numeric claim in a markdown report against the data it cites.</span></span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="an">tools:</span><span class="co"> Read, Grep, Bash</span></span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>You are a fact-checker for descriptive reports built from CSV data.</span>
-<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>Your job: read a markdown report and verify that every numeric claim in the prose</span>
-<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>appears in the report's tables, figure captions, or notes section, OR can be</span>
-<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>recomputed from the data file the report cites.</span>
-<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>For each claim you check, return one line: PASS, ROUNDED (the prose rounds a</span>
-<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>number from the table; report what was rounded and to what), or FAIL (the prose</span>
-<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a>contains a number that does not appear in or follow from the data; show the</span>
-<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a>prose claim and what the data actually says).</span>
-<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a>End with a one-line summary of how many claims you checked and how many failed.</span>
-<span id="cb22-19"><a href="#cb22-19" aria-hidden="true" tabindex="-1"></a>Do not edit any file. Reading and reporting only.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>The agent has a name (<code>fact-checker</code>), a description that explains when to invoke it, a tool allowlist (it can read files, search them, run shell commands, but not write or edit), and a system prompt that describes its job. That is the entire anatomy. Agents are markdown files. They are committed with the repo.</p>
-</section>
-<section id="why-agents-matter-for-research" class="level3">
-<h3 class="anchored" data-anchor-id="why-agents-matter-for-research">Why agents matter for research</h3>
-<p>Three reasons, each one tied directly to the verification reflex that has been the spine of this course.</p>
-<p>First, <strong>specialization beats generalist prompts.</strong> A <code>fact-checker</code> agent that does only one job does that job better than the same model doing it as task seven of nine. The constrained system prompt cuts noise. The tool allowlist prevents drift.</p>
-<p>Second, <strong>composition makes verification tractable.</strong> A producer agent writes the analysis. A critic agent reviews it. Your eyes confirm. Three layers of checking that previously lived only in your eyes. The bottleneck moves, but the bottleneck always moves; what matters is that the verification work gets done at all.</p>
-<p>Third, <strong>reusability turns one careful agent into infrastructure.</strong> A <code>code-reviewer</code> written for this course’s style works on any of your future projects with minimal edits. The agent file is portable. Your future self, on a different project six months from now, drops the same <code>fact-checker.md</code> into <code>.claude/agents/</code> and gets the same critic.</p>
-</section>
-<section id="templates-as-the-same-idea-applied-to-procedural-knowledge" class="level3">
-<h3 class="anchored" data-anchor-id="templates-as-the-same-idea-applied-to-procedural-knowledge">Templates as the same idea, applied to procedural knowledge</h3>
-<p>A subagent codifies <em>what role to play</em>. A template codifies <em>what steps to follow</em>. The course has been showing you templates implicitly: the functional folder layout, the verification checklist, the prompt patterns. A formal template lives somewhere the agent reads it, like a <code>.claude/skills/&lt;name&gt;/SKILL.md</code> file or a project-template repo on GitHub.</p>
-<p>A short list, by way of example. A <code>scrape-placement-page</code> template that captures how to handle these specific PhD pages, including selector strategies, common quirks, and the verification checks. A <code>paper-bootstrap</code> template that scaffolds a new research paper repo with the right folders, a starter <code>CLAUDE.md</code>, a <code>Makefile</code>, a <code>.gitignore</code>, and stub agents. A <code>replication-package</code> template that turns a dissertation chapter into a reviewer-ready bundle.</p>
-<p>Templates and agents compose. A new paper repo created from <code>paper-bootstrap</code> arrives with three agents already installed. The first commit of a new project is therefore not from scratch but from a tested baseline. This is the move that turns “the workflow we did once in class” into “the workflow we use on every project”.</p>
-</section>
-<section id="critics-as-a-class" class="level3">
-<h3 class="anchored" data-anchor-id="critics-as-a-class">Critics as a class</h3>
-<p>Among the agent types you might write, the <strong>critic</strong> family is the one most directly tied to research discipline. A critic does not produce the artifact. It reviews it. Its job is to catch errors before you do.</p>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 33%">
-<col style="width: 33%">
-<col style="width: 33%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Agent</th>
-<th>What it does</th>
-<th>Where it fits in this course</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code>code-reviewer</code></td>
-<td>Critiques a diff before commit</td>
-<td>Blocks 2, 3, 4</td>
-</tr>
-<tr class="even">
-<td><code>data-validator</code></td>
-<td>Checks a CSV against a schema in <code>CLAUDE.md</code></td>
-<td>After every scrape</td>
-</tr>
-<tr class="odd">
-<td><code>fact-checker</code></td>
-<td>Verifies numeric claims in prose against the data</td>
-<td>Block 4 (the write-up). The demo below.</td>
-</tr>
-<tr class="even">
-<td><code>replication-tester</code></td>
-<td>Clones the repo, runs the pipeline from clean, checks outputs match</td>
-<td>Future-you, every paper</td>
-</tr>
-<tr class="odd">
-<td><code>prose-editor</code></td>
-<td>Tightens prose in a draft (in <code>output/</code> only)</td>
-<td>Once you have an <code>output/</code> report</td>
-</tr>
-</tbody>
-</table>
-<p>Three caveats worth keeping in mind. First, <strong>a critic from the same model as the producer shares blind spots.</strong> The same model can be wrong about the same things in the same direction. Diversification across providers (one model produces, a different model criticizes) is the eventual move; today, both layers are Claude. Second, <strong>a critic does not replace your eyes.</strong> It catches what it was told to catch. Errors outside the critic’s scope still fall to you. Third, <strong>a critic adds tokens and time.</strong> Run it where the cost of a missed error is high.</p>
-</section>
-<section id="agent-demo" class="level3">
-<h3 class="anchored" data-anchor-id="agent-demo">Live demo: the fact-checker on <code>output/analysis.md</code></h3>
 <p>The course repo ships a pre-built <code>fact-checker.md</code> agent. Two steps, then we watch it work.</p>
 <p><strong>Step 1.</strong> Download the agent file into your repo’s <code>.claude/agents/</code> folder.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> .claude/agents</span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-L</span> <span class="at">-o</span> .claude/agents/fact-checker.md <span class="dt">\</span></span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  https://raw.githubusercontent.com/arielortizbobea/aem7010/main/ai-tools/seeds/fact-checker.md</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> .claude/agents</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-L</span> <span class="at">-o</span> .claude/agents/fact-checker.md <span class="dt">\</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  https://raw.githubusercontent.com/arielortizbobea/aem7010/main/ai-tools/seeds/fact-checker.md</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p><strong>Step 2.</strong> In Claude Code, type:</p>
 <pre><code>Use the fact-checker agent to review output/analysis.md against
 data/placements_all_classified.csv. Report the result. Do not edit anything.</code></pre>
-<p>Claude Code will spawn the subagent, hand it the system prompt from <code>fact-checker.md</code>, and let it loose with read-only tools. The agent reads the report, extracts numeric claims, looks each one up in the table or computes it from the CSV, and reports PASS / ROUNDED / FAIL per claim.</p>
+<p>Claude Code will spawn the subagent, hand it the system prompt from <code>fact-checker.md</code>, and let it loose with read-only tools. The agent reads the report, extracts numeric claims, looks each one up in the table or recomputes it from the CSV with a small <code>Bash</code> command, and reports PASS / ROUNDED / FAIL per claim. The mechanism (an LLM doing retrieval-and-recompute through its tools, not “checking from memory”) is described in detail in <a href="#how-fact-checker-works">How does an LLM “check” anything?</a> earlier in this tutorial.</p>
 <p>You should see roughly five to ten claims checked and almost all PASS. If any FAIL, that is the critic catching something the producer missed. Read the report. Decide whether to edit the prose, edit the script, or both. Whatever you decide, the critic was doing the job your eyes would otherwise have done in the same minute.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>If the natural-language invocation does not trigger the subagent
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Subagent invocation in Claude Code is robust most of the time but version-dependent at the margin. If after the prompt above Claude Code reads the files itself rather than spawning the <code>fact-checker</code> subagent (you can tell from the tool-call trace; a subagent invocation shows up explicitly), use the slash command instead:</p>
+<pre><code>/agents</code></pre>
+<p>This opens the agent picker. Select <code>fact-checker</code>, then provide the same instruction (review <code>output/analysis.md</code> against <code>data/placements_all_classified.csv</code>).</p>
+<p>The lesson is the same either way: the agent is a markdown file in <code>.claude/agents/</code>, the invocation is a one-line ask, and the critic adds a verification layer for almost no incremental friction. The exact triggering UX evolves between Claude Code releases; the file format does not.</p>
+</div>
+</div>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -1902,7 +2157,6 @@ data/placements_all_classified.csv. Report the result. Do not edit anything.</co
 <p>The demo runs in one minute because the agent file already exists. Designing a new agent from scratch (writing the system prompt, choosing the tool allowlist, iterating against examples until the agent is reliable) is its own skill, and the right place to learn it is a future session or your first independent research use. Today the lesson is that the artifact is a markdown file, the invocation is a one-line ask, and the critic adds a verification layer for almost no incremental friction.</p>
 </div>
 </div>
-</section>
 <section id="commit-the-agent" class="level3">
 <h3 class="anchored" data-anchor-id="commit-the-agent">Commit the agent</h3>
 <p>The agent file is part of the repo, just like a script.</p>
@@ -1917,9 +2171,9 @@ data/placements_all_classified.csv. Report the result. Do not edit anything.</co
 </ol>
 </div>
 <div id="tabset-6-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-6-2-tab">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> add .claude/agents/fact-checker.md</span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"Add fact-checker subagent"</span></span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> push</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb28"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> add .claude/agents/fact-checker.md</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"Add fact-checker subagent"</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> push</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 </div>
@@ -2006,19 +2260,11 @@ data/placements_all_classified.csv. Report the result. Do not edit anything.</co
 <p>The <code>fact-checker.md</code> you used today is one example. The community around Claude Code maintains a small library of agent templates that map cleanly to common research roles. The course repo’s <code>ai-tools/seeds/agents/</code> folder is a good starting point; bring your own modifications back to office hours.</p>
 </div>
 </div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Instructor fallback
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>If Claude Code misbehaves on a student machine during the synchronous walkthrough, working versions of every script in this session live under <code>ai-tools/seeds/</code> in the course repo. They take a few seconds to run from the repo root and produce the same outputs. Use them as a reference, or as a literal drop-in if the room gets stuck on any single step.</p>
-</div>
-</div>
+<!--
+Instructor fallback note: if Claude Code misbehaves on a student machine
+during the synchronous walkthrough, working versions of every script live
+under ai-tools/seeds/. Use them as a drop-in if the room gets stuck.
+-->
 
 
 </section>
