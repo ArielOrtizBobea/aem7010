@@ -21,6 +21,13 @@
     "text": "This page is the master install checklist for the course. The sections below are roughly in the order you will need them. Use the dated boxes at the top of each section to know how far ahead you must complete it."
   },
   {
+    "objectID": "setup.html#overview",
+    "href": "setup.html#overview",
+    "title": "Setup",
+    "section": "Overview",
+    "text": "Overview\n\n\n\nTool\nNeeded by\n\n\n\n\nGit, R, RStudio, VS Code, wooldridge\nSession 4 (Apr 20)\n\n\nGitHub account, SSH keys\nSession 5 (Apr 22)\n\n\nClaude account at claude.com\nSession 6 (Apr 27)\n\n\nCowork desktop app\nSession 7 (Apr 29)\n\n\nNode.js, Claude Code CLI\nSession 8 (May 4)\n\n\n\nThe numbered sections below walk through each tool in turn. Each one notes which sessions it is used in and how to verify the install worked."
+  },
+  {
     "objectID": "setup.html#git",
     "href": "setup.html#git",
     "title": "Setup",
@@ -1557,6 +1564,13 @@
     "text": "About this course\n\nThis course provides exposure to a wide variety of basic skills necessary for conducting high-quality research in applied economics. This includes defining a research question, primary and secondary data collection, principles of academic writing and presentation, research ethics, basic coding and data management, as well as project management. This course is meant to help students transition from coursework to the independent research they undertake starting at the end of the first year of the Ph.D. program. Some of the topics (e.g., coding) are only covered at an overview level with the expectation that those requiring a deeper knowledge will take further coursework.\nSource: Cornell Class Roster, AEM 7010, Spring 2026.\n\nSee the official syllabus for which instructor leads each block."
   },
   {
+    "objectID": "index.html#about-my-portion-of-the-course",
+    "href": "index.html#about-my-portion-of-the-course",
+    "title": "Home",
+    "section": "About my portion of the course",
+    "text": "About my portion of the course\nMy eight sessions span four weeks, from April 8 to May 4. They cover trends in empirical economics research, reproducibility, version control with Git, and effective use of AI tools, with a focus on working with secondary data.\nTopics fall into four blocks:\n\nTrends in economic research. Where the field is heading on reproducibility, data, and AI.\nReproducibility. Replication packages, restricted data, computational environments. Taught with Lars Vilhuber.\nVersion control. Git on your own machine. GitHub for collaboration and submission tags.\nAI tools for research. A working mental model of LLMs. Three rungs of AI coding: chat, agentic desktop, code-native."
+  },
+  {
     "objectID": "index.html#what-you-will-be-able-to-do",
     "href": "index.html#what-you-will-be-able-to-do",
     "title": "Home",
@@ -1908,7 +1922,7 @@
     "href": "syllabus.html#logistics",
     "title": "Syllabus",
     "section": "Logistics",
-    "text": "Logistics\n\nTerm: Spring 2026, second half.\nMeeting times: Mondays and Wednesdays, 75-minute sessions.\nFirst meeting: Wednesday, April 8, 2026.\nLast meeting: Monday, May 4, 2026.\nInstructors: Prof. Ariel Ortiz-Bobea (sessions 1, 4 to 8). Lars Vilhuber, AEA Data Editor (sessions 2 and 3)."
+    "text": "Logistics\n\nTerm: Spring 2026, last quarter of the class.\nMeeting times: Mondays and Wednesdays, 75-minute sessions.\nFirst meeting: Wednesday, April 8, 2026.\nLast meeting: Monday, May 4, 2026.\nInstructors: Prof. Ariel Ortiz-Bobea (sessions 1, 4 to 8). Lars Vilhuber, AEA Data Editor (sessions 2 and 3)."
   },
   {
     "objectID": "syllabus.html#grading-and-expectations",
@@ -1965,19 +1979,5 @@
     "title": "Resources",
     "section": "Cornell-specific",
     "text": "Cornell-specific\n\nCornell Statistical Consulting Unit.\nCornell University Library research data services.\nCISER, Cornell Institute for Social and Economic Research for restricted-data services.\nCornell Center for Advanced Computing for HPC and cloud resources."
-  },
-  {
-    "objectID": "index.html#about-my-portion-of-the-course",
-    "href": "index.html#about-my-portion-of-the-course",
-    "title": "Home",
-    "section": "About my portion of the course",
-    "text": "About my portion of the course\nMy eight sessions span four weeks, from April 8 to May 4. They cover trends in empirical economics research, reproducibility, version control with Git, and effective use of AI tools, with a focus on working with secondary data.\nTopics fall into four blocks:\n\nTrends in economic research. Where the field is heading on reproducibility, data, and AI.\nReproducibility. Replication packages, restricted data, computational environments. Taught with Lars Vilhuber.\nVersion control. Git on your own machine. GitHub for collaboration and submission tags.\nAI tools for research. A working mental model of LLMs. Three rungs of AI coding: chat, agentic desktop, code-native."
-  },
-  {
-    "objectID": "setup.html#overview",
-    "href": "setup.html#overview",
-    "title": "Setup",
-    "section": "Overview",
-    "text": "Overview\n\n\n\nTool\nNeeded by\n\n\n\n\nGit, R, RStudio, VS Code, wooldridge\nSession 4 (Apr 20)\n\n\nGitHub account, SSH keys\nSession 5 (Apr 22)\n\n\nClaude account at claude.com\nSession 6 (Apr 27)\n\n\nCowork desktop app\nSession 7 (Apr 29)\n\n\nNode.js, Claude Code CLI\nSession 8 (May 4)\n\n\n\nThe numbered sections below walk through each tool in turn. Each one notes which sessions it is used in and how to verify the install worked."
   }
 ]
