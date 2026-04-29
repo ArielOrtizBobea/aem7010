@@ -21,6 +21,13 @@
     "text": "This page is the master install checklist for the course. The sections below are roughly in the order you will need them. Use the dated boxes at the top of each section to know how far ahead you must complete it."
   },
   {
+    "objectID": "setup.html#overview",
+    "href": "setup.html#overview",
+    "title": "Setup",
+    "section": "Overview",
+    "text": "Overview\n\n\n\nTool\nNeeded by\n\n\n\n\nGit, R, RStudio, VS Code, wooldridge\nSession 4 (Apr 20)\n\n\nGitHub account, SSH keys\nSession 5 (Apr 22)\n\n\nClaude account at claude.com\nSession 6 (Apr 27)\n\n\nCowork desktop app\nSession 7 (Apr 29)\n\n\nNode.js, Claude Code CLI\nSession 8 (May 4)\n\n\n\nThe numbered sections below walk through each tool in turn. Each one notes which sessions it is used in and how to verify the install worked."
+  },
+  {
     "objectID": "setup.html#git",
     "href": "setup.html#git",
     "title": "Setup",
@@ -1153,7 +1160,7 @@
     "href": "intro/session1.html#slides",
     "title": "Session 1: Trends in Economic Research",
     "section": "Slides",
-    "text": "Slides\n\nWeb slides (Reveal.js, click through in your browser)",
+    "text": "Slides\n\nWeb slides (Reveal.js, click through in your browser)\n\n\n\n\n\n\n\nWant a PDF for note-taking? Open the slides in your browser, append ?print-pdf to the URL, and use File → Print → Save as PDF. Reveal.js handles the layout. Works in Chrome, Edge, and Firefox.",
     "crumbs": [
       "Home",
       "1. Trends in Economic Research"
@@ -1545,35 +1552,42 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "AEM 7010: Doing Applied Economics Research: Practical Skills",
+    "title": "Home",
     "section": "",
-    "text": "Spring 2026  ·  April 8 to May 4  ·  Monday & Wednesday, 8:40 to 9:55 am  ·  Warren 137\nInstructor: Prof. Ariel Ortiz-Bobea (sessions 1, 4 to 8)  ·  ao332@cornell.edu  ·  Office hours: Wednesdays 2 to 4 pm\nGuest instructor: Lars Vilhuber, AEA Data Editor (sessions 2 and 3)"
+    "text": "Spring 2026  ·  Monday & Wednesday, 8:40 to 9:55 am  ·  Warren 137  ·  3 credits, S/U\nCo-instructors: Chris Barrett, Heather Schofield, Ariel Ortiz-Bobea  ·  Co-requisite: ECON 6090  ·  Open to: Ph.D. students\nThis site documents my portion of the course (April 8 to May 4). My contact: ao332@cornell.edu  ·  Office hours: Wednesdays 2 to 4 pm.   Guest instructor for sessions 2 and 3: Lars Vilhuber, AEA Data Editor."
   },
   {
     "objectID": "index.html#about-this-course",
     "href": "index.html#about-this-course",
-    "title": "AEM 7010: Doing Applied Economics Research: Practical Skills",
+    "title": "Home",
     "section": "About this course",
-    "text": "About this course\nAEM 7010 is a graduate course on practical research skills, team-taught by three instructors. My section covers trends in empirical economics research, reproducibility, version control with Git, and effective use of AI tools, with a focus on working with secondary data. This site documents my eight sessions across four weeks, from April 8 to May 4.\nTopics fall into four blocks:\n\nTrends in economic research. Where the field is heading on reproducibility, data, and AI.\nReproducibility. Replication packages, restricted data, computational environments. Taught with Lars Vilhuber.\nVersion control. Git on your own machine. GitHub for collaboration and submission tags.\nAI tools for research. A working mental model of LLMs. Three rungs of AI coding: chat, agentic desktop, code-native."
+    "text": "About this course\n\nThis course provides exposure to a wide variety of basic skills necessary for conducting high-quality research in applied economics. This includes defining a research question, primary and secondary data collection, principles of academic writing and presentation, research ethics, basic coding and data management, as well as project management. This course is meant to help students transition from coursework to the independent research they undertake starting at the end of the first year of the Ph.D. program. Some of the topics (e.g., coding) are only covered at an overview level with the expectation that those requiring a deeper knowledge will take further coursework.\nSource: Cornell Class Roster, AEM 7010, Spring 2026.\n\nSee the official syllabus for which instructor leads each block."
+  },
+  {
+    "objectID": "index.html#about-my-portion-of-the-course",
+    "href": "index.html#about-my-portion-of-the-course",
+    "title": "Home",
+    "section": "About my portion of the course",
+    "text": "About my portion of the course\nMy eight sessions span four weeks, from April 8 to May 4. They cover trends in empirical economics research, reproducibility, version control with Git, and effective use of AI tools, with a focus on working with secondary data.\nTopics fall into four blocks:\n\nTrends in economic research. Where the field is heading on reproducibility, data, and AI.\nReproducibility. Replication packages, restricted data, computational environments. Taught with Lars Vilhuber.\nVersion control. Git on your own machine. GitHub for collaboration and submission tags.\nAI tools for research. A working mental model of LLMs. Three rungs of AI coding: chat, agentic desktop, code-native."
   },
   {
     "objectID": "index.html#what-you-will-be-able-to-do",
     "href": "index.html#what-you-will-be-able-to-do",
-    "title": "AEM 7010: Doing Applied Economics Research: Practical Skills",
+    "title": "Home",
     "section": "What you will be able to do",
-    "text": "What you will be able to do\nBy the end of these sessions you will be able to:\n\nBuild and document reproducible research workflows.\nTrack changes to your R scripts and research code using Git.\nBack up your work on GitHub and collaborate with co-authors through pull requests.\nTag specific versions of your code for paper submissions and replication packages.\nUse AI coding assistants responsibly in research, with verification.\nDocument and disclose AI use in a way that meets journal and replication standards."
+    "text": "What you will be able to do\nBy the end of these eight sessions you will be able to:\n\nBuild and document reproducible research workflows.\nTrack changes to your R scripts and research code using Git.\nBack up your work on GitHub and collaborate with co-authors through pull requests.\nTag specific versions of your code for paper submissions and replication packages.\nUse AI coding assistants responsibly in research, with verification.\nDocument and disclose AI use in a way that meets journal and replication standards."
   },
   {
     "objectID": "index.html#start-here",
     "href": "index.html#start-here",
-    "title": "AEM 7010: Doing Applied Economics Research: Practical Skills",
+    "title": "Home",
     "section": "Start here",
     "text": "Start here\n\n\n\n\n\n\n\nSkim the schedule to see the eight sessions and their dates.\nComplete the setup steps before Session 4 on Monday, April 20.\nEach session page has a short Before class note. Read it the day before."
   },
   {
     "objectID": "index.html#the-eight-sessions",
     "href": "index.html#the-eight-sessions",
-    "title": "AEM 7010: Doing Applied Economics Research: Practical Skills",
+    "title": "Home",
     "section": "The eight sessions",
     "text": "The eight sessions\n\nTrends in Economic Research. Reproducibility expectations, the data revolution, and the rise of AI tools.\nReproducibility I (with Lars Vilhuber). Why reproducibility is a research-integrity issue. What top journals require.\nReproducibility II (with Lars Vilhuber). Replication packages in practice. Restricted data, computational environments.\nGit Fundamentals. The core Git workflow on your own computer.\nGitHub & Collaboration. Push, pull, branches, pull requests, tags for replication packages.\nAI Tools I (Chat). A mental model of LLMs. Live demo of a chat-driven scrape, then a hands-on exercise.\nAI Tools II (Cowork). Agentic desktop AI that can see your files and run code. Verification checklist.\nAI Tools III (Claude Code). A code-native agent inside a git project. Subagents, scaffolding, and a small replication package."
   },
@@ -1901,14 +1915,14 @@
     "href": "syllabus.html#course-summary",
     "title": "Syllabus",
     "section": "Course summary",
-    "text": "Course summary\nAEM 7010 introduces practical skills for doing applied economics research. The course covers four areas across eight 75-minute sessions: trends in economic research, reproducibility, version control with Git and GitHub, and AI tools for coding.\nThis site documents the second half of the course. Sessions 1 to 3 are listed on the schedule and link out to materials hosted by the relevant instructors."
+    "text": "Course summary\nAEM 7010 introduces practical skills for doing applied economics research. The course covers four areas across eight 75-minute sessions: trends in economic research, reproducibility, version control with Git and GitHub, and AI tools for coding.\nThis site documents the last quarter of the class. Sessions 1 to 3 are listed on the schedule and link out to materials hosted by the relevant instructors."
   },
   {
     "objectID": "syllabus.html#logistics",
     "href": "syllabus.html#logistics",
     "title": "Syllabus",
     "section": "Logistics",
-    "text": "Logistics\n\nTerm: Spring 2026, second half.\nMeeting times: Mondays and Wednesdays, 75-minute sessions.\nFirst meeting: Wednesday, April 8, 2026.\nLast meeting: Monday, May 4, 2026.\nInstructors: Prof. Ariel Ortiz-Bobea (sessions 1, 4 to 8). Lars Vilhuber, AEA Data Editor (sessions 2 and 3)."
+    "text": "Logistics\n\nTerm: Spring 2026, last quarter of the class.\nMeeting times: Mondays and Wednesdays, 75-minute sessions.\nFirst meeting: Wednesday, April 8, 2026.\nLast meeting: Monday, May 4, 2026.\nInstructors: Prof. Ariel Ortiz-Bobea (sessions 1, 4 to 8). Lars Vilhuber, AEA Data Editor (sessions 2 and 3)."
   },
   {
     "objectID": "syllabus.html#grading-and-expectations",
