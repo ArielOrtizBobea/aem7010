@@ -678,6 +678,36 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./ai-tools/session8.html#subagents-and-templates" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Subagents and templates</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ai-tools/session8.html#how-fact-checker-works" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">— How does an LLM check?</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ai-tools/session8.html#implicit-agents" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">— Implicit vs explicit agents</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ai-tools/session8.html#agent-catalog" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">— Catalog of agent types</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ai-tools/session8.html#agents-history" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">— Where did agents come from?</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./ai-tools/session8.html#todays-arc" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Today’s arc</span></a>
   </div>
@@ -692,6 +722,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="sidebar-item-container"> 
   <a href="./ai-tools/session8.html#author-claude-md" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Author CLAUDE.md</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ai-tools/session8.html#personal-style-in-claude-md" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">— Personal style in CLAUDE.md</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -786,14 +822,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./ai-tools/session8.html#agents-and-templates" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Agents, templates, critics</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="./ai-tools/session8.html#agent-demo" class="sidebar-item-text sidebar-link">
- <span class="menu-text">— Live demo: fact-checker</span></a>
+ <span class="menu-text">Critic in action: fact-checker</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -1100,7 +1130,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp('/' + window.location.host + '/');
+        var filterRegex = new RegExp("https:\/\/arielortizbobea\.github\.io\/aem7010\/");
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }
