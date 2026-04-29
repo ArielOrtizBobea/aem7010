@@ -1561,7 +1561,7 @@
     "href": "index.html#about-this-course",
     "title": "Home",
     "section": "About this course",
-    "text": "About this course\n\nThis course provides exposure to a wide variety of basic skills necessary for conducting high-quality research in applied economics. This includes defining a research question, primary and secondary data collection, principles of academic writing and presentation, research ethics, basic coding and data management, as well as project management. This course is meant to help students transition from coursework to the independent research they undertake starting at the end of the first year of the Ph.D. program. Some of the topics (e.g., coding) are only covered at an overview level with the expectation that those requiring a deeper knowledge will take further coursework.\nSource: Cornell Class Roster, AEM 7010, Spring 2026.\n\nSee the official syllabus for which instructor leads each block."
+    "text": "About this course\n\nThis course provides exposure to a wide variety of basic skills necessary for conducting high-quality research in applied economics. This includes defining a research question, primary and secondary data collection, principles of academic writing and presentation, research ethics, basic coding and data management, as well as project management. This course is meant to help students transition from coursework to the independent research they undertake starting at the end of the first year of the Ph.D. program. Some of the topics (e.g., coding) are only covered at an overview level with the expectation that those requiring a deeper knowledge will take further coursework.\nSource: Cornell Class Roster, AEM 7010, Spring 2026.\n\nThe course is team-taught by three instructors across the semester. Each instructor leads a block:\n\nChris Barrett: the opening block on framing research questions and writing.\nHeather Schofield: the middle block on research ethics and project management.\nAriel Ortiz-Bobea: the closing block on data, coding, and reproducibility (this site)."
   },
   {
     "objectID": "index.html#about-my-portion-of-the-course",
@@ -1915,14 +1915,14 @@
     "href": "syllabus.html#course-summary",
     "title": "Syllabus",
     "section": "Course summary",
-    "text": "Course summary\nAEM 7010 introduces practical skills for doing applied economics research. The course covers four areas across eight 75-minute sessions: trends in economic research, reproducibility, version control with Git and GitHub, and AI tools for coding.\nThis site documents the last quarter of the class. Sessions 1 to 3 are listed on the schedule and link out to materials hosted by the relevant instructors."
+    "text": "Course summary\nAEM 7010 introduces practical skills for doing applied economics research. The course covers four areas across eight 75-minute sessions: trends in economic research, reproducibility, version control with Git and GitHub, and AI tools for coding.\nThis site documents the second half of the course. Sessions 1 to 3 are listed on the schedule and link out to materials hosted by the relevant instructors."
   },
   {
     "objectID": "syllabus.html#logistics",
     "href": "syllabus.html#logistics",
     "title": "Syllabus",
     "section": "Logistics",
-    "text": "Logistics\n\nTerm: Spring 2026, last quarter of the class.\nMeeting times: Mondays and Wednesdays, 75-minute sessions.\nFirst meeting: Wednesday, April 8, 2026.\nLast meeting: Monday, May 4, 2026.\nInstructors: Prof. Ariel Ortiz-Bobea (sessions 1, 4 to 8). Lars Vilhuber, AEA Data Editor (sessions 2 and 3)."
+    "text": "Logistics\n\nTerm: Spring 2026, second half.\nMeeting times: Mondays and Wednesdays, 75-minute sessions.\nFirst meeting: Wednesday, April 8, 2026.\nLast meeting: Monday, May 4, 2026.\nInstructors: Prof. Ariel Ortiz-Bobea (sessions 1, 4 to 8). Lars Vilhuber, AEA Data Editor (sessions 2 and 3)."
   },
   {
     "objectID": "syllabus.html#grading-and-expectations",

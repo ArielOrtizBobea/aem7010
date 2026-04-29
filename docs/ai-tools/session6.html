@@ -351,16 +351,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<div class="callout callout-style-simple callout-tip">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-body-container">
-<p><strong>Want a PDF for note-taking?</strong> Open the slides in your browser, append <code>?print-pdf</code> to the URL, and use <strong>File → Print → Save as PDF</strong>. Reveal.js handles the layout. Works in Chrome, Edge, and Firefox.</p>
-</div>
-</div>
-</div>
 <section id="where-we-are-in-the-course" class="level2">
 <h2 class="anchored" data-anchor-id="where-we-are-in-the-course">Where we are in the course</h2>
 <p>Sessions 6, 7, and 8 cover AI tools for applied economics research. They are sequenced on purpose.</p>
@@ -904,7 +894,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp("https:\/\/arielortizbobea\.github\.io\/aem7010\/");
+        var filterRegex = new RegExp('/' + window.location.host + '/');
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }

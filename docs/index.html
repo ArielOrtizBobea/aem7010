@@ -257,7 +257,7 @@ ul.task-list li input[type="checkbox"] {
 
 <div class="course-meta">
 <p><strong>Spring 2026</strong> &nbsp;·&nbsp; Monday &amp; Wednesday, 8:40 to 9:55 am &nbsp;·&nbsp; Warren 137 &nbsp;·&nbsp; 3 credits, S/U</p>
-<p><strong>Co-instructors:</strong> <a href="https://barrett.dyson.cornell.edu/">Chris Barrett</a>, <a href="https://heatherschofield.net/">Heather Schofield</a>, <a href="https://arielortizbobea.github.io">Ariel Ortiz-Bobea</a> &nbsp;·&nbsp; <strong>Co-requisite:</strong> ECON 6090 &nbsp;·&nbsp; <strong>Open to:</strong> Ph.D.&nbsp;students</p>
+<p><strong>Co-instructors:</strong> Chris Barrett, Heather Schofield, <a href="https://arielortizbobea.github.io">Ariel Ortiz-Bobea</a> &nbsp;·&nbsp; <strong>Co-requisite:</strong> ECON 6090 &nbsp;·&nbsp; <strong>Open to:</strong> Ph.D.&nbsp;students</p>
 <p>This site documents my portion of the course (April 8 to May 4). My contact: ao332@cornell.edu &nbsp;·&nbsp; <strong>Office hours:</strong> Wednesdays 2 to 4 pm. &nbsp; Guest instructor for sessions 2 and 3: <a href="https://www.ilr.cornell.edu/people/lars-vilhuber">Lars Vilhuber</a>, AEA Data Editor.</p>
 </div>
 <section id="about-this-course" class="level2">
@@ -266,7 +266,12 @@ ul.task-list li input[type="checkbox"] {
 <p>This course provides exposure to a wide variety of basic skills necessary for conducting high-quality research in applied economics. This includes defining a research question, primary and secondary data collection, principles of academic writing and presentation, research ethics, basic coding and data management, as well as project management. This course is meant to help students transition from coursework to the independent research they undertake starting at the end of the first year of the Ph.D.&nbsp;program. Some of the topics (e.g., coding) are only covered at an overview level with the expectation that those requiring a deeper knowledge will take further coursework.</p>
 <p><em>Source: <a href="https://classes.cornell.edu/browse/roster/SP26/class/AEM/7010">Cornell Class Roster, AEM 7010, Spring 2026</a>.</em></p>
 </blockquote>
-<p>See the official syllabus for which instructor leads each block.</p>
+<p>The course is team-taught by three instructors across the semester. Each instructor leads a block:</p>
+<ul>
+<li><strong>Chris Barrett:</strong> the opening block on framing research questions and writing.</li>
+<li><strong>Heather Schofield:</strong> the middle block on research ethics and project management.</li>
+<li><strong>Ariel Ortiz-Bobea:</strong> the closing block on data, coding, and reproducibility (this site).</li>
+</ul>
 </section>
 <section id="about-my-portion-of-the-course" class="level2">
 <h2 class="anchored" data-anchor-id="about-my-portion-of-the-course">About my portion of the course</h2>
@@ -398,7 +403,7 @@ ul.task-list li input[type="checkbox"] {
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp("https:\/\/arielortizbobea\.github\.io\/aem7010\/");
+        var filterRegex = new RegExp('/' + window.location.host + '/');
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }

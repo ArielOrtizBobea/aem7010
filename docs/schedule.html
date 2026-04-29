@@ -333,6 +333,19 @@ ul.task-list li input[type="checkbox"] {
 </tr>
 </tbody>
 </table>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Two course halves
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Sessions 1 to 3 are taught by <a href="https://www.ilr.cornell.edu/people/lars-vilhuber">Lars Vilhuber</a> and Prof.&nbsp;Ortiz-Bobea, and cover trends in economic research and reproducibility. Materials for those three sessions live on a separate site and will be linked above when available. Sessions 4 to 8 are documented on this site.</p>
+</div>
+</div>
 <section id="before-each-session" class="level2">
 <h2 class="anchored" data-anchor-id="before-each-session">Before each session</h2>
 <p>Each session has a short <em>Before class</em> note at the top of its page. Read it the day before. The first one to check is for <a href="./version-control/session4.html">Session 4</a>, which assumes you have completed the <a href="./setup.html">Setup</a> page.</p>
@@ -414,7 +427,7 @@ ul.task-list li input[type="checkbox"] {
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp("https:\/\/arielortizbobea\.github\.io\/aem7010\/");
+        var filterRegex = new RegExp('/' + window.location.host + '/');
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }
