@@ -1,0 +1,30 @@
+---
+title: "Syllabus"
+subtitle: "AEM 7010: Doing Applied Economics Research, Spring 2026"
+---
+
+::: {.callout-note appearance="simple"}
+The official course syllabus PDF will be linked here.
+:::
+
+## Course summary
+
+AEM 7010 introduces practical skills for doing applied economics research. The course covers four areas across eight 75-minute sessions: trends in economic research, reproducibility, version control with Git and GitHub, and AI tools for coding.
+
+This site documents the second half of the course. Sessions 1 to 3 are listed on the [schedule](schedule.qmd) and link out to materials hosted by the relevant instructors.
+
+## Logistics
+
+- **Term**: Spring 2026, second half.
+- **Meeting times**: Mondays and Wednesdays, 75-minute sessions.
+- **First meeting**: Wednesday, April 8, 2026.
+- **Last meeting**: Monday, May 4, 2026.
+- **Instructors**: Prof. Ariel Ortiz-Bobea (sessions 1, 4 to 8). Lars Vilhuber, AEA Data Editor (sessions 2 and 3).
+
+## Grading and expectations
+
+The course is graded S/U. Attendance is expected at every session. Each session lists short tasks under *Before class*, *In class*, and *After class*. Completing these is what builds the practical fluency the course is designed to deliver.
+
+## Before you begin
+
+Two short setup steps before Session 4: install Git, R, and an editor. Details on the [Setup](setup.qmd) page.

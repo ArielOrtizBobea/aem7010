@@ -1,11 +1,8 @@
 ---
 title: "Session 1: Trends in Economic Research"
 subtitle: "Introduction and course logistics"
+date: 2026-04-08
 ---
-
-::: {.callout-note appearance="simple"}
-**Materials for this session are being prepared for the companion site.** This page will expand before the end of the semester.
-:::
 
 ## Where this session fits
 
@@ -17,4 +14,4 @@ The opening session sets the frame for the rest of the course. Three short threa
 
 ## Slides
 
-Slides for this session will be posted here once cleaned up.
+- [Web slides](slides/session1.qmd) (Reveal.js, click through in your browser)

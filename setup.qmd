@@ -1,0 +1,183 @@
+---
+title: "Setup"
+subtitle: "Everything you need installed across the eight sessions"
+---
+
+This page is the master install checklist for the course. The sections below are roughly in the order you will need them. Use the dated boxes at the top of each section to know how far ahead you must complete it.
+
+::: {.callout-tip appearance="simple"}
+## Installation deadlines at a glance
+
+| Tool                                    | Needed by             |
+|-----------------------------------------|-----------------------|
+| Git, R, RStudio, VS Code, `wooldridge`  | Session 4 (Apr 20)    |
+| GitHub account, SSH keys                | Session 5 (Apr 22)    |
+| Claude account at claude.com            | Session 6 (Apr 27)    |
+| Cowork desktop app                      | Session 7 (Apr 29)    |
+| Node.js, Claude Code CLI                | Session 8 (May 4)     |
+:::
+
+## 1. Git
+
+Needed for sessions 4 to 8.
+
+- **Mac**: `brew install git` if you have Homebrew. Otherwise download from [git-scm.com](https://git-scm.com).
+- **Windows**: download the installer from [git-scm.com](https://git-scm.com). Git Bash is installed alongside.
+- **Linux**: use your distribution's package manager.
+
+Verify the install in a terminal:
+
+```bash
+git --version
+```
+
+You should see something like `git version 2.39.0`.
+
+::: {.callout-note}
+## What is Homebrew?
+Homebrew is the standard macOS package manager. Think of it as an app store for command-line tools. If you do not already have it, run the one-line install command from [brew.sh](https://brew.sh). If you prefer to skip Homebrew, use the direct download from [git-scm.com](https://git-scm.com) instead.
+:::
+
+## 2. A terminal
+
+Needed for sessions 4 to 8.
+
+- **Mac**: open the Terminal app (search for "Terminal" in Spotlight).
+- **Windows**: open Git Bash (installed with Git in step 1).
+- **Linux**: any terminal emulator your distribution ships with.
+
+We type Git commands and run shell scripts here. There is nothing to install beyond what step 1 already gave you.
+
+## 3. R
+
+Needed for sessions 4 to 8.
+
+R is the engine for every code example on this site. Free and open source.
+
+- Download the installer for your platform from [cran.r-project.org](https://cran.r-project.org).
+- Install with the default options.
+
+## 4. RStudio
+
+Recommended for sessions 4 to 5.
+
+RStudio is the standard IDE for applied economics research in R. If you already use it for coursework, you are set. Otherwise, download the desktop app from [posit.co/download/rstudio-desktop](https://posit.co/download/rstudio-desktop/).
+
+## 5. The `wooldridge` R package
+
+Needed for sessions 4 to 5.
+
+This package gives you the classic datasets from Jeffrey Wooldridge's *Introductory Econometrics* textbook (`wage1`, `wage2`, and many others) that we use in exercises. In R or RStudio, run:
+
+```r
+install.packages("wooldridge")
+```
+
+## 6. VS Code
+
+Recommended for sessions 6 to 8 (and useful from session 4 onward).
+
+VS Code is a general-purpose code editor that has become the most widely used tool in software and data work. Sessions 6 to 8 assume you have it available alongside the AI tools.
+
+- Download from [code.visualstudio.com](https://code.visualstudio.com).
+- Install with the default options.
+
+I encourage you to install all three editors (R, RStudio, VS Code). R is the engine. RStudio is ideal for R-centric work. VS Code is ideal for everything else: Python, shell scripts, LaTeX, Quarto, Markdown, configuration files, and AI coding assistants.
+
+## 7. GitHub account
+
+Needed for session 5 onward.
+
+- Create a free account at [github.com](https://github.com).
+- Use an email address you plan to keep after graduation. You can later mark it as private in GitHub settings.
+
+## 8. Tell Git who you are
+
+Needed for session 5 onward. Do this once on your machine.
+
+In a terminal:
+
+```bash
+git config --global user.name "Your Full Name"
+git config --global user.email "you@cornell.edu"
+git config --global init.defaultBranch main
+```
+
+Use the same email here as the one on your GitHub account, or use the `noreply` address GitHub provides under *Settings -> Emails -> Keep my email addresses private*.
+
+## 9. Connect VS Code (or your terminal) to GitHub
+
+Needed for session 5 onward.
+
+You have two ways to authenticate when you push and pull. Pick one.
+
+**SSH keys (recommended for long-term work).** Generate a key, add it to your GitHub account, and you will not be prompted for a password again. We will walk through this in Session 5. The official guide is [GitHub's SSH key documentation](https://docs.github.com/en/authentication/connecting-to-github-with-ssh).
+
+**HTTPS plus the GitHub CLI.** Install the [GitHub CLI](https://cli.github.com), then run `gh auth login` once. This caches credentials for future pushes. Easier on Windows.
+
+VS Code: install the [GitHub Pull Requests extension](https://marketplace.visualstudio.com/items?itemName=GitHub.vscode-pull-request-github) if you want to manage PRs from inside the editor. Optional.
+
+## 10. Claude account (claude.com)
+
+Needed for sessions 6 to 8.
+
+- Create a free account at [claude.com](https://claude.com).
+- The browser interface at [claude.ai](https://claude.ai) is what we use in session 6.
+- The same account works for the Cowork desktop app (session 7) and Claude Code (session 8). The free tier is enough for the in-class exercises.
+
+## 11. Cowork desktop app
+
+Needed for session 7.
+
+Cowork is the Claude desktop app with the *Cowork mode* feature enabled. It can see a folder on your machine and run code in a sandboxed shell.
+
+- Download the desktop app from [claude.com/download](https://claude.com/download).
+- Sign in with your Claude account.
+- Open the app's settings and confirm Cowork mode is available.
+
+Bring any install issues to the first ten minutes of session 7; that time is reserved for troubleshooting.
+
+## 12. Node.js and Claude Code
+
+Needed for session 8.
+
+Claude Code is a code-native agent that runs in your terminal inside a git project.
+
+**Install Node.js.** Claude Code is distributed as an npm package, so you need Node.js (which ships with `npm`).
+
+- **Mac**: `brew install node` or download from [nodejs.org](https://nodejs.org).
+- **Windows**: download the installer from [nodejs.org](https://nodejs.org).
+
+Verify in a terminal:
+
+```bash
+node --version
+npm --version
+```
+
+**Install Claude Code:**
+
+```bash
+npm install -g @anthropic-ai/claude-code
+claude --version
+```
+
+The first time you run `claude`, it opens a browser window to log you in with your Claude account.
+
+For platform-specific notes and troubleshooting, see the official guide: [docs.claude.com/en/docs/claude-code/setup](https://docs.claude.com/en/docs/claude-code/setup).
+
+## 13. R packages for the AI sessions
+
+Needed for session 8.
+
+In R or RStudio, run once before session 8:
+
+```r
+install.packages(c("tidyverse", "rvest", "readr", "ellmer"))
+```
+
+`ellmer` is recent and unlikely to be already installed. The others may already be there from sessions 4 to 5.
+
+## Troubleshooting
+
+Class time is short. The first ten minutes of any session can absorb install issues, but only if you flag them on arrival. If you are stuck before class, email me with: the exact command you ran, the exact error message, and your operating system.

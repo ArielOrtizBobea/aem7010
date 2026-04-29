@@ -1,82 +1,53 @@
 ---
-title: "Practical Skills: Git, GitHub & AI"
-subtitle: "AEM 7010: Doing Applied Economics Research<br>Prof. Ariel Ortiz-Bobea"
+title: "AEM 7010: Doing Applied Economics Research: Practical Skills"
+toc: false
 ---
 
-## About this site
+::: {.course-meta}
+**Spring 2026** &nbsp;·&nbsp; April 8 to May 4 &nbsp;·&nbsp; Monday & Wednesday, 8:40 to 9:55 am &nbsp;·&nbsp; Warren 137
 
-This site covers **sessions 4–8** of AEM 7010. Sessions 1–3 (introduction and reproducibility with Lars Vilhuber) are taught separately and are not included here.
+**Instructor:** [Prof. Ariel Ortiz-Bobea](https://arielortizbobea.github.io) (sessions 1, 4 to 8) &nbsp;·&nbsp; ao332@cornell.edu &nbsp;·&nbsp; **Office hours:** Wednesdays 2 to 4 pm
 
-## What you will learn
-
-| Module | Sessions | Topics |
-|--------|----------|--------|
-| **Version Control** | 4–5 | Git fundamentals, GitHub, branches, pull requests, tags, collaboration |
-| **AI Tools**        | 6–8 | Chat, agentic desktop (Cowork), code-native agents (Claude Code), verification |
-
-By the end of these five sessions you will be able to:
-
-- Track changes to your R scripts and research code using Git
-- Back up your work on GitHub and collaborate with co-authors through pull requests
-- Tag specific versions of your code for paper submissions and replication packages
-- Use AI coding assistants responsibly in research
-- Document and disclose AI use in a way that meets journal and replication standards
-
-## Sessions
-
-**Session 4: Git Fundamentals.** The core Git workflow on your own computer: `init`, `add`, `commit`, `log`, `diff`, `.gitignore`, and undoing mistakes.
-
-**Session 5: GitHub & Collaboration.** Connect to GitHub, push and pull, create branches, open pull requests, and tag releases for reproducibility.
-
-**Session 6: AI Tools I (Chat).** A mental model of LLMs. Mode A vs Mode B discipline. Live demo of a chat-driven scrape of Cornell Dyson placements, then a hands-on exercise where each student scrapes a different department.
-
-**Session 7: AI Tools II (Cowork).** Agentic desktop AI that can see your files and run code. Guided scrape of the Dyson page with Cowork, stress test on a modified field, verification checklist.
-
-**Session 8: AI Tools III (Claude Code).** A code-native agent inside a git project. Scaffold a five-department scraper, add a rule-based plus LLM-based classifier, produce a descriptive write-up of PhD placements in applied economics.
-
-## Before You Begin
-
-Please complete the following before **Session 4**.
-
-1. **Install Git** on your laptop
-    - Mac: `brew install git` (if you have Homebrew) or download from [git-scm.com](https://git-scm.com)
-    - Windows: download the installer from [git-scm.com](https://git-scm.com)
-2. **Open a terminal**
-    - Mac: open the Terminal app (search for "Terminal" in Spotlight)
-    - Windows: open Git Bash (installed with Git)
-3. **Verify the installation** by running:
-
-```bash
-git --version
-```
-
-You should see something like `git version 2.39.0`.
-
-4. **Install R and an editor or IDE.** Sessions 4–5 show three ways to use Git: Terminal, RStudio, and VS Code. You will follow the Terminal in class, but having an editor also set up lets you try the GUI alternatives at home. Sessions 6–7 assume you have both editors available for the AI-coding demos.
-
-    - **R** is required for every code example in this site and for the `wooldridge` package. Download the installer for your platform from [cran.r-project.org](https://cran.r-project.org). Free and open source.
-    - **RStudio** is the standard IDE for applied economics research in R. If you already use it for coursework, you are set. Otherwise, download from [posit.co/download/rstudio-desktop](https://posit.co/download/rstudio-desktop/).
-    - **VS Code** is a general-purpose code editor that has become the most widely used tool in software and data work. Download from [code.visualstudio.com](https://code.visualstudio.com).
-
-    I encourage you to install all three. R is the engine. RStudio is ideal for R-centric work. VS Code is ideal for everything else: Python, shell scripts, LaTeX, Quarto, Markdown, editing configuration files, and working with AI coding assistants.
-
-5. **Install the `wooldridge` R package** so the tutorial's data examples work without any downloads. In R or RStudio, run:
-
-    ```r
-    install.packages("wooldridge")
-    ```
-
-    This gives you the classic datasets from Jeffrey Wooldridge's *Introductory Econometrics* textbook (`wage1`, `wage2`, and many others) that we use throughout the exercises.
-
-Before **Session 5**, also **create a free GitHub account** at [github.com](https://github.com).
-
-::: {.callout-note}
-## What is Homebrew?
-Homebrew is the standard macOS package manager. Think of it as an app store for command-line tools. If you do not already have it, run the one-line install command from [brew.sh](https://brew.sh). If you prefer to skip Homebrew, use the direct download from [git-scm.com](https://git-scm.com) instead.
+**Guest instructor:** [Lars Vilhuber](https://www.ilr.cornell.edu/people/lars-vilhuber), AEA Data Editor (sessions 2 and 3)
 :::
 
-## Companion Materials
+## About this course
 
-- [Session 4 slides](version-control/slides/session4.qmd) (web-based, click through in your browser)
-- [Session 5 slides](version-control/session5_github_collaboration.pptx) (PowerPoint, being migrated)
-- [Exercise R scripts](version-control/exercises/)
+AEM 7010 is a graduate course on practical research skills, team-taught by three instructors. My section covers trends in empirical economics research, reproducibility, version control with Git, and effective use of AI tools, with a focus on working with secondary data. This site documents my eight sessions across four weeks, from April 8 to May 4.
+
+Topics fall into four blocks:
+
+- **Trends in economic research.** Where the field is heading on reproducibility, data, and AI.
+- **Reproducibility.** Replication packages, restricted data, computational environments. Taught with Lars Vilhuber.
+- **Version control.** Git on your own machine. GitHub for collaboration and submission tags.
+- **AI tools for research.** A working mental model of LLMs. Three rungs of AI coding: chat, agentic desktop, code-native.
+
+## What you will be able to do
+
+By the end of these sessions you will be able to:
+
+- Build and document reproducible research workflows.
+- Track changes to your R scripts and research code using Git.
+- Back up your work on GitHub and collaborate with co-authors through pull requests.
+- Tag specific versions of your code for paper submissions and replication packages.
+- Use AI coding assistants responsibly in research, with verification.
+- Document and disclose AI use in a way that meets journal and replication standards.
+
+## Start here
+
+::: {.callout-tip appearance="simple"}
+1. Skim the [schedule](schedule.qmd) to see the eight sessions and their dates.
+2. Complete the [setup steps](setup.qmd) before Session 4 on Monday, April 20.
+3. Each session page has a short *Before class* note. Read it the day before.
+:::
+
+## The eight sessions
+
+1. **Trends in Economic Research.** Reproducibility expectations, the data revolution, and the rise of AI tools.
+2. **Reproducibility I** *(with Lars Vilhuber)*. Why reproducibility is a research-integrity issue. What top journals require.
+3. **Reproducibility II** *(with Lars Vilhuber)*. Replication packages in practice. Restricted data, computational environments.
+4. **Git Fundamentals.** The core Git workflow on your own computer.
+5. **GitHub & Collaboration.** Push, pull, branches, pull requests, tags for replication packages.
+6. **AI Tools I (Chat).** A mental model of LLMs. Live demo of a chat-driven scrape, then a hands-on exercise.
+7. **AI Tools II (Cowork).** Agentic desktop AI that can see your files and run code. Verification checklist.
+8. **AI Tools III (Claude Code).** A code-native agent inside a git project. Subagents, scaffolding, and a small replication package.

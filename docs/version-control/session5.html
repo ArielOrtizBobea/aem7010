@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Session 5: GitHub &amp; Collaboration – &lt;span class='course-code'&gt;AEM 7010&lt;/span&gt;&lt;span class='course-title'&gt;Practical Skills: Git, GitHub &amp; AI&lt;/span&gt;</title>
+<title>Session 5: GitHub &amp; Collaboration – AEM 7010</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -78,13 +78,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-87f7908b905bb60864be3ee8ff803566.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-5c393e57f1edb0ca10b602c2e6a89f7f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-537748d823c97ad6bf4c406a569701ba.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
-  "location": "sidebar",
+  "location": "navbar",
   "copy-button": false,
   "collapse-after": 3,
-  "panel-placement": "start",
-  "type": "textbox",
+  "panel-placement": "end",
+  "type": "overlay",
   "limit": 50,
   "keyboard-shortcut": [
     "f",
@@ -113,746 +113,292 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </head>
 
-<body class="nav-sidebar docked fullcontent quarto-light">
+<body class="nav-sidebar docked nav-fixed quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../images/cornell-seal-red.svg" alt="" class="navbar-logo light-content">
+    <img src="../images/cornell-seal-red.svg" alt="" class="navbar-logo dark-content">
+    </a>
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">AEM 7010: Doing Applied Economics Research: Practical Skills</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../syllabus.html"> 
+<span class="menu-text">Syllabus</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../schedule.html"> 
+<span class="menu-text">Schedule</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-sessions" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Sessions</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-sessions">    
+        <li>
+    <a class="dropdown-item" href="../intro/session1.html">
+ <span class="dropdown-text">1. Trends in Economic Research</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../reproducibility/session2.html">
+ <span class="dropdown-text">2. Reproducibility I</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../reproducibility/session3.html">
+ <span class="dropdown-text">3. Reproducibility II</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../version-control/session4.html">
+ <span class="dropdown-text">4. Git Fundamentals</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../version-control/session5.html">
+ <span class="dropdown-text">5. GitHub &amp; Collaboration</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../ai-tools/session6.html">
+ <span class="dropdown-text">6. AI Tools I (Chat)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../ai-tools/session7.html">
+ <span class="dropdown-text">7. AI Tools II (Cowork)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../ai-tools/session8.html">
+ <span class="dropdown-text">8. AI Tools III (Claude Code)</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../setup.html"> 
+<span class="menu-text">Setup</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../resources.html"> 
+<span class="menu-text">Resources</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../version-control/session4.html">Version Control</a></li><li class="breadcrumb-item"><a href="../version-control/session5.html">Session 5: GitHub &amp; Collaboration</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../version-control/session5.html">5. GitHub &amp; Collaboration</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
-      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
-        <i class="bi bi-search"></i>
-      </button>
     </div>
   </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
-    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
-      <a href="../index.html" class="sidebar-logo-link">
-      <img src="../images/cornell_seal_simple_web_b31b1b.svg" alt="" class="sidebar-logo light-content py-0 d-lg-inline d-none">
-      <img src="../images/cornell_seal_simple_web_b31b1b.svg" alt="" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
-      </a>
-    <div class="sidebar-title mb-0 py-0">
-      <a href="../"><span class="course-code">AEM 7010</span><span class="course-title">Practical Skills: Git, GitHub &amp; AI</span></a> 
-    </div>
-      </div>
-        <div class="mt-2 flex-shrink-0 align-items-center">
-        <div class="sidebar-search">
-        <div id="quarto-search" class="" title="Search"></div>
-        </div>
-        </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Preliminaries</span></a>
-  </div>
-</li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
- <span class="menu-text">Introduction</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="../intro/session1.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Session 1: Trends in Economic Research</span></a>
+ <span class="menu-text">1. Trends in Economic Research</span></a>
   </div>
 </li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
- <span class="menu-text">Reproducibility</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+        <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../reproducibility/session2.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Session 2: Reproducibility</span></a>
+ <span class="menu-text">2. Reproducibility I</span></a>
   </div>
 </li>
-          <li class="sidebar-item">
+        <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../reproducibility/session3.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Session 3: Reproducibility, continued</span></a>
+ <span class="menu-text">3. Reproducibility II</span></a>
   </div>
 </li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
- <span class="menu-text">Version Control</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+        <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../version-control/session4.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Session 4: Git Fundamentals</span></a>
+ <span class="menu-text">4. Git Fundamentals</span></a>
   </div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../version-control/session4.html#why-version-control" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Why version control?</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../version-control/session4.html#what-is-git" class="sidebar-item-text sidebar-link">
- <span class="menu-text">What is Git?</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../version-control/session4.html#situations-where-git-helps" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Situations where Git helps</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../version-control/session4.html#setup" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Setup</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../version-control/session4.html#the-three-areas-of-git" class="sidebar-item-text sidebar-link">
- <span class="menu-text">The three areas</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../version-control/session4.html#your-first-repository" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Your first repository</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../version-control/session4.html#staging-and-committing" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Staging and committing</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../version-control/session4.html#writing-good-commits" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Writing good commits</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../version-control/session4.html#exercise-1-add-a-second-script-and-commit-it" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Exercise 1</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../version-control/session4.html#viewing-history" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Viewing history</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../version-control/session4.html#gitignore" class="sidebar-item-text sidebar-link">
- <span class="menu-text">.gitignore</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../version-control/session4.html#linking-to-data-that-lives-elsewhere" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Linking to data elsewhere</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../version-control/session4.html#undoing-mistakes" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Undoing mistakes</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../version-control/session4.html#unstage-a-file" class="sidebar-item-text sidebar-link">
- <span class="menu-text">— Unstage a file</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../version-control/session4.html#discard-local-changes" class="sidebar-item-text sidebar-link">
- <span class="menu-text">— Discard local changes</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../version-control/session4.html#undo-the-last-commit-keep-the-changes" class="sidebar-item-text sidebar-link">
- <span class="menu-text">— Undo the last commit</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../version-control/session4.html#return-to-an-earlier-version-of-a-file" class="sidebar-item-text sidebar-link">
- <span class="menu-text">— Return to an earlier version</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../version-control/session4.html#exercise-2-practice-the-safety-rails" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Exercise 2</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
+        <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../version-control/session5.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Session 5: GitHub &amp; Collaboration</span></a>
+ <span class="menu-text">5. GitHub &amp; Collaboration</span></a>
   </div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../version-control/session5.html#what-is-github" class="sidebar-item-text sidebar-link">
- <span class="menu-text">What is GitHub?</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../version-control/session5.html#why-put-your-code-on-github" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Why put code on GitHub?</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../version-control/session5.html#connect-to-github-ssh-keys" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Connect to GitHub</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../version-control/session5.html#what-ssh-actually-is" class="sidebar-item-text sidebar-link">
- <span class="menu-text">— What SSH is</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../version-control/session5.html#step-1-check-whether-you-already-have-a-key" class="sidebar-item-text sidebar-link">
- <span class="menu-text">— Setup steps</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../version-control/session5.html#https-alternative" class="sidebar-item-text sidebar-link">
- <span class="menu-text">— HTTPS alternative</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../version-control/session5.html#keep-your-email-private" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Keep your email private</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../version-control/session5.html#where-a-repository-comes-from" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Where a repository comes from</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../version-control/session5.html#cloning-a-repository" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Cloning a repository</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../version-control/session5.html#push-and-pull" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Push and pull</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../version-control/session5.html#starting-from-scratch" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Starting from scratch</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../version-control/session5.html#forks-and-templates" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Forks and templates</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../version-control/session5.html#exercise-3-clone-your-copy-of-the-starter-repo" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Exercise 3</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../version-control/session5.html#branches" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Branches</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../version-control/session5.html#pull-requests" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Pull requests</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../version-control/session5.html#handling-merge-conflicts" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Merge conflicts</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../version-control/session5.html#exercise-4-stage-and-resolve-a-merge-conflict" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Exercise 4 (in-class)</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../version-control/session5.html#additional-practice-take-home-pair-pr-workflow" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Take-home: pair PR</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../version-control/session5.html#tags-for-reproducibility" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Tags for reproducibility</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../version-control/session5.html#when-the-data-is-too-large-or-restricted" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Data: too large or restricted</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../version-control/cheatsheet.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Git cheat sheet</span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
- <span class="menu-text">AI Tools</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+        <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../ai-tools/session6.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Session 6: AI Tools I (chat)</span></a>
+ <span class="menu-text">6. AI Tools I (Chat)</span></a>
   </div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../ai-tools/session6.html#where-we-are-in-the-course" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Where we are in the course</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../ai-tools/session6.html#a-mental-model-of-llms" class="sidebar-item-text sidebar-link">
- <span class="menu-text">A mental model of LLMs</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../ai-tools/session6.html#chat-as-a-category" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Chat as a category</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../ai-tools/session6.html#mode-a-vs-mode-b" class="sidebar-item-text sidebar-link">
- <span class="menu-text">— Mode A vs Mode B</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../ai-tools/session6.html#live-demo" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Live demo: chat fails</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../ai-tools/session6.html#hands-on-exercise" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Exercise: scrape with chat</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../ai-tools/session6.html#gallery" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Gallery</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../ai-tools/session6.html#debrief" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Debrief</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../ai-tools/session6.html#for-wednesday" class="sidebar-item-text sidebar-link">
- <span class="menu-text">For Wednesday</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
+        <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../ai-tools/session7.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Session 7: AI Tools II (Cowork)</span></a>
+ <span class="menu-text">7. AI Tools II (Cowork)</span></a>
   </div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../ai-tools/session7.html#where-we-are" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Where we are</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../ai-tools/session7.html#recap-and-safety" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Recap and safety brief</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../ai-tools/session7.html#cowork-as-a-category" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Cowork as a category</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../ai-tools/session7.html#which-tool-examples" class="sidebar-item-text sidebar-link">
- <span class="menu-text">— Examples: which tool?</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../ai-tools/session7.html#todays-arc" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Today’s arc</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../ai-tools/session7.html#create-on-github" class="sidebar-item-text sidebar-link">
- <span class="menu-text">— 1. Create repo on GitHub</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../ai-tools/session7.html#clone-in-terminal" class="sidebar-item-text sidebar-link">
- <span class="menu-text">— 2. Clone in terminal</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../ai-tools/session7.html#open-in-vscode" class="sidebar-item-text sidebar-link">
- <span class="menu-text">— 3. Open in VS Code + Cowork</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../ai-tools/session7.html#guided-scrape" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Guided scrape: Dyson placements</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../ai-tools/session7.html#prompt-handout" class="sidebar-item-text sidebar-link">
- <span class="menu-text">— Prompt handout</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../ai-tools/session7.html#hands-on-exercise" class="sidebar-item-text sidebar-link">
- <span class="menu-text">— Hands-on exercise</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../ai-tools/session7.html#verification-checklist" class="sidebar-item-text sidebar-link">
- <span class="menu-text">— Verification checklist</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../ai-tools/session7.html#commit-and-push" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Commit &amp; push #1</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../ai-tools/session7.html#build-the-pipeline" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Build the pipeline</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../ai-tools/session7.html#pipeline-prompt" class="sidebar-item-text sidebar-link">
- <span class="menu-text">— Pipeline prompt</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../ai-tools/session7.html#pipeline-verification" class="sidebar-item-text sidebar-link">
- <span class="menu-text">— Pipeline verification</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../ai-tools/session7.html#commit-and-push-again" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Commit &amp; push #2</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../ai-tools/session7.html#stretch" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Stretch: cross-school</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../ai-tools/session7.html#debrief" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Debrief</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../ai-tools/session7.html#for-monday" class="sidebar-item-text sidebar-link">
- <span class="menu-text">For Monday</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
+        <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../ai-tools/session8.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Session 8: AI Tools III (Claude Code)</span></a>
+ <span class="menu-text">8. AI Tools III (Claude Code)</span></a>
   </div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../ai-tools/session8.html#where-we-are" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Where we are</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../ai-tools/session8.html#recap" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Recap and the third rung</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../ai-tools/session8.html#claude-code-as-a-category" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Claude Code as a category</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../ai-tools/session8.html#which-tool-examples" class="sidebar-item-text sidebar-link">
- <span class="menu-text">— Examples: which tool?</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../ai-tools/session8.html#subagents-and-templates" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Subagents and templates</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../ai-tools/session8.html#how-fact-checker-works" class="sidebar-item-text sidebar-link">
- <span class="menu-text">— How does an LLM check?</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../ai-tools/session8.html#implicit-agents" class="sidebar-item-text sidebar-link">
- <span class="menu-text">— Implicit vs explicit agents</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../ai-tools/session8.html#agent-catalog" class="sidebar-item-text sidebar-link">
- <span class="menu-text">— Catalog of agent types</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../ai-tools/session8.html#agents-history" class="sidebar-item-text sidebar-link">
- <span class="menu-text">— Where did agents come from?</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../ai-tools/session8.html#todays-arc" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Today’s arc</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../ai-tools/session8.html#setup-and-first-run" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Setup and first run</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../ai-tools/session8.html#author-claude-md" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Author CLAUDE.md</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../ai-tools/session8.html#personal-style-in-claude-md" class="sidebar-item-text sidebar-link">
- <span class="menu-text">— Personal style in CLAUDE.md</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../ai-tools/session8.html#scale-to-five" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Scale to five departments</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../ai-tools/session8.html#scrape-prompt" class="sidebar-item-text sidebar-link">
- <span class="menu-text">— Scrape prompt</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../ai-tools/session8.html#scrape-exercise" class="sidebar-item-text sidebar-link">
- <span class="menu-text">— Hands-on exercise</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../ai-tools/session8.html#scrape-verification" class="sidebar-item-text sidebar-link">
- <span class="menu-text">— Verification checklist</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../ai-tools/session8.html#commit-and-push-1" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Commit &amp; push #1</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../ai-tools/session8.html#llm-classifier" class="sidebar-item-text sidebar-link">
- <span class="menu-text">LLM classifier</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../ai-tools/session8.html#classify-prompt" class="sidebar-item-text sidebar-link">
- <span class="menu-text">— Classifier prompt</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../ai-tools/session8.html#classify-exercise" class="sidebar-item-text sidebar-link">
- <span class="menu-text">— Hands-on exercise</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../ai-tools/session8.html#classify-verification" class="sidebar-item-text sidebar-link">
- <span class="menu-text">— Verification checklist</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../ai-tools/session8.html#commit-and-push-2" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Commit &amp; push #2</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../ai-tools/session8.html#write-up" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Descriptive write-up</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../ai-tools/session8.html#output-vs-paper" class="sidebar-item-text sidebar-link">
- <span class="menu-text">— output/ vs paper/</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../ai-tools/session8.html#analysis-prompt" class="sidebar-item-text sidebar-link">
- <span class="menu-text">— Analysis prompt</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../ai-tools/session8.html#analysis-exercise" class="sidebar-item-text sidebar-link">
- <span class="menu-text">— Hands-on exercise</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../ai-tools/session8.html#final-commit" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Final commit and push</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../ai-tools/session8.html#agent-demo" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Critic in action: fact-checker</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../ai-tools/session8.html#debrief" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Debrief</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../ai-tools/session8.html#after-class" class="sidebar-item-text sidebar-link">
- <span class="menu-text">After class</span></a>
-  </div>
-</li>
-      </ul>
-  </li>
     </ul>
     </div>
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#quick-recap" id="toc-quick-recap" class="nav-link active" data-scroll-target="#quick-recap">Quick Recap</a></li>
+  <li><a href="#what-is-github" id="toc-what-is-github" class="nav-link" data-scroll-target="#what-is-github">What Is GitHub?</a></li>
+  <li><a href="#why-put-your-code-on-github" id="toc-why-put-your-code-on-github" class="nav-link" data-scroll-target="#why-put-your-code-on-github">Why Put Your Code on GitHub?</a>
+  <ul class="collapse">
+  <li><a href="#backup-and-recovery" id="toc-backup-and-recovery" class="nav-link" data-scroll-target="#backup-and-recovery">Backup and recovery</a></li>
+  <li><a href="#working-across-your-own-machines" id="toc-working-across-your-own-machines" class="nav-link" data-scroll-target="#working-across-your-own-machines">Working across your own machines</a></li>
+  <li><a href="#working-with-co-authors" id="toc-working-with-co-authors" class="nav-link" data-scroll-target="#working-with-co-authors">Working with co-authors</a></li>
+  <li><a href="#sharing-and-transparency" id="toc-sharing-and-transparency" class="nav-link" data-scroll-target="#sharing-and-transparency">Sharing and transparency</a></li>
+  </ul></li>
+  <li><a href="#connect-to-github-ssh-keys" id="toc-connect-to-github-ssh-keys" class="nav-link" data-scroll-target="#connect-to-github-ssh-keys">Connect to GitHub: SSH Keys</a>
+  <ul class="collapse">
+  <li><a href="#what-ssh-actually-is" id="toc-what-ssh-actually-is" class="nav-link" data-scroll-target="#what-ssh-actually-is">What SSH actually is</a></li>
+  <li><a href="#step-1-check-whether-you-already-have-a-key" id="toc-step-1-check-whether-you-already-have-a-key" class="nav-link" data-scroll-target="#step-1-check-whether-you-already-have-a-key">Step 1: Check whether you already have a key</a></li>
+  <li><a href="#step-2-generate-a-key-pair" id="toc-step-2-generate-a-key-pair" class="nav-link" data-scroll-target="#step-2-generate-a-key-pair">Step 2: Generate a key pair</a></li>
+  <li><a href="#step-3-start-the-ssh-agent-and-add-your-key" id="toc-step-3-start-the-ssh-agent-and-add-your-key" class="nav-link" data-scroll-target="#step-3-start-the-ssh-agent-and-add-your-key">Step 3: Start the SSH agent and add your key</a></li>
+  <li><a href="#step-4-copy-the-public-key" id="toc-step-4-copy-the-public-key" class="nav-link" data-scroll-target="#step-4-copy-the-public-key">Step 4: Copy the public key</a></li>
+  <li><a href="#step-5-add-the-key-to-github" id="toc-step-5-add-the-key-to-github" class="nav-link" data-scroll-target="#step-5-add-the-key-to-github">Step 5: Add the key to GitHub</a></li>
+  <li><a href="#step-6-test-the-connection" id="toc-step-6-test-the-connection" class="nav-link" data-scroll-target="#step-6-test-the-connection">Step 6: Test the connection</a></li>
+  <li><a href="#https-alternative" id="toc-https-alternative" class="nav-link" data-scroll-target="#https-alternative">HTTPS alternative (if SSH is blocked)</a></li>
+  </ul></li>
+  <li><a href="#keep-your-email-private" id="toc-keep-your-email-private" class="nav-link" data-scroll-target="#keep-your-email-private">Keep Your Email Private</a></li>
+  <li><a href="#where-a-repository-comes-from" id="toc-where-a-repository-comes-from" class="nav-link" data-scroll-target="#where-a-repository-comes-from">Where a Repository Comes From</a>
+  <ul class="collapse">
+  <li><a href="#start-from-scratch" id="toc-start-from-scratch" class="nav-link" data-scroll-target="#start-from-scratch">1. Start from scratch</a></li>
+  <li><a href="#clone-an-existing-repository" id="toc-clone-an-existing-repository" class="nav-link" data-scroll-target="#clone-an-existing-repository">2. Clone an existing repository</a></li>
+  <li><a href="#fork-then-clone" id="toc-fork-then-clone" class="nav-link" data-scroll-target="#fork-then-clone">3. Fork, then clone</a></li>
+  <li><a href="#which-path-when" id="toc-which-path-when" class="nav-link" data-scroll-target="#which-path-when">Which path, when?</a></li>
+  </ul></li>
+  <li><a href="#cloning-a-repository" id="toc-cloning-a-repository" class="nav-link" data-scroll-target="#cloning-a-repository">Cloning a Repository</a>
+  <ul class="collapse">
+  <li><a href="#what-you-need" id="toc-what-you-need" class="nav-link" data-scroll-target="#what-you-need">What you need</a></li>
+  <li><a href="#three-interfaces-same-operation" id="toc-three-interfaces-same-operation" class="nav-link" data-scroll-target="#three-interfaces-same-operation">Three interfaces, same operation</a></li>
+  <li><a href="#verify-the-remote-is-set" id="toc-verify-the-remote-is-set" class="nav-link" data-scroll-target="#verify-the-remote-is-set">Verify the remote is set</a></li>
+  </ul></li>
+  <li><a href="#push-and-pull" id="toc-push-and-pull" class="nav-link" data-scroll-target="#push-and-pull">Push and Pull</a>
+  <ul class="collapse">
+  <li><a href="#push-your-commits" id="toc-push-your-commits" class="nav-link" data-scroll-target="#push-your-commits">Push your commits</a></li>
+  <li><a href="#pull-changes-from-github" id="toc-pull-changes-from-github" class="nav-link" data-scroll-target="#pull-changes-from-github">Pull changes from GitHub</a></li>
+  <li><a href="#what-you-should-see-on-the-first-push" id="toc-what-you-should-see-on-the-first-push" class="nav-link" data-scroll-target="#what-you-should-see-on-the-first-push">What you should see on the first push</a></li>
+  </ul></li>
+  <li><a href="#starting-from-scratch" id="toc-starting-from-scratch" class="nav-link" data-scroll-target="#starting-from-scratch">Starting From Scratch</a></li>
+  <li><a href="#forks-and-templates" id="toc-forks-and-templates" class="nav-link" data-scroll-target="#forks-and-templates">Forks and Templates</a>
+  <ul class="collapse">
+  <li><a href="#forking-a-repository" id="toc-forking-a-repository" class="nav-link" data-scroll-target="#forking-a-repository">Forking a repository</a></li>
+  <li><a href="#using-a-template" id="toc-using-a-template" class="nav-link" data-scroll-target="#using-a-template">Using a template</a></li>
+  <li><a href="#fork-vs.-template-when-to-use-which" id="toc-fork-vs.-template-when-to-use-which" class="nav-link" data-scroll-target="#fork-vs.-template-when-to-use-which">Fork vs.&nbsp;template: when to use which</a></li>
+  </ul></li>
+  <li><a href="#exercise-3-clone-your-copy-of-the-starter-repo" id="toc-exercise-3-clone-your-copy-of-the-starter-repo" class="nav-link" data-scroll-target="#exercise-3-clone-your-copy-of-the-starter-repo">Exercise 3: Clone Your Copy of the Starter Repo</a>
+  <ul class="collapse">
+  <li><a href="#create-your-copy-of-the-starter" id="toc-create-your-copy-of-the-starter" class="nav-link" data-scroll-target="#create-your-copy-of-the-starter">1. Create your copy of the starter</a></li>
+  <li><a href="#free-up-the-my-research-folder-if-needed" id="toc-free-up-the-my-research-folder-if-needed" class="nav-link" data-scroll-target="#free-up-the-my-research-folder-if-needed">2. Free up the <code>my-research</code> folder (if needed)</a></li>
+  <li><a href="#clone-it-to-your-laptop" id="toc-clone-it-to-your-laptop" class="nav-link" data-scroll-target="#clone-it-to-your-laptop">3. Clone it to your laptop</a></li>
+  <li><a href="#make-a-change-and-commit" id="toc-make-a-change-and-commit" class="nav-link" data-scroll-target="#make-a-change-and-commit">4. Make a change and commit</a></li>
+  <li><a href="#push-your-commit" id="toc-push-your-commit" class="nav-link" data-scroll-target="#push-your-commit">5. Push your commit</a></li>
+  <li><a href="#verify-on-github" id="toc-verify-on-github" class="nav-link" data-scroll-target="#verify-on-github">6. Verify on GitHub</a></li>
+  <li><a href="#test-pulling" id="toc-test-pulling" class="nav-link" data-scroll-target="#test-pulling">7. Test pulling</a></li>
+  </ul></li>
+  <li><a href="#branches" id="toc-branches" class="nav-link" data-scroll-target="#branches">Branches</a>
+  <ul class="collapse">
+  <li><a href="#when-to-branch" id="toc-when-to-branch" class="nav-link" data-scroll-target="#when-to-branch">When to branch</a></li>
+  <li><a href="#research-examples-where-a-branch-is-clearly-worth-it" id="toc-research-examples-where-a-branch-is-clearly-worth-it" class="nav-link" data-scroll-target="#research-examples-where-a-branch-is-clearly-worth-it">Research examples where a branch is clearly worth it</a></li>
+  <li><a href="#create-and-switch-to-a-branch" id="toc-create-and-switch-to-a-branch" class="nav-link" data-scroll-target="#create-and-switch-to-a-branch">Create and switch to a branch</a></li>
+  <li><a href="#work-on-the-branch" id="toc-work-on-the-branch" class="nav-link" data-scroll-target="#work-on-the-branch">Work on the branch</a></li>
+  <li><a href="#switch-back-to-main" id="toc-switch-back-to-main" class="nav-link" data-scroll-target="#switch-back-to-main">Switch back to main</a></li>
+  <li><a href="#merge-the-branch" id="toc-merge-the-branch" class="nav-link" data-scroll-target="#merge-the-branch">Merge the branch</a></li>
+  <li><a href="#delete-the-branch-optional" id="toc-delete-the-branch-optional" class="nav-link" data-scroll-target="#delete-the-branch-optional">Delete the branch (optional)</a></li>
+  </ul></li>
+  <li><a href="#pull-requests" id="toc-pull-requests" class="nav-link" data-scroll-target="#pull-requests">Pull Requests</a>
+  <ul class="collapse">
+  <li><a href="#git-pull-and-pull-requests-are-different-tools-that-work-together" id="toc-git-pull-and-pull-requests-are-different-tools-that-work-together" class="nav-link" data-scroll-target="#git-pull-and-pull-requests-are-different-tools-that-work-together"><code>git pull</code> and pull requests are different tools that work together</a></li>
+  <li><a href="#the-pull-request-workflow" id="toc-the-pull-request-workflow" class="nav-link" data-scroll-target="#the-pull-request-workflow">The pull request workflow</a></li>
+  </ul></li>
+  <li><a href="#handling-merge-conflicts" id="toc-handling-merge-conflicts" class="nav-link" data-scroll-target="#handling-merge-conflicts">Handling Merge Conflicts</a>
+  <ul class="collapse">
+  <li><a href="#when-conflicts-arise" id="toc-when-conflicts-arise" class="nav-link" data-scroll-target="#when-conflicts-arise">When conflicts arise</a></li>
+  <li><a href="#what-a-conflict-looks-like" id="toc-what-a-conflict-looks-like" class="nav-link" data-scroll-target="#what-a-conflict-looks-like">What a conflict looks like</a></li>
+  <li><a href="#two-concrete-examples" id="toc-two-concrete-examples" class="nav-link" data-scroll-target="#two-concrete-examples">Two concrete examples</a></li>
+  <li><a href="#how-to-resolve" id="toc-how-to-resolve" class="nav-link" data-scroll-target="#how-to-resolve">How to resolve</a></li>
+  </ul></li>
+  <li><a href="#exercise-4-stage-and-resolve-a-merge-conflict" id="toc-exercise-4-stage-and-resolve-a-merge-conflict" class="nav-link" data-scroll-target="#exercise-4-stage-and-resolve-a-merge-conflict">Exercise 4: Stage and resolve a merge conflict</a>
+  <ul class="collapse">
+  <li><a href="#confirm-you-are-on-main-with-a-clean-working-tree" id="toc-confirm-you-are-on-main-with-a-clean-working-tree" class="nav-link" data-scroll-target="#confirm-you-are-on-main-with-a-clean-working-tree">1. Confirm you are on <code>main</code> with a clean working tree</a></li>
+  <li><a href="#create-a-branch-and-add-a-female-control" id="toc-create-a-branch-and-add-a-female-control" class="nav-link" data-scroll-target="#create-a-branch-and-add-a-female-control">2. Create a branch and add a <code>female</code> control</a></li>
+  <li><a href="#switch-back-to-main-and-add-a-different-control-to-the-same-line" id="toc-switch-back-to-main-and-add-a-different-control-to-the-same-line" class="nav-link" data-scroll-target="#switch-back-to-main-and-add-a-different-control-to-the-same-line">3. Switch back to <code>main</code> and add a different control to the same line</a></li>
+  <li><a href="#attempt-the-merge-hit-the-conflict" id="toc-attempt-the-merge-hit-the-conflict" class="nav-link" data-scroll-target="#attempt-the-merge-hit-the-conflict">4. Attempt the merge, hit the conflict</a></li>
+  <li><a href="#resolve-the-conflict-by-combining-both-changes" id="toc-resolve-the-conflict-by-combining-both-changes" class="nav-link" data-scroll-target="#resolve-the-conflict-by-combining-both-changes">5. Resolve the conflict by combining both changes</a></li>
+  <li><a href="#verify" id="toc-verify" class="nav-link" data-scroll-target="#verify">6. Verify</a></li>
+  <li><a href="#what-you-just-practiced" id="toc-what-you-just-practiced" class="nav-link" data-scroll-target="#what-you-just-practiced">What you just practiced</a></li>
+  </ul></li>
+  <li><a href="#additional-practice-take-home-pair-pr-workflow" id="toc-additional-practice-take-home-pair-pr-workflow" class="nav-link" data-scroll-target="#additional-practice-take-home-pair-pr-workflow">Additional practice (take-home): Pair PR workflow</a>
+  <ul class="collapse">
+  <li><a href="#person-a-invites-person-b-as-collaborator" id="toc-person-a-invites-person-b-as-collaborator" class="nav-link" data-scroll-target="#person-a-invites-person-b-as-collaborator">1. Person A invites Person B as collaborator</a></li>
+  <li><a href="#person-b-clones-person-as-repo" id="toc-person-b-clones-person-as-repo" class="nav-link" data-scroll-target="#person-b-clones-person-as-repo">2. Person B clones Person A’s repo</a></li>
+  <li><a href="#both-partners-create-a-branch" id="toc-both-partners-create-a-branch" class="nav-link" data-scroll-target="#both-partners-create-a-branch">3. Both partners create a branch</a></li>
+  <li><a href="#both-partners-add-a-file-and-commit" id="toc-both-partners-add-a-file-and-commit" class="nav-link" data-scroll-target="#both-partners-add-a-file-and-commit">4. Both partners add a file and commit</a></li>
+  <li><a href="#both-partners-push-the-branch" id="toc-both-partners-push-the-branch" class="nav-link" data-scroll-target="#both-partners-push-the-branch">5. Both partners push the branch</a></li>
+  <li><a href="#both-partners-open-a-pull-request" id="toc-both-partners-open-a-pull-request" class="nav-link" data-scroll-target="#both-partners-open-a-pull-request">6. Both partners open a pull request</a></li>
+  <li><a href="#review-each-others-pr" id="toc-review-each-others-pr" class="nav-link" data-scroll-target="#review-each-others-pr">7. Review each other’s PR</a></li>
+  <li><a href="#pull-the-merged-changes-locally" id="toc-pull-the-merged-changes-locally" class="nav-link" data-scroll-target="#pull-the-merged-changes-locally">8. Pull the merged changes locally</a></li>
+  </ul></li>
+  <li><a href="#tags-for-reproducibility" id="toc-tags-for-reproducibility" class="nav-link" data-scroll-target="#tags-for-reproducibility">Tags for Reproducibility</a>
+  <ul class="collapse">
+  <li><a href="#create-a-tag" id="toc-create-a-tag" class="nav-link" data-scroll-target="#create-a-tag">Create a tag</a></li>
+  <li><a href="#push-tags-to-github" id="toc-push-tags-to-github" class="nav-link" data-scroll-target="#push-tags-to-github">Push tags to GitHub</a></li>
+  <li><a href="#check-out-a-tag-later" id="toc-check-out-a-tag-later" class="nav-link" data-scroll-target="#check-out-a-tag-later">Check out a tag later</a></li>
+  <li><a href="#viewing-tags-on-github" id="toc-viewing-tags-on-github" class="nav-link" data-scroll-target="#viewing-tags-on-github">Viewing tags on GitHub</a></li>
+  <li><a href="#github-releases" id="toc-github-releases" class="nav-link" data-scroll-target="#github-releases">GitHub Releases</a></li>
+  </ul></li>
+  <li><a href="#when-the-data-is-too-large-or-restricted" id="toc-when-the-data-is-too-large-or-restricted" class="nav-link" data-scroll-target="#when-the-data-is-too-large-or-restricted">When the Data Is Too Large or Restricted</a>
+  <ul class="collapse">
+  <li><a href="#how-code-on-github-and-data-in-an-archive-stay-linked" id="toc-how-code-on-github-and-data-in-an-archive-stay-linked" class="nav-link" data-scroll-target="#how-code-on-github-and-data-in-an-archive-stay-linked">How code on GitHub and data in an archive stay linked</a></li>
+  <li><a href="#github-integrations-with-data-archives" id="toc-github-integrations-with-data-archives" class="nav-link" data-scroll-target="#github-integrations-with-data-archives">GitHub integrations with data archives</a></li>
+  </ul></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a>
+  <ul class="collapse">
+  <li><a href="#next-steps" id="toc-next-steps" class="nav-link" data-scroll-target="#next-steps">Next steps</a></li>
+  <li><a href="#resources" id="toc-resources" class="nav-link" data-scroll-target="#resources">Resources</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../version-control/session4.html">Version Control</a></li><li class="breadcrumb-item"><a href="../version-control/session5.html">Session 5: GitHub &amp; Collaboration</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
 <h1 class="title">Session 5: GitHub &amp; Collaboration</h1>
 <p class="subtitle lead">Working with remotes and teams</p>
@@ -2554,88 +2100,6 @@ Warning
 </section>
 
 </main> <!-- /main -->
-<script>
-// Sidebar scrollspy: highlight the sidebar link matching the section
-// currently in view as the user scrolls.
-(function() {
-  function currentPagePath() {
-    // Normalize the current page path so we can match sidebar links that
-    // may use either absolute or relative hrefs.
-    return window.location.pathname.split('/').pop() || 'index.html';
-  }
-
-  function sidebarAnchorLinks() {
-    const page = currentPagePath();
-    const links = Array.from(document.querySelectorAll('#quarto-sidebar a'));
-    return links.filter(a => {
-      if (!a.hash) return false;
-      const linkPage = a.pathname.split('/').pop() || 'index.html';
-      return linkPage === page || linkPage.replace('.qmd', '.html') === page;
-    });
-  }
-
-  function init() {
-    const links = sidebarAnchorLinks();
-    if (links.length === 0) return;
-
-    // Map heading id -> sidebar link
-    const map = {};
-    const headings = [];
-    links.forEach(link => {
-      const id = decodeURIComponent(link.hash.substring(1));
-      const el = document.getElementById(id);
-      if (el) {
-        map[id] = link;
-        headings.push({ id: id, el: el });
-      }
-    });
-    if (headings.length === 0) return;
-
-    let currentId = null;
-
-    function update() {
-      const scrollY = window.scrollY + 120; // offset from top for fixed headers
-      let activeId = null;
-      for (let i = 0; i < headings.length; i++) {
-        const top = headings[i].el.getBoundingClientRect().top + window.scrollY;
-        if (top <= scrollY) {
-          activeId = headings[i].id;
-        } else {
-          break;
-        }
-      }
-      if (activeId !== currentId) {
-        if (currentId && map[currentId]) {
-          map[currentId].classList.remove('active', 'scrollspy-current');
-        }
-        if (activeId && map[activeId]) {
-          map[activeId].classList.add('active', 'scrollspy-current');
-        }
-        currentId = activeId;
-      }
-    }
-
-    let ticking = false;
-    window.addEventListener('scroll', function() {
-      if (!ticking) {
-        window.requestAnimationFrame(function() {
-          update();
-          ticking = false;
-        });
-        ticking = true;
-      }
-    }, { passive: true });
-
-    update();
-  }
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init);
-  } else {
-    init();
-  }
-})();
-</script>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
@@ -2709,7 +2173,7 @@ Warning
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp("https:\/\/arielortizbobea\.github\.io\/aem7010\/");
+        var filterRegex = new RegExp('/' + window.location.host + '/');
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }
@@ -3045,7 +2509,7 @@ Warning
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">
-<p>Prof.&nbsp;Ariel Ortiz-Bobea — Cornell Dyson School</p>
+<p>Prof.&nbsp;Ariel Ortiz-Bobea, Cornell Dyson School</p>
 </div>   
     <div class="nav-footer-center">
       &nbsp;

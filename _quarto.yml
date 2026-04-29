@@ -3,242 +3,65 @@ project:
   output-dir: docs
 
 website:
-  title: "<span class='course-code'>AEM 7010</span><span class='course-title'>Practical Skills: Git, GitHub &amp; AI</span>"
-  description: "AEM 7010: Doing Applied Economics Research. Practical Skills. Sessions 4–8."
+  title: "AEM 7010"
+  description: "AEM 7010: Doing Applied Economics Research. Practical Skills."
   favicon: images/favicon.ico
-  sidebar:
-    logo: images/cornell_seal_simple_web_b31b1b.svg
-    title: "<span class='course-code'>AEM 7010</span><span class='course-title'>Practical Skills: Git, GitHub &amp; AI</span>"
-    style: "docked"
+  navbar:
+    background: light
+    logo: images/cornell-seal-red.svg
+    title: "AEM 7010: Doing Applied Economics Research: Practical Skills"
     search: true
-    collapse-level: 2
-    contents:
-      - text: "Preliminaries"
+    right:
+      - text: "Home"
         href: index.qmd
-      - section: "Introduction"
-        contents:
-          - text: "Session 1: Trends in Economic Research"
+      - text: "Syllabus"
+        href: syllabus.qmd
+      - text: "Schedule"
+        href: schedule.qmd
+      - text: "Sessions"
+        menu:
+          - text: "1. Trends in Economic Research"
             href: intro/session1.qmd
-      - section: "Reproducibility"
-        contents:
-          - text: "Session 2: Reproducibility"
+          - text: "2. Reproducibility I"
             href: reproducibility/session2.qmd
-          - text: "Session 3: Reproducibility, continued"
+          - text: "3. Reproducibility II"
             href: reproducibility/session3.qmd
-      - section: "Version Control"
-        contents:
-          - text: "Session 4: Git Fundamentals"
+          - text: "4. Git Fundamentals"
             href: version-control/session4.qmd
-          - text: "Why version control?"
-            href: version-control/session4.qmd#why-version-control
-          - text: "What is Git?"
-            href: version-control/session4.qmd#what-is-git
-          - text: "Situations where Git helps"
-            href: version-control/session4.qmd#situations-where-git-helps
-          - text: "Setup"
-            href: version-control/session4.qmd#setup
-          - text: "The three areas"
-            href: version-control/session4.qmd#the-three-areas-of-git
-          - text: "Your first repository"
-            href: version-control/session4.qmd#your-first-repository
-          - text: "Staging and committing"
-            href: version-control/session4.qmd#staging-and-committing
-          - text: "Writing good commits"
-            href: version-control/session4.qmd#writing-good-commits
-          - text: "Exercise 1"
-            href: version-control/session4.qmd#exercise-1-add-a-second-script-and-commit-it
-          - text: "Viewing history"
-            href: version-control/session4.qmd#viewing-history
-          - text: ".gitignore"
-            href: version-control/session4.qmd#gitignore
-          - text: "Linking to data elsewhere"
-            href: version-control/session4.qmd#linking-to-data-that-lives-elsewhere
-          - text: "Undoing mistakes"
-            href: version-control/session4.qmd#undoing-mistakes
-          - text: "— Unstage a file"
-            href: version-control/session4.qmd#unstage-a-file
-          - text: "— Discard local changes"
-            href: version-control/session4.qmd#discard-local-changes
-          - text: "— Undo the last commit"
-            href: version-control/session4.qmd#undo-the-last-commit-keep-the-changes
-          - text: "— Return to an earlier version"
-            href: version-control/session4.qmd#return-to-an-earlier-version-of-a-file
-          - text: "Exercise 2"
-            href: version-control/session4.qmd#exercise-2-practice-the-safety-rails
-          - text: "Session 5: GitHub & Collaboration"
+          - text: "5. GitHub & Collaboration"
             href: version-control/session5.qmd
-          - text: "What is GitHub?"
-            href: version-control/session5.qmd#what-is-github
-          - text: "Why put code on GitHub?"
-            href: version-control/session5.qmd#why-put-your-code-on-github
-          - text: "Connect to GitHub"
-            href: version-control/session5.qmd#connect-to-github-ssh-keys
-          - text: "— What SSH is"
-            href: version-control/session5.qmd#what-ssh-actually-is
-          - text: "— Setup steps"
-            href: version-control/session5.qmd#step-1-check-whether-you-already-have-a-key
-          - text: "— HTTPS alternative"
-            href: version-control/session5.qmd#https-alternative
-          - text: "Keep your email private"
-            href: version-control/session5.qmd#keep-your-email-private
-          - text: "Where a repository comes from"
-            href: version-control/session5.qmd#where-a-repository-comes-from
-          - text: "Cloning a repository"
-            href: version-control/session5.qmd#cloning-a-repository
-          - text: "Push and pull"
-            href: version-control/session5.qmd#push-and-pull
-          - text: "Starting from scratch"
-            href: version-control/session5.qmd#starting-from-scratch
-          - text: "Forks and templates"
-            href: version-control/session5.qmd#forks-and-templates
-          - text: "Exercise 3"
-            href: version-control/session5.qmd#exercise-3-clone-your-copy-of-the-starter-repo
-          - text: "Branches"
-            href: version-control/session5.qmd#branches
-          - text: "Pull requests"
-            href: version-control/session5.qmd#pull-requests
-          - text: "Merge conflicts"
-            href: version-control/session5.qmd#handling-merge-conflicts
-          - text: "Exercise 4 (in-class)"
-            href: version-control/session5.qmd#exercise-4-stage-and-resolve-a-merge-conflict
-          - text: "Take-home: pair PR"
-            href: version-control/session5.qmd#additional-practice-take-home-pair-pr-workflow
-          - text: "Tags for reproducibility"
-            href: version-control/session5.qmd#tags-for-reproducibility
-          - text: "Data: too large or restricted"
-            href: version-control/session5.qmd#when-the-data-is-too-large-or-restricted
-          - text: "Git cheat sheet"
-            href: version-control/cheatsheet.qmd
-      - section: "AI Tools"
-        contents:
-          - text: "Session 6: AI Tools I (chat)"
+          - text: "6. AI Tools I (Chat)"
             href: ai-tools/session6.qmd
-          - text: "Where we are in the course"
-            href: ai-tools/session6.qmd#where-we-are-in-the-course
-          - text: "A mental model of LLMs"
-            href: ai-tools/session6.qmd#a-mental-model-of-llms
-          - text: "Chat as a category"
-            href: ai-tools/session6.qmd#chat-as-a-category
-          - text: "— Mode A vs Mode B"
-            href: ai-tools/session6.qmd#mode-a-vs-mode-b
-          - text: "Live demo: chat fails"
-            href: ai-tools/session6.qmd#live-demo
-          - text: "Exercise: scrape with chat"
-            href: ai-tools/session6.qmd#hands-on-exercise
-          - text: "Gallery"
-            href: ai-tools/session6.qmd#gallery
-          - text: "Debrief"
-            href: ai-tools/session6.qmd#debrief
-          - text: "For Wednesday"
-            href: ai-tools/session6.qmd#for-wednesday
-          - text: "Session 7: AI Tools II (Cowork)"
+          - text: "7. AI Tools II (Cowork)"
             href: ai-tools/session7.qmd
-          - text: "Where we are"
-            href: ai-tools/session7.qmd#where-we-are
-          - text: "Recap and safety brief"
-            href: ai-tools/session7.qmd#recap-and-safety
-          - text: "Cowork as a category"
-            href: ai-tools/session7.qmd#cowork-as-a-category
-          - text: "— Examples: which tool?"
-            href: ai-tools/session7.qmd#which-tool-examples
-          - text: "Today's arc"
-            href: ai-tools/session7.qmd#todays-arc
-          - text: "— 1. Create repo on GitHub"
-            href: ai-tools/session7.qmd#create-on-github
-          - text: "— 2. Clone in terminal"
-            href: ai-tools/session7.qmd#clone-in-terminal
-          - text: "— 3. Open in VS Code + Cowork"
-            href: ai-tools/session7.qmd#open-in-vscode
-          - text: "Guided scrape: Dyson placements"
-            href: ai-tools/session7.qmd#guided-scrape
-          - text: "— Prompt handout"
-            href: ai-tools/session7.qmd#prompt-handout
-          - text: "— Hands-on exercise"
-            href: ai-tools/session7.qmd#hands-on-exercise
-          - text: "— Verification checklist"
-            href: ai-tools/session7.qmd#verification-checklist
-          - text: "Commit & push #1"
-            href: ai-tools/session7.qmd#commit-and-push
-          - text: "Build the pipeline"
-            href: ai-tools/session7.qmd#build-the-pipeline
-          - text: "— Pipeline prompt"
-            href: ai-tools/session7.qmd#pipeline-prompt
-          - text: "— Pipeline verification"
-            href: ai-tools/session7.qmd#pipeline-verification
-          - text: "Commit & push #2"
-            href: ai-tools/session7.qmd#commit-and-push-again
-          - text: "Stretch: cross-school"
-            href: ai-tools/session7.qmd#stretch
-          - text: "Debrief"
-            href: ai-tools/session7.qmd#debrief
-          - text: "For Monday"
-            href: ai-tools/session7.qmd#for-monday
-          - text: "Session 8: AI Tools III (Claude Code)"
+          - text: "8. AI Tools III (Claude Code)"
             href: ai-tools/session8.qmd
-          - text: "Where we are"
-            href: ai-tools/session8.qmd#where-we-are
-          - text: "Recap and the third rung"
-            href: ai-tools/session8.qmd#recap
-          - text: "Claude Code as a category"
-            href: ai-tools/session8.qmd#claude-code-as-a-category
-          - text: "— Examples: which tool?"
-            href: ai-tools/session8.qmd#which-tool-examples
-          - text: "Subagents and templates"
-            href: ai-tools/session8.qmd#subagents-and-templates
-          - text: "— How does an LLM check?"
-            href: ai-tools/session8.qmd#how-fact-checker-works
-          - text: "— Implicit vs explicit agents"
-            href: ai-tools/session8.qmd#implicit-agents
-          - text: "— Catalog of agent types"
-            href: ai-tools/session8.qmd#agent-catalog
-          - text: "— Where did agents come from?"
-            href: ai-tools/session8.qmd#agents-history
-          - text: "Today's arc"
-            href: ai-tools/session8.qmd#todays-arc
-          - text: "Setup and first run"
-            href: ai-tools/session8.qmd#setup-and-first-run
-          - text: "Author CLAUDE.md"
-            href: ai-tools/session8.qmd#author-claude-md
-          - text: "— Personal style in CLAUDE.md"
-            href: ai-tools/session8.qmd#personal-style-in-claude-md
-          - text: "Scale to five departments"
-            href: ai-tools/session8.qmd#scale-to-five
-          - text: "— Scrape prompt"
-            href: ai-tools/session8.qmd#scrape-prompt
-          - text: "— Hands-on exercise"
-            href: ai-tools/session8.qmd#scrape-exercise
-          - text: "— Verification checklist"
-            href: ai-tools/session8.qmd#scrape-verification
-          - text: "Commit & push #1"
-            href: ai-tools/session8.qmd#commit-and-push-1
-          - text: "LLM classifier"
-            href: ai-tools/session8.qmd#llm-classifier
-          - text: "— Classifier prompt"
-            href: ai-tools/session8.qmd#classify-prompt
-          - text: "— Hands-on exercise"
-            href: ai-tools/session8.qmd#classify-exercise
-          - text: "— Verification checklist"
-            href: ai-tools/session8.qmd#classify-verification
-          - text: "Commit & push #2"
-            href: ai-tools/session8.qmd#commit-and-push-2
-          - text: "Descriptive write-up"
-            href: ai-tools/session8.qmd#write-up
-          - text: "— output/ vs paper/"
-            href: ai-tools/session8.qmd#output-vs-paper
-          - text: "— Analysis prompt"
-            href: ai-tools/session8.qmd#analysis-prompt
-          - text: "— Hands-on exercise"
-            href: ai-tools/session8.qmd#analysis-exercise
-          - text: "Final commit and push"
-            href: ai-tools/session8.qmd#final-commit
-          - text: "Critic in action: fact-checker"
-            href: ai-tools/session8.qmd#agent-demo
-          - text: "Debrief"
-            href: ai-tools/session8.qmd#debrief
-          - text: "After class"
-            href: ai-tools/session8.qmd#after-class
+      - text: "Setup"
+        href: setup.qmd
+      - text: "Resources"
+        href: resources.qmd
+  sidebar:
+    style: "docked"
+    search: false
+    contents:
+      - text: "1. Trends in Economic Research"
+        href: intro/session1.qmd
+      - text: "2. Reproducibility I"
+        href: reproducibility/session2.qmd
+      - text: "3. Reproducibility II"
+        href: reproducibility/session3.qmd
+      - text: "4. Git Fundamentals"
+        href: version-control/session4.qmd
+      - text: "5. GitHub & Collaboration"
+        href: version-control/session5.qmd
+      - text: "6. AI Tools I (Chat)"
+        href: ai-tools/session6.qmd
+      - text: "7. AI Tools II (Cowork)"
+        href: ai-tools/session7.qmd
+      - text: "8. AI Tools III (Claude Code)"
+        href: ai-tools/session8.qmd
   page-footer:
-    left: "Prof. Ariel Ortiz-Bobea — Cornell Dyson School"
+    left: "Prof. Ariel Ortiz-Bobea, Cornell Dyson School"
     right: "Built with [Quarto](https://quarto.org)"
 
 format:
@@ -246,14 +69,15 @@ format:
     theme:
       - cosmo
       - cornell.scss
-    toc: false
+    toc: true
+    toc-location: right
+    toc-depth: 3
     code-copy: true
     code-overflow: wrap
     code-block-bg: true
     link-external-newwindow: true
-    include-after-body: scrollspy.html
     grid:
-      sidebar-width: 280px
-      body-width: 820px
-      margin-width: 0px
+      sidebar-width: 220px
+      body-width: 760px
+      margin-width: 220px
       gutter-width: 1.5rem

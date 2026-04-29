@@ -1,15 +1,12 @@
 ---
 title: "Session 3: Reproducibility, Continued"
 subtitle: "Replication packages in practice (with Lars Vilhuber)"
+date: 2026-04-15
 ---
-
-::: {.callout-note appearance="simple"}
-**Materials for this session are being prepared for the companion site.**
-:::
 
 ## Where this session fits
 
-The second reproducibility session continues with Lars Vilhuber. We move from principles to practice: building a replication package, handling data that cannot be posted, documenting computational environments.
+The second reproducibility session continues with [Lars Vilhuber](https://www.ilr.cornell.edu/people/lars-vilhuber). We move from principles to practice: building a replication package, handling data that cannot be posted, documenting computational environments.
 
 Topics expected to be covered:
 
@@ -20,4 +17,10 @@ Topics expected to be covered:
 
 ## Materials
 
-Slides and references will be linked here after the session.
+The session works through a hands-on example of building a deposit-ready replication package. Start at the linked anchor below; it drops you directly at the example-of-deposit slide in Lars's day-1 tutorial.
+
+- **Primary**: [Day-1 tutorial: example of deposit](https://larsvilhuber.github.io/day1-tutorial/#/example-of-deposit)
+- **Reference**: [Tutorial on Reproducibility, 2026 (landing page)](https://larsvilhuber.github.io/tutorial-reproducibility-2026/) for the broader course materials.
+- **Bonus**: [Self-checking reproducibility](https://larsvilhuber.github.io/self-checking-reproducibility/) for auditing your own replication package before submission.
+
+Slides and additional references will be linked here after the session.

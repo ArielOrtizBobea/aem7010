@@ -1,15 +1,12 @@
 ---
 title: "Session 2: Reproducibility"
 subtitle: "Foundations for reproducible research (with Lars Vilhuber)"
+date: 2026-04-13
 ---
-
-::: {.callout-note appearance="simple"}
-**Materials for this session are being prepared for the companion site.** This page will expand ahead of the session.
-:::
 
 ## Where this session fits
 
-Guest-led by Lars Vilhuber, AEA Data Editor. This first reproducibility session opens the block and sets up vocabulary and expectations.
+Guest-led by [Lars Vilhuber](https://www.ilr.cornell.edu/people/lars-vilhuber), AEA Data Editor. This first reproducibility session opens the block and sets up vocabulary and expectations.
 
 Topics expected to be covered:
 
@@ -19,4 +16,9 @@ Topics expected to be covered:
 
 ## Materials
 
-Slides and references will be linked here after the session.
+The session uses Lars's *Tutorial on Reproducibility, 2026*. Start at the landing page below; it is the orchestrator for the multi-day tutorial and the right entry point for the conceptual material in this session.
+
+- **Primary**: [Tutorial on Reproducibility, 2026 (landing page)](https://larsvilhuber.github.io/tutorial-reproducibility-2026/)
+- **Bonus**: [Self-checking reproducibility](https://larsvilhuber.github.io/self-checking-reproducibility/), a short companion on auditing your own replication package before submission.
+
+Slides and additional references will be linked here after the session.

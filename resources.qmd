@@ -1,0 +1,39 @@
+---
+title: "Resources"
+subtitle: "Cheat sheets, references, and external links"
+---
+
+## On this site
+
+- [Git cheat sheet](version-control/cheatsheet.qmd) for the commands covered in Sessions 4 and 5.
+
+## Software downloads
+
+- [Git](https://git-scm.com) (version control).
+- [R](https://cran.r-project.org) (statistical computing language).
+- [RStudio](https://posit.co/download/rstudio-desktop/) (IDE for R).
+- [VS Code](https://code.visualstudio.com) (general-purpose editor for everything else).
+- [GitHub](https://github.com) (host for Git repositories).
+
+## References
+
+- [Pro Git book](https://git-scm.com/book/en/v2), free, comprehensive, by Scott Chacon and Ben Straub.
+- [Happy Git and GitHub for the useR](https://happygitwithr.com), Jenny Bryan's tutorial pitched at R users.
+- [Quarto documentation](https://quarto.org/docs/guide/) for the publishing system that builds this site.
+- [Wooldridge R package](https://cran.r-project.org/package=wooldridge) for the classic textbook datasets used in our examples.
+
+## Free Anthropic courses on Claude and AI
+
+These four self-paced courses are hosted on Anthropic's Skilljar platform. All are free and offer a certificate of completion. They complement Sessions 6 to 8 well, but the AI Fluency course is worth taking before Session 6 if you have time.
+
+- [**AI Fluency: Framework and Foundations**](https://anthropic.skilljar.com/ai-fluency-framework-foundations). Practical AI literacy course developed with academic partners (UCC, Ringling College). Introduces the 4D framework (Delegation, Description, Discernment, Diligence) for using AI effectively, ethically, and safely. About 1.1 hours of video plus exercises. Tool-agnostic.
+- [**Claude 101**](https://anthropic.skilljar.com/claude-101). Foundations for using Claude in everyday work. Five modules across Chat, Cowork, Code, Projects, Artifacts, Skills, and Connectors. Aimed at every knowledge worker, not only developers. Good starting point if you have never used Claude.
+- [**Introduction to Claude Cowork**](https://anthropic.skilljar.com/introduction-to-claude-cowork). Hands-on introduction to Cowork mode, the desktop app that can read and edit your files and run code. Covers the task loop, plugins and skills, file workflows, and how to steer multi-step work responsibly. Direct companion to Session 7.
+- [**Claude Code 101**](https://anthropic.skilljar.com/claude-code-101). Aimed at people new to AI coding agents. Walks through installation and the Explore-Plan-Code-Commit workflow Claude Code uses. Direct companion to Session 8. Hands-on exercises require a Claude Pro/Max plan or a valid API key.
+
+## Cornell-specific
+
+- [Cornell Statistical Consulting Unit](https://cscu.cornell.edu).
+- [Cornell University Library research data services](https://data.library.cornell.edu).
+- [CISER, Cornell Institute for Social and Economic Research](https://ciser.cornell.edu) for restricted-data services.
+- [Cornell Center for Advanced Computing](https://www.cac.cornell.edu) for HPC and cloud resources.
