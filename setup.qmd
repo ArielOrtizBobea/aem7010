@@ -13,7 +13,7 @@ This page is the master install checklist for the course. The sections below are
 | GitHub account, SSH keys                | Session 5 (Apr 22)    |
 | Claude account at claude.com            | Session 6 (Apr 27)    |
 | Cowork desktop app                      | Session 7 (Apr 29)    |
-| Node.js, Claude Code CLI                | Session 8 (May 4)     |
+| Claude Code CLI                         | Session 8 (May 4)     |
 
 The numbered sections below walk through each tool in turn. Each one notes which sessions it is used in and how to verify the install worked.
 
@@ -137,32 +137,29 @@ Cowork is the Claude desktop app with the *Cowork mode* feature enabled. It can 
 
 Bring any install issues to the first ten minutes of session 7; that time is reserved for troubleshooting.
 
-## 12. Node.js and Claude Code
+## 12. Claude Code
 
 Needed for session 8.
 
-Claude Code is a code-native agent that runs in your terminal inside a git project.
+Claude Code is a code-native agent that runs in your terminal inside a git project. As of late 2025, Anthropic ships a native installer that bundles everything into a single binary. No Node.js or npm required.
 
-**Install Node.js.** Claude Code is distributed as an npm package, so you need Node.js (which ships with `npm`).
+**Install Claude Code (recommended).** One command in a terminal:
 
-- **Mac**: `brew install node` or download from [nodejs.org](https://nodejs.org).
-- **Windows**: download the installer from [nodejs.org](https://nodejs.org).
+- **Mac/Linux**: `curl -fsSL https://claude.ai/install.sh | bash`
+- **Windows (PowerShell)**: `irm https://claude.ai/install.ps1 | iex`
 
-Verify in a terminal:
-
-```bash
-node --version
-npm --version
-```
-
-**Install Claude Code:**
+Verify the install:
 
 ```bash
-npm install -g @anthropic-ai/claude-code
 claude --version
 ```
 
 The first time you run `claude`, it opens a browser window to log you in with your Claude account.
+
+::: {.callout-note}
+## Already have Node.js? The npm path still works.
+If you already have Node.js installed for other reasons, `npm install -g @anthropic-ai/claude-code` still works. Anthropic now recommends the native installer above as the default.
+:::
 
 For platform-specific notes and troubleshooting, see the official guide: [docs.claude.com/en/docs/claude-code/setup](https://docs.claude.com/en/docs/claude-code/setup).
 

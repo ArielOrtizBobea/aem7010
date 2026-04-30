@@ -341,7 +341,7 @@ The other lesson, every week. Notice when a tool's constraints were protecting y
 **For Monday:**
 
 1. Confirm two commits visible on `github.com/<your-handle>/aem7010-ai`.
-2. **Install Claude Code.** `npm install -g @anthropic-ai/claude-code`, then `claude --version`. Full guide at <https://docs.claude.com/en/docs/claude-code/setup>. Free Claude account required.
+2. **Install Claude Code (native installer, no Node.js).** macOS/Linux: `curl -fsSL https://claude.ai/install.sh | bash`. Windows (PowerShell): `irm https://claude.ai/install.ps1 | iex`. Verify with `claude --version`. Full guide at <https://docs.claude.com/en/docs/claude-code/setup>. Free Claude account required.
 3. Have the `aem7010-ai` repo open in a terminal at the repo root before class.
 
 ::: {.note-box}
