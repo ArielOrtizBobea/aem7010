@@ -156,6 +156,8 @@ claude --version
 
 The first time you run `claude`, it opens a browser window to log you in with your Claude account.
 
+To update Claude Code later, run `claude update` from any terminal. It pulls the latest version regardless of how you installed it.
+
 ::: {.callout-note}
 ## Already have Node.js? The npm path still works.
 If you already have Node.js installed for other reasons, `npm install -g @anthropic-ai/claude-code` still works. Anthropic now recommends the native installer above as the default.
