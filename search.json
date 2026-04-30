@@ -25,7 +25,7 @@
     "href": "setup.html#overview",
     "title": "Setup",
     "section": "Overview",
-    "text": "Overview\n\n\n\nTool\nNeeded by\n\n\n\n\nGit, R, RStudio, VS Code, wooldridge\nSession 4 (Apr 20)\n\n\nGitHub account, SSH keys\nSession 5 (Apr 22)\n\n\nClaude account at claude.com\nSession 6 (Apr 27)\n\n\nCowork desktop app\nSession 7 (Apr 29)\n\n\nNode.js, Claude Code CLI\nSession 8 (May 4)\n\n\n\nThe numbered sections below walk through each tool in turn. Each one notes which sessions it is used in and how to verify the install worked."
+    "text": "Overview\n\n\n\nTool\nNeeded by\n\n\n\n\nGit, R, RStudio, VS Code, wooldridge\nSession 4 (Apr 20)\n\n\nGitHub account, SSH keys\nSession 5 (Apr 22)\n\n\nClaude account at claude.com\nSession 6 (Apr 27)\n\n\nCowork desktop app\nSession 7 (Apr 29)\n\n\nClaude Code CLI\nSession 8 (May 4)\n\n\n\nThe numbered sections below walk through each tool in turn. Each one notes which sessions it is used in and how to verify the install worked."
   },
   {
     "objectID": "setup.html#git",
@@ -105,11 +105,11 @@
     "text": "11. Cowork desktop app\nNeeded for session 7.\nCowork is the Claude desktop app with the Cowork mode feature enabled. It can see a folder on your machine and run code in a sandboxed shell.\n\nDownload the desktop app from claude.com/download.\nSign in with your Claude account.\nOpen the app’s settings and confirm Cowork mode is available.\n\nBring any install issues to the first ten minutes of session 7; that time is reserved for troubleshooting."
   },
   {
-    "objectID": "setup.html#node.js-and-claude-code",
-    "href": "setup.html#node.js-and-claude-code",
+    "objectID": "setup.html#claude-code",
+    "href": "setup.html#claude-code",
     "title": "Setup",
-    "section": "12. Node.js and Claude Code",
-    "text": "12. Node.js and Claude Code\nNeeded for session 8.\nClaude Code is a code-native agent that runs in your terminal inside a git project.\nInstall Node.js. Claude Code is distributed as an npm package, so you need Node.js (which ships with npm).\n\nMac: brew install node or download from nodejs.org.\nWindows: download the installer from nodejs.org.\n\nVerify in a terminal:\nnode --version\nnpm --version\nInstall Claude Code:\nnpm install -g @anthropic-ai/claude-code\nclaude --version\nThe first time you run claude, it opens a browser window to log you in with your Claude account.\nFor platform-specific notes and troubleshooting, see the official guide: docs.claude.com/en/docs/claude-code/setup."
+    "section": "12. Claude Code",
+    "text": "12. Claude Code\nNeeded for session 8.\nClaude Code is a code-native agent that runs in your terminal inside a git project. As of late 2025, Anthropic ships a native installer that bundles everything into a single binary. No Node.js or npm required.\nInstall Claude Code (recommended). One command in a terminal:\n\nMac/Linux: curl -fsSL https://claude.ai/install.sh | bash\nWindows (PowerShell): irm https://claude.ai/install.ps1 | iex\n\nVerify the install:\nclaude --version\nThe first time you run claude, it opens a browser window to log you in with your Claude account.\n\n\n\n\n\n\nNoteAlready have Node.js? The npm path still works.\n\n\n\nIf you already have Node.js installed for other reasons, npm install -g @anthropic-ai/claude-code still works. Anthropic now recommends the native installer above as the default.\n\n\nFor platform-specific notes and troubleshooting, see the official guide: docs.claude.com/en/docs/claude-code/setup."
   },
   {
     "objectID": "setup.html#r-packages-for-the-ai-sessions",
@@ -1750,7 +1750,7 @@
     "href": "ai-tools/session7.html#for-monday",
     "title": "Session 7: AI Tools II",
     "section": "For Monday",
-    "text": "For Monday\n\nYour aem7010-ai repo on GitHub is your Session 7 deliverable. Confirm at least two commits are visible at github.com/&lt;your-handle&gt;/aem7010-ai.\nInstall Claude Code before class. Follow the official install guide at https://docs.claude.com/en/docs/claude-code/setup for your operating system. On macOS the simplest path is:\nnpm install -g @anthropic-ai/claude-code\nclaude --version\nYou will need a Claude account (free signup at https://claude.com). The in-class exercises will not require a paid plan. Bring any install errors to the first ten minutes of class on Monday; that time is reserved for troubleshooting.\nOpen the aem7010-ai repo in your terminal at the repo root. That is the directory Claude Code will operate in on Monday. Confirm git status is clean before you arrive.\n\n\n\n\n\n\n\nNoteInstructor fallback\n\n\n\nIf Cowork misbehaves on a student machine during the synchronous walkthrough, a working scraper lives at ai-tools/scrape_dyson_cowork.R in the course repo. It takes about 10 seconds to run and produces the same CSV. Use it as a reference, or as a literal drop-in if the room gets stuck on the scrape.",
+    "text": "For Monday\n\nYour aem7010-ai repo on GitHub is your Session 7 deliverable. Confirm at least two commits are visible at github.com/&lt;your-handle&gt;/aem7010-ai.\nInstall Claude Code before class. Anthropic ships a native installer that bundles everything as a single binary. No Node.js required. One command in a terminal:\n# macOS / Linux\ncurl -fsSL https://claude.ai/install.sh | bash\n\n# Windows (PowerShell)\nirm https://claude.ai/install.ps1 | iex\nThen verify with claude --version. You will need a Claude account (free signup at https://claude.com). The in-class exercises will not require a paid plan. Full guide at https://docs.claude.com/en/docs/claude-code/setup. Bring any install errors to the first ten minutes of class on Monday; that time is reserved for troubleshooting.\nOpen the aem7010-ai repo in your terminal at the repo root. That is the directory Claude Code will operate in on Monday. Confirm git status is clean before you arrive.\n\n\n\n\n\n\n\nNoteInstructor fallback\n\n\n\nIf Cowork misbehaves on a student machine during the synchronous walkthrough, a working scraper lives at ai-tools/scrape_dyson_cowork.R in the course repo. It takes about 10 seconds to run and produces the same CSV. Use it as a reference, or as a literal drop-in if the room gets stuck on the scrape.",
     "crumbs": [
       "Home",
       "7. AI Tools II (Cowork)"
@@ -1894,7 +1894,7 @@
     "href": "ai-tools/slides/session7.html#whats-next",
     "title": "Session 7: AI Tools II",
     "section": "What’s Next",
-    "text": "What’s Next\nNext Monday (Session 8): Claude Code. Terminal-native, git-aware, scales to many files. Replaces the keyword classifier with an LLM, scrapes five schools at once, produces a write-up.\nFor Monday:\n\nConfirm two commits visible on github.com/&lt;your-handle&gt;/aem7010-ai.\nInstall Claude Code. npm install -g @anthropic-ai/claude-code, then claude --version. Full guide at https://docs.claude.com/en/docs/claude-code/setup. Free Claude account required.\nHave the aem7010-ai repo open in a terminal at the repo root before class.\n\n\nThe bottleneck is no longer typing. It is verification.\n\nCompanion site: arielortizbobea.github.io/aem7010"
+    "text": "What’s Next\nNext Monday (Session 8): Claude Code. Terminal-native, git-aware, scales to many files. Replaces the keyword classifier with an LLM, scrapes five schools at once, produces a write-up.\nFor Monday:\n\nConfirm two commits visible on github.com/&lt;your-handle&gt;/aem7010-ai.\nInstall Claude Code (native installer, no Node.js). macOS/Linux: curl -fsSL https://claude.ai/install.sh | bash. Windows (PowerShell): irm https://claude.ai/install.ps1 | iex. Verify with claude --version. Full guide at https://docs.claude.com/en/docs/claude-code/setup. Free Claude account required.\nHave the aem7010-ai repo open in a terminal at the repo root before class.\n\n\nThe bottleneck is no longer typing. It is verification.\n\nCompanion site: arielortizbobea.github.io/aem7010"
   },
   {
     "objectID": "ai-tools/seeds/fact-checker.html",

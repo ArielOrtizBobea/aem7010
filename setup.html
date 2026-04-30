@@ -283,7 +283,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#connect-vs-code-or-your-terminal-to-github" id="toc-connect-vs-code-or-your-terminal-to-github" class="nav-link" data-scroll-target="#connect-vs-code-or-your-terminal-to-github">9. Connect VS Code (or your terminal) to GitHub</a></li>
   <li><a href="#claude-account-claude.com" id="toc-claude-account-claude.com" class="nav-link" data-scroll-target="#claude-account-claude.com">10. Claude account (claude.com)</a></li>
   <li><a href="#cowork-desktop-app" id="toc-cowork-desktop-app" class="nav-link" data-scroll-target="#cowork-desktop-app">11. Cowork desktop app</a></li>
-  <li><a href="#node.js-and-claude-code" id="toc-node.js-and-claude-code" class="nav-link" data-scroll-target="#node.js-and-claude-code">12. Node.js and Claude Code</a></li>
+  <li><a href="#claude-code" id="toc-claude-code" class="nav-link" data-scroll-target="#claude-code">12. Claude Code</a></li>
   <li><a href="#r-packages-for-the-ai-sessions" id="toc-r-packages-for-the-ai-sessions" class="nav-link" data-scroll-target="#r-packages-for-the-ai-sessions">13. R packages for the AI sessions</a></li>
   <li><a href="#troubleshooting" id="toc-troubleshooting" class="nav-link" data-scroll-target="#troubleshooting">Troubleshooting</a></li>
   </ul>
@@ -340,7 +340,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>Session 7 (Apr 29)</td>
 </tr>
 <tr class="odd">
-<td>Node.js, Claude Code CLI</td>
+<td>Claude Code CLI</td>
 <td>Session 8 (May 4)</td>
 </tr>
 </tbody>
@@ -457,29 +457,38 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <p>Bring any install issues to the first ten minutes of session 7; that time is reserved for troubleshooting.</p>
 </section>
-<section id="node.js-and-claude-code" class="level2">
-<h2 class="anchored" data-anchor-id="node.js-and-claude-code">12. Node.js and Claude Code</h2>
+<section id="claude-code" class="level2">
+<h2 class="anchored" data-anchor-id="claude-code">12. Claude Code</h2>
 <p>Needed for session 8.</p>
-<p>Claude Code is a code-native agent that runs in your terminal inside a git project.</p>
-<p><strong>Install Node.js.</strong> Claude Code is distributed as an npm package, so you need Node.js (which ships with <code>npm</code>).</p>
+<p>Claude Code is a code-native agent that runs in your terminal inside a git project. As of late 2025, Anthropic ships a native installer that bundles everything into a single binary. No Node.js or npm required.</p>
+<p><strong>Install Claude Code (recommended).</strong> One command in a terminal:</p>
 <ul>
-<li><strong>Mac</strong>: <code>brew install node</code> or download from <a href="https://nodejs.org">nodejs.org</a>.</li>
-<li><strong>Windows</strong>: download the installer from <a href="https://nodejs.org">nodejs.org</a>.</li>
+<li><strong>Mac/Linux</strong>: <code>curl -fsSL https://claude.ai/install.sh | bash</code></li>
+<li><strong>Windows (PowerShell)</strong>: <code>irm https://claude.ai/install.ps1 | iex</code></li>
 </ul>
-<p>Verify in a terminal:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">node</span> <span class="at">--version</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">npm</span> <span class="at">--version</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p><strong>Install Claude Code:</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">npm</span> install <span class="at">-g</span> @anthropic-ai/claude-code</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ex">claude</span> <span class="at">--version</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Verify the install:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">claude</span> <span class="at">--version</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>The first time you run <code>claude</code>, it opens a browser window to log you in with your Claude account.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Already have Node.js? The npm path still works.
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If you already have Node.js installed for other reasons, <code>npm install -g @anthropic-ai/claude-code</code> still works. Anthropic now recommends the native installer above as the default.</p>
+</div>
+</div>
 <p>For platform-specific notes and troubleshooting, see the official guide: <a href="https://docs.claude.com/en/docs/claude-code/setup">docs.claude.com/en/docs/claude-code/setup</a>.</p>
 </section>
 <section id="r-packages-for-the-ai-sessions" class="level2">
 <h2 class="anchored" data-anchor-id="r-packages-for-the-ai-sessions">13. R packages for the AI sessions</h2>
 <p>Needed for session 8.</p>
 <p>In R or RStudio, run once before session 8:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="fu">c</span>(<span class="st">"tidyverse"</span>, <span class="st">"rvest"</span>, <span class="st">"readr"</span>, <span class="st">"ellmer"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="fu">c</span>(<span class="st">"tidyverse"</span>, <span class="st">"rvest"</span>, <span class="st">"readr"</span>, <span class="st">"ellmer"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p><code>ellmer</code> is recent and unlikely to be already installed. The others may already be there from sessions 4 to 5.</p>
 </section>
 <section id="troubleshooting" class="level2">
