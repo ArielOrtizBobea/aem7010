@@ -202,9 +202,13 @@ ul.task-list li input[type="checkbox"] {
 <h2 class="anchored" data-anchor-id="cornell-specific">Cornell-specific</h2>
 <ul>
 <li><a href="https://cscu.cornell.edu">Cornell Statistical Consulting Unit</a>.</li>
-<li><a href="https://data.library.cornell.edu">Cornell University Library research data services</a>.</li>
-<li><a href="https://ciser.cornell.edu">CISER, Cornell Institute for Social and Economic Research</a> for restricted-data services.</li>
+<li><a href="https://data.research.cornell.edu">Cornell Data Services</a> for research-data planning, management, and sharing support (housed in Cornell University Library).</li>
+<li><a href="https://socialsciences.cornell.edu/computing-and-data">Cornell Center for Social Sciences (CCSS)</a> for the CISER Data and Reproduction Archive, the Federal Statistical Research Data Center, and the Regulated Research Environment for restricted data.</li>
+<li><a href="https://socialsciences.cornell.edu/research-support/R-squared">Results Reproduction (R-squared)</a> at CCSS, a service that computationally reproduces your code and results before journal submission. Functions as enhanced proofreading for data and code, a direct fit with Sessions 2 and 3.</li>
 <li><a href="https://www.cac.cornell.edu">Cornell Center for Advanced Computing</a> for HPC and cloud resources.</li>
+<li><a href="https://guides.library.cornell.edu/az.php">Cornell Library A–Z Databases</a> for the master list of databases licensed across all Cornell libraries.</li>
+<li><a href="https://johnson.library.cornell.edu/databases/">Cornell Management Library databases</a> for the business and economics subset of the A–Z list, licensed through the SC Johnson College of Business.</li>
+<li><a href="https://mann.library.cornell.edu/usda-esmis">USDA Economics, Statistics and Market Information System (ESMIS)</a> hosted at Cornell’s Mann Library, with roughly 2,500 USDA reports and datasets going back to the 1850s.</li>
 <li><strong><a href="resources/Dewey Data.pdf">Newly Available Datasets for Research</a></strong> at the Cornell SC Johnson College of Business, slides by Jura Liaukonyte. Catalog of recently licensed datasets across consumer transactions, geolocation, real estate, construction, and climate.</li>
 </ul>
 
@@ -285,7 +289,7 @@ ul.task-list li input[type="checkbox"] {
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp("https:\/\/arielortizbobea\.github\.io\/aem7010\/");
+        var filterRegex = new RegExp('/' + window.location.host + '/');
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }

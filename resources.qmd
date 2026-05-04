@@ -35,7 +35,11 @@ These four self-paced courses are hosted on Anthropic's Skilljar platform. All a
 ## Cornell-specific
 
 - [Cornell Statistical Consulting Unit](https://cscu.cornell.edu).
-- [Cornell University Library research data services](https://data.library.cornell.edu).
-- [CISER, Cornell Institute for Social and Economic Research](https://ciser.cornell.edu) for restricted-data services.
+- [Cornell Data Services](https://data.research.cornell.edu) for research-data planning, management, and sharing support (housed in Cornell University Library).
+- [Cornell Center for Social Sciences (CCSS)](https://socialsciences.cornell.edu/computing-and-data) for the CISER Data and Reproduction Archive, the Federal Statistical Research Data Center, and the Regulated Research Environment for restricted data.
+- [Results Reproduction (R-squared)](https://socialsciences.cornell.edu/research-support/R-squared) at CCSS, a service that computationally reproduces your code and results before journal submission. Functions as enhanced proofreading for data and code, a direct fit with Sessions 2 and 3.
 - [Cornell Center for Advanced Computing](https://www.cac.cornell.edu) for HPC and cloud resources.
+- [Cornell Library A–Z Databases](https://guides.library.cornell.edu/az.php) for the master list of databases licensed across all Cornell libraries.
+- [Cornell Management Library databases](https://johnson.library.cornell.edu/databases/) for the business and economics subset of the A–Z list, licensed through the SC Johnson College of Business.
+- [USDA Economics, Statistics and Market Information System (ESMIS)](https://mann.library.cornell.edu/usda-esmis) hosted at Cornell's Mann Library, with roughly 2,500 USDA reports and datasets going back to the 1850s.
 - **[Newly Available Datasets for Research](resources/Dewey%20Data.pdf)** at the Cornell SC Johnson College of Business, slides by Jura Liaukonyte. Catalog of recently licensed datasets across consumer transactions, geolocation, real estate, construction, and climate.
