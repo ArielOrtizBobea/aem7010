@@ -1,4 +1,6 @@
 project:
+  resources:
+    - "archives/**"
   type: website
   output-dir: docs
 
