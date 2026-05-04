@@ -1,6 +1,7 @@
 ---
 title: "Resources"
 subtitle: "Cheat sheets, references, and external links"
+sidebar: false
 ---
 
 ## On this site
@@ -37,3 +38,4 @@ These four self-paced courses are hosted on Anthropic's Skilljar platform. All a
 - [Cornell University Library research data services](https://data.library.cornell.edu).
 - [CISER, Cornell Institute for Social and Economic Research](https://ciser.cornell.edu) for restricted-data services.
 - [Cornell Center for Advanced Computing](https://www.cac.cornell.edu) for HPC and cloud resources.
+- **[Newly Available Datasets for Research](resources/Dewey%20Data.pdf)** at the Cornell SC Johnson College of Business, slides by Jura Liaukonyte. Catalog of recently licensed datasets across consumer transactions, geolocation, real estate, construction, and climate.

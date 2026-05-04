@@ -4,7 +4,7 @@
     "href": "schedule.html",
     "title": "Schedule",
     "section": "",
-    "text": "The course meets twice a week: Mondays and Wednesdays."
+    "text": "The course meets twice a week: Mondays and Wednesdays. Sessions 2 and 3 are guest-led by Lars Vilhuber, AEA Data Editor. The other six are taught by Ariel Ortiz-Bobea."
   },
   {
     "objectID": "schedule.html#before-each-session",
@@ -1552,9 +1552,9 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "Home",
+    "title": "AEM 7010",
     "section": "",
-    "text": "Spring 2026  ·  Monday & Wednesday, 8:40 to 9:55 am  ·  Warren 137  ·  3 credits, S/U\nCo-instructors: Chris Barrett, Heather Schofield, Ariel Ortiz-Bobea  ·  Co-requisite: ECON 6090  ·  Open to: Ph.D. students\nThis site documents my portion of the course (April 8 to May 4). My contact: ao332@cornell.edu  ·  Office hours: Wednesdays 2 to 4 pm.   Guest instructor for sessions 2 and 3: Lars Vilhuber, AEA Data Editor."
+    "text": "AEM 7010\n  Doing Applied Economics Research: Practical Skills\n  Co-instructors: Chris Barrett, Heather Schofield, Ariel Ortiz-Bobea. This site documents the eight sessions led by Ariel. Sessions 2 and 3 are guest-led by Lars Vilhuber, AEA Data Editor.\n  Spring 2026 · Mon/Wed 8:40 to 9:55 am · Warren 137\n\n\nThe course in four blocks\n\n\n\n  \n    \n      Trends\n      Apr 8\n    \n    \n      \n        Session 1\n        Trends in Economic Research\n      \n    \n  \n\n  \n    \n      Reproducibility\n      Apr 13 – 15\n    \n    \n      \n        Session 2\n        Reproducibility I\n      \n      \n        Session 3\n        Reproducibility II\n      \n    \n  \n\n  \n    \n      Version control\n      Apr 20 – 22\n    \n    \n      \n        Session 4\n        Git Fundamentals\n      \n      \n        Session 5\n        GitHub and Collaboration\n      \n    \n  \n\n  \n    \n      AI tools\n      Apr 27 – May 4\n    \n    \n      \n        Session 6\n        AI Tools I: Chat\n      \n      \n        Session 7\n        AI Tools II: Cowork\n      \n      \n        Session 8\n        AI Tools III: Claude Code"
   },
   {
     "objectID": "index.html#about-this-course",
@@ -1915,21 +1915,21 @@
     "href": "syllabus.html#course-summary",
     "title": "Syllabus",
     "section": "Course summary",
-    "text": "Course summary\nAEM 7010 introduces practical skills for doing applied economics research. The course covers four areas across eight 75-minute sessions: trends in economic research, reproducibility, version control with Git and GitHub, and AI tools for coding.\nThis site documents the last quarter of the class. Sessions 1 to 3 are listed on the schedule and link out to materials hosted by the relevant instructors."
+    "text": "Course summary\nAEM 7010 introduces practical skills for doing applied economics research. The course covers four areas across eight 75-minute sessions: trends in economic research, reproducibility, version control with Git and GitHub, and AI tools for coding.\nThis site documents the last quarter of the class.\n\nThis course provides exposure to a wide variety of basic skills necessary for conducting high-quality research in applied economics. This includes defining a research question, primary and secondary data collection, principles of academic writing and presentation, research ethics, basic coding and data management, as well as project management. This course is meant to help students transition from coursework to the independent research they undertake starting at the end of the first year of the Ph.D. program. Some of the topics (e.g., coding) are only covered at an overview level with the expectation that those requiring a deeper knowledge will take further coursework.\nSource: Cornell Class Roster, AEM 7010, Spring 2026."
   },
   {
     "objectID": "syllabus.html#logistics",
     "href": "syllabus.html#logistics",
     "title": "Syllabus",
     "section": "Logistics",
-    "text": "Logistics\n\nTerm: Spring 2026, last quarter of the class.\nMeeting times: Mondays and Wednesdays, 75-minute sessions.\nFirst meeting: Wednesday, April 8, 2026.\nLast meeting: Monday, May 4, 2026.\nInstructors: Prof. Ariel Ortiz-Bobea (sessions 1, 4 to 8). Lars Vilhuber, AEA Data Editor (sessions 2 and 3)."
+    "text": "Logistics\n\nTerm: Spring 2026, last quarter of the class.\nMeeting times: Mondays and Wednesdays, 75-minute sessions.\nFirst meeting: Wednesday, April 8, 2026.\nLast meeting: Monday, May 4, 2026.\nCredits: 3 credits, S/U.\nCorequisite: ECON 6090.\nInstructors: Prof. Ariel Ortiz-Bobea (sessions 1, 4 to 8). Lars Vilhuber, AEA Data Editor (sessions 2 and 3)."
   },
   {
     "objectID": "syllabus.html#grading-and-expectations",
     "href": "syllabus.html#grading-and-expectations",
     "title": "Syllabus",
     "section": "Grading and expectations",
-    "text": "Grading and expectations\nThe course is graded S/U. Attendance is expected at every session. Each session lists short tasks under Before class, In class, and After class. Completing these is what builds the practical fluency the course is designed to deliver."
+    "text": "Grading and expectations\nAttendance is expected at every session. Each session lists short tasks under Before class, In class, and After class. Completing these is what builds the practical fluency the course is designed to deliver."
   },
   {
     "objectID": "syllabus.html#before-you-begin",
@@ -1978,6 +1978,34 @@
     "href": "resources.html#cornell-specific",
     "title": "Resources",
     "section": "Cornell-specific",
-    "text": "Cornell-specific\n\nCornell Statistical Consulting Unit.\nCornell University Library research data services.\nCISER, Cornell Institute for Social and Economic Research for restricted-data services.\nCornell Center for Advanced Computing for HPC and cloud resources."
+    "text": "Cornell-specific\n\nCornell Statistical Consulting Unit.\nCornell University Library research data services.\nCISER, Cornell Institute for Social and Economic Research for restricted-data services.\nCornell Center for Advanced Computing for HPC and cloud resources.\nNewly Available Datasets for Research at the Cornell SC Johnson College of Business, slides by Jura Liaukonyte. Catalog of recently licensed datasets across consumer transactions, geolocation, real estate, construction, and climate."
+  },
+  {
+    "objectID": "index_v1.html",
+    "href": "index_v1.html",
+    "title": "AEM 7010",
+    "section": "",
+    "text": "AEM 7010\n  Doing Applied Economics Research: Practical Skills\n  Eight sessions on the workflow skills PhD students need but rarely get taught: reproducibility, version control with Git, and AI tools for research.\n  \n    Schedule\n    Setup\n    Syllabus\n  \n  Spring 2026 · April 8 to May 4 · Mon/Wed 8:40 to 9:55 am · Warren 137\n\n\n\n  \n    Session 1\n    Trends in Economic Research\n    Wed, Apr 8\n  \n  \n    Session 2\n    Reproducibility I\n    Mon, Apr 13 · with Lars Vilhuber\n  \n  \n    Session 3\n    Reproducibility II\n    Wed, Apr 15 · with Lars Vilhuber\n  \n  \n    Session 4\n    Git Fundamentals\n    Mon, Apr 20\n  \n  \n    Session 5\n    GitHub and Collaboration\n    Wed, Apr 22\n  \n  \n    Session 6\n    AI Tools I: Chat\n    Mon, Apr 27\n  \n  \n    Session 7\n    AI Tools II: Cowork\n    Wed, Apr 29\n  \n  \n    Session 8\n    AI Tools III: Claude Code\n    Mon, May 4\n  \n\n\nCo-instructors: Chris Barrett, Heather Schofield, Ariel Ortiz-Bobea. This site documents the eight sessions led by Ariel (Apr 8 to May 4). See the syllabus for the full course."
+  },
+  {
+    "objectID": "index_v2.html",
+    "href": "index_v2.html",
+    "title": "AEM 7010",
+    "section": "",
+    "text": "AEM 7010\n  Doing Applied Economics Research: Practical Skills\n  Eight sessions on the workflow skills PhD students need but rarely get taught: reproducibility, version control with Git, and AI tools for research.\n  Spring 2026 · April 8 to May 4 · Mon/Wed 8:40 to 9:55 am · Warren 137\n\n\nThe course in four blocks\n\n\n\n  \n    \n      Trends\n      1 session\n    \n    \n      \n        Session 1\n        Trends in Economic Research\n        Wed, Apr 8\n      \n    \n  \n\n  \n    \n      Reproducibility\n      2 sessions · with Lars Vilhuber\n    \n    \n      \n        Session 2\n        Reproducibility I\n        Mon, Apr 13\n      \n      \n        Session 3\n        Reproducibility II\n        Wed, Apr 15\n      \n    \n  \n\n  \n    \n      Version control\n      2 sessions\n    \n    \n      \n        Session 4\n        Git Fundamentals\n        Mon, Apr 20\n      \n      \n        Session 5\n        GitHub and Collaboration\n        Wed, Apr 22\n      \n    \n  \n\n  \n    \n      AI tools for research\n      3 sessions\n    \n    \n      \n        Session 6\n        AI Tools I: Chat\n        Mon, Apr 27\n      \n      \n        Session 7\n        AI Tools II: Cowork\n        Wed, Apr 29\n      \n      \n        Session 8\n        AI Tools III: Claude Code\n        Mon, May 4\n      \n    \n  \n\n\n\n\n  Schedule\n  Setup\n  Syllabus\n\n\nCo-instructors: Chris Barrett, Heather Schofield, Ariel Ortiz-Bobea. This site documents the eight sessions led by Ariel (Apr 8 to May 4). See the syllabus for the full course."
+  },
+  {
+    "objectID": "syllabus.html#what-you-will-be-able-to-do",
+    "href": "syllabus.html#what-you-will-be-able-to-do",
+    "title": "Syllabus",
+    "section": "What you will be able to do",
+    "text": "What you will be able to do\nBy the end of these eight sessions you will be able to:\n\nBuild and document reproducible research workflows.\nTrack changes to your R scripts and research code using Git.\nBack up your work on GitHub and collaborate with co-authors through pull requests.\nTag specific versions of your code for paper submissions and replication packages.\nUse AI coding assistants responsibly in research, with verification.\nDocument and disclose AI use in a way that meets journal and replication standards."
+  },
+  {
+    "objectID": "syllabus.html#schedule",
+    "href": "syllabus.html#schedule",
+    "title": "Syllabus",
+    "section": "Schedule",
+    "text": "Schedule\nThe course meets twice a week: Mondays and Wednesdays. Sessions 2 and 3 are guest-led by Lars Vilhuber, AEA Data Editor. The other six are taught by Ariel Ortiz-Bobea.\n\n\n\n  \n    1.\n    Wed, Apr 8\n    Trends in Economic ResearchReproducibility expectations, the data revolution, and the rise of AI tools.\n  \n  \n    2.\n    Mon, Apr 13\n    Reproducibility IFoundations and what top journals require. With Lars Vilhuber.\n  \n  \n    3.\n    Wed, Apr 15\n    Reproducibility IIReplication packages in practice. Restricted data and computational environments. With Lars Vilhuber.\n  \n  \n    4.\n    Mon, Apr 20\n    Git FundamentalsThe core Git workflow on your own computer.\n  \n  \n    5.\n    Wed, Apr 22\n    GitHub and CollaborationPush, pull, branches, pull requests, tags for replication packages.\n  \n  \n    6.\n    Mon, Apr 27\n    AI Tools I: ChatA mental model of LLMs. Live demo of a chat-driven scrape.\n  \n  \n    7.\n    Wed, Apr 29\n    AI Tools II: CoworkAgentic desktop AI that can see your files and run code.\n  \n  \n    8.\n    Mon, May 4\n    AI Tools III: Claude CodeA code-native agent inside a git project.\n  \n\n\nBefore each session\nEach session has a short Before class note at the top of its page. Read it the day before. The first one to check is for Session 4, which assumes you have completed the Setup page."
   }
 ]

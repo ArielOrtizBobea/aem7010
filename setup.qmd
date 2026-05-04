@@ -1,6 +1,7 @@
 ---
 title: "Setup"
 subtitle: "Everything you need installed across the eight sessions"
+sidebar: false
 ---
 
 This page is the master install checklist for the course. The sections below are roughly in the order you will need them. Use the dated boxes at the top of each section to know how far ahead you must complete it.

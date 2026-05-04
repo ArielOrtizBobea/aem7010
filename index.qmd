@@ -1,62 +1,243 @@
 ---
-title: "Home"
-subtitle: "The big picture about this course"
+title: "AEM 7010"
+pagetitle: "AEM 7010 · Doing Applied Economics Research"
+title-block-style: none
 toc: false
+sidebar: false
 ---
 
-::: {.course-meta}
-**Spring 2026** &nbsp;·&nbsp; Monday & Wednesday, 8:40 to 9:55 am &nbsp;·&nbsp; Warren 137 &nbsp;·&nbsp; 3 credits, S/U
+```{=html}
+<style>
+/* Hide Quarto's auto title block on the home page */
+header.quarto-title-block,
+header#title-block-header,
+.quarto-title-block { display: none !important; }
 
-**Co-instructors:** [Chris Barrett](https://barrett.dyson.cornell.edu/), [Heather Schofield](https://heatherschofield.net/), [Ariel Ortiz-Bobea](https://arielortizbobea.github.io) &nbsp;·&nbsp; **Co-requisite:** ECON 6090 &nbsp;·&nbsp; **Open to:** Ph.D. students
+/* Hide the docked sidebar on the home page */
+#quarto-sidebar,
+.sidebar.sidebar-navigation,
+nav#quarto-sidebar { display: none !important; }
 
-This site documents my portion of the course (April 8 to May 4). My contact: ao332@cornell.edu &nbsp;·&nbsp; **Office hours:** Wednesdays 2 to 4 pm. &nbsp; Guest instructor for sessions 2 and 3: [Lars Vilhuber](https://www.ilr.cornell.edu/people/lars-vilhuber), AEA Data Editor.
-:::
+/* Reclaim the body width that the hidden sidebar was occupying */
+main.content,
+#quarto-document-content,
+.quarto-container > .content {
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
 
-## About this course
+.aem-hero {
+  text-align: center;
+  padding: 2.75rem 1rem 1.5rem;
+}
+.aem-hero .hero-title {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: #6B6B6B;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin: 0 0 0.6rem;
+  line-height: 1.2;
+}
+.aem-hero .hero-subtitle {
+  font-size: 2.1rem;
+  font-weight: 700;
+  color: #B31B1B;
+  margin: 0 0 1rem;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+}
+.aem-hero .hero-instructors {
+  font-size: 0.92rem;
+  color: #6B6B6B;
+  max-width: 620px;
+  margin: 0 auto 1.25rem;
+  line-height: 1.5;
+}
+.aem-hero .hero-instructors a { color: #B31B1B; }
+.aem-hero .hero-meta {
+  font-size: 0.92rem;
+  color: #6B6B6B;
+}
+.spine-label {
+  text-align: center;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #6B6B6B;
+  margin: 2.5rem 0 1rem;
+}
+.course-spine {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  align-items: stretch;
+  gap: 0.75rem;
+  margin: 0 auto 1.5rem;
+}
+@media (max-width: 720px) { .course-spine { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 460px) { .course-spine { grid-template-columns: 1fr; } }
+.spine-block {
+  border: 1px solid #e2e2dc;
+  border-radius: 6px;
+  background: #FAFAF7;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.spine-block .block-header {
+  padding: 0.7rem 0.9rem 0.6rem;
+  border-bottom: 1px solid #e2e2dc;
+  background: #fff;
+}
+.spine-block .block-name {
+  display: block;
+  font-weight: 700;
+  font-size: 1rem;
+  color: #1B1B1B;
+  line-height: 1.2;
+}
+.spine-block .block-dates {
+  display: block;
+  font-size: 0.78rem;
+  color: #6B6B6B;
+  font-variant-numeric: tabular-nums;
+  margin-top: 0.2rem;
+}
+.spine-block .block-body {
+  padding: 0.55rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  flex: 1;
+}
+.spine-session {
+  display: block;
+  padding: 0.5rem 0.65rem;
+  border-radius: 4px;
+  background: #fff;
+  border-left: 3px solid #B31B1B;
+  text-decoration: none;
+  color: inherit;
+  font-size: 0.88rem;
+  line-height: 1.3;
+  transition: background 0.15s ease, transform 0.15s ease;
+}
+.spine-session:hover {
+  background: #F7F4E9;
+  transform: translateX(2px);
+  text-decoration: none;
+  color: inherit;
+}
+.spine-session .num {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: #B31B1B;
+  text-transform: uppercase;
+  display: block;
+}
+.spine-session .title {
+  display: block;
+  font-weight: 600;
+  margin-top: 0.1rem;
+}
+.color-trends { border-top: 4px solid #6B6B6B; }
+.color-trends .num { color: #6B6B6B; }
+.color-trends .spine-session { border-left-color: #6B6B6B; }
+.color-repro { border-top: 4px solid #1F4E8C; }
+.color-repro .spine-session { border-left-color: #1F4E8C; }
+.color-repro .num { color: #1F4E8C; }
+.color-git { border-top: 4px solid #0F6E56; }
+.color-git .spine-session { border-left-color: #0F6E56; }
+.color-git .num { color: #0F6E56; }
+.color-ai { border-top: 4px solid #B31B1B; }
+.color-ai .spine-session { border-left-color: #B31B1B; }
+.color-ai .num { color: #B31B1B; }
 
-> This course provides exposure to a wide variety of basic skills necessary for conducting high-quality research in applied economics. This includes defining a research question, primary and secondary data collection, principles of academic writing and presentation, research ethics, basic coding and data management, as well as project management. This course is meant to help students transition from coursework to the independent research they undertake starting at the end of the first year of the Ph.D. program. Some of the topics (e.g., coding) are only covered at an overview level with the expectation that those requiring a deeper knowledge will take further coursework.
->
-> *Source: [Cornell Class Roster, AEM 7010, Spring 2026](https://classes.cornell.edu/browse/roster/SP26/class/AEM/7010).*
+/* On the home page, keep the Cornell seal in the navbar but hide the course
+   title text since the hero already carries it. */
+.navbar .navbar-title { display: none !important; }
+</style>
 
-See the official syllabus for which instructor leads each block.
+<div class="aem-hero">
+  <h1 class="hero-title">AEM 7010</h1>
+  <p class="hero-subtitle">Doing Applied Economics Research: Practical Skills</p>
+  <p class="hero-instructors">Co-instructors: <a href="https://barrett.dyson.cornell.edu/">Chris Barrett</a>, <a href="https://heatherschofield.net/">Heather Schofield</a>, <a href="https://arielortizbobea.github.io">Ariel Ortiz-Bobea</a>. This site documents the eight sessions led by Ariel. Sessions 2 and 3 are guest-led by <a href="https://www.ilr.cornell.edu/people/lars-vilhuber">Lars Vilhuber</a>, AEA Data Editor.</p>
+  <div class="hero-meta">Spring 2026 · Mon/Wed 8:40 to 9:55 am · Warren 137</div>
+</div>
 
-## About my portion of the course
+<div class="spine-label">The course in four blocks</div>
 
-My eight sessions span four weeks, from April 8 to May 4. They cover trends in empirical economics research, reproducibility, version control with Git, and effective use of AI tools, with a focus on working with secondary data.
+<div class="course-spine">
 
-Topics fall into four blocks:
+  <div class="spine-block color-trends">
+    <div class="block-header">
+      <span class="block-name">Trends</span>
+      <span class="block-dates">Apr 8</span>
+    </div>
+    <div class="block-body">
+      <a class="spine-session" href="intro/session1.html">
+        <span class="num">Session 1</span>
+        <span class="title">Trends in Economic Research</span>
+      </a>
+    </div>
+  </div>
 
-- **Trends in economic research.** Where the field is heading on reproducibility, data, and AI.
-- **Reproducibility.** Replication packages, restricted data, computational environments. Taught with Lars Vilhuber.
-- **Version control.** Git on your own machine. GitHub for collaboration and submission tags.
-- **AI tools for research.** A working mental model of LLMs. Three rungs of AI coding: chat, agentic desktop, code-native.
+  <div class="spine-block color-repro">
+    <div class="block-header">
+      <span class="block-name">Reproducibility</span>
+      <span class="block-dates">Apr 13 &ndash; 15</span>
+    </div>
+    <div class="block-body">
+      <a class="spine-session" href="reproducibility/session2.html">
+        <span class="num">Session 2</span>
+        <span class="title">Reproducibility I</span>
+      </a>
+      <a class="spine-session" href="reproducibility/session3.html">
+        <span class="num">Session 3</span>
+        <span class="title">Reproducibility II</span>
+      </a>
+    </div>
+  </div>
 
-## What you will be able to do
+  <div class="spine-block color-git">
+    <div class="block-header">
+      <span class="block-name">Version control</span>
+      <span class="block-dates">Apr 20 &ndash; 22</span>
+    </div>
+    <div class="block-body">
+      <a class="spine-session" href="version-control/session4.html">
+        <span class="num">Session 4</span>
+        <span class="title">Git Fundamentals</span>
+      </a>
+      <a class="spine-session" href="version-control/session5.html">
+        <span class="num">Session 5</span>
+        <span class="title">GitHub and Collaboration</span>
+      </a>
+    </div>
+  </div>
 
-By the end of these eight sessions you will be able to:
+  <div class="spine-block color-ai">
+    <div class="block-header">
+      <span class="block-name">AI tools</span>
+      <span class="block-dates">Apr 27 &ndash; May 4</span>
+    </div>
+    <div class="block-body">
+      <a class="spine-session" href="ai-tools/session6.html">
+        <span class="num">Session 6</span>
+        <span class="title">AI Tools I: Chat</span>
+      </a>
+      <a class="spine-session" href="ai-tools/session7.html">
+        <span class="num">Session 7</span>
+        <span class="title">AI Tools II: Cowork</span>
+      </a>
+      <a class="spine-session" href="ai-tools/session8.html">
+        <span class="num">Session 8</span>
+        <span class="title">AI Tools III: Claude Code</span>
+      </a>
+    </div>
+  </div>
 
-- Build and document reproducible research workflows.
-- Track changes to your R scripts and research code using Git.
-- Back up your work on GitHub and collaborate with co-authors through pull requests.
-- Tag specific versions of your code for paper submissions and replication packages.
-- Use AI coding assistants responsibly in research, with verification.
-- Document and disclose AI use in a way that meets journal and replication standards.
-
-## Start here
-
-::: {.callout-tip appearance="simple"}
-1. Skim the [schedule](schedule.qmd) to see the eight sessions and their dates.
-2. Complete the [setup steps](setup.qmd) before Session 4 on Monday, April 20.
-3. Each session page has a short *Before class* note. Read it the day before.
-:::
-
-## The eight sessions
-
-1. **Trends in Economic Research.** Reproducibility expectations, the data revolution, and the rise of AI tools.
-2. **Reproducibility I** *(with Lars Vilhuber)*. Why reproducibility is a research-integrity issue. What top journals require.
-3. **Reproducibility II** *(with Lars Vilhuber)*. Replication packages in practice. Restricted data, computational environments.
-4. **Git Fundamentals.** The core Git workflow on your own computer.
-5. **GitHub & Collaboration.** Push, pull, branches, pull requests, tags for replication packages.
-6. **AI Tools I (Chat).** A mental model of LLMs. Live demo of a chat-driven scrape, then a hands-on exercise.
-7. **AI Tools II (Cowork).** Agentic desktop AI that can see your files and run code. Verification checklist.
-8. **AI Tools III (Claude Code).** A code-native agent inside a git project. Subagents, scaffolding, and a small replication package.
+</div>
+```
