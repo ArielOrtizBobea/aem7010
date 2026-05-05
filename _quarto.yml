@@ -1,6 +1,6 @@
 project:
   resources:
-    - "archives/**"
+    - "spring-*/**"
   type: website
   output-dir: docs
 
@@ -16,14 +16,6 @@ website:
     right:
       - text: "Home"
         href: index.qmd
-      - text: "Syllabus"
-        href: syllabus.qmd
-      - text: "Sessions"
-        href: intro/session1.qmd
-      - text: "Setup"
-        href: setup.qmd
-      - text: "Resources"
-        href: resources.qmd
   sidebar:
     style: "docked"
     search: false

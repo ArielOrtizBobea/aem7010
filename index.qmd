@@ -26,9 +26,10 @@ main.content,
   margin-right: auto !important;
 }
 
+/* ---------- Hero ---------- */
 .aem-hero {
   text-align: center;
-  padding: 2.75rem 1rem 1.5rem;
+  padding: 2.75rem 1rem 1.25rem;
 }
 .aem-hero .hero-title {
   font-size: 1.15rem;
@@ -47,19 +48,16 @@ main.content,
   line-height: 1.1;
   letter-spacing: -0.01em;
 }
-.aem-hero .hero-instructors {
-  font-size: 0.92rem;
-  color: #6B6B6B;
-  max-width: 620px;
-  margin: 0 auto 1.25rem;
-  line-height: 1.5;
+.aem-hero .hero-tagline {
+  font-size: 1rem;
+  color: #4A4A4A;
+  max-width: 640px;
+  margin: 0 auto;
+  line-height: 1.55;
 }
-.aem-hero .hero-instructors a { color: #B31B1B; }
-.aem-hero .hero-meta {
-  font-size: 0.92rem;
-  color: #6B6B6B;
-}
-.spine-label {
+
+/* ---------- Offerings ---------- */
+.offerings-label {
   text-align: center;
   font-size: 0.78rem;
   font-weight: 700;
@@ -68,92 +66,60 @@ main.content,
   color: #6B6B6B;
   margin: 2.5rem 0 1rem;
 }
-.course-spine {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  align-items: stretch;
-  gap: 0.75rem;
-  margin: 0 auto 1.5rem;
+.offerings {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  max-width: 640px;
+  margin: 0 auto 2rem;
 }
-@media (max-width: 720px) { .course-spine { grid-template-columns: repeat(2, 1fr); } }
-@media (max-width: 460px) { .course-spine { grid-template-columns: 1fr; } }
-.spine-block {
+.offering {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.85rem 1rem;
   border: 1px solid #e2e2dc;
   border-radius: 6px;
   background: #FAFAF7;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
+  text-decoration: none;
+  color: inherit;
+  transition: background 0.15s ease, transform 0.15s ease, border-color 0.15s ease;
 }
-.spine-block .block-header {
-  padding: 0.7rem 0.9rem 0.6rem;
-  border-bottom: 1px solid #e2e2dc;
-  background: #fff;
+.offering:hover {
+  background: #F7F4E9;
+  border-color: #B31B1B;
+  text-decoration: none;
+  color: inherit;
 }
-.spine-block .block-name {
-  display: block;
+.offering .term {
   font-weight: 700;
-  font-size: 1rem;
+  font-size: 1.05rem;
   color: #1B1B1B;
-  line-height: 1.2;
 }
-.spine-block .block-dates {
-  display: block;
-  font-size: 0.78rem;
+.offering .dates {
+  font-size: 0.85rem;
   color: #6B6B6B;
   font-variant-numeric: tabular-nums;
-  margin-top: 0.2rem;
+  margin-left: 0.5rem;
 }
-.spine-block .block-body {
-  padding: 0.55rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
-  flex: 1;
-}
-.spine-session {
-  display: block;
-  padding: 0.5rem 0.65rem;
-  border-radius: 4px;
-  background: #fff;
-  border-left: 3px solid #B31B1B;
-  text-decoration: none;
-  color: inherit;
-  font-size: 0.88rem;
-  line-height: 1.3;
-  transition: background 0.15s ease, transform 0.15s ease;
-}
-.spine-session:hover {
-  background: #F7F4E9;
-  transform: translateX(2px);
-  text-decoration: none;
-  color: inherit;
-}
-.spine-session .num {
+.offering .badge {
   font-size: 0.7rem;
   font-weight: 700;
   letter-spacing: 0.1em;
-  color: #B31B1B;
   text-transform: uppercase;
-  display: block;
+  padding: 0.2rem 0.55rem;
+  border-radius: 3px;
 }
-.spine-session .title {
-  display: block;
-  font-weight: 600;
-  margin-top: 0.1rem;
+.offering .badge.current {
+  background: #B31B1B;
+  color: #fff;
 }
-.color-trends { border-top: 4px solid #6B6B6B; }
-.color-trends .num { color: #6B6B6B; }
-.color-trends .spine-session { border-left-color: #6B6B6B; }
-.color-repro { border-top: 4px solid #1F4E8C; }
-.color-repro .spine-session { border-left-color: #1F4E8C; }
-.color-repro .num { color: #1F4E8C; }
-.color-git { border-top: 4px solid #0F6E56; }
-.color-git .spine-session { border-left-color: #0F6E56; }
-.color-git .num { color: #0F6E56; }
-.color-ai { border-top: 4px solid #B31B1B; }
-.color-ai .spine-session { border-left-color: #B31B1B; }
-.color-ai .num { color: #B31B1B; }
+.offering .badge.frozen {
+  background: #efeee8;
+  color: #6B6B6B;
+  border: 1px solid #d9d8d2;
+}
 
 /* On the home page, keep the Cornell seal in the navbar but hide the course
    title text since the hero already carries it. */
@@ -163,81 +129,17 @@ main.content,
 <div class="aem-hero">
   <h1 class="hero-title">AEM 7010</h1>
   <p class="hero-subtitle">Doing Applied Economics Research: Practical Skills</p>
-  <p class="hero-instructors">Co-instructors: <a href="https://barrett.dyson.cornell.edu/">Chris Barrett</a>, <a href="https://heatherschofield.net/">Heather Schofield</a>, <a href="https://arielortizbobea.github.io">Ariel Ortiz-Bobea</a>. This site documents the eight sessions led by Ariel. Sessions 2 and 3 are guest-led by <a href="https://www.ilr.cornell.edu/people/lars-vilhuber">Lars Vilhuber</a>, AEA Data Editor.</p>
-  <div class="hero-meta">Spring 2026 · Mon/Wed 8:40 to 9:55 am · Warren 137</div>
+  <p class="hero-tagline">A graduate seminar at Cornell on the practical skills behind applied economics research.</p>
 </div>
 
-<div class="spine-label">The course in four blocks</div>
+<div class="offerings-label">Offerings</div>
 
-<div class="course-spine">
+<div class="offerings">
 
-  <div class="spine-block color-trends">
-    <div class="block-header">
-      <span class="block-name">Trends</span>
-      <span class="block-dates">Apr 8</span>
-    </div>
-    <div class="block-body">
-      <a class="spine-session" href="intro/session1.html">
-        <span class="num">Session 1</span>
-        <span class="title">Trends in Economic Research</span>
-      </a>
-    </div>
-  </div>
-
-  <div class="spine-block color-repro">
-    <div class="block-header">
-      <span class="block-name">Reproducibility</span>
-      <span class="block-dates">Apr 13 &ndash; 15</span>
-    </div>
-    <div class="block-body">
-      <a class="spine-session" href="reproducibility/session2.html">
-        <span class="num">Session 2</span>
-        <span class="title">Reproducibility I</span>
-      </a>
-      <a class="spine-session" href="reproducibility/session3.html">
-        <span class="num">Session 3</span>
-        <span class="title">Reproducibility II</span>
-      </a>
-    </div>
-  </div>
-
-  <div class="spine-block color-git">
-    <div class="block-header">
-      <span class="block-name">Version control</span>
-      <span class="block-dates">Apr 20 &ndash; 22</span>
-    </div>
-    <div class="block-body">
-      <a class="spine-session" href="version-control/session4.html">
-        <span class="num">Session 4</span>
-        <span class="title">Git Fundamentals</span>
-      </a>
-      <a class="spine-session" href="version-control/session5.html">
-        <span class="num">Session 5</span>
-        <span class="title">GitHub and Collaboration</span>
-      </a>
-    </div>
-  </div>
-
-  <div class="spine-block color-ai">
-    <div class="block-header">
-      <span class="block-name">AI tools</span>
-      <span class="block-dates">Apr 27 &ndash; May 4</span>
-    </div>
-    <div class="block-body">
-      <a class="spine-session" href="ai-tools/session6.html">
-        <span class="num">Session 6</span>
-        <span class="title">AI Tools I: Chat</span>
-      </a>
-      <a class="spine-session" href="ai-tools/session7.html">
-        <span class="num">Session 7</span>
-        <span class="title">AI Tools II: Cowork</span>
-      </a>
-      <a class="spine-session" href="ai-tools/session8.html">
-        <span class="num">Session 8</span>
-        <span class="title">AI Tools III: Claude Code</span>
-      </a>
-    </div>
-  </div>
+  <a class="offering" href="spring-2026/index.html">
+    <span><span class="term">Spring 2026</span><span class="dates">Apr 8 to May 4</span></span>
+    <span class="badge current">Most recent</span>
+  </a>
 
 </div>
 ```
