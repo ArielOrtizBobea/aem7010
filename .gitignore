@@ -3,3 +3,6 @@
 
 # Locally generated slide PDFs (never published)
 /pdfs/
+
+# Quarto render output. Built locally, deployed via `quarto publish gh-pages`.
+/docs/
