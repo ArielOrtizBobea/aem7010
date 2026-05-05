@@ -1,3 +1,0 @@
-::: {.callout-tip appearance="simple"}
-**Want a PDF for note-taking?** Open the slides in your browser, append `?print-pdf` to the URL, and use **File → Print → Save as PDF**. Reveal.js handles the layout. Works in Chrome, Edge, and Firefox.
-:::

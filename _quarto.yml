@@ -16,26 +16,6 @@ website:
     right:
       - text: "Home"
         href: index.qmd
-  sidebar:
-    style: "docked"
-    search: false
-    contents:
-      - text: "1. Trends in Economic Research"
-        href: intro/session1.qmd
-      - text: "2. Reproducibility I"
-        href: reproducibility/session2.qmd
-      - text: "3. Reproducibility II"
-        href: reproducibility/session3.qmd
-      - text: "4. Git Fundamentals"
-        href: version-control/session4.qmd
-      - text: "5. GitHub & Collaboration"
-        href: version-control/session5.qmd
-      - text: "6. AI Tools I (Chat)"
-        href: ai-tools/session6.qmd
-      - text: "7. AI Tools II (Cowork)"
-        href: ai-tools/session7.qmd
-      - text: "8. AI Tools III (Claude Code)"
-        href: ai-tools/session8.qmd
   page-footer:
     left: "Prof. Ariel Ortiz-Bobea, Cornell Dyson School"
     right: "Built with [Quarto](https://quarto.org)"
